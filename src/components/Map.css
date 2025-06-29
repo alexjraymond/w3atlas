@@ -7,14 +7,18 @@
    .map-image {
      width: 100%;
      height: 100%;
+
    }
 
    .circle {
      position: absolute;
-     width: 20px;
-     height: 20px;
+     width: 60px;
+     height: 60px;
      border-radius: 50%;
-     background-color: green; /* Change based on difficulty */
+     border-style: solid;
+     border-color: rgb(231, 231, 231);
+     opacity: 75%;
+     background-color: rgb(44, 244, 44); /* Change based on difficulty */
      /* Example position */
      top: 50px;
      left: 50px;
