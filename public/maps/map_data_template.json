@@ -1,211 +1,32 @@
-[
-    {
-  "mapName": "",
-  "dimensions": { "width": 416, "height": 512 },
+{
+  "mapName": "<MAP_NAME>",
+  "dimensions": {
+    "width": <WIDTH>,
+    "height": <HEIGHT>
+  },
   "camps": [
     {
-      "id": "green-camp-1-bottom",
-      "position": { "x": 185, "y": 440 },
+      "id": "<CAMP_ID>",
+      "position": {
+        "x": <X_COORD>,
+        "y": <Y_COORD>
+      },
       "units": [
-        { "name": "Giant Sea Turtle", "count": 1, "level": 4, "xp": 85, "loot": {
-        "level": 1,
-        "type": "permanent",
-        "items": [
-          "cloak_of_shadows",
-          "gauntlets_of_ogre_strength",
-          "mantle_of_intelligence",
-          "ring_of_superiority",
-          "slippers_of_agility"
-        ]}},
-        { "name": "Sea Turtle",       "count": 2, "level": 2, "xp": 40 }
-      ]
-    },
-    {
-      "id": "green-camp-1-top",
-      "position": { 
-        "x": 191, "y": 30 },
-      "units": [
-        { "name": "Giant Sea Turtle", "count": 1, "level": 4, "xp": 85, "loot": {
-        "level": 1,
-        "type": "permanent",
-        "items": [
-          "cloak_of_shadows",
-          "gauntlets_of_ogre_strength",
-          "mantle_of_intelligence",
-          "ring_of_superiority",
-          "slippers_of_agility"
-        ]}},
-        { "name": "Sea Turtle",       "count": 2, "level": 2, "xp": 40 }
-      ]
-    },
-    {
-      "id": "green-camp-2-right",
-      "position": { 
-        "x": 390, "y": 365 },
-      "units": [
-        { "name": "Kobold Geomancer", "count": 1, "level": 3, "xp": 60, "loot": {
-        "level": 1,
-        "type": "Power Up",
-        "items": [
-          "manual_of_health",
-          "tome_of_agility",
-          "tome_of_intelligence",
-          "tome_of_strength"
-        ]}},
-        { "name": "Kobold Tunneler", "count": 1, "level": 3, "xp": 60 },
-        { "name": "Kobold", "count": 1, "level": 1, "xp": 25 }
-      ]
-    },
-    {
-      "id": "green-camp-2-left",
-      "position": { 
-        "x": 85, "y": 20 },
-      "units": [
-        { "name": "Kobold Geomancer", "count": 1, "level": 3, "xp": 60, "loot": {
-        "level": 1,
-        "type": "Power Up",
-        "items": [
-          "manual_of_health",
-          "tome_of_agility",
-          "tome_of_intelligence",
-          "tome_of_strength"
-        ]}},
-        { "name": "Kobold Tunneler", "count": 1, "level": 3, "xp": 60 },
-        { "name": "Kobold", "count": 1, "level": 1, "xp": 25 }
-      ]
-    },
-    {
-      "id": "green-camp-3-middle-right",
-      "position": { 
-        "x": 280, "y": 245 },
-      "units": [
-        { "name": "Spider Crab Limbrirpper", "count": 1, "level": 3, "xp": 60, "loot": {
-        "level": 2,
-        "type": "Power Up",
-        "items": [
-          "tome_of_knowledge",
-          "tome_of_agility_+2",
-          "tome_of_intelligence_+2",
-          "tome_of_strength_+2"
-        ]}},
-        { "name": "Murloc Huntsman", "count": 2, "level": 2, "xp": 40 },
-        { "name": "Murloc Tiderunner", "count": 1, "level": 1, "xp": 25 }
-      ]
-    },
-    {
-      "id": "green-camp-3-middle-left",
-      "position": { 
-        "x": 205, "y": 125 },
-      "units": [
-        { "name": "Spider Crab Limbrirpper", "count": 1, "level": 3, "xp": 60, "loot": {
-        "level": 2,
-        "type": "Power Up",
-        "items": [
-          "tome_of_knowledge",
-          "tome_of_agility_+2",
-          "tome_of_intelligence_+2",
-          "tome_of_strength_+2"
-        ]}},
-        { "name": "Murloc Huntsman", "count": 2, "level": 2, "xp": 40 },
-        { "name": "Murloc Tiderunner", "count": 1, "level": 1, "xp": 25 }
-      ]
-    },    
-    {
-      "id": "orange-camp-1-bottom-left",
-      "position": { 
-        "x": 365, "y": 55 },
-      "units": [
-        { "name": "Ogre Warrior", "count": 1, "level": 3, "xp": 60, "loot": {
-        "level": 2,
-        "type": "permanent",
-        "items": [
-          "claws_of_attack_+5",
-          "gloves_of_haste",
-          "ring_of_protection_+3"
-        ]}},
-        { "name": "Forest Troll Berserker", "count": 1, "level": 4, "xp": 85 },
-        { "name": "Forest Troll Trapper", "count": 1, "level": 3, "xp": 60 }
-      ]
-    },
-    {
-      "id": "orange-camp-1-top-right",
-      "position": { 
-        "x": 365, "y": 55 },
-      "units": [
-        { "name": "Ogre Warrior", "count": 1, "level": 3, "xp": 60, "loot": {
-        "level": 2,
-        "type": "permanent",
-        "items": [
-          "claws_of_attack_+5",
-          "gloves_of_haste",
-          "ring_of_protection_+3"
-        ]}},
-        { "name": "Forest Troll Berserker", "count": 1, "level": 4, "xp": 85 },
-        { "name": "Forest Troll Trapper", "count": 1, "level": 3, "xp": 60 }
-      ]
-    },
-    {
-      "id": "orange-camp-2-middle-left",
-      "position": { 
-        "x": 305, "y": 45 },
-      "units": [
-        { "name": "Rock Golem", "count": 1, "level": 6, "xp": 150, "loot": {
-        "level": 3,
-        "type": "charged",
-        "items": [
-          "potion_of_greater_healing",
-          "potion_of_greater_mana",
-          "potion_of_invulnerability",
-            "scroll_of_the_beast",
-            "wand_of_mana_stealing"
-        ]}},
-        { "name": "Forest Troll High Priest", "count": 1, "level": 4, "xp": 85, "loot": {
-        "level": 1,
-        "type": "Power Up",
-        "items": [
-          "tome_of_agility",
-            "tome_of_intelligence",
-            "tome_of_strength",
-            "manual_of_health"
-        ]}},
-        { "name": "Forest Troll Trapper", "count": 1, "level": 3, "xp": 60 },
-        { "name": "Mud Golem", "count": 1, "level": 2, "xp": 40 }
-      ]
-    },
-      {
-      "id": "orange-camp-2-middle-right",
-      "position": { 
-        "x": 340, "y": 180 },
-      "units": [
-        { "name": "Rock Golem", "count": 1, "level": 6, "xp": 150, "loot": {
-        "level": 3,
-        "type": "charged",
-        "items": [
-          "potion_of_greater_healing",
-          "potion_of_greater_mana",
-          "potion_of_invulnerability",
-            "scroll_of_the_beast",
-            "wand_of_mana_stealing"
-        ]}},
-        { "name": "Forest Troll High Priest", "count": 1, "level": 4, "xp": 85, "loot": {
-        "level": 1,
-        "type": "Power Up",
-        "items": [
-          "tome_of_agility",
-            "tome_of_intelligence",
-            "tome_of_strength",
-            "manual_of_health"
-        ]}},
-        { "name": "Forest Troll Trapper", "count": 1, "level": 3, "xp": 60 },
-        { "name": "Mud Golem", "count": 1, "level": 2, "xp": 40 }
+        {
+          "name": "<UNIT_NAME>",
+          "count": <COUNT>,
+          "level": <LEVEL>,
+          "xp": <XP>,
+          "loot": {
+            "level": <LOOT_LEVEL>,
+            "type": "<LOOT_TYPE>",
+            "items": [
+              "<ITEM_ID1>",
+              "<ITEM_ID2>"
+            ]
+          }
+        }
       ]
     }
   ]
 }
-
-
-
-
-
-
-]
