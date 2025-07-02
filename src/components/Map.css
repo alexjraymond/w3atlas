@@ -23,4 +23,17 @@
      top: 50px;
      left: 50px;
    }
+      .circle_orange {
+     position: absolute;
+     width: 30px;
+     height: 30px;
+     border-radius: 50%;
+     border-style: solid;
+     border-color: rgb(231, 231, 231);
+     opacity: 75%;
+     background-color: rgb(251, 178, 61); /* Change based on difficulty */
+     /* Example position */
+     top: 50px;
+     left: 50px;
+   }
    
