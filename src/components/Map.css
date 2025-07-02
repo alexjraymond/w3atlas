@@ -1,7 +1,7 @@
    .map-container {
      position: relative;
-     width: 600px; /* Adjust as needed */
-     height: 600px; /* Adjust as needed */
+     /* width: 600px; /* Adjust as needed */
+     /* height: 600px; Adjust as needed */
    }
 
    .map-image {
@@ -12,8 +12,8 @@
 
    .circle {
      position: absolute;
-     width: 60px;
-     height: 60px;
+     width: 30px;
+     height: 30px;
      border-radius: 50%;
      border-style: solid;
      border-color: rgb(231, 231, 231);
