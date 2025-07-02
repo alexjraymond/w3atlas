@@ -13,6 +13,8 @@
         <div className="circle" style={{ top: '205px', left: '125px' }}></div>
         <div className="circle_orange" style={{ top: '365px', left: '55px' }}></div>
         <div className="circle_orange" style={{ top: '115px', left: '335px' }}></div>
+        <div className="circle_orange" style={{ top: '305px', left: '45px' }}></div>
+        <div className="circle_orange" style={{ top: '180px', left: '340px' }}></div>
          {/* This is where mroe circles go */}
        </div>
      );

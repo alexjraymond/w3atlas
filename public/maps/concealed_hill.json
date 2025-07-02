@@ -127,7 +127,7 @@
         { "name": "Forest Troll Trapper", "count": 1, "level": 3, "xp": 60 }
       ]
     },
-        {
+    {
       "id": "orange-camp-1-top-right",
       "position": { 
         "x": 365, "y": 55 },
@@ -145,20 +145,59 @@
       ]
     },
     {
+      "id": "orange-camp-2-middle-left",
+      "position": { 
+        "x": 305, "y": 45 },
+      "units": [
+        { "name": "Rock Golem", "count": 1, "level": 6, "xp": 150, "loot": {
+        "level": 3,
+        "type": "charged",
+        "items": [
+          "potion_of_greater_healing",
+          "potion_of_greater_mana",
+          "potion_of_invulnerability",
+            "scroll_of_the_beast",
+            "wand_of_mana_stealing"
+        ]}},
+        { "name": "Forest Troll High Priest", "count": 1, "level": 4, "xp": 85, "loot": {
+        "level": 1,
+        "type": "Power Up",
+        "items": [
+          "tome_of_agility",
+            "tome_of_intelligence",
+            "tome_of_strength",
+            "manual_of_health"
+        ]}},
+        { "name": "Forest Troll Trapper", "count": 1, "level": 3, "xp": 60 },
+        { "name": "Mud Golem", "count": 1, "level": 2, "xp": 40 }
+      ]
+    },
+      {
       "id": "orange-camp-2-middle-right",
       "position": { 
-        "x": 365, "y": 55 },
+        "x": 340, "y": 180 },
       "units": [
-        { "name": "Ogre Warrior", "count": 1, "level": 3, "xp": 60, "loot": {
-        "level": 2,
-        "type": "permanent",
+        { "name": "Rock Golem", "count": 1, "level": 6, "xp": 150, "loot": {
+        "level": 3,
+        "type": "charged",
         "items": [
-          "claws_of_attack_+5",
-          "gloves_of_haste",
-          "ring_of_protection_+3"
+          "potion_of_greater_healing",
+          "potion_of_greater_mana",
+          "potion_of_invulnerability",
+            "scroll_of_the_beast",
+            "wand_of_mana_stealing"
         ]}},
-        { "name": "Forest Troll Berserker", "count": 1, "level": 4, "xp": 85 },
-        { "name": "Forest Troll Trapper", "count": 1, "level": 3, "xp": 60 }
+        { "name": "Forest Troll High Priest", "count": 1, "level": 4, "xp": 85, "loot": {
+        "level": 1,
+        "type": "Power Up",
+        "items": [
+          "tome_of_agility",
+            "tome_of_intelligence",
+            "tome_of_strength",
+            "manual_of_health"
+        ]}},
+        { "name": "Forest Troll Trapper", "count": 1, "level": 3, "xp": 60 },
+        { "name": "Mud Golem", "count": 1, "level": 2, "xp": 40 }
       ]
     }
     
