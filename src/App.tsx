@@ -13,7 +13,7 @@ import { CreateRoutePage } from './pages/CreateRoute';
 function App() {
 
   return (
-    <MantineProvider theme={{  }}>
+    <MantineProvider forceColorScheme='dark' >
         <div className="App">
           <CreateRoutePage />
           {/* Uncomment the following lines to include the map and button */}
