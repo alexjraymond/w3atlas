@@ -15,6 +15,13 @@
         <div className="circle_orange" style={{ top: '115px', left: '335px' }}></div>
         <div className="circle_orange" style={{ top: '305px', left: '45px' }}></div>
         <div className="circle_orange" style={{ top: '180px', left: '340px' }}></div>
+        <div className="circle_orange" style={{ top: '350px', left: '230px' }}></div>
+        <div className="circle_orange" style={{ top: '140px', left: '155px' }}></div>
+        <div className="circle_orange" style={{ top: '450px', left: '290px' }}></div>
+        <div className="circle_orange" style={{ top: '30px', left: '90px' }}></div>
+                <div className="circle_red" style={{ top: '320px', left: '360px' }}></div>
+        <div className="circle_red" style={{ top: '165px', left: '25px' }}></div>
+            <div className="circle_red" style={{ top: '225px', left: '180px' }}></div>
          {/* This is where mroe circles go */}
        </div>
      );

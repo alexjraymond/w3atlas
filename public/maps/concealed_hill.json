@@ -145,7 +145,7 @@
       ]
     },
     {
-      "id": "orange-camp-2-middle-left",
+      "id": "orange-camp-lab-left",
       "position": { 
         "x": 305, "y": 45 },
       "units": [
@@ -173,7 +173,7 @@
       ]
     },
       {
-      "id": "orange-camp-2-middle-right",
+      "id": "orange-camp-lab-right",
       "position": { 
         "x": 340, "y": 180 },
       "units": [
@@ -199,8 +199,215 @@
         { "name": "Forest Troll Trapper", "count": 1, "level": 3, "xp": 60 },
         { "name": "Mud Golem", "count": 1, "level": 2, "xp": 40 }
       ]
+    },
+    {
+      "id": "orange-camp-shop-bottom",
+      "position": { 
+        "x": 230, "y": 350 },
+      "units": [
+        { "name": "Ogre Magi", "count": 1, "level": 5, "xp": 115, "loot": {
+        "level": 2,
+        "type": "custom",
+        "items": [
+          "wand_of_illusion",
+          "sentry_wards",
+          "replenishment_potion"
+        ]}},
+        { "name": "Forest Troll High Priest", "count": 1, "level": 4, "xp": 85, "loot": {
+        "level": 1,
+        "type": "Power Up",
+        "items": [
+          "tome_of_agility",
+            "tome_of_intelligence",
+            "tome_of_strength",
+            "manual_of_health"
+        ]}},
+        { "name": "Forest Troll Trapper", "count": 1, "level": 3, "xp": 60 }
+      ]
+    },
+        {
+      "id": "orange-camp-shop-top",
+      "position": { 
+        "x": 155, "y": 140 },
+      "units": [
+        { "name": "Ogre Magi", "count": 1, "level": 5, "xp": 115, "loot": {
+        "level": 2,
+        "type": "custom",
+        "items": [
+          "wand_of_illusion",
+          "sentry_wards",
+          "replenishment_potion"
+        ]}},
+        { "name": "Forest Troll High Priest", "count": 1, "level": 4, "xp": 85, "loot": {
+        "level": 1,
+        "type": "Power Up",
+        "items": [
+          "tome_of_agility",
+            "tome_of_intelligence",
+            "tome_of_strength",
+            "manual_of_health"
+        ]}},
+        { "name": "Forest Troll Trapper", "count": 1, "level": 3, "xp": 60 }
+      ]
+    },
+            {
+      "id": "orange-camp-expo-bottom",
+      "position": { 
+        "x": 290, "y": 450 },
+      "units": [
+        { "name": "Gnoll Overseer", "count": 1, "level": 5, "xp": 115, "loot": {
+        "level": 3,
+        "type": "permanent",
+        "items": [
+          "circlet_of_nobility",
+          "pendant_of_energy",
+          "periapt_of_vitality",
+          "ring_of_regeneration",
+          "talisman_of_evasion",
+          "claws_of_attack_+8"
+        ]}},
+        { "name": "Gnoll Assassin", "count": 2, "level": 3, "xp": 60, "loot": {
+        "level": 1,
+        "type": "Power Up",
+        "items": [
+          "tome_of_agility",
+            "tome_of_intelligence",
+            "tome_of_strength",
+            "manual_of_health"
+        ]}},
+        { "name": "Gnoll Warden", "count": 1, "level": 3, "xp": 60 },
+        { "name": "Gnoll", "count": 1, "level": 1, "xp": 25 }
+      ]
+    },
+    {
+      "id": "orange-camp-expo-top",
+      "position": { 
+        "x": 290, "y": 450 },
+      "units": [
+        { "name": "Gnoll Overseer", "count": 1, "level": 5, "xp": 115, "loot": {
+        "level": 3,
+        "type": "permanent",
+        "items": [
+          "circlet_of_nobility",
+          "pendant_of_energy",
+          "periapt_of_vitality",
+          "ring_of_regeneration",
+          "talisman_of_evasion",
+          "claws_of_attack_+8"
+        ]}},
+        { "name": "Gnoll Assassin", "count": 2, "level": 3, "xp": 60, "loot": {
+        "level": 1,
+        "type": "Power Up",
+        "items": [
+          "tome_of_agility",
+            "tome_of_intelligence",
+            "tome_of_strength",
+            "manual_of_health"
+        ]}},
+        { "name": "Gnoll Warden", "count": 1, "level": 3, "xp": 60 },
+        { "name": "Gnoll", "count": 1, "level": 1, "xp": 25 }
+      ]
+    },
+        {
+      "id": "red-camp-fountain-right",
+      "position": { 
+        "x": 360, "y": 320 },
+      "units": [
+        { "name": "Red Drake", "count": 1, "level": 6, "xp": 150, "loot": {
+        "level": 4,
+        "type": "permanent",
+        "items": [
+          "belt_of_strength_+6",
+          "boots_of_quelthalas",
+          "ring_of_archmagi",
+          "robes_of_the_magi",
+          "runed_bracers",
+          "scourged_bone_chimes",
+          "sobi_mask",
+          "horn_of_endurance",
+          "allerias_flute_of_accuracy",
+          ""
+        ]}},
+        { "name": "Ogre Magi", "count": 1, "level": 5, "xp": 115, "loot": {
+        "level": 2,
+        "type": "custom",
+        "items": [
+          "tome_of_agility_+2",
+          "tome_of_intelligence_+2",
+          "tome_of_strength_+2",
+          "tome_of_knowledge"
+        ]}},
+        { "name": "Ogre Warrior", "count": 1, "level": 3, "xp": 60},
+        { "name": "Forest Troll High Priest", "count": 1, "level": 4, "xp": 85},
+        { "name": "Forest Troll Berserker", "count": 2, "level": 4, "xp": 85 }
+      ]
+    },
+            {
+      "id": "red-camp-fountain-left",
+      "position": { 
+        "x": 290, "y": 450 },
+      "units": [
+        { "name": "Red Drake", "count": 1, "level": 6, "xp": 150, "loot": {
+        "level": 4,
+        "type": "permanent",
+        "items": [
+          "belt_of_strength_+6",
+          "boots_of_quelthalas",
+          "ring_of_archmagi",
+          "robes_of_the_magi",
+          "runed_bracers",
+          "scourged_bone_chimes",
+          "sobi_mask",
+          "horn_of_endurance",
+          "allerias_flute_of_accuracy",
+          ""
+        ]}},
+        { "name": "Ogre Magi", "count": 1, "level": 5, "xp": 115, "loot": {
+        "level": 2,
+        "type": "custom",
+        "items": [
+          "tome_of_agility_+2",
+          "tome_of_intelligence_+2",
+          "tome_of_strength_+2",
+          "tome_of_knowledge"
+        ]}},
+        { "name": "Ogre Warrior", "count": 1, "level": 3, "xp": 60},
+        { "name": "Forest Troll High Priest", "count": 1, "level": 4, "xp": 85},
+        { "name": "Forest Troll Berserker", "count": 2, "level": 4, "xp": 85 }
+      ]
+    },
+                {
+      "id": "red-camp-expo-middle",
+      "position": { 
+        "x": 180, "y": 225 },
+      "units": [
+        { "name": "Ogre Lord", "count": 1, "level": 7, "xp": 190, "loot": {
+        "level": 5,
+        "type": "permanent",
+        "items": [
+          "ancient_janggo_of_endurance",
+          "claws_of_attack_+12",
+          "cloak_of_flames",
+          "helm_of_valor",
+          "hood_of_cunning",
+          "khadgar's_pipe_of_insight",
+          "legion_doom_horn",
+          "medallion_of_courage",
+          "warsong_battle_drums"
+        ]}},
+        { "name": "Ogre Magi", "count": 1, "level": 5, "xp": 115, "loot": {
+        "level": 2,
+        "type": "Power Up",
+        "items": [
+          "tome_of_agility_+2",
+          "tome_of_intelligence_+2",
+          "tome_of_strength_+2",
+          "tome_of_knowledge"
+        ]}},
+        { "name": "Forest Troll High Priest", "count": 1, "level": 4, "xp": 85},
+        { "name": "Forest Troll Trapper", "count": 2, "level": 3, "xp": 60 }     
+    ]
     }
-    
   ]
 }
 
