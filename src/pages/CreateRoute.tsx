@@ -1,19 +1,96 @@
-import React from "react";
-import { AppShell, Group, Button } from "@mantine/core";
+import { AppShell, AspectRatio, Button, Center, Checkbox, Group, NativeSelect,  } from "@mantine/core";
 import { Navbar } from "../components/Navbar";
-import Map from "../components/Map";
+import { MapWithMarkers } from "../components/MapWithMarkers";
+import { useDisclosure } from "@mantine/hooks";
+import ExperienceBar from "../components/ExperienceBar";
+import { useState } from "react";
+
+const heroOptions: Record<string, string[]> = {
+  Human: ["Archmage", "Mountain King", "Blood Mage", "Paladin"],
+  NightElf: ["Demon Hunter", "Keeper of the Grove", "Warden", "Priestess of the Moon"],
+  Orc: ["Blademaster", "Far Seer", "Tauren Chieftain", "Shadow Hunter"],
+  Undead: ["Death Knight", "Lich", "Dreadlord", "Crypt Lord"]
+};  
+
+const tavernHeroes: string[] = [
+  "Naga Sea Witch", "Dark Ranger", "Pandaren Brewmaster", "Firelord", "Pit Lord",  "Beastmaster", "Tinker", "Alchemist"
+];
 
 
 export function CreateRoutePage() {
+    const [opened, { toggle }] = useDisclosure();
+    const [playerRace, setPlayerRace] = useState("Human");
+    const [hero, setHero] = useState(heroOptions[playerRace][0]);
+    const [tavernHero, setTavernHero] = useState(false);
+
+    const handleRaceChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        const race = event.currentTarget.value;
+        setPlayerRace(race);
+        if (!tavernHero) {
+        setHero(heroOptions[race][0]
+        )}};
+
+    const handleHeroChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        setHero(event.currentTarget.value);
+    };
+
+    const handleTavernToggle = (checked: boolean) => {
+        setTavernHero(checked);
+        setHero(checked ? tavernHeroes[0] : heroOptions[playerRace][0]
+
+        )};
+
   return (
-    <AppShell>
+    <AppShell
+    padding={"md"}
+    header={{height: 60, offset: true}}
+    >
+        <AppShell.Header>
  <Navbar />
- <Map />
-     <Group>
-      <Button variant="default">Race</Button>
-      <Button variant="default">Hero</Button>
-      <Button variant="default">AoW/Militia/Ghoul</Button>
-    </Group>
-    </AppShell>
+ </AppShell.Header>
+ <AppShell.Main style={{ minHeight: "100vh" }}>
+ <Center mx={"auto"}
+ style={{ width: "100%",minHeight: "calc(100vh - 60px)" }}>
+    <AspectRatio ratio={416/512} mx={"auto"} w={"416px"} >
+      <MapWithMarkers mapSlug="Concealed Hill" />
+</AspectRatio>
+        <Group mt="md"
+        align="flex-end"
+        >
+            <NativeSelect 
+              value={playerRace}
+              onChange={handleRaceChange}
+              data={Object.keys(heroOptions)}
+              label="Race" />
+
+        <Checkbox
+              onChange={(event) => handleTavernToggle(event.currentTarget.checked)}
+              label="Use Tavern Heroes?"
+            />
+
+            {tavernHero ? (
+                <NativeSelect
+                  value={hero}
+                  onChange={handleHeroChange}
+                  data={tavernHeroes}
+                  label="Tavern Hero"
+                  />
+            )
+            : (
+                <NativeSelect
+                  value={hero}
+                  onChange={handleHeroChange}
+                  data={heroOptions[playerRace]}
+                  label="Hero"
+                />
+            )}
+              <Button variant="outline">AoW/Militia/Ghoul</Button>
+        </Group>
+        <div style={{ marginTop: 24 }}>
+          <ExperienceBar />
+        </div>
+        </Center>
+        </AppShell.Main>
+</AppShell>
   );
 }
