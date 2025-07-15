@@ -4,7 +4,7 @@ export default function ProgressCard() {
   return (
     <Card withBorder radius="md" padding="xl" bg="var(--mantine-color-body)">
       <Text fz="xs" tt="uppercase" fw={700} c="dimmed">
-        Hero Experience
+        Experience
       </Text>
       <Text fz="lg" fw={500}>
         50 / 100

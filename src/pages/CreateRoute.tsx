@@ -1,9 +1,10 @@
-import { AppShell, AspectRatio, Button, Center, Checkbox, Group, NativeSelect,  } from "@mantine/core";
+import { AppShell, AspectRatio, Button, Card, Center, Checkbox, Group, NativeSelect, Text, Image } from "@mantine/core";
 import { Navbar } from "../components/Navbar";
 import { MapWithMarkers } from "../components/MapWithMarkers";
 import { useDisclosure } from "@mantine/hooks";
 import ExperienceBar from "../components/ExperienceBar";
 import { useState } from "react";
+import HeroAbilitySelector from "../components/HeroAbilitySelector";
 
 const heroOptions: Record<string, string[]> = {
   Human: ["Archmage", "Mountain King", "Blood Mage", "Paladin"],
@@ -39,6 +40,10 @@ export function CreateRoutePage() {
         setHero(checked ? tavernHeroes[0] : heroOptions[playerRace][0]
 
         )};
+
+    const heroIcon = heroOptions[playerRace].includes(hero) ? `../../icons/${hero.toLowerCase().replace(/ /g, "")}.png` : "../../icons/default.png";
+
+    const tavernIcon = tavernHero ? `../../icons/${hero.toLowerCase().replace(/ /g, "")}.png` : "../../icons/default.png";
 
   return (
     <AppShell
@@ -86,9 +91,33 @@ export function CreateRoutePage() {
             )}
               <Button variant="outline">AoW/Militia/Ghoul</Button>
         </Group>
-        <div style={{ marginTop: 24 }}>
+
+
+        <Card>
+            <Card.Section
+style={{ display: "flex", justifyContent: "", alignItems: "center", height: 100, margin: "8px 0" }} 
+            >
+<Image src={tavernHero ? tavernIcon : heroIcon} alt="Hero Icon" style={{ width: "64px"}} />
+
+
           <ExperienceBar />
-        </div>
+
+            </Card.Section>
+
+<Text mt="xs" size="sm" c="dimmed">
+
+Ability Order
+
+</Text>
+<HeroAbilitySelector hero={hero} onChange={(order) => console.log("Selected order:", order)} />
+{/* <Group justify="space-between" mt="xs" style={{ flexWrap: "nowrap" , gap: "2px", width: "20%"}}>
+<Image src="../../icons/waterelemental.png" alt="Skill Order" style={{ width: "50%", height: "auto" }} />
+<Image src="../../icons/brillianceaura.png" alt="Skill Order" style={{ width: "50%", height: "auto" }} />
+<Image src="../../icons/waterelemental.png" alt="Skill Order" style={{ width: "50%", height: "auto" }} />
+<Image src="../../icons/brillianceaura.png" alt="Skill Order" style={{ width: "50%", height: "auto" }} />
+<Image src="../../icons/waterelemental.png" alt="Skill Order" style={{ width: "50%", height: "auto" }} />
+</Group> */}
+        </Card>
         </Center>
         </AppShell.Main>
 </AppShell>

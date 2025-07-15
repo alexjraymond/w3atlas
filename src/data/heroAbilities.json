@@ -1,0 +1,146 @@
+{
+    "Archmage": [
+        {"name": "Blizzard", "icon": "blizzard.png"},
+    {"name": "Brilliance Aura", "icon": "brillianceaura.png"},
+        {"name": "Mass Teleport", "icon": "massteleport.png"},
+        {"name": "Summon Water Elemental", "icon": "summonwaterelemental.png"}
+    ],
+    "Blood Mage": [
+        {"name": "Banish", "icon": "banish.png"},
+        {"name": "Flamestrike", "icon": "flamestrike.png"},
+        {"name": "Phoenix", "icon": "phoenix.png"},
+        {"name": "Siphon Mana", "icon": "siphonmana.png"}
+    ],
+    "Mountain King": [
+        {"name": "Avatar", "icon": "avatar.png"},
+        {"name": "Bash", "icon": "bash.png"},
+        {"name": "Thunder Clap", "icon": "thunderclap.png"},
+        {"name": "War Stomp", "icon": "warstomp.png"}
+    ],
+    "Paladin": [
+        {"name": "Devotion Aura", "icon": "devotionaura.png"},
+        {"name": "Holy Light", "icon": "holy_light.png"},
+        {"name": "Resurrection", "icon": "resurrection.png"},
+        {"name": "Holy Shield", "icon": "holyshield.png"}
+    ],
+    "Demon Hunter": [
+        {"name": "Evasion", "icon": "evasion.png"},
+        {"name": "Immolation", "icon": "immolation.png"},
+        {"name": "Metamorphosis", "icon": "metamorphosis.png"},
+        {"name": "Mana Burn", "icon": "manaburn.png"}
+    ],
+    "Keeper of the Grove": [
+        {"name": "Entangling Roots", "icon": "entanglingroots.png"},
+        {"name": "Thorns Aura", "icon": "thornsaura.png"},
+        {"name": "Tranquility", "icon": "tranquility.png"},
+        {"name": "Force of Nature", "icon": "forceofnature.png"}
+    ],
+    "Warden": [
+        {"name": "Blink", "icon": "blink.png"},
+        {"name": "Fan of Knives", "icon": "fanofknives.png"},
+        {"name": "Shadow Strike", "icon": "shadowstrike.png"},
+        {"name": "Vengeance", "icon": "vengeance.png"}
+    ],
+    "Priestess of the Moon": [
+        {"name": "Searing Arrows", "icon": "searingarrows.png"},
+        {"name": "Scout", "icon": "scout.png"},
+        {"name": "Trueshot Aura", "icon": "trueshotaura.png"},
+        {"name": "Starfall", "icon": "starfall.png"}
+    ],
+    "Blademaster": [
+        {"name": "Critical Strike", "icon": "criticalstrike.png"},
+        {"name": "Mirror Image", "icon": "mirrorimage.png"},
+        {"name": "Wind Walk", "icon": "windwalk.png"},
+        {"name": "Bladestorm", "icon": "bladestorm.png"}
+    ],
+    "Far Seer": [
+        {"name": "Chain Lightning", "icon": "chainlightning.png"},
+        {"name": "Earthquake", "icon": "earthquake.png"},
+        {"name": "Feral Spirit", "icon": "feralspirit.png"},
+        {"name": "farsight", "icon": "farsight.png"}
+    ],
+    "Shadow Hunter": [
+        {"name": "Healing Wave", "icon": "healingwave.png"},
+        {"name": "Hex", "icon": "hex.png"},
+        {"name": "Serpent Ward", "icon": "serpentward.png"},
+        {"name": "Big Bad Voodoo", "icon": "bigbadvoodoo.png"}
+    ],
+    "Tauren Chieftain": [
+        {"name": "Endurance Aura", "icon": "enduranceaura.png"},
+        {"name": "Shockwave", "icon": "shockwave.png"},
+        {"name": "War Stomp", "icon": "warstomp.png"},
+        {"name": "Reincarnation", "icon": "reincarnation.png"}
+    ],
+    "Crypt Lord": [
+        {"name": "Impale", "icon": "impale.png"},
+        {"name": "Carrion Beetles", "icon": "carrionbeetles.png"},
+        {"name": "Locust Swarm", "icon": "locustswarm.png"},
+        {"name": "Spiked Carapace", "icon": "spikedcarapace.png"}
+    ],
+    "Dreadlord": [
+        {"name": "Carrion Swarm", "icon": "carrionswarm.png"},
+        {"name": "Sleep", "icon": "sleep.png"},
+        {"name": "vampiricaura", "icon": "vampiricaura.png"},
+        {"name": "Inferno", "icon": "inferno.png"}
+    ],
+    "Lich": [
+        {"name": "Frost Nova", "icon": "frostnova.png"},
+        {"name": "Dark Ritual", "icon": "darkritual.png"},
+        {"name": "Death and Decay", "icon": "deathanddecay.png"},
+        {"name": "Frost Armor", "icon": "frostarmor.png"}
+    ],
+    "Death Knight": [
+        {"name": "Death Coil", "icon": "deathcoil.png"},
+        {"name": "Unholy Aura", "icon": "unholyaura.png"},
+        {"name": "Animate Dead", "icon": "animatedead.png"},
+        {"name": "Death Pact", "icon": "deathpact.png"}
+    ],
+    "Pit Lord": [
+        {"name": "Doom", "icon": "doom.png"},
+        {"name": "Rain of Fire", "icon": "rainoffire.png"},
+        {"name": "Howl of Terror", "icon": "howlofterror.png"},
+        {"name": "Cleaving Attack", "icon": "cleavingattack.png"}
+    ],
+    "Tinker": [
+        {"name": "Cluster Rockets", "icon": "clusterrockets.png"},
+        {"name": "Pocket Factory", "icon": "pocketfactory.png"},
+        {"name": "Engineering Upgrade", "icon": "engineeringupgrade.png"},
+        {"name": "Robo-Goblin", "icon": "robogoblin.png"}
+    ],
+    "Alchemist": [
+        {"name": "Acid Bomb", "icon": "acidbomb.png"},
+        {"name": "Chemical Rage", "icon": "chemicalrage.png"},
+        {"name": "Healing Spray", "icon": "healingspray.png"},
+        {"name": "Transmute", "icon": "transmute.png"}
+    ],
+    "Dark Ranger": [
+        {"name": "Silence", "icon": "silence.png"},
+        {"name": "Black Arrow", "icon": "blackarrow.png"},
+        {"name": "Charm", "icon": "charm.png"},
+        {"name": "Life Drain", "icon": "lifedrain.png"}
+    ],
+    "Naga Sea Witch": [
+        {"name": "Forked Lightning", "icon": "forkedlightning.png"},
+        {"name": "Mana Shield", "icon": "manashield.png"},
+        {"name": "Tornado", "icon": "tornado.png"},
+        {"name": "Frost Arrows", "icon": "frostarrows.png"}
+    ],
+    "Pandaren Brewmaster": [
+        {"name": "Breath of Fire", "icon": "breathoffire.png"},
+        {"name": "Drunken Haze", "icon": "drunkenhaze.png"},
+        {"name": "Storm, Earth and Fire", "icon": "stormearthandfire.png"},
+        {"name": "Drunken Brawler", "icon": "drunkenbrawler.png"}
+    ],
+    "Beastmaster": [
+        {"name": "Summon Quilbeast", "icon": "summonquilbeast.png"},
+        {"name": "Summon Hawk", "icon": "summonhawk.png"},
+        {"name": "Summon Bear", "icon": "summonbear.png"},
+        {"name": "Stampede", "icon": "stampede.png"}
+    ],
+    "Firelord": [
+        {"name": "Soul Burn", "icon": "soulburn.png"},
+        {"name": "Summon Lava Spawn", "icon": "summonlavaspawn.png"},
+        {"name": "Incinerate", "icon": "incinerate.png"},
+        {"name": "Volcano", "icon": "volcano.png"}
+    ]
+}
