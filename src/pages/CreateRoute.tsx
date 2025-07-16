@@ -59,6 +59,21 @@ export function CreateRoutePage() {
     <AspectRatio ratio={416/512} mx={"auto"} w={"416px"} >
       <MapWithMarkers mapSlug="Concealed Hill" />
 </AspectRatio>
+        <Card>
+            <Card.Section
+style={{ display: "flex", justifyContent: "", alignItems: "center", height: 100, margin: "8px 0" }} 
+            >
+<Image src={tavernHero ? tavernIcon : heroIcon} alt="Hero Icon" style={{ width: "64px"}} />
+
+
+          <ExperienceBar />
+
+            </Card.Section>
+
+
+<HeroAbilitySelector hero={hero} onChange={(order) => console.log("Selected order:", order)} />
+
+        </Card>
         <Group mt="md"
         align="flex-end"
         >
@@ -93,31 +108,7 @@ export function CreateRoutePage() {
         </Group>
 
 
-        <Card>
-            <Card.Section
-style={{ display: "flex", justifyContent: "", alignItems: "center", height: 100, margin: "8px 0" }} 
-            >
-<Image src={tavernHero ? tavernIcon : heroIcon} alt="Hero Icon" style={{ width: "64px"}} />
 
-
-          <ExperienceBar />
-
-            </Card.Section>
-
-<Text mt="xs" size="sm" c="dimmed">
-
-Ability Order
-
-</Text>
-<HeroAbilitySelector hero={hero} onChange={(order) => console.log("Selected order:", order)} />
-{/* <Group justify="space-between" mt="xs" style={{ flexWrap: "nowrap" , gap: "2px", width: "20%"}}>
-<Image src="../../icons/waterelemental.png" alt="Skill Order" style={{ width: "50%", height: "auto" }} />
-<Image src="../../icons/brillianceaura.png" alt="Skill Order" style={{ width: "50%", height: "auto" }} />
-<Image src="../../icons/waterelemental.png" alt="Skill Order" style={{ width: "50%", height: "auto" }} />
-<Image src="../../icons/brillianceaura.png" alt="Skill Order" style={{ width: "50%", height: "auto" }} />
-<Image src="../../icons/waterelemental.png" alt="Skill Order" style={{ width: "50%", height: "auto" }} />
-</Group> */}
-        </Card>
         </Center>
         </AppShell.Main>
 </AppShell>

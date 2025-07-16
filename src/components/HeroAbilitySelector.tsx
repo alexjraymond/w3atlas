@@ -1,5 +1,14 @@
-import React, { useState } from 'react';
-import { Group, NativeSelect, Button, Image, Card, Text } from '@mantine/core';
+import React, { useState, useEffect } from 'react';
+import {
+  Card,
+  Text,
+  Group,
+  ActionIcon,
+  Image,
+  Button,
+  Popover,
+  SimpleGrid,
+} from '@mantine/core';
 import heroAbilities from '../data/heroAbilities.json';
 import type { HeroAbilitiesMap } from '../types';
 
@@ -9,39 +18,89 @@ interface AbilityOrderSelectorProps {
 }
 
 export default function AbilityOrderSelector({ hero, onChange }: AbilityOrderSelectorProps) {
-  // Retrieve the list of ability names for the selected hero
-  const abilities: { name: string; icon: string }[] = (heroAbilities as HeroAbilitiesMap)[hero] || [];
-  const abilityNames = abilities.map((a) => a.name);
+  const abilities: { name: string; icon: string }[] =
+    (heroAbilities as HeroAbilitiesMap)[hero] || [];
 
-  // State: array of 6 selected ability names
-  const [order, setOrder] = useState<string[]>(
-    Array(6).fill(abilities[0]?.name || '')
-  );
+  // Track the chosen ability name for each of the 6 slots
+  const [order, setOrder] = useState<string[]>(Array(6).fill(''));
+  // Track which slot’s popover is open
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
-  const handleSelectChange = (index: number, value: string) => {
+  // Reset order to blanks when hero changes
+  useEffect(() => {
+    setOrder(Array(6).fill(''));
+    setOpenIndex(null);
+  }, [hero]);
+
+  const handleSelect = (idx: number, abilityName: string) => {
     const newOrder = [...order];
-    newOrder[index] = value;
+    newOrder[idx] = abilityName;
     setOrder(newOrder);
     onChange?.(newOrder);
+    setOpenIndex(null);
   };
 
   return (
     <Card shadow="sm" padding="sm">
-      <Text  size="sm" mb="xs">
-        Ability Order
-      </Text>
+
       <Group align="flex-end">
-        {order.map((selected, idx) => (
-          <NativeSelect
-            key={idx}
-            label={`L${idx + 1}`}
-            data={abilityNames}
-            value={selected}
-            onChange={(e) => handleSelectChange(idx, e.currentTarget.value)}
-          />
-        ))}
+        {order.map((selected, idx) => {
+          // find icon filename for selected or show blank
+          const iconName = selected
+            ? abilities.find((a) => a.name === selected)?.icon
+            : 'blankskill.png';
+
+          return (
+            <Popover
+              key={idx}
+              width={200}
+              position="bottom"
+              withArrow
+              opened={openIndex === idx}
+              onClose={() => setOpenIndex(null)}
+            >
+              <Popover.Target>
+                <ActionIcon
+                  size="lg"
+                  variant="light"
+                  radius="md"
+                  onClick={() => setOpenIndex(idx)}
+                >
+                  <Image
+                    src={`/icons/${iconName}`}
+                    width={40}
+                    height={40}
+                    alt={selected || 'blank'}
+                  />
+                </ActionIcon>
+              </Popover.Target>
+
+              <Popover.Dropdown>
+                <SimpleGrid cols={4} spacing="xs">
+                  {abilities.map((ability) => (
+                    <ActionIcon
+                      key={ability.name}
+                      variant="subtle"
+                      radius="md"
+                      size="lg"
+                      onClick={() => handleSelect(idx, ability.name)}
+                    >
+                      <Image
+                        src={`/icons/${ability.icon}`}
+                        width={32}
+                        height={32}
+                        alt={ability.name}
+                      />
+                    </ActionIcon>
+                  ))}
+                </SimpleGrid>
+              </Popover.Dropdown>
+            </Popover>
+          );
+        })}
       </Group>
-      <Group  mt="md">
+
+      <Group mt="md" position="right">
         <Button size="xs" variant="outline" onClick={() => console.log(order)}>
           Save Order
         </Button>
