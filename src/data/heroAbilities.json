@@ -1,39 +1,39 @@
 {
     "Archmage": [
         {"name": "Blizzard", "icon": "blizzard.png"},
+        {"name": "Summon Water Elemental", "icon": "summonwaterelemental.png"},
     {"name": "Brilliance Aura", "icon": "brillianceaura.png"},
-        {"name": "Mass Teleport", "icon": "massteleport.png"},
-        {"name": "Summon Water Elemental", "icon": "summonwaterelemental.png"}
+        {"name": "Mass Teleport", "icon": "massteleport.png"}
     ],
     "Blood Mage": [
-        {"name": "Banish", "icon": "banish.png"},
         {"name": "Flamestrike", "icon": "flamestrike.png"},
-        {"name": "Phoenix", "icon": "phoenix.png"},
-        {"name": "Siphon Mana", "icon": "siphonmana.png"}
+        {"name": "Banish", "icon": "banish.png"},
+        {"name": "Siphon Mana", "icon": "siphonmana.png"},
+        {"name": "Phoenix", "icon": "phoenix.png"}
     ],
     "Mountain King": [
-        {"name": "Avatar", "icon": "avatar.png"},
-        {"name": "Bash", "icon": "bash.png"},
+        {"name": "Storm Bolt", "icon": "stormbolt.png"},
         {"name": "Thunder Clap", "icon": "thunderclap.png"},
-        {"name": "War Stomp", "icon": "warstomp.png"}
+        {"name": "Bash", "icon": "bash.png"},
+        {"name": "Avatar", "icon": "avatar.png"}
     ],
     "Paladin": [
+        {"name": "Holy Light", "icon": "holylight.png"},
+        {"name": "Holy Shield", "icon": "holyshield.png"},
         {"name": "Devotion Aura", "icon": "devotionaura.png"},
-        {"name": "Holy Light", "icon": "holy_light.png"},
-        {"name": "Resurrection", "icon": "resurrection.png"},
-        {"name": "Holy Shield", "icon": "holyshield.png"}
+        {"name": "Resurrection", "icon": "resurrection.png"}
     ],
     "Demon Hunter": [
-        {"name": "Evasion", "icon": "evasion.png"},
+        {"name": "Mana Burn", "icon": "manaburn.png"},
         {"name": "Immolation", "icon": "immolation.png"},
-        {"name": "Metamorphosis", "icon": "metamorphosis.png"},
-        {"name": "Mana Burn", "icon": "manaburn.png"}
+        {"name": "Evasion", "icon": "evasion.png"},
+        {"name": "Metamorphosis", "icon": "metamorphosis.png"}
     ],
     "Keeper of the Grove": [
         {"name": "Entangling Roots", "icon": "entanglingroots.png"},
         {"name": "Thorns Aura", "icon": "thornsaura.png"},
-        {"name": "Tranquility", "icon": "tranquility.png"},
-        {"name": "Force of Nature", "icon": "forceofnature.png"}
+        {"name": "Force of Nature", "icon": "forceofnature.png"},
+        {"name": "Tranquility", "icon": "tranquility.png"}
     ],
     "Warden": [
         {"name": "Blink", "icon": "blink.png"},
@@ -81,7 +81,7 @@
         {"name": "Carrion Swarm", "icon": "carrionswarm.png"},
         {"name": "Sleep", "icon": "sleep.png"},
         {"name": "vampiricaura", "icon": "vampiricaura.png"},
-        {"name": "Inferno", "icon": "inferno.png"}
+        {"name": "Infernal", "icon": "infernal.png"}
     ],
     "Lich": [
         {"name": "Frost Nova", "icon": "frostnova.png"},
