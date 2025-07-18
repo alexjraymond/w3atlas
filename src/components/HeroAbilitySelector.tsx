@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
   Card,
-  Text,
   Group,
   ActionIcon,
   Image,
@@ -10,7 +9,7 @@ import {
   SimpleGrid,
 } from '@mantine/core';
 import heroAbilities from '../data/heroAbilities.json';
-import type { HeroAbilitiesMap } from '../types';
+
 
 interface AbilityOrderSelectorProps {
   hero: string;
@@ -18,9 +17,8 @@ interface AbilityOrderSelectorProps {
 }
 
 export default function AbilityOrderSelector({ hero, onChange }: AbilityOrderSelectorProps) {
-  const abilities: { name: string; icon: string }[] =
-    (heroAbilities as HeroAbilitiesMap)[hero] || [];
-
+  const abilitiesMap = heroAbilities as Record<string, { name: string; icon: string }[]>;
+  const abilities = abilitiesMap[hero] || [];
   // Track the chosen ability name for each of the 6 slots
   const [order, setOrder] = useState<string[]>(Array(6).fill(''));
   // Track which slot’s popover is open
@@ -41,9 +39,9 @@ export default function AbilityOrderSelector({ hero, onChange }: AbilityOrderSel
   };
 
   return (
-    <Card shadow="sm" padding="sm">
+    <Card shadow="sm" padding="none">
 
-      <Group align="flex-end">
+      <Group style={{display: 'flex', flexWrap: 'nowrap', margin: 0}} mb="md">
         {order.map((selected, idx) => {
           // find icon filename for selected or show blank
           const iconName = selected
@@ -100,7 +98,7 @@ export default function AbilityOrderSelector({ hero, onChange }: AbilityOrderSel
         })}
       </Group>
 
-      <Group mt="md" position="right">
+      <Group mt="md">
         <Button size="xs" variant="outline" onClick={() => console.log(order)}>
           Save Order
         </Button>
