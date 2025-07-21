@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import{ useState } from 'react';
 import {
   AppShell,
   Container,
@@ -170,7 +170,7 @@ export function CreateRoutePage() {
 
 
           <div style={{ flexGrow: 1, display: 'flex', justifyContent: 'center' }}>
-            <AspectRatio ratio={416 / 512} style={{ width: '100%', maxWidth: 600 }}>
+            <AspectRatio ratio={416 / 512} style={{ width: 500 }}>
               <MapWithMarkers mapSlug="Concealed Hill" />
             </AspectRatio>
           </div>
