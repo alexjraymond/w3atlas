@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Center, Loader, Popover, Group, Text, Divider, Image, Stack, Box, Grid } from '@mantine/core';
+import { Center, Loader, Popover, Group, Text, Divider, Image, Box, Grid } from '@mantine/core';
 import { useMapData } from '../hooks/useMapData';
 import './Map.css';
 
@@ -21,7 +21,8 @@ export function MapWithMarkers({ mapSlug }: { mapSlug: string }) {
   const slug = mapSlug.toLowerCase().replace(/\s+/g, '_');
   const imgUrl = `/maps/${slug}.png`;
 
-  const [selectedUnits, setSelectedUnits] = useState<Record<string, Set<number>>>({});
+  const [selectedUnits, setSelectedUnits] = useState<Record<string, Set<string>>>({});
+  const [hoveredCamp, setHoveredCamp] = useState<string | null>(null);
 
   if (!data) {
     return (
@@ -50,7 +51,7 @@ export function MapWithMarkers({ mapSlug }: { mapSlug: string }) {
     if (campId.startsWith('green')) return 'circle';
     if (campId.startsWith('orange')) return 'circle_orange';
     if (campId.startsWith('red')) return 'circle_red';
-    return 'circle'; // default to green
+    return 'circle';
   };
 
   const getCampTitle = (campId: string) => {
@@ -60,10 +61,13 @@ export function MapWithMarkers({ mapSlug }: { mapSlug: string }) {
     return `${difficulty} Creep Spot [${strongestUnit?.level || 1}]`;
   };
 
-  const handleMarkerClick = (camp: Camp) => {
-    const instances = camp.units.flatMap(u => Array(u.count || 1).fill(u));
-    setSelectedUnits(prev => ({ ...prev, [camp.id]: new Set(instances.map((_, i) => i)) }));
+  const getUnitIconPath = (unitName: string) => {
+    // Convert unit name to lowercase and remove spaces/special characters
+    const iconName = unitName.toLowerCase().replace(/[^a-z0-9]/g, '');
+    return `/icons/${iconName}.png`;
   };
+
+
 
   return (
     <div style={containerStyle}>
@@ -72,20 +76,58 @@ export function MapWithMarkers({ mapSlug }: { mapSlug: string }) {
       {camps.map(camp => {
         const leftPct = (camp.position.x / W) * 100;
         const topPct = (camp.position.y / H) * 100;
-        const instances = camp.units.flatMap(u => Array(u.count || 1).fill(u));
-        const selectedSet = selectedUnits[camp.id] || new Set<number>();
         
-        // Group selected items by type
-        const selectedItems = Array.from(selectedSet)
-          .map(i => instances[i].loot?.items || [])
-          .flat();
+        // Expand units by their count for individual selection
+        const expandedUnits = camp.units.flatMap((unit, unitIdx) => 
+          Array.from({ length: unit.count || 1 }, (_, instanceIdx) => ({
+            ...unit,
+            uniqueId: `${unitIdx}-${instanceIdx}`,
+            instanceIndex: instanceIdx
+          }))
+        );
+
+        // Get all items from units that have loot
+        const unitsWithLoot = camp.units.filter(u => u.loot);
+        const customItems = unitsWithLoot.filter(u => u.loot?.type === 'custom').flatMap(u => u.loot?.items || []);
+        const powerUpItems = unitsWithLoot.filter(u => u.loot?.type === 'Power Up').flatMap(u => u.loot?.items || []);
         
-        const customItems = selectedItems.filter((_, i, arr) => 
-          instances[Array.from(selectedSet)[Math.floor(i / (arr.length / Array.from(selectedSet).length)) || 0]]?.loot?.type === 'custom'
-        );
-        const powerUpItems = selectedItems.filter((_, i, arr) => 
-          instances[Array.from(selectedSet)[Math.floor(i / (arr.length / Array.from(selectedSet).length)) || 0]]?.loot?.type === 'Power Up'
-        );
+        console.log(`[ITEMS] Camp ${camp.id} - Custom items:`, customItems);
+        console.log(`[ITEMS] Camp ${camp.id} - Power up items:`, powerUpItems);
+
+        const handleUnitToggle = (unitId: string) => {
+          setSelectedUnits(prev => {
+            const campSet = new Set(prev[camp.id] || []);
+            if (campSet.has(unitId)) {
+              campSet.delete(unitId);
+            } else {
+              campSet.add(unitId);
+            }
+            return { ...prev, [camp.id]: campSet };
+          });
+        };
+
+        const handleMouseEnter = () => {
+          console.log(`[HOVER] Mouse entered camp ${camp.id}`);
+          setHoveredCamp(camp.id);
+        };
+
+        const handleMouseLeave = () => {
+          console.log(`[HOVER] Mouse left camp ${camp.id}`);
+          setHoveredCamp(null);
+        };
+
+        const handleDropdownMouseEnter = () => {
+          console.log(`[HOVER] Mouse entered dropdown for camp ${camp.id}`);
+          setHoveredCamp(camp.id);
+        };
+
+        const handleDropdownMouseLeave = () => {
+          console.log(`[HOVER] Mouse left dropdown for camp ${camp.id}`);
+          setHoveredCamp(null);
+        };
+
+        const isOpen = hoveredCamp === camp.id;
+        console.log(`[HOVER] Camp ${camp.id} isOpen: ${isOpen}, hoveredCamp: ${hoveredCamp}`);
 
         return (
           <Popover
@@ -93,11 +135,13 @@ export function MapWithMarkers({ mapSlug }: { mapSlug: string }) {
             position="top"
             withArrow
             shadow="xl"
+            opened={isOpen}
           >
             <Popover.Target>
               <div
-                onClick={() => handleMarkerClick(camp)}
                 className={getMarkerClass(camp.id)}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
                 style={{
                   position: 'absolute',
                   top: `${topPct}%`,
@@ -109,82 +153,96 @@ export function MapWithMarkers({ mapSlug }: { mapSlug: string }) {
             </Popover.Target>
 
             <Popover.Dropdown 
+              onMouseEnter={handleDropdownMouseEnter}
+              onMouseLeave={handleDropdownMouseLeave}
               style={{ 
-                width: 500, 
+                width: 420, 
                 backgroundColor: '#2C2E33',
                 color: '#C1C2C5',
                 border: '1px solid #373A40',
                 padding: 0
               }}
             >
-              <Box p="sm">
-                {/* Header */}
-                <Text size="lg" fw={600} mb="sm" style={{ color: '#C1C2C5' }}>
+              <Box p="xs">
+                <Text size="md" fw={600} mb="xs" style={{ color: '#C1C2C5' }}>
                   {getCampTitle(camp.id)}
                 </Text>
                 
-                {/* Creeps Section */}
                 <Text size="sm" fw={500} mb="xs" style={{ color: '#909296' }}>
                   Creeps
                 </Text>
                 
-                <Grid gutter="xs" mb="sm">
-                  <Grid.Col span={6}>
+                <Grid gutter="xs" mb="xs">
+                  <Grid.Col span={7}>
                     <Text size="xs" fw={500} style={{ color: '#909296' }}>Unit</Text>
                   </Grid.Col>
-                  <Grid.Col span={2}>
-                    <Text size="xs" fw={500} style={{ color: '#909296' }}>Count</Text>
-                  </Grid.Col>
-                  <Grid.Col span={2}>
+                  <Grid.Col span={2.5}>
                     <Text size="xs" fw={500} style={{ color: '#909296' }}>Level</Text>
                   </Grid.Col>
-                  <Grid.Col span={2}>
+                  <Grid.Col span={2.5}>
                     <Text size="xs" fw={500} style={{ color: '#909296' }}>XP</Text>
                   </Grid.Col>
                 </Grid>
 
-                {camp.units.map((unit, unitIdx) => (
-                  <Grid key={unitIdx} gutter="xs" mb="xs" align="center">
-                    <Grid.Col span={6}>
-                      <Group gap="xs">
-                        <Image
-                          src="/icons/blankskill.png"
-                          width={20}
-                          height={20}
-                          fit="contain"
-                          alt={unit.name}
-                        />
-                        <Text size="xs" style={{ color: '#C1C2C5' }}>
-                          {unit.name}
-                          {unit.loot && <span style={{ color: '#FA5252' }}> ●</span>}
-                        </Text>
-                      </Group>
-                    </Grid.Col>
-                    <Grid.Col span={2}>
-                      <Text size="xs" style={{ color: '#C1C2C5' }}>{unit.count || 1}</Text>
-                    </Grid.Col>
-                    <Grid.Col span={2}>
-                      <Text size="xs" style={{ color: '#C1C2C5' }}>{unit.level}</Text>
-                    </Grid.Col>
-                    <Grid.Col span={2}>
-                      <Text size="xs" style={{ color: '#C1C2C5' }}>{unit.xp}</Text>
-                    </Grid.Col>
-                  </Grid>
-                ))}
+                {expandedUnits.map((unit) => {
+                  const isSelected = selectedUnits[camp.id]?.has(unit.uniqueId) || false;
+                  return (
+                    <Grid 
+                      key={unit.uniqueId} 
+                      gutter="xs" 
+                      mb={4} 
+                      align="center"
+                      onClick={() => handleUnitToggle(unit.uniqueId)}
+                      style={{
+                        cursor: 'pointer',
+                        backgroundColor: isSelected ? '#373A40' : 'transparent',
+                        borderRadius: '4px',
+                        padding: '2px 4px',
+                      }}
+                    >
+                      <Grid.Col span={7}>
+                        <Group gap="xs">
+                          <Image
+                            src={getUnitIconPath(unit.name)}
+                            width={16}
+                            height={16}
+                            fit="contain"
+                            alt={unit.name}
+                            onError={(e) => {
+                              const target = e.currentTarget as HTMLImageElement;
+                              if (target.src !== '/icons/blankskill.png') {
+                                target.src = '/icons/blankskill.png';
+                              }
+                            }}
+                          />
+                          <Text size="xs" style={{ color: '#C1C2C5' }}>
+                            {unit.name}
+                            {unit.loot && unit.instanceIndex === 0 && <span style={{ color: '#FA5252' }}> ●</span>}
+                          </Text>
+                        </Group>
+                      </Grid.Col>
+                      <Grid.Col span={2.5}>
+                        <Text size="xs" style={{ color: '#C1C2C5' }}>{unit.level}</Text>
+                      </Grid.Col>
+                      <Grid.Col span={2.5}>
+                        <Text size="xs" style={{ color: '#C1C2C5' }}>{unit.xp}</Text>
+                      </Grid.Col>
+                    </Grid>
+                  );
+                })}
                 
-                <Divider my="sm" color="#373A40" />
+                <Divider my="xs" color="#373A40" />
                 
-                {/* Items Section */}
                 <Text size="sm" fw={500} mb="xs" style={{ color: '#909296' }}>
                   Items
                 </Text>
                 
                 {customItems.length > 0 && (
-                  <Stack gap="xs" mb="sm">
-                    <Group gap="xs">
+                  <Box mb="xs">
+                    <Group gap="xs" mb="xs">
                       <Box
-                        w={20}
-                        h={20}
+                        w={16}
+                        h={16}
                         style={{
                           backgroundColor: '#5C7CFA',
                           borderRadius: '50%',
@@ -197,27 +255,36 @@ export function MapWithMarkers({ mapSlug }: { mapSlug: string }) {
                       </Box>
                       <Text size="xs" fw={500} style={{ color: '#5C7CFA' }}>Custom drop</Text>
                     </Group>
-                    <Group gap="xs" pl="md">
-                      {Array.from(new Set(customItems.slice(0, 3))).map((item, idx) => (
-                        <Image
-                          key={idx}
-                          src={`/icons/BTNPotionPurple.png`}
-                          width={24}
-                          height={24}
-                          fit="contain"
-                          alt={item}
-                        />
-                      ))}
+                    <Group gap="xs" pl="md" style={{ 
+                      border: '1px solid red', 
+                      minHeight: '24px',
+                      flexWrap: 'wrap',
+                      maxWidth: '100%'
+                    }}>
+                      {Array.from(new Set(customItems.slice(0, 6))).map((item, idx) => {
+                        console.log(`[ITEMS] Rendering custom item ${idx}: ${item}`);
+                        return (
+                          <Image
+                            key={idx}
+                            src={`/icons/BTNPotionPurple.png`}
+                            width={20}
+                            height={20}
+                            fit="contain"
+                            alt={item}
+                            style={{ flexShrink: 0 }}
+                          />
+                        );
+                      })}
                     </Group>
-                  </Stack>
+                  </Box>
                 )}
                 
                 {powerUpItems.length > 0 && (
-                  <Stack gap="xs">
-                    <Group gap="xs">
+                  <Box>
+                    <Group gap="xs" mb="xs">
                       <Box
-                        w={20}
-                        h={20}
+                        w={16}
+                        h={16}
                         style={{
                           backgroundColor: '#FA5252',
                           borderRadius: '50%',
@@ -230,19 +297,28 @@ export function MapWithMarkers({ mapSlug }: { mapSlug: string }) {
                       </Box>
                       <Text size="xs" fw={500} style={{ color: '#FA5252' }}>Level 1, Power Up</Text>
                     </Group>
-                    <Group gap="xs" pl="md">
-                      {Array.from(new Set(powerUpItems.slice(0, 4))).map((item, idx) => (
-                        <Image
-                          key={idx}
-                          src={`/icons/BTNPotionPurple.png`}
-                          width={24}
-                          height={24}
-                          fit="contain"
-                          alt={item}
-                        />
-                      ))}
+                    <Group gap="xs" pl="md" style={{ 
+                      border: '1px solid blue', 
+                      minHeight: '24px',
+                      flexWrap: 'wrap',
+                      maxWidth: '100%'
+                    }}>
+                      {Array.from(new Set(powerUpItems.slice(0, 6))).map((item, idx) => {
+                        console.log(`[ITEMS] Rendering power up item ${idx}: ${item}`);
+                        return (
+                          <Image
+                            key={idx}
+                            src={`/icons/BTNPotionPurple.png`}
+                            width={20}
+                            height={20}
+                            fit="contain"
+                            alt={item}
+                            style={{ flexShrink: 0 }}
+                          />
+                        );
+                      })}
                     </Group>
-                  </Stack>
+                  </Box>
                 )}
               </Box>
             </Popover.Dropdown>
