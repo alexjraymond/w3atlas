@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Center, Loader, Popover, Group, Text, Divider, Image, Box, Grid } from '@mantine/core';
 import { useMapData } from '../hooks/useMapData';
 import './Map.css';
@@ -16,13 +16,63 @@ interface Camp {
   units: Unit[];
 }
 
-export function MapWithMarkers({ mapSlug }: { mapSlug: string }) {
+interface MapWithMarkersProps {
+  mapSlug: string;
+  onUnitsSelected?: (totalXP: number) => void;
+}
+
+export function MapWithMarkers({ mapSlug, onUnitsSelected }: MapWithMarkersProps) {
   const data = useMapData(mapSlug);
   const slug = mapSlug.toLowerCase().replace(/\s+/g, '_');
   const imgUrl = `/maps/${slug}.png`;
 
   const [selectedUnits, setSelectedUnits] = useState<Record<string, Set<string>>>({});
   const [hoveredCamp, setHoveredCamp] = useState<string | null>(null);
+
+  // Raw XP values based on unit level
+  const levelToRawXP: Record<number, number> = {
+    1: 25,
+    2: 40,
+    3: 60,
+    4: 85,
+    5: 115,
+    6: 150,
+    7: 190,
+    8: 235,
+    9: 285,
+    10: 340
+  };
+
+  // Calculate total XP from selected units and notify parent
+  useEffect(() => {
+    if (!data || !onUnitsSelected) return;
+
+    let totalXP = 0;
+    Object.entries(selectedUnits).forEach(([campId, unitIds]) => {
+      const camp = data.camps.find(c => c.id === campId);
+      if (camp) {
+        // Expand units by their count for individual selection
+        const expandedUnits = camp.units.flatMap((unit, unitIdx) => 
+          Array.from({ length: unit.count || 1 }, (_, instanceIdx) => ({
+            ...unit,
+            uniqueId: `${unitIdx}-${instanceIdx}`,
+            instanceIndex: instanceIdx
+          }))
+        );
+
+        unitIds.forEach(unitId => {
+          const unit = expandedUnits.find(u => u.uniqueId === unitId);
+          if (unit) {
+            // Get raw XP based on unit level
+            const rawXP = levelToRawXP[unit.level] || 0;
+            totalXP += rawXP;
+          }
+        });
+      }
+    });
+
+    onUnitsSelected(totalXP);
+  }, [selectedUnits, data, onUnitsSelected]);
 
   if (!data) {
     return (
@@ -156,7 +206,7 @@ export function MapWithMarkers({ mapSlug }: { mapSlug: string }) {
               onMouseEnter={handleDropdownMouseEnter}
               onMouseLeave={handleDropdownMouseLeave}
               style={{ 
-                width: 420, 
+                width: 300, 
                 backgroundColor: '#2C2E33',
                 color: '#C1C2C5',
                 border: '1px solid #373A40',
@@ -173,13 +223,13 @@ export function MapWithMarkers({ mapSlug }: { mapSlug: string }) {
                 </Text>
                 
                 <Grid gutter="xs" mb="xs">
-                  <Grid.Col span={7}>
+                  <Grid.Col span={8}>
                     <Text size="xs" fw={500} style={{ color: '#909296' }}>Unit</Text>
                   </Grid.Col>
-                  <Grid.Col span={2.5}>
+                  <Grid.Col span={2}>
                     <Text size="xs" fw={500} style={{ color: '#909296' }}>Level</Text>
                   </Grid.Col>
-                  <Grid.Col span={2.5}>
+                  <Grid.Col span={2}>
                     <Text size="xs" fw={500} style={{ color: '#909296' }}>XP</Text>
                   </Grid.Col>
                 </Grid>
@@ -200,14 +250,23 @@ export function MapWithMarkers({ mapSlug }: { mapSlug: string }) {
                         padding: '2px 4px',
                       }}
                     >
-                      <Grid.Col span={7}>
-                        <Group gap="xs">
+                      <Grid.Col span={8}>
+                        <div style={{ 
+                          display: 'flex', 
+                          alignItems: 'center', 
+                          gap: '2px',
+                          flexDirection: 'row',
+                          flexWrap: 'wrap',
+                          maxWidth: '100%',
+                          
+                        }}>
                           <Image
                             src={getUnitIconPath(unit.name)}
-                            width={16}
-                            height={16}
+                            width={20}
+                            height={20}
                             fit="contain"
                             alt={unit.name}
+                            style={{ flexShrink: 0, minWidth: '20px' }}
                             onError={(e) => {
                               const target = e.currentTarget as HTMLImageElement;
                               if (target.src !== '/icons/blankskill.png') {
@@ -215,17 +274,27 @@ export function MapWithMarkers({ mapSlug }: { mapSlug: string }) {
                               }
                             }}
                           />
-                          <Text size="xs" style={{ color: '#C1C2C5' }}>
+                          <Text 
+                            size="xs" 
+                            style={{ 
+                              color: '#C1C2C5', 
+                              overflow: 'hidden',
+                              textOverflow: 'ellipsis',
+                              whiteSpace: 'nowrap',
+                              minWidth: 0,
+                              flex: 1
+                            }}
+                          >
                             {unit.name}
                             {unit.loot && unit.instanceIndex === 0 && <span style={{ color: '#FA5252' }}> ●</span>}
                           </Text>
-                        </Group>
+                        </div>
                       </Grid.Col>
-                      <Grid.Col span={2.5}>
+                      <Grid.Col span={2}>
                         <Text size="xs" style={{ color: '#C1C2C5' }}>{unit.level}</Text>
                       </Grid.Col>
-                      <Grid.Col span={2.5}>
-                        <Text size="xs" style={{ color: '#C1C2C5' }}>{unit.xp}</Text>
+                      <Grid.Col span={2}>
+                        <Text size="xs" style={{ color: '#C1C2C5' }}>{levelToRawXP[unit.level] || 0}</Text>
                       </Grid.Col>
                     </Grid>
                   );
@@ -267,11 +336,8 @@ export function MapWithMarkers({ mapSlug }: { mapSlug: string }) {
                           <Image
                             key={idx}
                             src={`/icons/BTNPotionPurple.png`}
-                            width={20}
-                            height={20}
-                            fit="contain"
                             alt={item}
-                            style={{ flexShrink: 0 }}
+                            style={{ flexShrink: 0, maxWidth: 20, maxHeight: 20 }}
                           />
                         );
                       })}
@@ -289,6 +355,7 @@ export function MapWithMarkers({ mapSlug }: { mapSlug: string }) {
                           backgroundColor: '#FA5252',
                           borderRadius: '50%',
                           display: 'flex',
+                          flexDirection: 'row',
                           alignItems: 'center',
                           justifyContent: 'center',
                         }}
@@ -300,8 +367,11 @@ export function MapWithMarkers({ mapSlug }: { mapSlug: string }) {
                     <Group gap="xs" pl="md" style={{ 
                       border: '1px solid blue', 
                       minHeight: '24px',
-                      flexWrap: 'wrap',
-                      maxWidth: '100%'
+                      flexWrap: 'nowrap',
+                      maxWidth: 400,
+                      display: 'flex',
+                      flexDirection: 'row',
+                      
                     }}>
                       {Array.from(new Set(powerUpItems.slice(0, 6))).map((item, idx) => {
                         console.log(`[ITEMS] Rendering power up item ${idx}: ${item}`);
@@ -309,11 +379,8 @@ export function MapWithMarkers({ mapSlug }: { mapSlug: string }) {
                           <Image
                             key={idx}
                             src={`/icons/BTNPotionPurple.png`}
-                            width={20}
-                            height={20}
-                            fit="contain"
                             alt={item}
-                            style={{ flexShrink: 0 }}
+                            style={{ flexShrink: 0, maxWidth: 20, maxHeight: 20 }}
                           />
                         );
                       })}

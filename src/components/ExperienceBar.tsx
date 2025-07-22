@@ -1,15 +1,59 @@
 import { Card, Progress, Text } from '@mantine/core';
 
-export default function ProgressCard() {
+interface ExperienceBarProps {
+  currentXP: number;
+  currentLevel: number;
+  xpForNextLevel: number;
+  totalRawXP?: number;
+}
+
+export default function ExperienceBar({ currentXP, currentLevel, xpForNextLevel, totalRawXP }: ExperienceBarProps) {
+  const progressPercentage = xpForNextLevel > 0 ? (currentXP / xpForNextLevel) * 100 : 0;
+  
+  // Calculate XP gain percentage for current level (matching the constants from CreateRoute)
+  const getXPGainPercentage = (level: number): number => {
+    if (level >= 5) return 0;
+    if (level === 4) return 55;
+    if (level === 3) return 62;
+    if (level === 2) return 70;
+    return 80; // Level 1
+  };
+
+  const xpGainPercentage = getXPGainPercentage(currentLevel);
+  
+  // Calculate decimal level (e.g., 2.2 for 20% into level 2)
+  const decimalLevel = currentLevel + (currentXP / xpForNextLevel);
+  
+  // Round XP values to 2 decimal places for display
+  const roundedCurrentXP = Math.round(currentXP * 100) / 100;
+  const roundedXpForNextLevel = Math.round(xpForNextLevel * 100) / 100;
+
   return (
     <Card withBorder radius="md" padding="xl" bg="var(--mantine-color-body)">
       <Text fz="xs" tt="uppercase" fw={700} c="dimmed">
         Experience
       </Text>
       <Text fz="lg" fw={500}>
-        50 / 100
+        Level {decimalLevel.toFixed(1)}
       </Text>
-      <Progress value={54.31} mt="md" size="lg" radius="xl" />
+      <Text fz="sm" c="dimmed" mb="xs">
+        {roundedCurrentXP} / {roundedXpForNextLevel} XP
+      </Text>
+      {xpGainPercentage > 0 ? (
+        <Text fz="xs" c="blue" mb="md">
+          Gaining {xpGainPercentage}% of creep XP
+        </Text>
+      ) : (
+        <Text fz="xs" c="red" mb="md">
+          No XP gained at this level
+        </Text>
+      )}
+      <Progress value={progressPercentage} mt="md" size="lg" radius="xl" />
+      {totalRawXP !== undefined && (
+        <Text fz="xs" c="dimmed" mt="xs">
+          Total raw XP from creeps: {totalRawXP}
+        </Text>
+      )}
     </Card>
   );
 }

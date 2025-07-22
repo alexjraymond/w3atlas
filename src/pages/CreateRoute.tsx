@@ -15,6 +15,23 @@ import {
 import { Navbar } from '../components/Navbar';
 import { MapWithMarkers } from '../components/MapWithMarkers';
 import HeroAbilitySelector from '../components/HeroAbilitySelector';
+import ExperienceBar from '../components/ExperienceBar';
+
+const xpPerLevel = {
+  1: 200,   // 200 XP to reach level 2
+  2: 500,   // 200 + 300 = 500 XP to reach level 3
+  3: 900,   // 500 + 400 = 900 XP to reach level 4
+  4: 1400,  // 900 + 500 = 1400 XP to reach level 5
+  5: 2000   // 1400 + 600 = 2000 XP to reach level 6
+}
+
+const xpGainPercentagePerLevel = {
+  1: 0.8,
+  2: 0.7,
+  3: 0.62,
+  4: 0.55,
+  5: 0.0
+}
 
 const heroOptions: Record<string, string[]> = {
   Human: ['Archmage', 'Mountain King', 'Blood Mage', 'Paladin'],
@@ -47,9 +64,78 @@ export function CreateRoutePage() {
   const [playerRace, setPlayerRace] = useState<string | null>(null);
   const [hero, setHero] = useState<string | null>(null);
   const [useTavern, setUseTavern] = useState(false);
+  const [totalXP, setTotalXP] = useState(0);
 
   const races = Object.keys(heroOptions);
   const currentHeroes = useTavern || !playerRace ? tavernHeroes : heroOptions[playerRace!];
+
+  // Calculate hero level and XP progress based on total raw XP from creeps
+  const calculateLevelAndXP = (totalRawXP: number) => {
+    let remainingRawXP = totalRawXP;
+    let totalEffectiveXP = 0;
+    
+    // Progress through levels until we can't gain more XP
+    for (let level = 1; level <= 5; level++) {
+      const xpGainPercentage = xpGainPercentagePerLevel[level as keyof typeof xpGainPercentagePerLevel];
+      
+      // If we can't gain XP at this level, break
+      if (xpGainPercentage === 0) {
+        break;
+      }
+      
+      // Calculate how much raw XP we need to gain the required XP for this level
+      const xpNeededForThisLevel = xpPerLevel[level as keyof typeof xpPerLevel];
+      const xpNeededForPreviousLevel = level > 1 ? xpPerLevel[(level - 1) as keyof typeof xpPerLevel] : 0;
+      const additionalXPNeeded = xpNeededForThisLevel - xpNeededForPreviousLevel;
+      
+      const rawXPNeededForLevel = additionalXPNeeded / xpGainPercentage;
+      
+      if (remainingRawXP >= rawXPNeededForLevel) {
+        // We can complete this level
+        remainingRawXP -= rawXPNeededForLevel;
+        totalEffectiveXP += additionalXPNeeded;
+      } else {
+        // We can only partially fill this level
+        const effectiveXPGained = remainingRawXP * xpGainPercentage;
+        totalEffectiveXP += effectiveXPGained;
+        remainingRawXP = 0;
+        break;
+      }
+    }
+    
+    // Determine current level based on total effective XP
+    let currentLevel = 1;
+    for (let level = 1; level <= 5; level++) {
+      if (totalEffectiveXP >= xpPerLevel[level as keyof typeof xpPerLevel]) {
+        currentLevel = level + 1;
+      } else {
+        break;
+      }
+    }
+    
+    // Ensure we don't exceed level 5
+    currentLevel = Math.min(currentLevel, 5);
+    
+    // Calculate current XP within the current level
+    const xpForPreviousLevel = currentLevel > 1 ? xpPerLevel[(currentLevel - 1) as keyof typeof xpPerLevel] : 0;
+    const currentXP = totalEffectiveXP - xpForPreviousLevel;
+    
+    // Calculate XP needed for next level
+    const xpForCurrentLevel = xpPerLevel[currentLevel as keyof typeof xpPerLevel] || 0;
+    const xpNeededForNextLevel = xpForCurrentLevel - xpForPreviousLevel;
+    
+    return {
+      currentLevel,
+      currentXP,
+      xpForNextLevel: xpNeededForNextLevel
+    };
+  };
+
+  const { currentLevel, currentXP, xpForNextLevel } = calculateLevelAndXP(totalXP);
+
+  const handleUnitsSelected = (xp: number) => {
+    setTotalXP(xp);
+  };
 
   return (
     <AppShell padding="md" header={{ height: 60, offset: true }}>
@@ -161,6 +247,20 @@ export function CreateRoutePage() {
                   </div>
                 )}
 
+                {hero && (
+                  <div>
+                    <Text size="sm" fw={500} mb={8}>
+                      Experience Progress
+                    </Text>
+                    <ExperienceBar
+                      currentXP={currentXP}
+                      currentLevel={currentLevel}
+                      xpForNextLevel={xpForNextLevel}
+                      totalRawXP={totalXP}
+                    />
+                  </div>
+                )}
+
                 <Button fullWidth variant="outline" mt={12}>
                   Save Route
                 </Button>
@@ -171,7 +271,7 @@ export function CreateRoutePage() {
 
           <div style={{ flexGrow: 1, display: 'flex', justifyContent: 'center' }}>
             <AspectRatio ratio={416 / 512} style={{ width: 500 }}>
-              <MapWithMarkers mapSlug="Concealed Hill" />
+              <MapWithMarkers mapSlug="Concealed Hill" onUnitsSelected={handleUnitsSelected} />
             </AspectRatio>
           </div>
         </Container>
