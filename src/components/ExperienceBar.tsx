@@ -22,7 +22,17 @@ export default function ExperienceBar({ currentXP, currentLevel, xpForNextLevel,
   const xpGainPercentage = getXPGainPercentage(currentLevel);
   
   // Calculate decimal level (e.g., 2.2 for 20% into level 2)
+  // currentLevel is the level the hero is currently at
+  // currentXP is the progress within that level
   const decimalLevel = currentLevel + (currentXP / xpForNextLevel);
+  
+  // Debug logging
+  console.log('ExperienceBar Debug:', {
+    currentLevel,
+    currentXP,
+    xpForNextLevel,
+    decimalLevel: decimalLevel.toFixed(1)
+  });
   
   // Round XP values to 2 decimal places for display
   const roundedCurrentXP = Math.round(currentXP * 100) / 100;
@@ -34,7 +44,7 @@ export default function ExperienceBar({ currentXP, currentLevel, xpForNextLevel,
         Experience
       </Text>
       <Text fz="lg" fw={500}>
-        Level {decimalLevel.toFixed(1)}
+        Level {decimalLevel.toFixed(2)}
       </Text>
       <Text fz="sm" c="dimmed" mb="xs">
         {roundedCurrentXP} / {roundedXpForNextLevel} XP

@@ -28,6 +28,7 @@ export function MapWithMarkers({ mapSlug, onUnitsSelected }: MapWithMarkersProps
 
   const [selectedUnits, setSelectedUnits] = useState<Record<string, Set<string>>>({});
   const [hoveredCamp, setHoveredCamp] = useState<string | null>(null);
+  const [campOrder, setCampOrder] = useState<string[]>([]);
 
   // Raw XP values based on unit level
   const levelToRawXP: Record<number, number> = {
@@ -147,11 +148,28 @@ export function MapWithMarkers({ mapSlug, onUnitsSelected }: MapWithMarkersProps
         const handleUnitToggle = (unitId: string) => {
           setSelectedUnits(prev => {
             const campSet = new Set(prev[camp.id] || []);
-            if (campSet.has(unitId)) {
+            const wasSelected = campSet.has(unitId);
+            
+            if (wasSelected) {
               campSet.delete(unitId);
             } else {
               campSet.add(unitId);
             }
+            
+            // Handle order updates
+            if (!wasSelected && campSet.size === 1) {
+              // First unit being added to this camp
+              setCampOrder(prevOrder => {
+                if (!prevOrder.includes(camp.id)) {
+                  return [...prevOrder, camp.id];
+                }
+                return prevOrder;
+              });
+            } else if (wasSelected && campSet.size === 0) {
+              // Last unit being removed from this camp
+              setCampOrder(prevOrder => prevOrder.filter(id => id !== camp.id));
+            }
+            
             return { ...prev, [camp.id]: campSet };
           });
         };
@@ -176,7 +194,35 @@ export function MapWithMarkers({ mapSlug, onUnitsSelected }: MapWithMarkersProps
           setHoveredCamp(null);
         };
 
+        const handleCampClick = () => {
+          // Add camp to order if not already selected
+          if (!campOrder.includes(camp.id)) {
+            const newOrder = [...campOrder, camp.id];
+            setCampOrder(newOrder);
+            
+            // Select all units in this camp
+            const allUnitIds = expandedUnits.map(unit => unit.uniqueId);
+            setSelectedUnits(prev => ({
+              ...prev,
+              [camp.id]: new Set(allUnitIds)
+            }));
+          } else {
+            // Remove camp from order and deselect all units
+            const newOrder = campOrder.filter(id => id !== camp.id);
+            setCampOrder(newOrder);
+            
+            setSelectedUnits(prev => {
+              const newSelected = { ...prev };
+              delete newSelected[camp.id];
+              return newSelected;
+            });
+          }
+        };
+
         const isOpen = hoveredCamp === camp.id;
+        const campIndex = campOrder.indexOf(camp.id);
+        const hasSelectedUnits = selectedUnits[camp.id] && selectedUnits[camp.id].size > 0;
+        const isSelected = campIndex !== -1 || hasSelectedUnits;
         console.log(`[HOVER] Camp ${camp.id} isOpen: ${isOpen}, hoveredCamp: ${hoveredCamp}`);
 
         return (
@@ -192,12 +238,15 @@ export function MapWithMarkers({ mapSlug, onUnitsSelected }: MapWithMarkersProps
                 className={getMarkerClass(camp.id)}
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
+                onClick={handleCampClick}
                 style={{
                   position: 'absolute',
                   top: `${topPct}%`,
                   left: `${leftPct}%`,
                   transform: 'translate(-50%, -50%)',
                   cursor: 'pointer',
+                  border: isSelected ? '2px solid #FFD700' : 'none',
+                  borderRadius: '50%',
                 }}
               />
             </Popover.Target>
@@ -391,6 +440,44 @@ export function MapWithMarkers({ mapSlug, onUnitsSelected }: MapWithMarkersProps
             </Popover.Dropdown>
           </Popover>
         );
+      })}
+      
+      {/* Render order numbers separately */}
+      {camps.map(camp => {
+        const leftPct = (camp.position.x / W) * 100;
+        const topPct = (camp.position.y / H) * 100;
+        const campIndex = campOrder.indexOf(camp.id);
+        const hasSelectedUnits = selectedUnits[camp.id] && selectedUnits[camp.id].size > 0;
+        const isSelected = campIndex !== -1 || hasSelectedUnits;
+        
+        if (isSelected) {
+          return (
+            <div
+              key={`order-${camp.id}`}
+              style={{
+                position: 'absolute',
+                top: `${topPct + 2}%`,
+                left: `${leftPct}%`,
+                transform: 'translate(-50%, 0)',
+                backgroundColor: '#FFD700',
+                color: '#000',
+                borderRadius: '50%',
+                width: '20px',
+                height: '20px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '12px',
+                fontWeight: 'bold',
+                zIndex: 10,
+                pointerEvents: 'none',
+              }}
+            >
+              {campIndex + 1}
+            </div>
+          );
+        }
+        return null;
       })}
     </div>
   );
