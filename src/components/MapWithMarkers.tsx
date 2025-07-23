@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Center, Loader, Popover, Group, Text, Divider, Image, Box, Grid } from '@mantine/core';
+import { Center, Loader, Popover, Group, Text, Divider, Image, Box, Grid, SimpleGrid, Button } from '@mantine/core';
 import { useMapData } from '../hooks/useMapData';
 import './Map.css';
 
@@ -19,9 +19,10 @@ interface Camp {
 interface MapWithMarkersProps {
   mapSlug: string;
   onUnitsSelected?: (totalXP: number) => void;
+  resetRef?: React.MutableRefObject<(() => void) | null>;
 }
 
-export function MapWithMarkers({ mapSlug, onUnitsSelected }: MapWithMarkersProps) {
+export function MapWithMarkers({ mapSlug, onUnitsSelected, resetRef }: MapWithMarkersProps) {
   const data = useMapData(mapSlug);
   const slug = mapSlug.toLowerCase().replace(/\s+/g, '_');
   const imgUrl = `/maps/${slug}.png`;
@@ -29,8 +30,25 @@ export function MapWithMarkers({ mapSlug, onUnitsSelected }: MapWithMarkersProps
   const [selectedUnits, setSelectedUnits] = useState<Record<string, Set<string>>>({});
   const [hoveredCamp, setHoveredCamp] = useState<string | null>(null);
   const [campOrder, setCampOrder] = useState<string[]>([]);
+  const [selectedBuildings, setSelectedBuildings] = useState<Record<string, Set<string>>>({});
+  const [militiaNumbers, setMilitiaNumbers] = useState<Record<string, number>>({});
+  const [militiaPopupOpen, setMilitiaPopupOpen] = useState<string | null>(null);
 
-  // Raw XP values based on unit level
+  const handleReset = () => {
+    setSelectedUnits({});
+    setCampOrder([]);
+    setSelectedBuildings({});
+    setMilitiaNumbers({});
+    setMilitiaPopupOpen(null);
+    setHoveredCamp(null);
+  };
+
+  useEffect(() => {
+    if (resetRef) {
+      resetRef.current = handleReset;
+    }
+  }, [resetRef]);
+
   const levelToRawXP: Record<number, number> = {
     1: 25,
     2: 40,
@@ -44,7 +62,6 @@ export function MapWithMarkers({ mapSlug, onUnitsSelected }: MapWithMarkersProps
     10: 340
   };
 
-  // Calculate total XP from selected units and notify parent
   useEffect(() => {
     if (!data || !onUnitsSelected) return;
 
@@ -52,7 +69,6 @@ export function MapWithMarkers({ mapSlug, onUnitsSelected }: MapWithMarkersProps
     Object.entries(selectedUnits).forEach(([campId, unitIds]) => {
       const camp = data.camps.find(c => c.id === campId);
       if (camp) {
-        // Expand units by their count for individual selection
         const expandedUnits = camp.units.flatMap((unit, unitIdx) => 
           Array.from({ length: unit.count || 1 }, (_, instanceIdx) => ({
             ...unit,
@@ -64,7 +80,6 @@ export function MapWithMarkers({ mapSlug, onUnitsSelected }: MapWithMarkersProps
         unitIds.forEach(unitId => {
           const unit = expandedUnits.find(u => u.uniqueId === unitId);
           if (unit) {
-            // Get raw XP based on unit level
             const rawXP = levelToRawXP[unit.level] || 0;
             totalXP += rawXP;
           }
@@ -113,7 +128,6 @@ export function MapWithMarkers({ mapSlug, onUnitsSelected }: MapWithMarkersProps
   };
 
   const getUnitIconPath = (unitName: string) => {
-    // Convert unit name to lowercase and remove spaces/special characters
     const iconName = unitName.toLowerCase().replace(/[^a-z0-9]/g, '');
     return `/icons/${iconName}.png`;
   };
@@ -128,7 +142,6 @@ export function MapWithMarkers({ mapSlug, onUnitsSelected }: MapWithMarkersProps
         const leftPct = (camp.position.x / W) * 100;
         const topPct = (camp.position.y / H) * 100;
         
-        // Expand units by their count for individual selection
         const expandedUnits = camp.units.flatMap((unit, unitIdx) => 
           Array.from({ length: unit.count || 1 }, (_, instanceIdx) => ({
             ...unit,
@@ -137,7 +150,6 @@ export function MapWithMarkers({ mapSlug, onUnitsSelected }: MapWithMarkersProps
           }))
         );
 
-        // Get all items from units that have loot
         const unitsWithLoot = camp.units.filter(u => u.loot);
         const customItems = unitsWithLoot.filter(u => u.loot?.type === 'custom').flatMap(u => u.loot?.items || []);
         const powerUpItems = unitsWithLoot.filter(u => u.loot?.type === 'Power Up').flatMap(u => u.loot?.items || []);
@@ -156,9 +168,7 @@ export function MapWithMarkers({ mapSlug, onUnitsSelected }: MapWithMarkersProps
               campSet.add(unitId);
             }
             
-            // Handle order updates
             if (!wasSelected && campSet.size === 1) {
-              // First unit being added to this camp
               setCampOrder(prevOrder => {
                 if (!prevOrder.includes(camp.id)) {
                   return [...prevOrder, camp.id];
@@ -166,7 +176,6 @@ export function MapWithMarkers({ mapSlug, onUnitsSelected }: MapWithMarkersProps
                 return prevOrder;
               });
             } else if (wasSelected && campSet.size === 0) {
-              // Last unit being removed from this camp
               setCampOrder(prevOrder => prevOrder.filter(id => id !== camp.id));
             }
             
@@ -195,19 +204,16 @@ export function MapWithMarkers({ mapSlug, onUnitsSelected }: MapWithMarkersProps
         };
 
         const handleCampClick = () => {
-          // Add camp to order if not already selected
           if (!campOrder.includes(camp.id)) {
             const newOrder = [...campOrder, camp.id];
             setCampOrder(newOrder);
             
-            // Select all units in this camp
             const allUnitIds = expandedUnits.map(unit => unit.uniqueId);
             setSelectedUnits(prev => ({
               ...prev,
               [camp.id]: new Set(allUnitIds)
             }));
           } else {
-            // Remove camp from order and deselect all units
             const newOrder = campOrder.filter(id => id !== camp.id);
             setCampOrder(newOrder);
             
@@ -216,7 +222,66 @@ export function MapWithMarkers({ mapSlug, onUnitsSelected }: MapWithMarkersProps
               delete newSelected[camp.id];
               return newSelected;
             });
+            
+            setSelectedBuildings(prev => {
+              const newBuildings = { ...prev };
+              delete newBuildings[camp.id];
+              return newBuildings;
+            });
+            
+            setMilitiaNumbers(prev => {
+              const newNumbers = { ...prev };
+              delete newNumbers[camp.id];
+              return newNumbers;
+            });
           }
+        };
+
+        const handleBuildingToggle = (buildingType: string) => {
+          if (buildingType === 'militia') {
+            if (!selectedBuildings[camp.id]?.has('militia')) {
+              setMilitiaPopupOpen(camp.id);
+            } else {
+              setSelectedBuildings(prev => {
+                const campBuildings = new Set(prev[camp.id] || []);
+                campBuildings.delete('militia');
+                return { ...prev, [camp.id]: campBuildings };
+              });
+              setMilitiaNumbers(prev => {
+                const newNumbers = { ...prev };
+                delete newNumbers[camp.id];
+                return newNumbers;
+              });
+              setHoveredCamp(null);
+            }
+          } else {
+            setSelectedBuildings(prev => {
+              const campBuildings = new Set(prev[camp.id] || []);
+              if (campBuildings.has(buildingType)) {
+                campBuildings.delete(buildingType);
+              } else {
+                campBuildings.add(buildingType);
+              }
+              return { ...prev, [camp.id]: campBuildings };
+            });
+            setHoveredCamp(null);
+          }
+        };
+
+        const handleMilitiaNumberSelect = (number: number) => {
+          setSelectedBuildings(prev => {
+            const campBuildings = new Set(prev[camp.id] || []);
+            campBuildings.add('militia');
+            return { ...prev, [camp.id]: campBuildings };
+          });
+          
+          setMilitiaNumbers(prev => ({
+            ...prev,
+            [camp.id]: number
+          }));
+          
+          setMilitiaPopupOpen(null);
+          setHoveredCamp(null);
         };
 
         const isOpen = hoveredCamp === camp.id;
@@ -436,6 +501,98 @@ export function MapWithMarkers({ mapSlug, onUnitsSelected }: MapWithMarkersProps
                     </Group>
                   </Box>
                 )}
+                
+                <Divider my="xs" color="#373A40" />
+                
+                <Text size="sm" fw={500} mb="xs" style={{ color: '#909296' }}>
+                  Buildings
+                </Text>
+                
+                <Group gap="xs" mb="xs">
+                  <div
+                    onClick={() => handleBuildingToggle('ancientofwar')}
+                    style={{
+                      cursor: 'pointer',
+                      padding: '4px',
+                      borderRadius: '4px',
+                      backgroundColor: selectedBuildings[camp.id]?.has('ancientofwar') ? '#373A40' : 'transparent',
+                      border: selectedBuildings[camp.id]?.has('ancientofwar') ? '1px solid #FFD700' : '1px solid transparent',
+                    }}
+                  >
+                    <Image
+                      src="/icons/ancientofwar.png"
+                      width={32}
+                      height={32}
+                      fit="contain"
+                      alt="Ancient of War"
+                    />
+                  </div>
+                  
+                  <Popover
+                    position="bottom"
+                    withArrow
+                    opened={militiaPopupOpen === camp.id}
+                    onClose={() => setMilitiaPopupOpen(null)}
+                  >
+                    <Popover.Target>
+                      <div
+                        onClick={() => handleBuildingToggle('militia')}
+                        style={{
+                          cursor: 'pointer',
+                          padding: '4px',
+                          borderRadius: '4px',
+                          backgroundColor: selectedBuildings[camp.id]?.has('militia') ? '#373A40' : 'transparent',
+                          border: selectedBuildings[camp.id]?.has('militia') ? '1px solid #FFD700' : '1px solid transparent',
+                          position: 'relative',
+                        }}
+                      >
+                        <Image
+                          src="/icons/militia.png"
+                          width={32}
+                          height={32}
+                          fit="contain"
+                          alt="Militia"
+                        />
+                        {militiaNumbers[camp.id] && (
+                          <div
+                            style={{
+                              position: 'absolute',
+                              top: '-2px',
+                              right: '-2px',
+                              backgroundColor: '#FFD700',
+                              color: '#000',
+                              borderRadius: '50%',
+                              width: '16px',
+                              height: '16px',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              fontSize: '10px',
+                              fontWeight: 'bold',
+                            }}
+                          >
+                            {militiaNumbers[camp.id]}
+                          </div>
+                        )}
+                      </div>
+                    </Popover.Target>
+                    <Popover.Dropdown>
+                      <Text size="sm" fw={500} mb="xs">Select Militia Number:</Text>
+                      <SimpleGrid cols={4} spacing="xs">
+                        {[1, 2, 3, 4, 5, 6, 7, 8].map((number) => (
+                          <Button
+                            key={number}
+                            size="xs"
+                            variant="light"
+                            onClick={() => handleMilitiaNumberSelect(number)}
+                          >
+                            {number}
+                          </Button>
+                        ))}
+                      </SimpleGrid>
+                    </Popover.Dropdown>
+                  </Popover>
+                </Group>
               </Box>
             </Popover.Dropdown>
           </Popover>
@@ -478,6 +635,58 @@ export function MapWithMarkers({ mapSlug, onUnitsSelected }: MapWithMarkersProps
           );
         }
         return null;
+      })}
+      
+      {/* Render building icons separately */}
+      {camps.map(camp => {
+        const leftPct = (camp.position.x / W) * 100;
+        const topPct = (camp.position.y / H) * 100;
+        const campBuildings = selectedBuildings[camp.id] || new Set();
+        
+        return Array.from(campBuildings).map((buildingType, index) => (
+          <div
+            key={`building-${camp.id}-${buildingType}`}
+            style={{
+              position: 'absolute',
+              top: `${topPct + 0.5}%`,
+              left: `${leftPct + 0.5 + (index * 2)}%`,
+              transform: 'translate(0, 0)',
+              width: '30px',
+              height: '30px',
+              zIndex: 10,
+              pointerEvents: 'none',
+            }}
+          >
+            <Image
+              src={`/icons/${buildingType}.png`}
+              width={30}
+              height={30}
+              fit="contain"
+              alt={buildingType}
+            />
+            {buildingType === 'militia' && militiaNumbers[camp.id] && (
+              <div
+                style={{
+                  position: 'absolute',
+                  top: '-2px',
+                  right: '-2px',
+                  backgroundColor: '#FFD700',
+                  color: '#000',
+                  borderRadius: '50%',
+                  width: '16px',
+                  height: '16px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '10px',
+                  fontWeight: 'bold',
+                }}
+              >
+                {militiaNumbers[camp.id]}
+              </div>
+            )}
+          </div>
+        ));
       })}
     </div>
   );

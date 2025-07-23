@@ -6,7 +6,7 @@ import { MantineProvider,
 
 
 import './App.css'
-// import Map from './components/Map'
+
 
 import { CreateRoutePage } from './pages/CreateRoute';
 

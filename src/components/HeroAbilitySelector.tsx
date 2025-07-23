@@ -19,12 +19,9 @@ interface AbilityOrderSelectorProps {
 export default function AbilityOrderSelector({ hero, onChange }: AbilityOrderSelectorProps) {
   const abilitiesMap = heroAbilities as Record<string, { name: string; icon: string }[]>;
   const abilities = abilitiesMap[hero] || [];
-  // Track the chosen ability name for each of the 6 slots
   const [order, setOrder] = useState<string[]>(Array(6).fill(''));
-  // Track which slot’s popover is open
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
-  // Reset order to blanks when hero changes
   useEffect(() => {
     setOrder(Array(6).fill(''));
     setOpenIndex(null);
@@ -43,7 +40,6 @@ export default function AbilityOrderSelector({ hero, onChange }: AbilityOrderSel
 
       <Group style={{display: 'flex', flexWrap: 'nowrap', margin: 0}} mb="md">
         {order.map((selected, idx) => {
-          // find icon filename for selected or show blank
           const iconName = selected
             ? abilities.find((a) => a.name === selected)?.icon
             : 'blankskill.png';
