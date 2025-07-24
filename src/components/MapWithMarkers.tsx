@@ -19,10 +19,11 @@ interface Camp {
 interface MapWithMarkersProps {
   mapSlug: string;
   onUnitsSelected?: (totalXP: number) => void;
+  onCampsSelected?: (selectedCamps: Array<{campId: string, campOrder: number, items: Array<{name: string, icon: string, type: string, level: number}>}>) => void;
   resetRef?: React.MutableRefObject<(() => void) | null>;
 }
 
-export function MapWithMarkers({ mapSlug, onUnitsSelected, resetRef }: MapWithMarkersProps) {
+export function MapWithMarkers({ mapSlug, onUnitsSelected, onCampsSelected, resetRef }: MapWithMarkersProps) {
   const data = useMapData(mapSlug);
   const slug = mapSlug.toLowerCase().replace(/\s+/g, '_');
   const imgUrl = `/maps/${slug}.png`;
@@ -89,6 +90,38 @@ export function MapWithMarkers({ mapSlug, onUnitsSelected, resetRef }: MapWithMa
 
     onUnitsSelected(totalXP);
   }, [selectedUnits, data, onUnitsSelected]);
+
+  useEffect(() => {
+    if (!data || !onCampsSelected) return;
+
+    const selectedCampsData = campOrder.map((campId, index) => {
+      const camp = data.camps.find(c => c.id === campId);
+      if (!camp) return null;
+
+      const items: Array<{name: string, icon: string, type: string, level: number}> = [];
+      
+      camp.units.forEach(unit => {
+        if (unit.loot) {
+          unit.loot.items.forEach(itemName => {
+            items.push({
+              name: itemName,
+              icon: itemName.toLowerCase().replace(/[^a-z0-9]/g, ''),
+              type: unit.loot!.type,
+              level: unit.loot!.level
+            });
+          });
+        }
+      });
+
+      return {
+        campId,
+        campOrder: index + 1,
+        items
+      };
+    }).filter((camp): camp is {campId: string, campOrder: number, items: Array<{name: string, icon: string, type: string, level: number}>} => camp !== null);
+
+    onCampsSelected(selectedCampsData);
+  }, [campOrder, data, onCampsSelected]);
 
   if (!data) {
     return (

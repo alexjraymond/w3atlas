@@ -9,13 +9,14 @@ import {
   Button,
   Checkbox,
   AspectRatio,
-  Image,
-  SimpleGrid,
+      Image,
+    SimpleGrid
 } from '@mantine/core';
 import { Navbar } from '../components/Navbar';
 import { MapWithMarkers } from '../components/MapWithMarkers';
 import HeroAbilitySelector from '../components/HeroAbilitySelector';
 import ExperienceBar from '../components/ExperienceBar';
+import ItemsList from '../components/ItemsList';
 
 const xpPerLevel = {
   1: 200,
@@ -64,6 +65,7 @@ export function CreateRoutePage() {
   const [hero, setHero] = useState<string | null>(null);
   const [useTavern, setUseTavern] = useState(false);
   const [totalXP, setTotalXP] = useState(0);
+  const [selectedCamps, setSelectedCamps] = useState<Array<{campId: string, campOrder: number, items: Array<{name: string, icon: string, type: string, level: number}>}>>([]);
   const mapResetRef = useRef<(() => void) | null>(null);
 
   const races = Object.keys(heroOptions);
@@ -125,6 +127,10 @@ export function CreateRoutePage() {
 
   const handleUnitsSelected = (xp: number) => {
     setTotalXP(xp);
+  };
+
+  const handleCampsSelected = (camps: Array<{campId: string, campOrder: number, items: Array<{name: string, icon: string, type: string, level: number}>}>) => {
+    setSelectedCamps(camps);
   };
 
   return (
@@ -245,6 +251,7 @@ export function CreateRoutePage() {
                 <Button fullWidth variant="outline" mt={12}
                 onClick={() => {
                   setTotalXP(0);
+                  setSelectedCamps([]);
                   if (mapResetRef.current) {
                     mapResetRef.current();
                   }
@@ -259,17 +266,18 @@ export function CreateRoutePage() {
 
           <div style={{ flexGrow: 1, display: 'flex', justifyContent: 'center' }}>
             <AspectRatio ratio={416 / 512} style={{ width: 500 }}>
-              <MapWithMarkers mapSlug="Concealed Hill" onUnitsSelected={handleUnitsSelected} resetRef={mapResetRef} />
+              <MapWithMarkers mapSlug="Concealed Hill" onUnitsSelected={handleUnitsSelected} onCampsSelected={handleCampsSelected} resetRef={mapResetRef} />
             </AspectRatio>
             
-                  <div>
+                  <Container style={{ width: 400 }}>
                     <ExperienceBar
                       currentXP={currentXP}
                       currentLevel={currentLevel}
                       xpForNextLevel={xpForNextLevel}
                       totalRawXP={totalXP}
                     />
-                  </div>
+                    <ItemsList selectedCamps={selectedCamps} />
+                  </Container>
                 
           </div>
         </Container>
