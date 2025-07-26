@@ -19,7 +19,8 @@ interface ItemsListProps {
 
 export default function ItemsList({ selectedCamps }: ItemsListProps) {
   const getItemIconPath = (itemName: string) => {
-    const iconName = itemName.toLowerCase().replace(/[^a-z0-9]/g, '');
+    // Strip numbers from the end of the item name for icon lookup
+    const iconName = itemName.toLowerCase().replace(/[^a-z0-9]/g, '').replace(/\d+$/, '');
     return `/icons/${iconName}.png`;
   };
 
@@ -42,7 +43,7 @@ export default function ItemsList({ selectedCamps }: ItemsListProps) {
 
   return (
     <Card withBorder radius="md" padding="sm" bg="var(--mantine-color-body)" mt="md">
-      <Text fz="xs" tt="uppercase" fw={700} c="dimmed" align="center">
+      <Text fz="xs" tt="uppercase" fw={700} c="dimmed" ta="center">
         Items
       </Text>
       

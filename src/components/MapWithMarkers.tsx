@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Center, Loader, Popover, Group, Text, Divider, Image, Box, Grid, SimpleGrid, Button } from '@mantine/core';
 import { useMapData } from '../hooks/useMapData';
 import './Map.css';
@@ -50,7 +50,7 @@ export function MapWithMarkers({ mapSlug, onUnitsSelected, onCampsSelected, rese
     }
   }, [resetRef]);
 
-  const levelToRawXP: Record<number, number> = {
+  const levelToRawXP: Record<number, number> = useMemo(() => ({
     1: 25,
     2: 40,
     3: 60,
@@ -61,7 +61,7 @@ export function MapWithMarkers({ mapSlug, onUnitsSelected, onCampsSelected, rese
     8: 235,
     9: 285,
     10: 340
-  };
+  }), []);
 
   useEffect(() => {
     if (!data || !onUnitsSelected) return;
@@ -89,7 +89,7 @@ export function MapWithMarkers({ mapSlug, onUnitsSelected, onCampsSelected, rese
     });
 
     onUnitsSelected(totalXP);
-  }, [selectedUnits, data, onUnitsSelected]);
+  }, [selectedUnits, data, onUnitsSelected, levelToRawXP]);
 
   useEffect(() => {
     if (!data || !onCampsSelected) return;
@@ -186,9 +186,6 @@ export function MapWithMarkers({ mapSlug, onUnitsSelected, onCampsSelected, rese
         const unitsWithLoot = camp.units.filter(u => u.loot);
         const customItems = unitsWithLoot.filter(u => u.loot?.type === 'custom').flatMap(u => u.loot?.items || []);
         const powerUpItems = unitsWithLoot.filter(u => u.loot?.type === 'Power Up').flatMap(u => u.loot?.items || []);
-        
-        console.log(`[ITEMS] Camp ${camp.id} - Custom items:`, customItems);
-        console.log(`[ITEMS] Camp ${camp.id} - Power up items:`, powerUpItems);
 
         const handleUnitToggle = (unitId: string) => {
           setSelectedUnits(prev => {
@@ -217,22 +214,18 @@ export function MapWithMarkers({ mapSlug, onUnitsSelected, onCampsSelected, rese
         };
 
         const handleMouseEnter = () => {
-          console.log(`[HOVER] Mouse entered camp ${camp.id}`);
           setHoveredCamp(camp.id);
         };
 
         const handleMouseLeave = () => {
-          console.log(`[HOVER] Mouse left camp ${camp.id}`);
           setHoveredCamp(null);
         };
 
         const handleDropdownMouseEnter = () => {
-          console.log(`[HOVER] Mouse entered dropdown for camp ${camp.id}`);
           setHoveredCamp(camp.id);
         };
 
         const handleDropdownMouseLeave = () => {
-          console.log(`[HOVER] Mouse left dropdown for camp ${camp.id}`);
           setHoveredCamp(null);
         };
 
@@ -321,7 +314,7 @@ export function MapWithMarkers({ mapSlug, onUnitsSelected, onCampsSelected, rese
         const campIndex = campOrder.indexOf(camp.id);
         const hasSelectedUnits = selectedUnits[camp.id] && selectedUnits[camp.id].size > 0;
         const isSelected = campIndex !== -1 || hasSelectedUnits;
-        console.log(`[HOVER] Camp ${camp.id} isOpen: ${isOpen}, hoveredCamp: ${hoveredCamp}`);
+
 
         return (
           <Popover
@@ -478,7 +471,7 @@ export function MapWithMarkers({ mapSlug, onUnitsSelected, onCampsSelected, rese
                       maxWidth: '100%'
                     }}>
                       {Array.from(new Set(customItems.slice(0, 6))).map((item, idx) => {
-                        console.log(`[ITEMS] Rendering custom item ${idx}: ${item}`);
+
                         return (
                           <Image
                             key={idx}
@@ -521,7 +514,6 @@ export function MapWithMarkers({ mapSlug, onUnitsSelected, onCampsSelected, rese
                       
                     }}>
                       {Array.from(new Set(powerUpItems.slice(0, 6))).map((item, idx) => {
-                        console.log(`[ITEMS] Rendering power up item ${idx}: ${item}`);
                         return (
                           <Image
                             key={idx}

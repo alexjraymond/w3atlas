@@ -1,4 +1,4 @@
-import{ useState, useRef } from 'react';
+import{ useState, useRef, useCallback } from 'react';
 import {
   AppShell,
   Container,
@@ -125,13 +125,13 @@ export function CreateRoutePage() {
 
   const { currentLevel, currentXP, xpForNextLevel } = calculateLevelAndXP(totalXP);
 
-  const handleUnitsSelected = (xp: number) => {
+  const handleUnitsSelected = useCallback((xp: number) => {
     setTotalXP(xp);
-  };
+  }, []);
 
-  const handleCampsSelected = (camps: Array<{campId: string, campOrder: number, items: Array<{name: string, icon: string, type: string, level: number}>}>) => {
+  const handleCampsSelected = useCallback((camps: Array<{campId: string, campOrder: number, items: Array<{name: string, icon: string, type: string, level: number}>}>) => {
     setSelectedCamps(camps);
-  };
+  }, []);
 
   return (
     <AppShell padding="md" header={{ height: 60, offset: true }}>
