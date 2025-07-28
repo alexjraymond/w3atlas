@@ -1,0 +1,464 @@
+{
+  "mapName": "Last Refuge",
+  "dimensions": { "width": 512, "height": 512 },
+  "camps": [
+    {
+      "id": "orange-camp-expo-1",
+      "position": { "x": 336, "y": 423 },
+      "units": [
+        { "name": "Ogre Magi", "count": 1, "level": 3, "loot": {
+          "level": 2,
+          "type": "permanent",
+          "items": [
+            "claws_of_attack_+5",
+            "gloves_of_haste",
+            "ring_of_protection_+3"
+          ]
+        }},
+        { "name": "Forest Troll Trapper", "count": 2, "level": 2 }
+      ]
+    },
+    {
+      "id": "orange-camp-expo-2",
+      "position": { "x": 173, "y": 71 },
+      "units": [
+        { "name": "Ogre Magi", "count": 1, "level": 3, "loot": {
+          "level": 2,
+          "type": "permanent",
+          "items": [
+            "claws_of_attack_+5",
+            "gloves_of_haste",
+            "ring_of_protection_+3"
+          ]
+        }},
+        { "name": "Forest Troll Trapper", "count": 2, "level": 2 }
+      ]
+    },
+    {
+      "id": "red-camp-expo-1",
+      "position": { "x": 75, "y": 153 },
+      "units": [
+        { "name": "Ogre Lord", "count": 1, "level": 7, "loot": {
+          "level": 5,
+          "type": "permanent",
+          "items": [
+            "ancient_janggo_of_endurance",
+            "claws_of_attack_+12",
+            "cloak_of_flames",
+            "helm_of_valor",
+            "hood_of_cunning",
+            "khadgar's_pipe_of_insight",
+            "legion_doom_horn",
+            "medallion_of_courage",
+            "warsong_battle_drums"
+          ]
+        }},
+        { "name": "Ogre Magi", "count": 1, "level": 5 },
+        { "name": "Forest Troll High Priest", "count": 1, "level": 4, "loot": {
+          "level": 1,
+          "type": "Power Up",
+          "items": [
+            "tome_of_agility",
+            "tome_of_intelligence",
+            "tome_of_strength",
+            "manual_of_health"
+          ]
+        }},
+        { "name": "Forest Troll Berserker", "count": 2, "level": 4 }
+      ]
+    },
+    {
+      "id": "red-camp-expo-2",
+      "position": { "x": 452, "y": 317 },
+      "units": [
+        { "name": "Ogre Lord", "count": 1, "level": 7, "loot": {
+          "level": 5,
+          "type": "permanent",
+          "items": [
+            "ancient_janggo_of_endurance",
+            "claws_of_attack_+12",
+            "cloak_of_flames",
+            "helm_of_valor",
+            "hood_of_cunning",
+            "khadgar's_pipe_of_insight",
+            "legion_doom_horn",
+            "medallion_of_courage",
+            "warsong_battle_drums"
+          ]
+        }},
+        { "name": "Ogre Magi", "count": 1, "level": 5 },
+        { "name": "Forest Troll High Priest", "count": 1, "level": 4, "loot": {
+          "level": 1,
+          "type": "Power Up",
+          "items": [
+            "tome_of_agility",
+            "tome_of_intelligence",
+            "tome_of_strength",
+            "manual_of_health"
+          ]
+        }},
+        { "name": "Forest Troll Berserker", "count": 2, "level": 4 }
+      ]
+    },
+    {
+      "id": "orange-camp-lab-1",
+      "position": { "x": 323, "y": 101 },
+      "units": [
+        { "name": "Ogre Magi", "count": 1, "level": 5, "loot": {
+          "level": 4,
+          "type": "charged",
+          "items": [
+            "potion_of_greater_healing",
+            "potion_of_greater_mana",
+            "potion_of_invulnerability",
+            "scroll_of_the_beast",
+            "wand_of_mana_stealing"
+          ]
+        }},
+        { "name": "Ogre Mauler", "count": 1, "level": 4 },
+        { "name": "Forest Troll High Priest", "count": 1, "level": 3 },
+        { "name": "Forest Troll Berserker", "count": 1, "level": 3 }
+      ]
+    },
+    {
+      "id": "orange-camp-lab-2",
+      "position": { "x": 166, "y": 384 },
+      "units": [
+        { "name": "Ogre Magi", "count": 1, "level": 5, "loot": {
+          "level": 4,
+          "type": "charged",
+          "items": [
+            "potion_of_greater_healing",
+            "potion_of_greater_mana",
+            "potion_of_invulnerability",
+            "scroll_of_the_beast",
+            "wand_of_mana_stealing"
+          ]
+        }},
+        { "name": "Ogre Mauler", "count": 1, "level": 4 },
+        { "name": "Forest Troll High Priest", "count": 1, "level": 3 },
+        { "name": "Forest Troll Berserker", "count": 1, "level": 3 }
+      ]
+    },
+    {
+      "id": "orange-camp-merc-1",
+      "position": { "x": 253, "y": 40 },
+      "units": [
+        { "name": "Rock Golem", "count": 1, "level": 5, "loot": {
+          "level": 4,
+          "type": "permanent",
+          "items": [
+            "belt_of_strength_+6",
+            "boots_of_quelthalas",
+            "ring_of_archmagi",
+            "robes_of_the_magi",
+            "runed_bracers",
+            "scourged_bone_chimes",
+            "sobi_mask",
+            "horn_of_endurance",
+            "allerias_flute_of_accuracy"
+          ]
+        }},
+        { "name": "Forest Troll High Priest", "count": 1, "level": 3 },
+        { "name": "Forest Troll Trapper", "count": 1, "level": 2, "loot": {
+          "level": 1,
+          "type": "Power Up",
+          "items": [
+            "tome_of_agility",
+            "tome_of_intelligence",
+            "tome_of_strength",
+            "manual_of_health"
+          ]
+        }},
+        { "name": "Forest Troll Trapper", "count": 1, "level": 2, "loot": {
+          "level": 1,
+          "type": "Power Up",
+          "items": [
+            "tome_of_agility",
+            "tome_of_intelligence",
+            "tome_of_strength",
+            "manual_of_health"
+          ]
+        }},
+        { "name": "Mud Golem", "count": 1, "level": 2 }
+      ]
+    },
+    {
+      "id": "orange-camp-merc-2",
+      "position": { "x": 259, "y": 466 },
+      "units": [
+        { "name": "Rock Golem", "count": 1, "level": 5, "loot": {
+          "level": 4,
+          "type": "permanent",
+          "items": [
+            "belt_of_strength_+6",
+            "boots_of_quelthalas",
+            "ring_of_archmagi",
+            "robes_of_the_magi",
+            "runed_bracers",
+            "scourged_bone_chimes",
+            "sobi_mask",
+            "horn_of_endurance",
+            "allerias_flute_of_accuracy"
+          ]
+        }},
+        { "name": "Forest Troll High Priest", "count": 1, "level": 3 },
+        { "name": "Forest Troll Trapper", "count": 1, "level": 2, "loot": {
+          "level": 1,
+          "type": "Power Up",
+          "items": [
+            "tome_of_agility",
+            "tome_of_intelligence",
+            "tome_of_strength",
+            "manual_of_health"
+          ]
+        }},
+        { "name": "Forest Troll Trapper", "count": 1, "level": 2, "loot": {
+          "level": 1,
+          "type": "Power Up",
+          "items": [
+            "tome_of_agility",
+            "tome_of_intelligence",
+            "tome_of_strength",
+            "manual_of_health"
+          ]
+        }},
+        { "name": "Mud Golem", "count": 1, "level": 2 }
+      ]
+    },
+    {
+      "id": "orange-camp-shop-1",
+      "position": { "x": 163, "y": 235 },
+      "units": [
+        { "name": "Ogre Magi", "count": 1, "level": 4, "loot": {
+          "level": 3,
+          "type": "charged",
+          "items": [
+            "potion_of_greater_healing",
+            "potion_of_greater_mana",
+            "potion_of_invulnerability",
+            "scroll_of_the_beast",
+            "wand_of_mana_stealing"
+          ]
+        }},
+        { "name": "Ogre Warrior", "count": 2, "level": 3 },
+        { "name": "Forest Troll Trapper", "count": 1, "level": 2, "loot": {
+          "level": 2,
+          "type": "Power Up",
+          "items": [
+            "tome_of_agility_+2",
+            "tome_of_intelligence_+2",
+            "tome_of_strength_+2",
+            "tome_of_knowledge"
+          ]
+        }},
+        { "name": "Forest Troll Trapper", "count": 1, "level": 2 }
+      ]
+    },
+    {
+      "id": "orange-camp-shop-2",
+      "position": { "x": 339, "y": 215 },
+      "units": [
+        { "name": "Ogre Magi", "count": 1, "level": 4, "loot": {
+          "level": 3,
+          "type": "charged",
+          "items": [
+            "potion_of_greater_healing",
+            "potion_of_greater_mana",
+            "potion_of_invulnerability",
+            "scroll_of_the_beast",
+            "wand_of_mana_stealing"
+          ]
+        }},
+        { "name": "Ogre Warrior", "count": 2, "level": 3 },
+        { "name": "Forest Troll Trapper", "count": 1, "level": 2, "loot": {
+          "level": 2,
+          "type": "Power Up",
+          "items": [
+            "tome_of_agility_+2",
+            "tome_of_intelligence_+2",
+            "tome_of_strength_+2",
+            "tome_of_knowledge"
+          ]
+        }},
+        { "name": "Forest Troll Trapper", "count": 1, "level": 2 }
+      ]
+    },
+    {
+      "id": "green-camp-ogre-1",
+      "position": { "x": 184, "y": 482 },
+      "units": [
+        { "name": "Ogre Warrior", "count": 1, "level": 3, "loot": {
+          "level": 2,
+          "type": "permanent",
+          "items": [
+            "claws_of_attack_+5",
+            "gloves_of_haste",
+            "ring_of_protection_+3"
+          ]
+        }},
+        { "name": "Forest Troll Trapper", "count": 2, "level": 2 }
+      ]
+    },
+    {
+      "id": "green-camp-ogre-2",
+      "position": { "x": 323, "y": 20 },
+      "units": [
+        { "name": "Ogre Warrior", "count": 1, "level": 3, "loot": {
+          "level": 2,
+          "type": "permanent",
+          "items": [
+            "claws_of_attack_+5",
+            "gloves_of_haste",
+            "ring_of_protection_+3"
+          ]
+        }},
+        { "name": "Forest Troll Trapper", "count": 2, "level": 2 }
+      ]
+    },
+    {
+      "id": "green-camp-murloc-1",
+      "position": { "x": 261, "y": 104 },
+      "units": [
+        { "name": "Murloc Nightcrawler", "count": 1, "level": 2, "loot": {
+          "level": 1,
+          "type": "permanent",
+          "items": [
+            "cloak_of_shadows",
+            "gauntlets_of_ogre_strength",
+            "mantle_of_intelligence",
+            "ring_of_superiority",
+            "slippers_of_agility"
+          ]
+        }},
+        { "name": "Murloc Huntsman", "count": 2, "level": 2 },
+        { "name": "Murloc Tiderunner", "count": 1, "level": 1 }
+      ]
+    },
+    {
+      "id": "green-camp-murloc-2",
+      "position": { "x": 239, "y": 368 },
+      "units": [
+        { "name": "Murloc Nightcrawler", "count": 1, "level": 2, "loot": {
+          "level": 1,
+          "type": "permanent",
+          "items": [
+            "cloak_of_shadows",
+            "gauntlets_of_ogre_strength",
+            "mantle_of_intelligence",
+            "ring_of_superiority",
+            "slippers_of_agility"
+          ]
+        }},
+        { "name": "Murloc Huntsman", "count": 2, "level": 2 },
+        { "name": "Murloc Tiderunner", "count": 1, "level": 1 }
+      ]
+    },
+    {
+      "id": "green-camp-troll-1",
+      "position": { "x": 256, "y": 316 },
+      "units": [
+        { "name": "Forest Troll High Priest", "count": 1, "level": 3, "loot": {
+          "level": 2,
+          "type": "charged",
+          "items": [
+            "replenishment_potion",
+            "sentry_wards",
+            "wand_of_illusion"
+          ]
+        }},
+        { "name": "Forest Troll", "count": 2, "level": 2 }
+      ]
+    },
+    {
+      "id": "green-camp-troll-2",
+      "position": { "x": 250, "y": 137 },
+      "units": [
+        { "name": "Forest Troll High Priest", "count": 1, "level": 3, "loot": {
+          "level": 2,
+          "type": "charged",
+          "items": [
+            "replenishment_potion",
+            "sentry_wards",
+            "wand_of_illusion"
+          ]
+        }},
+        { "name": "Forest Troll", "count": 2, "level": 2 }
+      ]
+    },
+    {
+      "id": "orange-camp-gnoll-1",
+      "position": { "x": 185, "y": 180 },
+      "units": [
+        { "name": "Gnoll Overseer", "count": 1, "level": 3, "loot": {
+          "level": 2,
+          "type": "permanent",
+          "items": [
+            "claws_of_attack_+5",
+            "gloves_of_haste",
+            "ring_of_protection_+3"
+          ]
+        }},
+        { "name": "Gnoll Warden", "count": 1, "level": 2 },
+        { "name": "Gnoll Assassin", "count": 1, "level": 3 }
+      ]
+    },
+    {
+      "id": "orange-camp-gnoll-2",
+      "position": { "x": 326, "y": 270 },
+      "units": [
+        { "name": "Gnoll Overseer", "count": 1, "level": 3, "loot": {
+          "level": 2,
+          "type": "permanent",
+          "items": [
+            "claws_of_attack_+5",
+            "gloves_of_haste",
+            "ring_of_protection_+3"
+          ]
+        }},
+        { "name": "Gnoll Warden", "count": 1, "level": 2 },
+        { "name": "Gnoll Assassin", "count": 1, "level": 3 }
+      ]
+    },
+    {
+      "id": "orange-camp-turtle-1",
+      "position": { "x": 78, "y": 69 },
+      "units": [
+        { "name": "Gargantuan Sea Turtle", "count": 1, "level": 4, "loot": {
+          "level": 3,
+          "type": "permanent",
+          "items": [
+            "circlet_of_nobility",
+            "pendant_of_energy",
+            "periapt_of_vitality",
+            "ring_of_regeneration",
+            "talisman_of_evasion",
+            "claws_of_attack_+8"
+          ]
+        }},
+        { "name": "Murloc Nightcrawler", "count": 2, "level": 2 },
+        { "name": "Murloc Huntsman", "count": 2, "level": 2 }
+      ]
+    },
+    {
+      "id": "orange-camp-turtle-2",
+      "position": { "x": 461, "y": 440 },
+      "units": [
+        { "name": "Gargantuan Sea Turtle", "count": 1, "level": 4, "loot": {
+          "level": 3,
+          "type": "permanent",
+          "items": [
+            "circlet_of_nobility",
+            "pendant_of_energy",
+            "periapt_of_vitality",
+            "ring_of_regeneration",
+            "talisman_of_evasion",
+            "claws_of_attack_+8"
+          ]
+        }},
+        { "name": "Murloc Nightcrawler", "count": 2, "level": 2 },
+        { "name": "Murloc Huntsman", "count": 2, "level": 2 }
+      ]
+    }
+  ]
+} 

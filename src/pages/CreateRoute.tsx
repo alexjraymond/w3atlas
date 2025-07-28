@@ -10,7 +10,8 @@ import {
   Checkbox,
   AspectRatio,
       Image,
-    SimpleGrid
+    SimpleGrid,
+    Select
 } from '@mantine/core';
 import { Navbar } from '../components/Navbar';
 import { MapWithMarkers } from '../components/MapWithMarkers';
@@ -64,6 +65,7 @@ export function CreateRoutePage() {
   const [playerRace, setPlayerRace] = useState<string | null>(null);
   const [hero, setHero] = useState<string | null>(null);
   const [useTavern, setUseTavern] = useState(false);
+  const [selectedMap, setSelectedMap] = useState('Concealed Hill');
   const [totalXP, setTotalXP] = useState(0);
   const [selectedCamps, setSelectedCamps] = useState<Array<{campId: string, campOrder: number, items: Array<{name: string, icon: string, type: string, level: number}>}>>([]);
   const mapResetRef = useRef<(() => void) | null>(null);
@@ -264,22 +266,40 @@ export function CreateRoutePage() {
           </div>
 
 
-          <div style={{ flexGrow: 1, display: 'flex', justifyContent: 'center' }}>
-            <AspectRatio ratio={416 / 512} style={{ width: 500 }}>
-              <MapWithMarkers mapSlug="Concealed Hill" onUnitsSelected={handleUnitsSelected} onCampsSelected={handleCampsSelected} resetRef={mapResetRef} />
-            </AspectRatio>
+          <div style={{ flexGrow: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}>
+            <Select
+              label=""
+              placeholder="Choose a map"
+              value={selectedMap}
+              onChange={(value) => setSelectedMap(value || 'Concealed Hill')}
+              data={[
+                { value: 'Concealed Hill', label: 'Concealed Hill' },
+                { value: 'Shallow Grave', label: 'Shallow Grave' },
+                { value: 'Echo Isles v2', label: 'Echo Isles v2' },
+                { value: 'Autumn Leaves', label: 'Autumn Leaves' },
+                { value: 'Last Refuge', label: 'Last Refuge' }
+              ]}
+              style={{ width: 200 }}
+            />
             
+            <AspectRatio ratio={
+              selectedMap === 'Shallow Grave' || selectedMap === 'Autumn Leaves' || selectedMap === 'Last Refuge' ? 1 : 
+              selectedMap === 'Echo Isles v2' ? 416 / 512 : 
+              416 / 512
+            } style={{ width: 500 }}>
+              <MapWithMarkers mapSlug={selectedMap} onUnitsSelected={handleUnitsSelected} onCampsSelected={handleCampsSelected} resetRef={mapResetRef} />
+            </AspectRatio>
+            </div>
                   <Container style={{ width: 400 }}>
                     <ExperienceBar
                       currentXP={currentXP}
                       currentLevel={currentLevel}
                       xpForNextLevel={xpForNextLevel}
-                      totalRawXP={totalXP}
                     />
                     <ItemsList selectedCamps={selectedCamps} />
                   </Container>
                 
-          </div>
+
         </Container>
       </AppShell.Main>
     </AppShell>

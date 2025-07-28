@@ -4,10 +4,9 @@ interface ExperienceBarProps {
   currentXP: number;
   currentLevel: number;
   xpForNextLevel: number;
-  totalRawXP?: number;
 }
 
-export default function ExperienceBar({ currentXP, currentLevel, xpForNextLevel, totalRawXP }: ExperienceBarProps) {
+export default function ExperienceBar({ currentXP, currentLevel, xpForNextLevel }: ExperienceBarProps) {
   const progressPercentage = xpForNextLevel > 0 ? (currentXP / xpForNextLevel) * 100 : 0;
   
   const getXPGainPercentage = (level: number): number => {
@@ -45,12 +44,7 @@ export default function ExperienceBar({ currentXP, currentLevel, xpForNextLevel,
           No XP gained at this level
         </Text>
       )}
-      <Progress value={progressPercentage} mt="md" size="lg" radius="xl" />
-      {totalRawXP !== undefined && (
-        <Text fz="xs" c="dimmed" mt="xs">
-          Total raw XP from creeps: {totalRawXP}
-        </Text>
-      )}
+      <Progress value={progressPercentage} mt="md" size="lg" radius="xl" transitionDuration={200} />
     </Card>
   );
 }

@@ -1,0 +1,386 @@
+{
+  "mapName": "Autumn Leaves",
+  "dimensions": { "width": 512, "height": 512 },
+  "camps": [
+    {
+      "id": "green-camp-wolves-1",
+      "position": { "x": 95, "y": 335 },
+      "units": [
+        { "name": "Gnoll Warden", "count": 1, "level": 2, "loot": {
+          "level": 1,
+          "type": "Power Up",
+          "items": [
+            "tome_of_agility",
+            "tome_of_intelligence",
+            "tome_of_strength",
+            "manual_of_health"
+          ]
+        }},
+        { "name": "Frost Wolf", "count": 2, "level": 2 }
+      ]
+    },
+    {
+      "id": "green-camp-wolves-2",
+      "position": { "x": 412, "y": 95 },
+      "units": [
+        { "name": "Gnoll Warden", "count": 1, "level": 2, "loot": {
+          "level": 1,
+          "type": "Power Up",
+          "items": [
+            "tome_of_agility",
+            "tome_of_intelligence",
+            "tome_of_strength",
+            "manual_of_health"
+          ]
+        }},
+        { "name": "Frost Wolf", "count": 2, "level": 2 }
+      ]
+    },
+    {
+      "id": "green-camp-trolls-1",
+      "position": { "x": 259, "y": 335 },
+      "units": [
+        { "name": "Forest Troll Berserker", "count": 1, "level": 3, "loot": {
+          "level": 2,
+          "type": "permanent",
+          "items": [
+            "claws_of_attack_+5",
+            "gloves_of_haste",
+            "ring_of_protection_+3"
+          ]
+        }},
+        { "name": "Forest Troll Trapper", "count": 1, "level": 2 },
+        { "name": "Frost Wolf", "count": 1, "level": 2 }
+      ]
+    },
+    {
+      "id": "green-camp-trolls-2",
+      "position": { "x": 253, "y": 100 },
+      "units": [
+        { "name": "Forest Troll Berserker", "count": 1, "level": 3, "loot": {
+          "level": 2,
+          "type": "permanent",
+          "items": [
+            "claws_of_attack_+5",
+            "gloves_of_haste",
+            "ring_of_protection_+3"
+          ]
+        }},
+        { "name": "Forest Troll Trapper", "count": 1, "level": 2 },
+        { "name": "Frost Wolf", "count": 1, "level": 2 }
+      ]
+    },
+    {
+      "id": "green-camp-sludge-1",
+      "position": { "x": 408, "y": 277 },
+      "units": [
+        { "name": "Sludge Flinger", "count": 1, "level": 2, "loot": {
+          "level": 1,
+          "type": "permanent",
+          "items": [
+            "cloak_of_shadows",
+            "gauntlets_of_ogre_strength",
+            "mantle_of_intelligence",
+            "ring_of_superiority",
+            "slippers_of_agility"
+          ]
+        }},
+        { "name": "Skeleton Warrior", "count": 1, "level": 2 },
+        { "name": "Skeleton Archer", "count": 1, "level": 2 }
+      ]
+    },
+    {
+      "id": "green-camp-sludge-2",
+      "position": { "x": 104, "y": 138 },
+      "units": [
+        { "name": "Sludge Flinger", "count": 1, "level": 2, "loot": {
+          "level": 1,
+          "type": "permanent",
+          "items": [
+            "cloak_of_shadows",
+            "gauntlets_of_ogre_strength",
+            "mantle_of_intelligence",
+            "ring_of_superiority",
+            "slippers_of_agility"
+          ]
+        }},
+        { "name": "Skeleton Warrior", "count": 1, "level": 2 },
+        { "name": "Skeleton Archer", "count": 1, "level": 2 }
+      ]
+    },
+    {
+      "id": "green-camp-rogue-1",
+      "position": { "x": 56, "y": 64 },
+      "units": [
+        { "name": "Rogue Wizard", "count": 1, "level": 3, "loot": {
+          "level": 2,
+          "type": "charged",
+          "items": [
+            "potion_of_greater_healing",
+            "potion_of_greater_mana",
+            "potion_of_invulnerability",
+            "scroll_of_the_beast",
+            "wand_of_mana_stealing"
+          ]
+        }},
+        { "name": "Brigand", "count": 2, "level": 2 },
+        { "name": "Apprentice Wizard", "count": 1, "level": 2 }
+      ]
+    },
+    {
+      "id": "green-camp-rogue-2",
+      "position": { "x": 456, "y": 432 },
+      "units": [
+        { "name": "Rogue Wizard", "count": 1, "level": 3, "loot": {
+          "level": 2,
+          "type": "charged",
+          "items": [
+            "potion_of_greater_healing",
+            "potion_of_greater_mana",
+            "potion_of_invulnerability",
+            "scroll_of_the_beast",
+            "wand_of_mana_stealing"
+          ]
+        }},
+        { "name": "Brigand", "count": 2, "level": 2 },
+        { "name": "Apprentice Wizard", "count": 1, "level": 2 }
+      ]
+    },
+    {
+      "id": "orange-camp-gnoll-1",
+      "position": { "x": 36, "y": 297 },
+      "units": [
+        { "name": "Gnoll Overseer", "count": 1, "level": 4, "loot": {
+          "level": 3,
+          "type": "charged",
+          "items": [
+            "potion_of_greater_healing",
+            "potion_of_greater_mana",
+            "potion_of_invulnerability",
+            "scroll_of_the_beast",
+            "wand_of_mana_stealing"
+          ]
+        }},
+        { "name": "Enforcer", "count": 1, "level": 3 },
+        { "name": "Gnoll Assassin", "count": 1, "level": 3 }
+      ]
+    },
+    {
+      "id": "orange-camp-gnoll-2",
+      "position": { "x": 471, "y": 220 },
+      "units": [
+        { "name": "Gnoll Overseer", "count": 1, "level": 4, "loot": {
+          "level": 3,
+          "type": "charged",
+          "items": [
+            "potion_of_greater_healing",
+            "potion_of_greater_mana",
+            "potion_of_invulnerability",
+            "scroll_of_the_beast",
+            "wand_of_mana_stealing"
+          ]
+        }},
+        { "name": "Enforcer", "count": 1, "level": 3 },
+        { "name": "Gnoll Assassin", "count": 1, "level": 3 }
+      ]
+    },
+    {
+      "id": "orange-camp-expo-frontal-1",
+      "position": { "x": 159, "y": 302 },
+      "units": [
+        { "name": "Ogre Magi", "count": 1, "level": 2, "loot": {
+          "level": 1,
+          "type": "permanent",
+          "items": [
+            "cloak_of_shadows",
+            "gauntlets_of_ogre_strength",
+            "mantle_of_intelligence",
+            "ring_of_superiority",
+            "slippers_of_agility"
+          ]
+        }},
+        { "name": "Forest Troll Trapper", "count": 2, "level": 2 }
+      ]
+    },
+    {
+      "id": "orange-camp-expo-frontal-2",
+      "position": { "x": 346, "y": 205 },
+      "units": [
+        { "name": "Ogre Magi", "count": 1, "level": 2, "loot": {
+          "level": 1,
+          "type": "permanent",
+          "items": [
+            "cloak_of_shadows",
+            "gauntlets_of_ogre_strength",
+            "mantle_of_intelligence",
+            "ring_of_superiority",
+            "slippers_of_agility"
+          ]
+        }},
+        { "name": "Forest Troll Trapper", "count": 2, "level": 2 }
+      ]
+    },
+    {
+      "id": "orange-camp-expo-corner-1",
+      "position": { "x": 123, "y": 46 },
+      "units": [
+        { "name": "Kobold Taskmaster", "count": 1, "level": 4, "loot": {
+          "level": 3,
+          "type": "permanent",
+          "items": [
+            "circlet_of_nobility",
+            "pendant_of_energy",
+            "periapt_of_vitality",
+            "ring_of_regeneration",
+            "talisman_of_evasion",
+            "claws_of_attack_+8"
+          ]
+        }},
+        { "name": "Kobold Geomancer", "count": 2, "level": 2 },
+        { "name": "Kobold Tunneler", "count": 1, "level": 2 }
+      ]
+    },
+    {
+      "id": "orange-camp-expo-corner-2",
+      "position": { "x": 374, "y": 461 },
+      "units": [
+        { "name": "Kobold Taskmaster", "count": 1, "level": 4, "loot": {
+          "level": 3,
+          "type": "permanent",
+          "items": [
+            "circlet_of_nobility",
+            "pendant_of_energy",
+            "periapt_of_vitality",
+            "ring_of_regeneration",
+            "talisman_of_evasion",
+            "claws_of_attack_+8"
+          ]
+        }},
+        { "name": "Kobold Geomancer", "count": 2, "level": 2 },
+        { "name": "Kobold Tunneler", "count": 1, "level": 2 }
+      ]
+    },
+    {
+      "id": "orange-camp-merc",
+      "position": { "x": 302, "y": 312 },
+      "units": [
+        { "name": "Forest Troll Warlord", "count": 1, "level": 5, "loot": {
+          "level": 4,
+          "type": "charged",
+          "items": [
+            "potion_of_greater_healing",
+            "potion_of_greater_mana",
+            "potion_of_invulnerability",
+            "scroll_of_the_beast",
+            "wand_of_mana_stealing"
+          ]
+        }},
+        { "name": "Sasquatch", "count": 1, "level": 4 },
+        { "name": "Forest Troll High Priest", "count": 1, "level": 3 },
+        { "name": "Forest Troll Berserker", "count": 1, "level": 3 }
+      ]
+    },
+    {
+      "id": "orange-camp-shop-1",
+      "position": { "x": 156, "y": 123 },
+      "units": [
+        { "name": "Sasquatch", "count": 1, "level": 3, "loot": {
+          "level": 2,
+          "type": "permanent",
+          "items": [
+            "claws_of_attack_+5",
+            "gloves_of_haste",
+            "ring_of_protection_+3"
+          ]
+        }},
+        { "name": "Forest Troll Berserker", "count": 1, "level": 3 },
+        { "name": "Forest Troll Trapper", "count": 1, "level": 2 }
+      ]
+    },
+    {
+      "id": "orange-camp-shop-2",
+      "position": { "x": 348, "y": 389 },
+      "units": [
+        { "name": "Sasquatch", "count": 1, "level": 3, "loot": {
+          "level": 2,
+          "type": "permanent",
+          "items": [
+            "claws_of_attack_+5",
+            "gloves_of_haste",
+            "ring_of_protection_+3"
+          ]
+        }},
+        { "name": "Forest Troll Berserker", "count": 1, "level": 3 },
+        { "name": "Forest Troll Trapper", "count": 1, "level": 2 }
+      ]
+    },
+    {
+      "id": "orange-camp-lab",
+      "position": { "x": 212, "y": 202 },
+      "units": [
+        { "name": "Enraged Wildkin", "count": 1, "level": 5, "loot": {
+          "level": 4,
+          "type": "permanent",
+          "items": [
+            "belt_of_strength_+6",
+            "boots_of_quelthalas",
+            "ring_of_archmagi",
+            "robes_of_the_magi",
+            "runed_bracers",
+            "scourged_bone_chimes",
+            "sobi_mask",
+            "horn_of_endurance",
+            "allerias_flute_of_accuracy"
+          ]
+        }},
+        { "name": "Gnoll Overseer", "count": 1, "level": 4 },
+        { "name": "Gnoll Warden", "count": 1, "level": 2 },
+        { "name": "Gnoll Assassin", "count": 1, "level": 3 }
+      ]
+    },
+    {
+      "id": "red-camp-granite-1",
+      "position": { "x": 15, "y": 195 },
+      "units": [
+        { "name": "Granite Golem", "count": 1, "level": 7, "loot": {
+          "level": 5,
+          "type": "permanent",
+          "items": [
+            "ancient_janggo_of_endurance",
+            "claws_of_attack_+12",
+            "cloak_of_flames",
+            "helm_of_valor",
+            "hood_of_cunning",
+            "khadgar's_pipe_of_insight",
+            "legion_doom_horn",
+            "medallion_of_courage",
+            "warsong_battle_drums"
+          ]
+        }},
+        { "name": "Dire Frost Wolf", "count": 2, "level": 5 }
+      ]
+    },
+    {
+      "id": "red-camp-granite-2",
+      "position": { "x": 497, "y": 312 },
+      "units": [
+        { "name": "Granite Golem", "count": 1, "level": 7, "loot": {
+          "level": 5,
+          "type": "permanent",
+          "items": [
+            "ancient_janggo_of_endurance",
+            "claws_of_attack_+12",
+            "cloak_of_flames",
+            "helm_of_valor",
+            "hood_of_cunning",
+            "khadgar's_pipe_of_insight",
+            "legion_doom_horn",
+            "medallion_of_courage",
+            "warsong_battle_drums"
+          ]
+        }},
+        { "name": "Dire Frost Wolf", "count": 2, "level": 5 }
+      ]
+    }
+  ]
+} 
