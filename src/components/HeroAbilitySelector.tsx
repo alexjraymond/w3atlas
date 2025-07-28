@@ -4,7 +4,6 @@ import {
   Group,
   ActionIcon,
   Image,
-  Button,
   Popover,
   SimpleGrid,
 } from '@mantine/core';
@@ -94,11 +93,7 @@ export default function AbilityOrderSelector({ hero, onChange }: AbilityOrderSel
         })}
       </Group>
 
-      <Group mt="md">
-        <Button size="xs" variant="outline" onClick={() => console.log(order)}>
-          Save Order
-        </Button>
-      </Group>
+
     </Card>
   );
 }

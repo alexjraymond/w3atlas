@@ -11,7 +11,8 @@ import {
   AspectRatio,
       Image,
     SimpleGrid,
-    Select
+    Select,
+    Flex
 } from '@mantine/core';
 import { Navbar } from '../components/Navbar';
 import { MapWithMarkers } from '../components/MapWithMarkers';
@@ -68,6 +69,7 @@ export function CreateRoutePage() {
   const [selectedMap, setSelectedMap] = useState('Concealed Hill');
   const [totalXP, setTotalXP] = useState(0);
   const [selectedCamps, setSelectedCamps] = useState<Array<{campId: string, campOrder: number, items: Array<{name: string, icon: string, type: string, level: number}>}>>([]);
+  const [abilityOrder, setAbilityOrder] = useState<string[]>([]);
   const mapResetRef = useRef<(() => void) | null>(null);
 
   const races = Object.keys(heroOptions);
@@ -239,34 +241,29 @@ export function CreateRoutePage() {
                     </Text>
                     <HeroAbilitySelector
                       hero={hero!}
-                      onChange={(order) => console.log('Order:', order)}
-                      
+                      onChange={setAbilityOrder}
                     />
                   </div>
                 )}
 
 
 
-                <Button fullWidth variant="outline" mt={12}>
-                  Save Route
-                </Button>
-                <Button fullWidth variant="outline" mt={12}
-                onClick={() => {
-                  setTotalXP(0);
-                  setSelectedCamps([]);
-                  if (mapResetRef.current) {
-                    mapResetRef.current();
-                  }
-                }}
-                >
-                  Reset Route
-                </Button>
+
               </Stack>
             </Card>
           </div>
 
 
           <div style={{ flexGrow: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}>
+
+            
+            <AspectRatio ratio={
+              selectedMap === 'Shallow Grave' || selectedMap === 'Autumn Leaves' || selectedMap === 'Last Refuge' ? 1 : 
+              selectedMap === 'Echo Isles v2' ? 512 / 512 : 
+              512 / 512
+            } style={{ width: 500 }}>
+              <MapWithMarkers mapSlug={selectedMap} onUnitsSelected={handleUnitsSelected} onCampsSelected={handleCampsSelected} resetRef={mapResetRef} />
+            </AspectRatio>
             <Select
               label=""
               placeholder="Choose a map"
@@ -280,15 +277,27 @@ export function CreateRoutePage() {
                 { value: 'Last Refuge', label: 'Last Refuge' }
               ]}
               style={{ width: 200 }}
+              miw={400}
             />
-            
-            <AspectRatio ratio={
-              selectedMap === 'Shallow Grave' || selectedMap === 'Autumn Leaves' || selectedMap === 'Last Refuge' ? 1 : 
-              selectedMap === 'Echo Isles v2' ? 416 / 512 : 
-              416 / 512
-            } style={{ width: 500 }}>
-              <MapWithMarkers mapSlug={selectedMap} onUnitsSelected={handleUnitsSelected} onCampsSelected={handleCampsSelected} resetRef={mapResetRef} />
-            </AspectRatio>
+
+<Flex gap={12} justify="space-between" miw={400} > 
+
+              <Button  variant="outline" mt={12}>
+                Save Route
+              </Button>
+              <Button  variant="outline" mt={12}
+                  onClick={() => {
+                    setTotalXP(0);
+                    setSelectedCamps([]);
+                    setAbilityOrder([]);
+                    if (mapResetRef.current) {
+                      mapResetRef.current();
+                    }
+                  }}
+                  >
+                    Reset Route
+              </Button>
+              </Flex>
             </div>
                   <Container style={{ width: 400 }}>
                     <ExperienceBar
