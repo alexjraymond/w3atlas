@@ -70,6 +70,8 @@ export function CreateRoutePage() {
   const [totalXP, setTotalXP] = useState(0);
   const [selectedCamps, setSelectedCamps] = useState<Array<{campId: string, campOrder: number, items: Array<{name: string, icon: string, type: string, level: number}>}>>([]);
   const [abilityOrder, setAbilityOrder] = useState<string[]>([]);
+  const [stickyNotes, setStickyNotes] = useState<Array<{id: string, x: number, y: number, text: string}>>([]);
+  const [notePlacementMode, setNotePlacementMode] = useState(false);
   const mapResetRef = useRef<(() => void) | null>(null);
 
   const races = Object.keys(heroOptions);
@@ -135,6 +137,27 @@ export function CreateRoutePage() {
 
   const handleCampsSelected = useCallback((camps: Array<{campId: string, campOrder: number, items: Array<{name: string, icon: string, type: string, level: number}>}>) => {
     setSelectedCamps(camps);
+  }, []);
+
+  const handleNoteAdd = useCallback((x: number, y: number) => {
+    const newNote = {
+      id: `note-${Date.now()}`,
+      x,
+      y,
+      text: ''
+    };
+    setStickyNotes(prev => [...prev, newNote]);
+    setNotePlacementMode(false);
+  }, []);
+
+  const handleNoteUpdate = useCallback((id: string, text: string) => {
+    setStickyNotes(prev => prev.map(note => 
+      note.id === id ? { ...note, text } : note
+    ));
+  }, []);
+
+  const handleNoteDelete = useCallback((id: string) => {
+    setStickyNotes(prev => prev.filter(note => note.id !== id));
   }, []);
 
   return (
@@ -262,7 +285,19 @@ export function CreateRoutePage() {
               selectedMap === 'Echo Isles v2' ? 512 / 512 : 
               512 / 512
             } style={{ width: 500 }}>
-              <MapWithMarkers mapSlug={selectedMap} onUnitsSelected={handleUnitsSelected} onCampsSelected={handleCampsSelected} resetRef={mapResetRef} />
+              <MapWithMarkers 
+                mapSlug={selectedMap} 
+                onUnitsSelected={handleUnitsSelected} 
+                onCampsSelected={handleCampsSelected} 
+                resetRef={mapResetRef}
+                {...{
+                  stickyNotes,
+                  notePlacementMode,
+                  onNoteAdd: handleNoteAdd,
+                  onNoteUpdate: handleNoteUpdate,
+                  onNoteDelete: handleNoteDelete
+                }}
+              />
             </AspectRatio>
             <Select
               label=""
@@ -280,8 +315,15 @@ export function CreateRoutePage() {
               miw={400}
             />
 
-<Flex gap={12} justify="space-between" miw={400} > 
-
+<Flex gap={12} justify="space-between" miw={400} wrap="wrap"> 
+              <Button 
+                variant={notePlacementMode ? "filled" : "outline"} 
+                mt={12}
+                onClick={() => setNotePlacementMode(!notePlacementMode)}
+                color={notePlacementMode ? "yellow" : "blue"}
+              >
+                {notePlacementMode ? "Cancel Note" : "New Note"}
+              </Button>
               <Button  variant="outline" mt={12}>
                 Save Route
               </Button>
@@ -290,6 +332,8 @@ export function CreateRoutePage() {
                     setTotalXP(0);
                     setSelectedCamps([]);
                     setAbilityOrder([]);
+                    setStickyNotes([]);
+                    setNotePlacementMode(false);
                     if (mapResetRef.current) {
                       mapResetRef.current();
                     }

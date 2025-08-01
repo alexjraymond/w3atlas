@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Center, Loader, Popover, Group, Text, Divider, Image, Box, Grid, SimpleGrid, Button } from '@mantine/core';
 import { useMapData } from '../hooks/useMapData';
+import { StickyNote } from './StickyNote';
 import './Map.css';
 
 interface Unit {
@@ -16,14 +17,36 @@ interface Camp {
   units: Unit[];
 }
 
-interface MapWithMarkersProps {
+interface StickyNoteData {
+  id: string;
+  x: number;
+  y: number;
+  text: string;
+}
+
+export interface MapWithMarkersProps {
   mapSlug: string;
   onUnitsSelected?: (totalXP: number) => void;
   onCampsSelected?: (selectedCamps: Array<{campId: string, campOrder: number, items: Array<{name: string, icon: string, type: string, level: number}>}>) => void;
   resetRef?: React.MutableRefObject<(() => void) | null>;
+  stickyNotes?: StickyNoteData[];
+  notePlacementMode?: boolean;
+  onNoteAdd?: (x: number, y: number) => void;
+  onNoteUpdate?: (id: string, text: string) => void;
+  onNoteDelete?: (id: string) => void;
 }
 
-export function MapWithMarkers({ mapSlug, onUnitsSelected, onCampsSelected, resetRef }: MapWithMarkersProps) {
+export function MapWithMarkers({ 
+  mapSlug, 
+  onUnitsSelected, 
+  onCampsSelected, 
+  resetRef,
+  stickyNotes = [],
+  notePlacementMode = false,
+  onNoteAdd,
+  onNoteUpdate,
+  onNoteDelete
+}: MapWithMarkersProps) {
   const data = useMapData(mapSlug);
   const slug = mapSlug.toLowerCase().replace(/\s+/g, '_');
   const imgUrl = `/maps/${slug}.png`;
@@ -165,10 +188,24 @@ export function MapWithMarkers({ mapSlug, onUnitsSelected, onCampsSelected, rese
     return `/icons/${iconName}.png`;
   };
 
-
+  const handleMapClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    if (!notePlacementMode || !onNoteAdd) return;
+    
+    const rect = event.currentTarget.getBoundingClientRect();
+    const x = ((event.clientX - rect.left) / rect.width) * 100;
+    const y = ((event.clientY - rect.top) / rect.height) * 100;
+    
+    onNoteAdd(x, y);
+  };
 
   return (
-    <div style={containerStyle}>
+    <div 
+      style={{
+        ...containerStyle,
+        cursor: notePlacementMode ? 'crosshair' : 'default',
+      }}
+      onClick={handleMapClick}
+    >
       <img src={imgUrl} alt={mapSlug} style={imgStyle} onError={() => console.error('Failed to load map image')} />
 
       {camps.map(camp => {
@@ -229,7 +266,12 @@ export function MapWithMarkers({ mapSlug, onUnitsSelected, onCampsSelected, rese
           setHoveredCamp(null);
         };
 
-        const handleCampClick = () => {
+        const handleCampClick = (event: React.MouseEvent) => {
+          if (notePlacementMode) {
+            event.stopPropagation();
+            return;
+          }
+
           if (!campOrder.includes(camp.id)) {
             const newOrder = [...campOrder, camp.id];
             setCampOrder(newOrder);
@@ -713,7 +755,28 @@ export function MapWithMarkers({ mapSlug, onUnitsSelected, onCampsSelected, rese
           </div>
         ));
       })}
+      
+      {/* Render sticky notes */}
+      {stickyNotes.map(note => (
+        <div
+          key={note.id}
+          style={{
+            position: 'absolute',
+            top: `${note.y}%`,
+            left: `${note.x}%`,
+            transform: 'translate(-50%, -50%)',
+            zIndex: 20,
+          }}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <StickyNote
+            id={note.id}
+            text={note.text}
+            onTextChange={onNoteUpdate || (() => {})}
+            onDelete={onNoteDelete || (() => {})}
+          />
+        </div>
+      ))}
     </div>
   );
 }
-export default MapWithMarkers;
