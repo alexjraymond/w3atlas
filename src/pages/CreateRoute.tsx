@@ -1,4 +1,4 @@
-import{ useState, useRef, useCallback } from 'react';
+import{ useState, useRef, useCallback, useEffect } from 'react';
 import {
   AppShell,
   Container,
@@ -76,6 +76,18 @@ export function CreateRoutePage() {
 
   const races = Object.keys(heroOptions);
   const currentHeroes = useTavern || !playerRace ? tavernHeroes : heroOptions[playerRace!];
+
+  // Reset route data when map changes
+  useEffect(() => {
+    setTotalXP(0);
+    setSelectedCamps([]);
+    setAbilityOrder([]);
+    setStickyNotes([]);
+    setNotePlacementMode(false);
+    if (mapResetRef.current) {
+      mapResetRef.current();
+    }
+  }, [selectedMap]);
 
   const calculateLevelAndXP = (totalRawXP: number) => {
     let remainingRawXP = totalRawXP;
