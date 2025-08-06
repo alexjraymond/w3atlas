@@ -57,6 +57,8 @@ export function MapWithMarkers({
   const [selectedBuildings, setSelectedBuildings] = useState<Record<string, Set<string>>>({});
   const [militiaNumbers, setMilitiaNumbers] = useState<Record<string, number>>({});
   const [militiaPopupOpen, setMilitiaPopupOpen] = useState<string | null>(null);
+  const [ghoulNumbers, setGhoulNumbers] = useState<Record<string, number>>({});
+  const [ghoulPopupOpen, setGhoulPopupOpen] = useState<string | null>(null);
 
   const handleReset = () => {
     setSelectedUnits({});
@@ -64,6 +66,8 @@ export function MapWithMarkers({
     setSelectedBuildings({});
     setMilitiaNumbers({});
     setMilitiaPopupOpen(null);
+    setGhoulNumbers({});
+    setGhoulPopupOpen(null);
     setHoveredCamp(null);
   };
 
@@ -322,6 +326,22 @@ export function MapWithMarkers({
               });
               setHoveredCamp(null);
             }
+          } else if (buildingType === 'ghoul') {
+            if (!selectedBuildings[camp.id]?.has('ghoul')) {
+              setGhoulPopupOpen(camp.id);
+            } else {
+              setSelectedBuildings(prev => {
+                const campBuildings = new Set(prev[camp.id] || []);
+                campBuildings.delete('ghoul');
+                return { ...prev, [camp.id]: campBuildings };
+              });
+              setGhoulNumbers(prev => {
+                const newNumbers = { ...prev };
+                delete newNumbers[camp.id];
+                return newNumbers;
+              });
+              setHoveredCamp(null);
+            }
           } else {
             setSelectedBuildings(prev => {
               const campBuildings = new Set(prev[camp.id] || []);
@@ -387,6 +407,42 @@ export function MapWithMarkers({
           });
           
           setMilitiaPopupOpen(null);
+          setHoveredCamp(null);
+        };
+
+        const handleGhoulNumberSelect = (number: number) => {
+          setSelectedBuildings(prev => {
+            const campBuildings = new Set(prev[camp.id] || []);
+            campBuildings.add('ghoul');
+            return { ...prev, [camp.id]: campBuildings };
+          });
+          
+          setGhoulNumbers(prev => ({
+            ...prev,
+            [camp.id]: number
+          }));
+          
+          // Auto-select the camp if it's not already selected
+          setCampOrder(prevOrder => {
+            if (!prevOrder.includes(camp.id)) {
+              return [...prevOrder, camp.id];
+            }
+            return prevOrder;
+          });
+          
+          // Also select all units in the camp if not already selected
+          setSelectedUnits(prev => {
+            if (!prev[camp.id] || prev[camp.id].size === 0) {
+              const allUnitIds = expandedUnits.map(unit => unit.uniqueId);
+              return {
+                ...prev,
+                [camp.id]: new Set(allUnitIds)
+              };
+            }
+            return prev;
+          });
+          
+          setGhoulPopupOpen(null);
           setHoveredCamp(null);
         };
 
@@ -697,6 +753,71 @@ export function MapWithMarkers({
                       </SimpleGrid>
                     </Popover.Dropdown>
                   </Popover>
+                  
+                  <Popover
+                    position="bottom"
+                    withArrow
+                    opened={ghoulPopupOpen === camp.id}
+                    onClose={() => setGhoulPopupOpen(null)}
+                  >
+                    <Popover.Target>
+                      <div
+                        onClick={() => handleBuildingToggle('ghoul')}
+                        style={{
+                          cursor: 'pointer',
+                          padding: '4px',
+                          borderRadius: '4px',
+                          backgroundColor: selectedBuildings[camp.id]?.has('ghoul') ? '#373A40' : 'transparent',
+                          border: selectedBuildings[camp.id]?.has('ghoul') ? '1px solid #FFD700' : '1px solid transparent',
+                          position: 'relative',
+                        }}
+                      >
+                        <Image
+                          src="/icons/ghoul.png"
+                          width={32}
+                          height={32}
+                          fit="contain"
+                          alt="Ghoul"
+                        />
+                        {ghoulNumbers[camp.id] && (
+                          <div
+                            style={{
+                              position: 'absolute',
+                              top: '-2px',
+                              right: '-2px',
+                              backgroundColor: '#FFD700',
+                              color: '#000',
+                              borderRadius: '50%',
+                              width: '16px',
+                              height: '16px',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              fontSize: '10px',
+                              fontWeight: 'bold',
+                            }}
+                          >
+                            {ghoulNumbers[camp.id]}
+                          </div>
+                        )}
+                      </div>
+                    </Popover.Target>
+                    <Popover.Dropdown>
+                      <Text size="sm" fw={500} mb="xs">Select Ghoul Number:</Text>
+                      <SimpleGrid cols={4} spacing="xs">
+                        {[1, 2, 3, 4, 5, 6, 7, 8].map((number) => (
+                          <Button
+                            key={number}
+                            size="xs"
+                            variant="light"
+                            onClick={() => handleGhoulNumberSelect(number)}
+                          >
+                            {number}
+                          </Button>
+                        ))}
+                      </SimpleGrid>
+                    </Popover.Dropdown>
+                  </Popover>
                 </Group>
               </Box>
             </Popover.Dropdown>
@@ -788,6 +909,27 @@ export function MapWithMarkers({
                 }}
               >
                 {militiaNumbers[camp.id]}
+              </div>
+            )}
+            {buildingType === 'ghoul' && ghoulNumbers[camp.id] && (
+              <div
+                style={{
+                  position: 'absolute',
+                  top: '-2px',
+                  right: '-2px',
+                  backgroundColor: '#FFD700',
+                  color: '#000',
+                  borderRadius: '50%',
+                  width: '16px',
+                  height: '16px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '10px',
+                  fontWeight: 'bold',
+                }}
+              >
+                {ghoulNumbers[camp.id]}
               </div>
             )}
           </div>
