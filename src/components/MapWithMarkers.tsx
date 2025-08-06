@@ -329,6 +329,24 @@ export function MapWithMarkers({
                 campBuildings.delete(buildingType);
               } else {
                 campBuildings.add(buildingType);
+                // Auto-select the camp if it's not already selected
+                setCampOrder(prevOrder => {
+                  if (!prevOrder.includes(camp.id)) {
+                    return [...prevOrder, camp.id];
+                  }
+                  return prevOrder;
+                });
+                // Also select all units in the camp if not already selected
+                setSelectedUnits(prev => {
+                  if (!prev[camp.id] || prev[camp.id].size === 0) {
+                    const allUnitIds = expandedUnits.map(unit => unit.uniqueId);
+                    return {
+                      ...prev,
+                      [camp.id]: new Set(allUnitIds)
+                    };
+                  }
+                  return prev;
+                });
               }
               return { ...prev, [camp.id]: campBuildings };
             });
@@ -347,6 +365,26 @@ export function MapWithMarkers({
             ...prev,
             [camp.id]: number
           }));
+          
+          // Auto-select the camp if it's not already selected
+          setCampOrder(prevOrder => {
+            if (!prevOrder.includes(camp.id)) {
+              return [...prevOrder, camp.id];
+            }
+            return prevOrder;
+          });
+          
+          // Also select all units in the camp if not already selected
+          setSelectedUnits(prev => {
+            if (!prev[camp.id] || prev[camp.id].size === 0) {
+              const allUnitIds = expandedUnits.map(unit => unit.uniqueId);
+              return {
+                ...prev,
+                [camp.id]: new Set(allUnitIds)
+              };
+            }
+            return prev;
+          });
           
           setMilitiaPopupOpen(null);
           setHoveredCamp(null);
