@@ -7,12 +7,16 @@ interface StickyNoteProps {
   text: string;
   onTextChange: (id: string, text: string) => void;
   onDelete: (id: string) => void;
+  onPositionChange?: (id: string, x: number, y: number) => void;
 }
 
-export function StickyNote({ id, text, onTextChange, onDelete }: StickyNoteProps) {
+export function StickyNote({ id, text, onTextChange, onDelete, onPositionChange }: StickyNoteProps) {
   const [isEditing, setIsEditing] = useState(text === '');
   const [localText, setLocalText] = useState(text);
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const noteRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (isEditing && textareaRef.current) {
@@ -34,8 +38,63 @@ export function StickyNote({ id, text, onTextChange, onDelete }: StickyNoteProps
     }
   };
 
+  const handleDragStart = (event: React.MouseEvent) => {
+    event.preventDefault();
+    event.stopPropagation();
+    
+    if (!noteRef.current || !onPositionChange) return;
+    
+    const rect = noteRef.current.getBoundingClientRect();
+    const parentRect = noteRef.current.offsetParent?.getBoundingClientRect();
+    
+    if (!parentRect) return;
+    
+    setDragOffset({
+      x: event.clientX - rect.left,
+      y: event.clientY - rect.top
+    });
+    
+    setIsDragging(true);
+  };
+
+  useEffect(() => {
+    const handleMouseMove = (event: MouseEvent) => {
+      if (!isDragging || !noteRef.current || !onPositionChange) return;
+      
+      const parentRect = noteRef.current.offsetParent?.getBoundingClientRect();
+      if (!parentRect) return;
+      
+      const newX = event.clientX - parentRect.left - dragOffset.x;
+      const newY = event.clientY - parentRect.top - dragOffset.y;
+      
+      // Convert to percentage for responsive positioning
+      const parentWidth = parentRect.width;
+      const parentHeight = parentRect.height;
+      
+      const xPercent = (newX / parentWidth) * 100;
+      const yPercent = (newY / parentHeight) * 100;
+      
+      onPositionChange(id, xPercent, yPercent);
+    };
+
+    const handleMouseUp = () => {
+      setIsDragging(false);
+    };
+
+    if (isDragging) {
+      document.addEventListener('mousemove', handleMouseMove);
+      document.addEventListener('mouseup', handleMouseUp);
+    }
+
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+    };
+  }, [isDragging, dragOffset, id, onPositionChange]);
+
   return (
     <Card
+      ref={noteRef}
       shadow="md"
       padding="xs"
       radius="md"
@@ -46,8 +105,9 @@ export function StickyNote({ id, text, onTextChange, onDelete }: StickyNoteProps
         maxWidth: '200px',
         position: 'relative',
         cursor: isEditing ? 'default' : 'pointer',
+        userSelect: isDragging ? 'none' : 'auto',
       }}
-      onClick={() => !isEditing && setIsEditing(true)}
+      onClick={() => !isEditing && !isDragging && setIsEditing(true)}
     >
       <Box style={{ position: 'relative' }}>
         <ActionIcon
@@ -76,16 +136,19 @@ export function StickyNote({ id, text, onTextChange, onDelete }: StickyNoteProps
             position: 'absolute', 
             top: -2, 
             left: -2, 
-            color: '#black',
-            opacity: 0.6 
-          }} 
+            color: 'black',
+            opacity: isDragging ? 1 : 0.6,
+            cursor: 'grab',
+            zIndex: 5
+          }}
+          onMouseDown={handleDragStart}
         />
 
         {isEditing ? (
           <Textarea
             ref={textareaRef}
             value={localText}
-            color="black"
+            color="black" 
             onChange={(e) => setLocalText(e.currentTarget.value)}
             onBlur={handleSave}
             onKeyDown={handleKeyDown}

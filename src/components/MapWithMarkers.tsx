@@ -34,6 +34,7 @@ export interface MapWithMarkersProps {
   onNoteAdd?: (x: number, y: number) => void;
   onNoteUpdate?: (id: string, text: string) => void;
   onNoteDelete?: (id: string) => void;
+  onNotePositionChange?: (id: string, x: number, y: number) => void;
 }
 
 export function MapWithMarkers({ 
@@ -45,7 +46,8 @@ export function MapWithMarkers({
   notePlacementMode = false,
   onNoteAdd,
   onNoteUpdate,
-  onNoteDelete
+  onNoteDelete,
+  onNotePositionChange
 }: MapWithMarkersProps) {
   const data = useMapData(mapSlug);
   const slug = mapSlug.toLowerCase().replace(/\s+/g, '_');
@@ -954,6 +956,7 @@ export function MapWithMarkers({
             text={note.text}
             onTextChange={onNoteUpdate || (() => {})}
             onDelete={onNoteDelete || (() => {})}
+            onPositionChange={onNotePositionChange}
           />
         </div>
       ))}

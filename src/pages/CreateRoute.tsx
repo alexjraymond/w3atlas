@@ -12,7 +12,8 @@ import {
       Image,
     SimpleGrid,
     Select,
-    Flex
+    Flex,
+    Grid
 } from '@mantine/core';
 import { Navbar } from '../components/Navbar';
 import { MapWithMarkers } from '../components/MapWithMarkers';
@@ -172,16 +173,23 @@ export function CreateRoutePage() {
     setStickyNotes(prev => prev.filter(note => note.id !== id));
   }, []);
 
+  const handleNotePositionChange = useCallback((id: string, x: number, y: number) => {
+    setStickyNotes(prev => prev.map(note => 
+      note.id === id ? { ...note, x, y } : note
+    ));
+  }, []);
+
   return (
-    <AppShell padding="md" header={{ height: 60, offset: true }}>
+    <AppShell padding={{ base: 'sm', md: 'md' }} header={{ height: { base: 56, sm: 60 }, offset: true }}>
       <AppShell.Header>
         <Navbar />
       </AppShell.Header>
       <AppShell.Main>
-        <Container fluid px="md" style={{ display: 'flex', gap: 24 }}>
-          <div style={{ width: 320 }}>
+        <Container fluid px="md">
+          <Grid gutter={{ base: 'sm', md: 'md' }}>
+            <Grid.Col span={{ base: 12, md: 4, lg: 3 }}>
             <Card shadow="sm" padding="sm">
-              <Stack >
+              <Stack>
                 <div>
                   <Text size="sm" fw={500} mb={4}>
                     Route Name
@@ -195,7 +203,7 @@ export function CreateRoutePage() {
                   <Text size="sm" fw={500} mb={8}>
                     Select Race
                   </Text>
-                  <SimpleGrid cols={2} spacing="sm">
+                  <SimpleGrid cols={{ base: 2, sm: 2 }} spacing="sm">
                     {races.map((race) => (
                       <Button
                         key={race}
@@ -238,7 +246,7 @@ export function CreateRoutePage() {
                       label="Use Tavern Heroes"
                       mb={12}
                     />
-                    <SimpleGrid cols={2} spacing="sm">
+                    <SimpleGrid cols={{ base: 2, sm: 2, md: 3 }} spacing="sm">
                       {currentHeroes.map((h) => (
                         <Card
                           key={h}
@@ -278,6 +286,11 @@ export function CreateRoutePage() {
                       hero={hero!}
                       onChange={setAbilityOrder}
                     />
+                    <Text size="xs" c="dimmed" mt="xs">
+                      {abilityOrder.filter(Boolean).length > 0
+                        ? `Selected: ${abilityOrder.filter(Boolean).join(' ▸ ')}`
+                        : 'Select abilities in order'}
+                    </Text>
                   </div>
                 )}
 
@@ -286,17 +299,17 @@ export function CreateRoutePage() {
 
               </Stack>
             </Card>
-          </div>
+            </Grid.Col>
 
-
-          <div style={{ flexGrow: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}>
+            <Grid.Col span={{ base: 12, md: 8, lg: 6 }}>
+            <Stack gap={16} align="center">
 
             
             <AspectRatio ratio={
               selectedMap === 'Shallow Grave' || selectedMap === 'Autumn Leaves' || selectedMap === 'Last Refuge' ? 1 : 
               selectedMap === 'Echo Isles v2' ? 512 / 512 : 
               512 / 512
-            } style={{ width: 500 }}>
+            } style={{ width: '100%' }} maw={900}>
               <MapWithMarkers 
                 mapSlug={selectedMap} 
                 onUnitsSelected={handleUnitsSelected} 
@@ -307,7 +320,8 @@ export function CreateRoutePage() {
                   notePlacementMode,
                   onNoteAdd: handleNoteAdd,
                   onNoteUpdate: handleNoteUpdate,
-                  onNoteDelete: handleNoteDelete
+                  onNoteDelete: handleNoteDelete,
+                  onNotePositionChange: handleNotePositionChange
                 }}
               />
             </AspectRatio>
@@ -323,11 +337,10 @@ export function CreateRoutePage() {
                 { value: 'Autumn Leaves', label: 'Autumn Leaves' },
                 { value: 'Last Refuge', label: 'Last Refuge' }
               ]}
-              style={{ width: 200 }}
-              miw={400}
+              w={{ base: '100%', sm: 260 }}
             />
 
-<Flex gap={12} justify="space-between" miw={400} wrap="wrap"> 
+<Flex gap={12} justify={{ base: 'center', sm: 'space-between' }} wrap="wrap" w="100%"> 
               <Button 
                 variant={notePlacementMode ? "filled" : "outline"} 
                 mt={12}
@@ -354,17 +367,19 @@ export function CreateRoutePage() {
                     Reset Route
               </Button>
               </Flex>
-            </div>
-                  <Container style={{ width: 400 }}>
+            </Stack>
+            </Grid.Col>
+            <Grid.Col span={{ base: 12, lg: 3 }}>
+                  <Stack>
                     <ExperienceBar
                       currentXP={currentXP}
                       currentLevel={currentLevel}
                       xpForNextLevel={xpForNextLevel}
                     />
                     <ItemsList selectedCamps={selectedCamps} />
-                  </Container>
-                
-
+                  </Stack>
+            </Grid.Col>
+          </Grid>
         </Container>
       </AppShell.Main>
     </AppShell>
