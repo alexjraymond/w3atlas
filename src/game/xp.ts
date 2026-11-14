@@ -37,12 +37,12 @@ export function heroLevelForXp(xp: number): number {
 }
 
 /**
- * XP a hero with `heroXp` total experience gains from killing one creep of `creepLevel`.
- * The game rounds down per kill (e.g. a level 4 creep at 70% gives 59, not 59.5).
+ * XP a hero with `heroXp` total experience gains from killing a creep worth `creepRawXp`
+ * (see creepXp). The game rounds down per kill (a level 4 creep at 70% gives 59, not 59.5).
  */
-export function xpFromKill(heroXp: number, creepLevel: number): number {
+export function xpFromKill(heroXp: number, creepRawXp: number): number {
   const rate = CREEP_XP_RATE_BY_HERO_LEVEL[heroLevelForXp(heroXp)] ?? 0
-  return Math.floor(creepXp(creepLevel) * rate + 1e-9)
+  return Math.floor(creepRawXp * rate + 1e-9)
 }
 
 export interface LevelProgress {

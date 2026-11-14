@@ -1,15 +1,11 @@
 {
- "_about": "Items a random drop of each class/level can give, keyed \"<class>-<level>\". Used when a map only says e.g. \"random level 2 permanent\".",
+ "_about": "Items a random drop of each class/level can give, keyed \"<class>-<level>\" (from Liquipedia drop tables). Used when a map only says e.g. \"random level 2 permanent\".",
  "pools": {
   "charged-2": [
-   "potion_of_greater_healing",
-   "potion_of_greater_mana",
-   "potion_of_invulnerability",
+   "crystal_ball",
    "replenishment_potion",
-   "scroll_of_the_beast",
    "sentry_wards",
-   "wand_of_illusion",
-   "wand_of_mana_stealing"
+   "wand_of_illusion"
   ],
   "charged-3": [
    "potion_of_greater_healing",
@@ -19,18 +15,19 @@
    "wand_of_mana_stealing"
   ],
   "charged-4": [
-   "potion_of_greater_healing",
-   "potion_of_greater_mana",
-   "potion_of_invulnerability",
-   "scroll_of_the_beast",
-   "wand_of_mana_stealing"
+   "ankh_of_reincarnation",
+   "book_of_the_dead",
+   "healing_wards",
+   "health_stone",
+   "mana_stone",
+   "wand_of_the_wind"
   ],
   "permanent-1": [
    "cloak_of_shadows",
-   "gauntlets_of_ogre_strength",
-   "mantle_of_intelligence",
+   "gauntlets_of_ogre_strength_+3",
+   "mantle_of_intelligence_+3",
    "ring_of_superiority",
-   "slippers_of_agility"
+   "slippers_of_agility_+3"
   ],
   "permanent-2": [
    "claws_of_attack_+5",
@@ -42,19 +39,20 @@
    "claws_of_attack_+8",
    "pendant_of_energy",
    "periapt_of_vitality",
+   "ring_of_protection_+5",
    "ring_of_regeneration",
    "talisman_of_evasion"
   ],
   "permanent-4": [
-   "allerias_flute_of_accuracy",
-   "belt_of_strength_+6",
-   "boots_of_quelthalas",
-   "horn_of_endurance",
-   "ring_of_archmagi",
-   "robes_of_the_magi",
+   "alleria's_flute_of_accuracy",
+   "belt_of_giant_strength_+6",
+   "boots_of_quel'thalas_+6",
+   "ring_of_the_archmagi",
+   "robe_of_the_magi_+6",
    "runed_bracers",
-   "scourged_bone_chimes",
-   "sobi_mask"
+   "scourge_bone_chimes",
+   "sobi_mask",
+   "the_lion_horn_of_stormwind"
   ],
   "permanent-5": [
    "ancient_janggo_of_endurance",
@@ -63,7 +61,7 @@
    "helm_of_valor",
    "hood_of_cunning",
    "khadgar's_pipe_of_insight",
-   "legion_doom_horn",
+   "legion_doom-horn",
    "medallion_of_courage",
    "warsong_battle_drums"
   ],
@@ -74,13 +72,9 @@
    "tome_of_strength"
   ],
   "powerup-2": [
-   "manual_of_health",
-   "tome_of_agility",
    "tome_of_agility_+2",
-   "tome_of_intelligence",
    "tome_of_intelligence_+2",
    "tome_of_knowledge",
-   "tome_of_strength",
    "tome_of_strength_+2"
   ]
  }

@@ -3,12 +3,11 @@ import { IconArrowMerge } from '@tabler/icons-react'
 import type { Camp, CreepInstance, RouteStep } from '../types'
 import { campInstances, iconSlug } from '../data/maps'
 import type { GroupResult } from '../game/route'
-import { creepXp } from '../game/xp'
 import { GameIcon } from './GameIcon'
 import classes from './KillOrder.module.css'
 
 function Creep({ c, size, dim, onClick, title }: { c: CreepInstance; size: number; dim?: boolean; onClick?: (e: React.MouseEvent) => void; title?: string }) {
-  const label = title ?? `${c.name} · lvl ${c.level} · ${creepXp(c.level)} XP${c.drops.length ? ` · drops ${c.drops.map((d) => `L${d.level} ${d.type}`).join(' + ')}` : ''}`
+  const label = title ?? `${c.name} · lvl ${c.level} · ${c.xp} XP${c.drops.length ? ` · drops ${c.drops.map((d) => `L${d.level} ${d.type}`).join(' + ')}` : ''}`
   const icon = (
     <span className={classes.creep} data-loot={c.drops.length ? true : undefined}>
       <GameIcon name={iconSlug(c.name)} size={size} alt={c.name} dim={dim} />

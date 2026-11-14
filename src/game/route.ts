@@ -108,7 +108,7 @@ export function simulateRoute(map: GameMap, steps: RouteStep[]): { results: Step
       const before = heroLevelForXp(xp)
       const start = xp
       // inside a group kills happen in any order; take weakest first (differences are tiny)
-      for (const c of [...g.creeps].sort((a, b) => a.level - b.level)) xp += xpFromKill(xp, c.level)
+      for (const c of [...g.creeps].sort((a, b) => a.level - b.level)) xp += xpFromKill(xp, c.xp)
       const after = heroLevelForXp(xp)
       return { ...g, xpGained: xp - start, levelUps: range(before + 1, after) }
     })

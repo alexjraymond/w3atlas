@@ -38,10 +38,15 @@ const LOOT_CLASS: Record<string, LootClass> = {
  * Creep levels are fixed per unit type on melee maps, so src/data/creeps.json is the source of
  * truth; a level in a map's JSON is only used for creeps missing from that table.
  */
+type CreepDef = { name: string; level: number | null; xpFactor?: number }
+const CREEP_DEFS = Object.values(creepData.creeps as Record<string, CreepDef>)
+
 export const CREEP_LEVELS: Record<string, number> = Object.fromEntries(
-  Object.values(creepData.creeps as Record<string, { name: string; level: number | null }>)
-    .filter((c) => c.level != null)
-    .map((c) => [c.name, c.level as number]),
+  CREEP_DEFS.filter((c) => c.level != null).map((c) => [c.name, c.level as number]),
+)
+/** Creeps that give a share of normal XP (e.g. Skeleton Warrior: 0.5). */
+const XP_FACTOR: Record<string, number> = Object.fromEntries(
+  CREEP_DEFS.filter((c) => c.xpFactor != null).map((c) => [c.name, c.xpFactor as number]),
 )
 
 const POOLS = itemPools.pools as Record<string, string[]>
@@ -76,12 +81,16 @@ function campTitle(units: CreepUnit[]): string {
 
 function normalize(slug: string, raw: RawMap): GameMap {
   const camps: Camp[] = raw.camps.map((c) => {
-    const units: CreepUnit[] = c.units.map((u) => ({
-      name: u.name,
-      count: u.count ?? 1,
-      level: CREEP_LEVELS[u.name] ?? u.level,
-      drops: (Array.isArray(u.loot) ? u.loot : u.loot ? [u.loot] : []).map(toLoot),
-    }))
+    const units: CreepUnit[] = c.units.map((u) => {
+      const level = CREEP_LEVELS[u.name] ?? u.level
+      return {
+        name: u.name,
+        count: u.count ?? 1,
+        level,
+        xp: creepXp(level) * (XP_FACTOR[u.name] ?? 1),
+        drops: (Array.isArray(u.loot) ? u.loot : u.loot ? [u.loot] : []).map(toLoot),
+      }
+    })
     return {
       id: c.id,
       name: c.name ?? campName(c.id),
@@ -120,6 +129,7 @@ export function campInstances(camp: Camp): CreepInstance[] {
         uid: `${ui}-${ii}`,
         name: u.name,
         level: u.level,
+        xp: u.xp,
         // drops are carried by one instance only
         drops: ii === 0 ? u.drops : [],
       })),
@@ -130,7 +140,7 @@ export function campInstances(camp: Camp): CreepInstance[] {
 }
 
 export function campRawXp(camp: Camp): number {
-  return campInstances(camp).reduce((sum, c) => sum + creepXp(c.level), 0)
+  return campInstances(camp).reduce((sum, c) => sum + c.xp, 0)
 }
 
 export function campDrops(camp: Camp) {

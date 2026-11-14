@@ -1,7 +1,6 @@
 import { Badge, Group, Stack, Table, Text } from '@mantine/core'
 import type { Camp } from '../types'
 import { campDrops, campRawXp, DIFFICULTY_COLOR, DIFFICULTY_LABEL, iconSlug, itemName, LOOT_COLOR, LOOT_LABEL } from '../data/maps'
-import { creepXp } from '../game/xp'
 import { GameIcon } from './GameIcon'
 
 export function DifficultyDot({ camp, size = 10 }: { camp: Camp; size?: number }) {
@@ -72,7 +71,7 @@ export function CampDetails({ camp }: { camp: Camp }) {
                 </Group>
               </Table.Td>
               <Table.Td ta="right">{u.level}</Table.Td>
-              <Table.Td ta="right">{creepXp(u.level) * u.count}</Table.Td>
+              <Table.Td ta="right">{u.xp * u.count}</Table.Td>
             </Table.Tr>
           ))}
         </Table.Tbody>

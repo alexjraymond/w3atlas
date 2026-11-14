@@ -20,9 +20,9 @@ describe('xp', () => {
     expect(heroLevelForXp(1400)).toBe(5)
   })
   it('rate drops with hero level, rounds down per kill, stops at 5', () => {
-    expect(xpFromKill(0, 2)).toBe(32) // 40 * 0.8
-    expect(xpFromKill(250, 4)).toBe(59) // 85 * 0.7 = 59.5
-    expect(xpFromKill(1400, 5)).toBe(0)
+    expect(xpFromKill(0, creepXp(2))).toBe(32) // 40 * 0.8
+    expect(xpFromKill(250, creepXp(4))).toBe(59) // 85 * 0.7 = 59.5
+    expect(xpFromKill(1400, creepXp(5))).toBe(0)
   })
   it('level progress', () => {
     const p = levelProgress(350)
@@ -49,6 +49,21 @@ describe('maps', () => {
     const drops = magi.units.find((u) => u.name === 'Ogre Magi')!.drops
     expect(drops.map((d) => `${d.type}-${d.level}`)).toEqual(['permanent-1', 'powerup-2'])
     expect(drops.every((d) => d.items.length > 0)).toBe(true)
+  })
+  it('uses Liquipedia levels: camp totals match', () => {
+    const al = MAP_BY_ID['autumn_leaves']
+    const total = (id: string) => al.camps.find((c) => c.id === id)!.level
+    expect(total('green-camp-wolves-1')).toBe(7)
+    expect(total('green-camp-sludge-1')).toBe(5)
+    expect(total('green-camp-rogue-1')).toBe(8)
+    expect(total('orange-camp-expo-corner-1')).toBe(14)
+    expect(total('orange-camp-merc')).toBe(19)
+    expect(total('orange-camp-lab')).toBe(17)
+    expect(total('red-camp-granite-1')).toBe(21)
+  })
+  it('half-XP creeps: Skeleton Warrior is worth 12.5', () => {
+    const sludge = MAP_BY_ID['autumn_leaves'].camps.find((c) => c.id === 'green-camp-sludge-1')!
+    expect(sludge.units.find((u) => u.name === 'Skeleton Warrior')!.xp).toBe(12.5)
   })
   it('names camps after the item dropper', () => {
     const shop = MAP_BY_ID['autumn_leaves'].camps.find((c) => c.id === 'orange-camp-shop-1')!

@@ -1,5 +1,5 @@
 {
- "_about": "Neutral creep unit types: map files store only the 4-letter id. Levels are fixed per unit type on melee maps. verified=true means confirmed from in-game XP numbers; the rest are best guesses to double-check against Liquipedia.",
+ "_about": "Neutral creep unit types: map files store only the 4-letter id. Levels are fixed per unit type on melee maps. verified=true: confirmed from Liquipedia creep tables / in-game XP numbers. xpFactor: share of normal creep XP the unit gives (default 1).",
  "creeps": {
   "ngno": {
    "name": "Gnoll",
@@ -23,8 +23,8 @@
   },
   "ngnw": {
    "name": "Gnoll Warden",
-   "level": 2,
-   "verified": false
+   "level": 3,
+   "verified": true
   },
   "ngnv": {
    "name": "Gnoll Overseer",
@@ -38,18 +38,18 @@
   },
   "nkog": {
    "name": "Kobold Geomancer",
-   "level": 2,
-   "verified": false
+   "level": 3,
+   "verified": true
   },
   "nkot": {
    "name": "Kobold Tunneler",
-   "level": 2,
-   "verified": false
+   "level": 3,
+   "verified": true
   },
   "nkol": {
    "name": "Kobold Taskmaster",
-   "level": 4,
-   "verified": false
+   "level": 5,
+   "verified": true
   },
   "nftr": {
    "name": "Forest Troll",
@@ -73,13 +73,13 @@
   },
   "nfsh": {
    "name": "Forest Troll High Priest",
-   "level": 3,
-   "verified": false
+   "level": 4,
+   "verified": true
   },
   "nftk": {
    "name": "Forest Troll Warlord",
-   "level": 5,
-   "verified": false
+   "level": 6,
+   "verified": true
   },
   "nogr": {
    "name": "Ogre Warrior",
@@ -124,7 +124,7 @@
   "nbrg": {
    "name": "Brigand",
    "level": 2,
-   "verified": false
+   "verified": true
   },
   "nrog": {
    "name": "Rogue",
@@ -148,13 +148,13 @@
   },
   "nwiz": {
    "name": "Apprentice Wizard",
-   "level": 2,
-   "verified": false
+   "level": 1,
+   "verified": true
   },
   "nwzr": {
    "name": "Rogue Wizard",
    "level": 3,
-   "verified": false
+   "verified": true
   },
   "nwzg": {
    "name": "Renegade Wizard",
@@ -188,8 +188,8 @@
   },
   "nwwd": {
    "name": "Dire Frost Wolf",
-   "level": 5,
-   "verified": false
+   "level": 6,
+   "verified": true
   },
   "ngrk": {
    "name": "Mud Golem",
@@ -203,8 +203,8 @@
   },
   "nggr": {
    "name": "Granite Golem",
-   "level": 7,
-   "verified": false
+   "level": 9,
+   "verified": true
   },
   "nsqt": {
    "name": "Sasquatch",
@@ -223,8 +223,8 @@
   },
   "nowe": {
    "name": "Enraged Wildkin",
-   "level": 5,
-   "verified": false
+   "level": 6,
+   "verified": true
   },
   "nowk": {
    "name": "Berserk Wildkin",
@@ -233,8 +233,8 @@
   },
   "nslf": {
    "name": "Sludge Flinger",
-   "level": 2,
-   "verified": false
+   "level": 3,
+   "verified": true
   },
   "nsln": {
    "name": "Sludge Minion",
@@ -243,13 +243,14 @@
   },
   "nska": {
    "name": "Skeleton Archer",
-   "level": 2,
-   "verified": false
+   "level": 1,
+   "verified": true
   },
   "nskg": {
    "name": "Skeleton Warrior",
-   "level": 2,
-   "verified": false
+   "level": 1,
+   "verified": true,
+   "xpFactor": 0.5
   },
   "ntrs": {
    "name": "Sea Turtle",
