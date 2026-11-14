@@ -1,187 +1,124 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { Card, Textarea, ActionIcon, Box } from '@mantine/core';
-import { IconX, IconGripVertical } from '@tabler/icons-react';
+import { useEffect, useRef, useState, type RefObject } from 'react'
+import { CloseButton } from '@mantine/core'
+import { IconGripVertical } from '@tabler/icons-react'
+import type { MapNote } from '../types'
 
-interface StickyNoteProps {
-  id: string;
-  text: string;
-  onTextChange: (id: string, text: string) => void;
-  onDelete: (id: string) => void;
-  onPositionChange?: (id: string, x: number, y: number) => void;
+interface Props {
+  note: MapNote
+  container: RefObject<HTMLDivElement | null>
+  readOnly?: boolean
+  onChange: (note: MapNote) => void
+  onDelete: () => void
 }
 
-export function StickyNote({ id, text, onTextChange, onDelete, onPositionChange }: StickyNoteProps) {
-  const [isEditing, setIsEditing] = useState(text === '');
-  const [localText, setLocalText] = useState(text);
-  const [isDragging, setIsDragging] = useState(false);
-  const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
-  const noteRef = useRef<HTMLDivElement>(null);
+/** A draggable, editable note pinned to a percentage position on the map. */
+export function StickyNote({ note, container, readOnly, onChange, onDelete }: Props) {
+  const [editing, setEditing] = useState(!note.text && !readOnly)
+  const [draft, setDraft] = useState(note.text)
+  const [drag, setDrag] = useState<{ x: number; y: number } | null>(null)
+  const areaRef = useRef<HTMLTextAreaElement>(null)
 
+  useEffect(() => setDraft(note.text), [note.text])
   useEffect(() => {
-    if (isEditing && textareaRef.current) {
-      textareaRef.current.focus();
-    }
-  }, [isEditing]);
+    if (editing) areaRef.current?.focus()
+  }, [editing])
 
-  const handleSave = () => {
-    onTextChange(id, localText);
-    setIsEditing(false);
-  };
+  const commit = () => {
+    setEditing(false)
+    if (draft !== note.text) onChange({ ...note, text: draft })
+  }
 
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (event.key === 'Enter' && event.ctrlKey) {
-      handleSave();
-    } else if (event.key === 'Escape') {
-      setLocalText(text);
-      setIsEditing(false);
-    }
-  };
+  const onPointerDown = (e: React.PointerEvent) => {
+    if (readOnly) return
+    e.preventDefault()
+    e.stopPropagation()
+    ;(e.target as Element).setPointerCapture(e.pointerId)
+    setDrag({ x: note.x, y: note.y })
+  }
+  const onPointerMove = (e: React.PointerEvent) => {
+    if (!drag || !container.current) return
+    const r = container.current.getBoundingClientRect()
+    const x = Math.min(98, Math.max(2, ((e.clientX - r.left) / r.width) * 100))
+    const y = Math.min(98, Math.max(2, ((e.clientY - r.top) / r.height) * 100))
+    setDrag({ x, y })
+  }
+  const onPointerUp = () => {
+    if (drag) onChange({ ...note, x: drag.x, y: drag.y })
+    setDrag(null)
+  }
 
-  const handleDragStart = (event: React.MouseEvent) => {
-    event.preventDefault();
-    event.stopPropagation();
-    
-    if (!noteRef.current || !onPositionChange) return;
-    
-    const rect = noteRef.current.getBoundingClientRect();
-    const parentRect = noteRef.current.offsetParent?.getBoundingClientRect();
-    
-    if (!parentRect) return;
-    
-    setDragOffset({
-      x: event.clientX - rect.left,
-      y: event.clientY - rect.top
-    });
-    
-    setIsDragging(true);
-  };
-
-  useEffect(() => {
-    const handleMouseMove = (event: MouseEvent) => {
-      if (!isDragging || !noteRef.current || !onPositionChange) return;
-      
-      const parentRect = noteRef.current.offsetParent?.getBoundingClientRect();
-      if (!parentRect) return;
-      
-      const newX = event.clientX - parentRect.left - dragOffset.x;
-      const newY = event.clientY - parentRect.top - dragOffset.y;
-      
-      // Convert to percentage for responsive positioning
-      const parentWidth = parentRect.width;
-      const parentHeight = parentRect.height;
-      
-      const xPercent = (newX / parentWidth) * 100;
-      const yPercent = (newY / parentHeight) * 100;
-      
-      onPositionChange(id, xPercent, yPercent);
-    };
-
-    const handleMouseUp = () => {
-      setIsDragging(false);
-    };
-
-    if (isDragging) {
-      document.addEventListener('mousemove', handleMouseMove);
-      document.addEventListener('mouseup', handleMouseUp);
-    }
-
-    return () => {
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseup', handleMouseUp);
-    };
-  }, [isDragging, dragOffset, id, onPositionChange]);
-
+  const pos = drag ?? note
   return (
-    <Card
-      ref={noteRef}
-      shadow="md"
-      padding="xs"
-      radius="md"
+    <div
+      onClick={(e) => e.stopPropagation()}
       style={{
-        backgroundColor: '#FFF59D',
-        border: '1px solid #F57F17',
-        minWidth: '120px',
-        maxWidth: '200px',
-        position: 'relative',
-        cursor: isEditing ? 'default' : 'pointer',
-        userSelect: isDragging ? 'none' : 'auto',
+        position: 'absolute',
+        left: `${pos.x}%`,
+        top: `${pos.y}%`,
+        transform: 'translate(-50%, -50%)',
+        zIndex: 6,
+        background: '#fff3a3',
+        color: '#222',
+        borderRadius: 6,
+        boxShadow: '0 2px 8px rgba(0,0,0,.5)',
+        maxWidth: 170,
+        minWidth: 90,
+        fontSize: 12,
+        lineHeight: 1.3,
       }}
-      onClick={() => !isEditing && !isDragging && setIsEditing(true)}
     >
-      <Box style={{ position: 'relative' }}>
-        <ActionIcon
-          size="xs"
-          variant="subtle"
-          color="gray"
-          onClick={(e) => {
-            e.stopPropagation();
-            onDelete(id);
+      {!readOnly && (
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '1px 2px 0' }}>
+          <span
+            onPointerDown={onPointerDown}
+            onPointerMove={onPointerMove}
+            onPointerUp={onPointerUp}
+            style={{ cursor: drag ? 'grabbing' : 'grab', touchAction: 'none', display: 'flex', color: '#8a7a2a' }}
+            aria-label="Drag note"
+          >
+            <IconGripVertical size={14} />
+          </span>
+          <CloseButton size="xs" c="#8a7a2a" aria-label="Delete note" onClick={onDelete} />
+        </div>
+      )}
+      {editing ? (
+        <textarea
+          ref={areaRef}
+          value={draft}
+          rows={3}
+          placeholder="Note…"
+          onChange={(e) => setDraft(e.currentTarget.value)}
+          onBlur={commit}
+          onKeyDown={(e) => {
+            if (e.key === 'Escape') {
+              setDraft(note.text)
+              setEditing(false)
+            } else if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) commit()
           }}
           style={{
-            position: 'absolute',
-            top: -8,
-            right: -8,
-            backgroundColor: 'rgba(0, 0, 0, 0.8)',
-            borderRadius: '50%',
-            zIndex: 10,
+            width: 160,
+            border: 0,
+            outline: 0,
+            resize: 'none',
+            background: 'transparent',
+            font: 'inherit',
+            color: 'inherit',
+            padding: '2px 6px 6px',
+          }}
+        />
+      ) : (
+        <div
+          onClick={() => !readOnly && setEditing(true)}
+          style={{
+            padding: readOnly ? '6px 8px' : '0 8px 6px',
+            whiteSpace: 'pre-wrap',
+            wordBreak: 'break-word',
+            cursor: readOnly ? 'default' : 'text',
           }}
         >
-          <IconX size={12} />
-        </ActionIcon>
-        
-        <IconGripVertical 
-          size={12} 
-          style={{ 
-            position: 'absolute', 
-            top: -2, 
-            left: -2, 
-            color: 'black',
-            opacity: isDragging ? 1 : 0.6,
-            cursor: 'grab',
-            zIndex: 5
-          }}
-          onMouseDown={handleDragStart}
-        />
-
-        {isEditing ? (
-          <Textarea
-            ref={textareaRef}
-            value={localText}
-            color="black" 
-            onChange={(e) => setLocalText(e.currentTarget.value)}
-            onBlur={handleSave}
-            onKeyDown={handleKeyDown}
-            placeholder="Type your note here..."
-            autosize
-            minRows={2}
-            maxRows={6}
-            size="xs"
-            styles={{
-              input: {
-                backgroundColor: 'transparent',
-                border: 'none',
-                fontSize: '12px',
-                padding: '4px',
-                resize: 'none',
-              },
-            }}
-          />
-        ) : (
-          <Box
-            style={{
-              fontSize: '12px',
-              color: 'black',
-              padding: '4px',
-              minHeight: '32px',
-              wordWrap: 'break-word',
-              whiteSpace: 'pre-wrap',
-            }}
-          >
-            {text || 'Click to edit...'}
-          </Box>
-        )}
-      </Box>
-    </Card>
-  );
+          {note.text || <i style={{ opacity: 0.6 }}>Empty note</i>}
+        </div>
+      )}
+    </div>
+  )
 }
