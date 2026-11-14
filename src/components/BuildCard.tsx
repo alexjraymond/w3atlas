@@ -24,9 +24,6 @@ export function BuildCard({ build, usedBy = 0 }: { build: Build; usedBy?: number
             <Badge size="xs" variant="light">
               vs {RACE_LABEL[build.vs]}
             </Badge>
-            <Badge size="xs" variant="outline">
-              {build.level}
-            </Badge>
             <Badge size="xs" variant="light" color="gray">
               {build.steps.length} steps
             </Badge>

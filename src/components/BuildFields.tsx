@@ -1,5 +1,5 @@
-import { Group, SegmentedControl, Text, Tooltip, UnstyledButton } from '@mantine/core'
-import type { Level, Matchup } from '../types'
+import { Group, Text, Tooltip, UnstyledButton } from '@mantine/core'
+import type { Matchup } from '../types'
 import { RACES } from '../game/heroes'
 import { GameIcon } from './GameIcon'
 
@@ -43,16 +43,3 @@ export function AgainstPicker({ value, onChange }: { value: Matchup; onChange: (
   )
 }
 
-export function LevelPicker({ value, onChange }: { value: Level; onChange: (v: Level) => void }) {
-  return (
-    <SegmentedControl
-      fullWidth
-      value={value}
-      onChange={(v) => onChange(v as Level)}
-      data={[
-        { value: 'beginner', label: 'Beginner' },
-        { value: 'standard', label: 'Standard' },
-      ]}
-    />
-  )
-}

@@ -6,8 +6,13 @@ import type { GroupResult } from '../game/route'
 import { GameIcon } from './GameIcon'
 import classes from './KillOrder.module.css'
 
-function Creep({ c, size, dim, onClick, title }: { c: CreepInstance; size: number; dim?: boolean; onClick?: (e: React.MouseEvent) => void; title?: string }) {
-  const label = title ?? `${c.name} · lvl ${c.level} · ${c.xp} XP${c.drops.length ? ` · drops ${c.drops.map((d) => `L${d.level} ${d.type}`).join(' + ')}` : ''}`
+function creepLabel(c: CreepInstance) {
+  const drops = c.drops.length ? ` · drops ${c.drops.map((d) => `L${d.level} ${d.type}`).join(' + ')}` : ''
+  return `${c.name} · lvl ${c.level} · ${c.xp} XP${drops}`
+}
+
+function Creep({ c, size, dim, onClick, hint }: { c: CreepInstance; size: number; dim?: boolean; onClick?: (e: React.MouseEvent) => void; hint?: string }) {
+  const label = creepLabel(c) + (hint ? ` (${hint})` : '')
   const icon = (
     <span className={classes.creep} data-loot={c.drops.length ? true : undefined}>
       <GameIcon name={iconSlug(c.name)} size={size} alt={c.name} dim={dim} />
@@ -17,7 +22,7 @@ function Creep({ c, size, dim, onClick, title }: { c: CreepInstance; size: numbe
   return (
     <Tooltip label={label} openDelay={150}>
       {onClick ? (
-        <UnstyledButton onClick={onClick} aria-label={label}>
+        <UnstyledButton onClick={onClick} aria-label={label} style={{ display: 'flex' }}>
           {icon}
         </UnstyledButton>
       ) : (
@@ -27,20 +32,39 @@ function Creep({ c, size, dim, onClick, title }: { c: CreepInstance; size: numbe
   )
 }
 
+function XpLine({ xp, levelUps }: { xp: number; levelUps: number[] }) {
+  return (
+    <Stack gap={2} align="center">
+      <Text size="xs" ff="monospace" c="dimmed">
+        +{Math.round(xp)}
+      </Text>
+      {levelUps.map((l) => (
+        <Badge key={l} size="xs" variant="outline" color="yellow" ff="monospace">
+          Lv {l}
+        </Badge>
+      ))}
+    </Stack>
+  )
+}
+
 /** Compact one-line kill order for collapsed steps. */
 export function KillOrderStrip({ groups, skipped }: { groups: GroupResult[]; skipped: CreepInstance[] }) {
   return (
     <Group gap={6}>
       {groups.map((g, i) => (
-        <span key={i} className={classes.box} data-small>
+        <span key={i} className={classes.box} data-small data-rest={g.isRest || undefined}>
           {g.creeps.map((c) => (
             <Creep key={c.uid} c={c} size={22} />
           ))}
         </span>
       ))}
-      {skipped.map((c) => (
-        <Creep key={c.uid} c={c} size={22} dim title={`${c.name} · skipped`} />
-      ))}
+      {skipped.length > 0 && (
+        <span className={classes.box} data-small data-skipped>
+          {skipped.map((c) => (
+            <Creep key={c.uid} c={c} size={22} dim hint="skipped" />
+          ))}
+        </span>
+      )}
     </Group>
   )
 }
@@ -54,15 +78,16 @@ interface Props {
 }
 
 /**
- * Kill order: ordered groups of creeps (a group = kill in any order), each with the XP it gives
- * and any level-up. Click creeps below to add them; Shift+click adds to the last group.
+ * Kill order in one row: the groups you set (killed in order; inside a group, any order), then
+ * the rest of the camp in a dashed box. Click a creep in the dashed box to make it the next group
+ * (Shift+click: add it to the last group); click a creep in a group to put it back.
  */
 export function KillOrder({ camp, step, groups, readOnly, onChange }: Props) {
-  const all = campInstances(camp)
   const assigned = new Set(step.groups.flat())
-  const unassigned = all.filter((c) => !assigned.has(c.uid))
-  const explicitCount = groups.filter((g) => !g.isRest).length
-  const skipped = step.rest === 'skip' ? unassigned : []
+  const rest = campInstances(camp).filter((c) => !assigned.has(c.uid))
+  const explicit = groups.filter((g) => !g.isRest)
+  const restResult = groups.find((g) => g.isRest)
+  const skipping = step.rest === 'skip' && explicit.length > 0
 
   const add = (uid: string, toLast: boolean) => {
     const gs = step.groups.map((g) => [...g])
@@ -80,15 +105,23 @@ export function KillOrder({ camp, step, groups, readOnly, onChange }: Props) {
 
   return (
     <Stack gap={8}>
-      <Text size="xs" fw={700} c="dimmed" tt="uppercase">
-        Kill order
-      </Text>
+      <Group justify="space-between" gap={6}>
+        <Text size="xs" fw={700} c="dimmed" tt="uppercase">
+          Kill order
+        </Text>
+        {!readOnly && (
+          <Text size="xs" c="dimmed">
+            Click to order · Shift+click to group
+          </Text>
+        )}
+      </Group>
+
       <Group gap={10} align="flex-start">
-        {groups.map((g, i) => (
+        {explicit.map((g, i) => (
           <Stack key={i} gap={2} align="center">
-            <span className={classes.box} data-rest={g.isRest || undefined}>
-              {(explicitCount > 0 || !g.isRest) && <span className={classes.num}>{g.isRest ? '…' : i + 1}</span>}
-              {!readOnly && !g.isRest && i > 0 && (
+            <span className={classes.box}>
+              <span className={classes.num}>{i + 1}</span>
+              {!readOnly && i > 0 && (
                 <Tooltip label="Kill together with the previous group">
                   <UnstyledButton className={classes.merge} onClick={() => merge(i)} aria-label="Merge with previous group">
                     <IconArrowMerge size={11} />
@@ -96,69 +129,56 @@ export function KillOrder({ camp, step, groups, readOnly, onChange }: Props) {
                 </Tooltip>
               )}
               {g.creeps.map((c) => (
-                <Creep key={c.uid} c={c} size={34} onClick={!readOnly && !g.isRest ? () => remove(c.uid) : undefined} />
+                <Creep key={c.uid} c={c} size={34} onClick={readOnly ? undefined : () => remove(c.uid)} hint={readOnly ? undefined : 'click to remove'} />
               ))}
             </span>
-            <Text size="xs" ff="monospace" c="dimmed">
-              +{Math.round(g.xpGained)}
-            </Text>
-            {g.levelUps.map((l) => (
-              <Badge key={l} size="xs" variant="outline" color="yellow" ff="monospace">
-                Lv {l}
-              </Badge>
-            ))}
+            <XpLine xp={g.xpGained} levelUps={g.levelUps} />
           </Stack>
         ))}
-        {skipped.length > 0 && (
+
+        {rest.length > 0 && (
           <Stack gap={2} align="center">
-            <span className={classes.box} data-skipped>
-              {skipped.map((c) => (
-                <Creep key={c.uid} c={c} size={34} dim title={`${c.name} · skipped`} />
+            <span className={classes.box} data-rest data-skipped={skipping || undefined}>
+              {explicit.length > 0 && <span className={classes.num} data-muted>{skipping ? '×' : '…'}</span>}
+              {rest.map((c) => (
+                <Creep
+                  key={c.uid}
+                  c={c}
+                  size={34}
+                  dim={skipping}
+                  onClick={readOnly ? undefined : (e) => add(c.uid, e.shiftKey)}
+                  hint={readOnly ? (skipping ? 'skipped' : undefined) : 'click: next group · shift+click: last group'}
+                />
               ))}
             </span>
-            <Text size="xs" c="dimmed">
-              skipped
-            </Text>
+            {skipping ? (
+              <Text size="xs" c="dimmed">
+                skipped
+              </Text>
+            ) : (
+              restResult && <XpLine xp={restResult.xpGained} levelUps={restResult.levelUps} />
+            )}
           </Stack>
         )}
       </Group>
 
-      {!readOnly && (
-        <>
-          {unassigned.length > 0 && (
-            <div>
-              <Text size="xs" c="dimmed" mb={4}>
-                {explicitCount ? 'Remaining creeps' : 'Set a kill order (optional)'}: click to add as the next group, Shift+click to add to
-                the last group. Click a creep in a group to take it out.
-              </Text>
-              <Group gap={4}>
-                {unassigned.map((c) => (
-                  <Creep key={c.uid} c={c} size={30} onClick={(e) => add(c.uid, e.shiftKey)} />
-                ))}
-              </Group>
-            </div>
+      {!readOnly && explicit.length > 0 && (
+        <Group gap={8}>
+          {rest.length > 0 && (
+            <SegmentedControl
+              size="xs"
+              value={step.rest}
+              onChange={(v) => onChange({ ...step, rest: v as RouteStep['rest'] })}
+              data={[
+                { value: 'clear', label: 'Then clear the rest' },
+                { value: 'skip', label: 'Skip the rest' },
+              ]}
+            />
           )}
-          {explicitCount > 0 && (
-            <Group justify="space-between">
-              {unassigned.length > 0 ? (
-                <SegmentedControl
-                  size="xs"
-                  value={step.rest}
-                  onChange={(v) => onChange({ ...step, rest: v as RouteStep['rest'] })}
-                  data={[
-                    { value: 'clear', label: 'Then clear the rest' },
-                    { value: 'skip', label: 'Skip the rest' },
-                  ]}
-                />
-              ) : (
-                <span />
-              )}
-              <Button size="compact-xs" variant="subtle" color="gray" onClick={() => onChange({ ...step, groups: [], rest: 'clear' })}>
-                Clear order
-              </Button>
-            </Group>
-          )}
-        </>
+          <Button size="compact-xs" variant="subtle" color="gray" onClick={() => onChange({ ...step, groups: [], rest: 'clear' })}>
+            Reset order
+          </Button>
+        </Group>
       )}
     </Stack>
   )

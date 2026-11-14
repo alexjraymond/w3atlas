@@ -97,12 +97,52 @@ export const RACE_SHORT: Record<Matchup, string> = {
   any: 'Any'
 }
 
-/** Units you might bring along to creep, by race (heroes are added separately). */
-export const UNITS: Record<Race, string[]> = {
-  human: ['Militia', 'Peasant', 'Footman', 'Rifleman', 'Knight', 'Priest', 'Sorceress', 'Spell Breaker', 'Water Elemental', 'Mortar Team'],
-  orc: ['Peon', 'Grunt', 'Headhunter', 'Raider', 'Shaman', 'Witch Doctor', 'Spirit Walker', 'Tauren', 'Spirit Wolf', 'Serpent Ward'],
-  nightelf: ['Wisp', 'Archer', 'Huntress', 'Dryad', 'Druid of the Claw', 'Mountain Giant', 'Treant', 'Ancient of War', 'Ancient Protector', 'Ancient of Lore'],
-  undead: ['Acolyte', 'Ghoul', 'Crypt Fiend', 'Necromancer', 'Banshee', 'Abomination', 'Gargoyle', 'Skeleton Warrior', 'Shade'],
+/**
+ * The one unit each race commonly brings to creep (Orc has none). Marked per stop with a toggle
+ * and shown as a badge on the camp's map marker.
+ */
+export const CREEP_HELPER: Partial<Record<Race, { name: string; icon: string }>> = {
+  human: { name: 'Militia', icon: 'militia' },
+  nightelf: { name: 'Ancient of War', icon: 'ancientofwar' },
+  undead: { name: 'Ghoul', icon: 'ghoul' },
+}
+
+/** Hotkey-style labels and colours for the four ability rows (3 basics + ultimate). */
+export const SKILL_KEYS = ['Q', 'W', 'E', 'R'] as const
+export const SKILL_COLORS = ['#fcc419', '#4dabf7', '#69db7c', '#f06595'] as const
+
+/**
+ * Fills hero levels 1..10 from a max priority (ability names, most important first).
+ * At each level: the ultimate at 6, otherwise the highest-priority basic that can legally take
+ * another rank (rank r needs hero level 2r-1, max 3 ranks).
+ */
+export function autoSkills(hero: Hero, priority: string[]): string[] {
+  const basics = hero.abilities.filter((a) => !a.ultimate).map((a) => a.name)
+  const ult = hero.abilities.find((a) => a.ultimate)?.name ?? ''
+  const order = [...priority.filter((p) => basics.includes(p)), ...basics.filter((b) => !priority.includes(b))]
+  const ranks: Record<string, number> = {}
+  const out: string[] = []
+  for (let level = 1; level <= 10; level++) {
+    if (level === 6 && ult) {
+      out.push(ult)
+      continue
+    }
+    const pick = order.find((a) => (ranks[a] ?? 0) < 3 && level >= (ranks[a] ?? 0) * 2 + 1)
+    if (pick) ranks[pick] = (ranks[pick] ?? 0) + 1
+    out.push(pick ?? '')
+  }
+  return out
+}
+
+/** Basic abilities in the order they reach max rank (unmaxed ones last, by ranks taken). */
+export function maxOrder(hero: Hero, skills: string[]): string[] {
+  const basics = hero.abilities.filter((a) => !a.ultimate).map((a) => a.name)
+  const maxedAt = (name: string) => {
+    let rank = 0
+    for (let i = 0; i < skills.length; i++) if (skills[i] === name && ++rank === 3) return i
+    return 100 - rank
+  }
+  return basics.filter((b) => skills.includes(b)).sort((a, b) => maxedAt(a) - maxedAt(b))
 }
 
 /**

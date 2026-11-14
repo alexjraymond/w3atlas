@@ -54,7 +54,6 @@ export interface GameMap {
 
 export type Race = 'human' | 'orc' | 'nightelf' | 'undead'
 export type Matchup = Race | 'any'
-export type Level = 'beginner' | 'standard'
 
 export interface RouteStep {
   id: string
@@ -96,7 +95,6 @@ export interface Route {
   mapId: string
   race: Race | null
   vs: Matchup
-  level: Level
   hero: string | null
   /** ability names for hero levels 1..10 ('' = not set) */
   skills: string[]
@@ -116,7 +114,6 @@ export interface Build {
   name: string
   race: Race | null
   vs: Matchup
-  level: Level
   notes: string
   tags: string[]
   steps: BuildStep[]

@@ -5,7 +5,7 @@ import { href } from '../lib/router'
 import { RACE_LABEL } from '../game/heroes'
 import { BuildOrder } from '../components/BuildOrder'
 import { RacePicker } from '../components/HeroPanel'
-import { AgainstPicker, Label, LevelPicker } from '../components/BuildFields'
+import { AgainstPicker, Label } from '../components/BuildFields'
 import { RouteCard } from '../components/RouteCard'
 import { NotFound } from './NotFound'
 
@@ -39,7 +39,6 @@ export function BuildPage({ buildId }: { buildId: string }) {
                 <Badge variant="light" color="gray">
                   {RACE_LABEL[build.vs]}
                 </Badge>
-                <Badge variant="outline">{build.level}</Badge>
                 {build.tags.map((t) => (
                   <Badge key={t} variant="default" tt="none">
                     {t}
@@ -85,10 +84,6 @@ export function BuildPage({ buildId }: { buildId: string }) {
             <div>
               <Label>Against</Label>
               <AgainstPicker value={build.vs} onChange={(vs) => patch({ vs })} />
-            </div>
-            <div>
-              <Label>Difficulty</Label>
-              <LevelPicker value={build.level} onChange={(level) => patch({ level })} />
             </div>
             <TagsInput label="Tags" placeholder="footmen, fast expo… (Enter to add)" value={build.tags} onChange={(tags) => patch({ tags })} />
           </SimpleGrid>

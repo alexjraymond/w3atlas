@@ -27,10 +27,9 @@ import {
 import type { GameMap, Route, RouteStep } from '../types'
 import { campInstances, DIFFICULTY_LABEL, LOOT_COLOR, LOOT_LABEL } from '../data/maps'
 import { simulateRoute, type StepResult } from '../game/route'
-import { HERO_BY_NAME } from '../game/heroes'
+import { CREEP_HELPER, HERO_BY_NAME } from '../game/heroes'
 import { DifficultyDot } from './CampDetails'
 import { KillOrder, KillOrderStrip } from './KillOrder'
-import { BringUnits } from './BringUnits'
 import { GameIcon } from './GameIcon'
 
 export function XpSummary({ map, route }: { map: GameMap; route: Route }) {
@@ -97,6 +96,30 @@ interface StepProps {
   onDragEnd: () => void
 }
 
+function HelperToggle({ route, step, onChange }: { route: Route; step: RouteStep; onChange: (s: RouteStep) => void }) {
+  const helper = route.race ? CREEP_HELPER[route.race] : undefined
+  if (!helper) return null
+  const on = !!step.helpers[helper.name]
+  return (
+    <Button
+      size="xs"
+      variant={on ? 'light' : 'default'}
+      color={on ? 'yellow' : 'gray'}
+      leftSection={<GameIcon name={helper.icon} size={18} alt={helper.name} dim={!on} />}
+      onClick={() => {
+        const helpers = { ...step.helpers }
+        if (on) delete helpers[helper.name]
+        else helpers[helper.name] = 1
+        onChange({ ...step, helpers })
+      }}
+      aria-pressed={on}
+    >
+      {helper.name}
+      {on ? ' ✓' : '?'}
+    </Button>
+  )
+}
+
 function StepCard(p: StepProps) {
   const { route, result, readOnly } = p
   const { step, index, camp } = result
@@ -104,7 +127,9 @@ function StepCard(p: StepProps) {
   const isWaypoint = step.kind === 'waypoint'
   if (!isWaypoint && !camp) return null
 
-  const skipped = camp && step.rest === 'skip' ? campInstances(camp).filter((c) => !step.groups.flat().includes(c.uid)) : []
+  const skipped = camp && step.rest === 'skip' && step.groups.length ? campInstances(camp).filter((c) => !step.groups.flat().includes(c.uid)) : []
+  const helper = route.race ? CREEP_HELPER[route.race] : undefined
+  const withHelper = helper && step.helpers[helper.name]
 
   const title = isWaypoint ? step.label || 'Waypoint' : camp!.title
   const subtitle = isWaypoint ? 'Waypoint' : `${DIFFICULTY_LABEL[camp!.difficulty]} · Lv ${camp!.level} · ${camp!.name}`
@@ -167,22 +192,29 @@ function StepCard(p: StepProps) {
             </Group>
           </UnstyledButton>
 
-          {!p.open && (
-            <Group gap={8}>
-              {camp && <KillOrderStrip groups={result.groups} skipped={skipped} />}
-              {Object.entries(step.helpers).map(([n, c]) => (
-                <Badge key={n} size="xs" variant="dot" color="cyan">
-                  {c > 1 ? `${c}× ` : ''}
-                  {n}
+          {/* summary line: drops, helper, condition, skills learned */}
+          {(result.drops.length > 0 || withHelper || step.condition || result.levelUps.length > 0) && (
+            <Group gap={6}>
+              {result.drops.map((d, i) => (
+                <Badge key={i} size="xs" variant="light" color={LOOT_COLOR[d.type]}>
+                  L{d.level} {LOOT_LABEL[d.type]}
                 </Badge>
               ))}
+              {withHelper && helper && (
+                <Badge size="xs" variant="light" color="yellow" leftSection={<GameIcon name={helper.icon} size={12} />}>
+                  {helper.name}
+                </Badge>
+              )}
               {step.condition && (
-                <Badge size="xs" variant="light" color="grape">
+                <Badge size="xs" variant="light" color="grape" tt="none">
                   if {step.condition}
                 </Badge>
               )}
+              <SkillsLearned route={route} levels={result.levelUps} />
             </Group>
           )}
+
+          {!p.open && camp && <KillOrderStrip groups={result.groups} skipped={skipped} />}
           {!p.open && step.note && (
             <Text size="xs" c="gray.5" lineClamp={2}>
               {step.note}
@@ -191,28 +223,6 @@ function StepCard(p: StepProps) {
 
           <Collapse in={p.open}>
             <Stack gap="sm" pt={4} pb={4}>
-              {camp && (
-                <Group justify="space-between" align="flex-start" wrap="nowrap">
-                  <Group gap={6}>
-                    {result.drops.map((d, i) => (
-                      <Badge key={i} size="xs" variant="light" color={LOOT_COLOR[d.type]}>
-                        L{d.level} {LOOT_LABEL[d.type]} · {d.from}
-                      </Badge>
-                    ))}
-                  </Group>
-                  <Stack gap={2} align="flex-end" style={{ flexShrink: 0 }}>
-                    <Text fw={800} fz={20} lh={1}>
-                      Lv {result.after.level}
-                    </Text>
-                    <Text size="xs" ff="monospace" c="dimmed">
-                      {Math.round(result.after.xp)} / {result.after.level >= 10 ? '—' : Math.round(result.after.xp - result.after.intoLevel + result.after.levelSpan)} xp
-                    </Text>
-                    <Progress value={result.after.progress * 100} w={110} size={4} color="yellow" />
-                    <SkillsLearned route={route} levels={result.levelUps} />
-                  </Stack>
-                </Group>
-              )}
-
               {isWaypoint && !readOnly && (
                 <TextInput
                   size="xs"
@@ -224,8 +234,6 @@ function StepCard(p: StepProps) {
               )}
 
               {camp && <KillOrder camp={camp} step={step} groups={result.groups} readOnly={readOnly} onChange={p.onChange} />}
-
-              <BringUnits race={route.race} value={step.helpers} onChange={readOnly ? undefined : (helpers) => p.onChange({ ...step, helpers })} />
 
               {readOnly ? (
                 <>
@@ -245,21 +253,25 @@ function StepCard(p: StepProps) {
                 </>
               ) : (
                 <>
-                  {showCondition ? (
-                    <TextInput
-                      size="xs"
-                      label="Condition"
-                      placeholder="e.g. only if no early harass / if night has fallen"
-                      value={step.condition}
-                      onChange={(e) => p.onChange({ ...step, condition: e.currentTarget.value })}
-                    />
-                  ) : (
-                    <div>
+                  <Group gap={8} wrap="nowrap" align="center">
+                    {camp && <HelperToggle route={route} step={step} onChange={p.onChange} />}
+                    {showCondition || step.condition ? (
+                      <TextInput
+                        size="xs"
+                        style={{ flex: 1 }}
+                        placeholder="Condition, e.g. only if no early harass"
+                        leftSection={<Text size="xs" c="grape.3" fw={700}>if</Text>}
+                        value={step.condition}
+                        autoFocus={showCondition && !step.condition}
+                        onChange={(e) => p.onChange({ ...step, condition: e.currentTarget.value })}
+                        onBlur={() => !step.condition && setShowCondition(false)}
+                      />
+                    ) : (
                       <Button size="xs" variant="default" leftSection={<IconPlus size={14} />} onClick={() => setShowCondition(true)}>
                         Condition
                       </Button>
-                    </div>
-                  )}
+                    )}
+                  </Group>
                   <Textarea
                     size="xs"
                     autosize

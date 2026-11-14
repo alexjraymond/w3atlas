@@ -5,7 +5,8 @@ Plan **build orders and creep routes** for Warcraft III ladder/tournament maps, 
 - **Interactive minimaps.** Hover a camp to see its creeps, levels, XP and item drops. Click camps in order to draw your route, and add waypoints for shop or tavern stops.
 - **Live hero XP.** Each stop shows your running level and XP ("Lv 3 · 501 xp"), using the game's rules: 80/70/62/55% of creep XP, rounded down per kill, none from level 5. Level-ups show the skill you learn at that point.
 - **Kill order.** Split a camp into ordered groups (a group is killed in any order). Each group shows its XP and any level-up. Then clear the rest, or skip it.
-- **Per-stop details.** Bring units (5× Footman, a second hero…), a condition ("only if no harass"), and a note.
+- **Per-stop details.** A one-click race helper toggle (Militia, Ancient of War or Ghoul) that also badges the camp on the map, a condition ("only if no harass"), and a note.
+- **Skill order grid.** Pick which ability to max first and all 10 levels fill in (ultimate at 6), then fine-tune by clicking cells.
 - **Build library.** Build orders are their own items, not tied to a map. Link one to any number of routes as the companion build. Type a build line by line (Enter for the next line), or paste one as text (`5 Altar`, `2:10 12 Hero`).
 - **Hero and skill order.** The skill order is checked: ultimate at level 6, at most 3 ranks per basic ability.
 - **Map notes.** Draggable sticky notes on the map.

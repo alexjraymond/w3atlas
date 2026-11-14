@@ -39,38 +39,16 @@ import { MAP_BY_ID } from '../data/maps'
 import { href, navigate } from '../lib/router'
 import { builds, duplicateRoute, encodeShare, exportBundle, routes, useBuild, useBuilds, useRoute, useRoutes } from '../store'
 import { newBuild, newStep, newWaypoint, uid } from '../game/route'
-import { HERO_BY_NAME, RACE_LABEL } from '../game/heroes'
+import { CREEP_HELPER, HERO_BY_NAME, RACE_LABEL } from '../game/heroes'
 import { downloadFile, fileSafe } from '../lib/files'
 import { MapCanvas } from '../components/MapCanvas'
 import { HeroPanel } from '../components/HeroPanel'
 import { CreepRoute, XpSummary } from '../components/CreepRoute'
 import { BuildOrder } from '../components/BuildOrder'
 import { GameIcon } from '../components/GameIcon'
-import { AgainstPicker, Label, LevelPicker } from '../components/BuildFields'
+import { SkillGrid } from '../components/SkillGrid'
+import { AgainstPicker, Label } from '../components/BuildFields'
 import { NotFound } from './NotFound'
-
-function SkillStrip({ route }: { route: Route }) {
-  const hero = route.hero ? HERO_BY_NAME[route.hero] : null
-  if (!hero || !route.skills.some(Boolean)) return null
-  return (
-    <Group gap={3}>
-      {route.skills.map((s, i) => {
-        const a = hero.abilities.find((x) => x.name === s)
-        if (!a) return null
-        return (
-          <Tooltip key={i} label={`Level ${i + 1}: ${s}`}>
-            <span style={{ position: 'relative', display: 'inline-flex' }}>
-              <GameIcon name={a.icon} size={28} />
-              <span style={{ position: 'absolute', right: 1, bottom: -2, fontSize: 9, fontWeight: 800, color: '#fff', textShadow: '0 0 2px #000,0 0 2px #000' }}>
-                {i + 1}
-              </span>
-            </span>
-          </Tooltip>
-        )
-      })}
-    </Group>
-  )
-}
 
 const ago = (t: number) => new Date(t).toLocaleDateString(undefined, { day: 'numeric', month: 'long', year: 'numeric' })
 
@@ -218,6 +196,7 @@ export function RoutePage({ routeId }: { routeId: string }) {
         onChangeNote={setNote}
         onDeleteNote={(id) => patch({ mapNotes: route.mapNotes.filter((n) => n.id !== id) })}
         readOnly={readOnly}
+        helper={route.race ? CREEP_HELPER[route.race] : undefined}
       />
       {!readOnly && (
         <Text size="xs" c="dimmed">
@@ -325,9 +304,6 @@ export function RoutePage({ routeId }: { routeId: string }) {
               )}
             </div>
             <Group gap={4}>
-              <Badge variant="outline" size="sm">
-                {build.level}
-              </Badge>
               <Badge variant="light" size="sm" color="gray">
                 {build.steps.length} steps
               </Badge>
@@ -379,9 +355,6 @@ export function RoutePage({ routeId }: { routeId: string }) {
                     <Text size="sm">{hero.name}</Text>
                   </Group>
                 )}
-                <Badge variant="outline" size="sm">
-                  {route.level}
-                </Badge>
               </Group>
               <Title order={1} fz={{ base: 28, sm: 40 }} lh={1.05}>
                 {route.name || 'Untitled route'}
@@ -401,13 +374,27 @@ export function RoutePage({ routeId }: { routeId: string }) {
                   </Badge>
                 ))}
               </Group>
-              <SkillStrip route={route} />
             </Stack>
           </Group>
           {actions}
         </Group>
         <Grid gutter="lg">
-          <Grid.Col span={{ base: 12, md: 6 }}>{mapBlock}</Grid.Col>
+          <Grid.Col span={{ base: 12, md: 6 }}>
+            <Stack gap="md">
+              {mapBlock}
+              {hero && route.skills.some(Boolean) && (
+                <Card withBorder padding="sm">
+                  <Group gap={8} mb={8}>
+                    <GameIcon name={hero.icon} size={22} />
+                    <Text size="xs" fw={700} c="dimmed" tt="uppercase">
+                      Skill order
+                    </Text>
+                  </Group>
+                  <SkillGrid hero={hero} skills={route.skills} />
+                </Card>
+              )}
+            </Stack>
+          </Grid.Col>
           <Grid.Col span={{ base: 12, md: 6 }}>{routeBlock}</Grid.Col>
         </Grid>
         {buildSection}
@@ -444,13 +431,6 @@ export function RoutePage({ routeId }: { routeId: string }) {
               <AgainstPicker value={route.vs} onChange={(vs) => patch({ vs })} />
             </div>
             <div>
-              <Label>Difficulty</Label>
-              <LevelPicker value={route.level} onChange={(level) => patch({ level })} />
-              <Text size="xs" c="dimmed" mt={4}>
-                Standard: the current meta route. Beginner: a safer, simpler one.
-              </Text>
-            </div>
-            <div>
               <Label>Companion build</Label>
               <Group gap="xs" wrap="nowrap">
                 <Select
@@ -467,7 +447,7 @@ export function RoutePage({ routeId }: { routeId: string }) {
                   variant="light"
                   leftSection={<IconPlus size={14} />}
                   onClick={() => {
-                    const b = builds.save(newBuild({ name: `${route.name} build`, race: route.race, vs: route.vs, level: route.level }))
+                    const b = builds.save(newBuild({ name: `${route.name} build`, race: route.race, vs: route.vs }))
                     patch({ buildId: b.id })
                   }}
                 >

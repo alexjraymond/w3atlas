@@ -48,9 +48,6 @@ export function RouteCard({ route, showMap }: { route: Route; showMap?: boolean 
                 + build
               </Badge>
             )}
-            <Badge size="xs" variant="outline" color="gray">
-              {route.level}
-            </Badge>
           </Group>
           <Text size="xs" c="dimmed">
             Edited {timeAgo(route.updatedAt)}

@@ -22,6 +22,8 @@ interface Props {
   onDeleteNote?: (id: string) => void
   readOnly?: boolean
   showLegend?: boolean
+  /** race helper unit (Militia / Ancient of War / Ghoul): shown as a badge on camps that use it */
+  helper?: { name: string; icon: string }
 }
 
 export function MapCanvas({
@@ -37,12 +39,14 @@ export function MapCanvas({
   onDeleteNote,
   readOnly,
   showLegend = true,
+  helper,
 }: Props) {
   const ref = useRef<HTMLDivElement>(null)
 
   const orderOf = new Map<string, number>()
   steps.forEach((s, i) => s.campId && !orderOf.has(s.campId) && orderOf.set(s.campId, i + 1))
   const activeCamp = steps.find((s) => s.id === activeStepId)?.campId
+  const helped = new Set(helper ? steps.filter((s) => s.campId && s.helpers[helper.name]).map((s) => s.campId) : [])
   const points = steps.map((s) => stepPosition(map, s)).filter((p): p is { x: number; y: number } => !!p)
 
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -117,6 +121,9 @@ export function MapCanvas({
                   }}
                 >
                   {order ?? ''}
+                  {helper && helped.has(camp.id) && (
+                    <img className={classes.helperBadge} src={`${import.meta.env.BASE_URL}icons/${helper.icon}.png`} alt={helper.name} title={`With ${helper.name}`} />
+                  )}
                 </button>
               </HoverCard.Target>
               <HoverCard.Dropdown style={{ pointerEvents: 'none' }}>

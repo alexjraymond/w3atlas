@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { creepXp, heroLevelForXp, levelProgress, xpFromKill } from '../xp'
 import { parseBuildOrder, newRoute, newStep, newWaypoint, simulateRoute } from '../route'
-import { HERO_BY_NAME, validateSkill } from '../heroes'
+import { autoSkills, HERO_BY_NAME, maxOrder, validateSkill } from '../heroes'
 import { MAP_BY_ID, MAPS, campInstances } from '../../data/maps'
 import { sanitizeRoute } from '../../store/sanitize'
 import { decodeShare, encodeShare } from '../../store'
@@ -112,6 +112,19 @@ describe('skills', () => {
     expect(validateSkill(dk, s, 1)).toMatch(/level 3/)
     expect(validateSkill(dk, s, 5)).toBeNull()
     expect(validateSkill(dk, ['Animate Dead'], 0)).toMatch(/level 6/)
+  })
+})
+
+describe('skill priority', () => {
+  const dk = HERO_BY_NAME['Death Knight']
+  it('fills 10 levels from a max order, ultimate at 6, respecting rank limits', () => {
+    const s = autoSkills(dk, ['Death Coil', 'Unholy Aura'])
+    expect(s).toEqual([
+      'Death Coil', 'Unholy Aura', 'Death Coil', 'Unholy Aura', 'Death Coil',
+      'Animate Dead', 'Unholy Aura', 'Death Pact', 'Death Pact', 'Death Pact',
+    ])
+    expect(s.every((_, i) => validateSkill(dk, s, i) === null)).toBe(true)
+    expect(maxOrder(dk, s)).toEqual(['Death Coil', 'Unholy Aura', 'Death Pact'])
   })
 })
 

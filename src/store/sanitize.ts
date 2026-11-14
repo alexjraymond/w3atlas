@@ -1,4 +1,4 @@
-import type { Build, BuildStep, GameMap, Level, Matchup, Race, Route, RouteStep } from '../types'
+import type { Build, BuildStep, GameMap, Matchup, Race, Route, RouteStep } from '../types'
 import { campInstances, MAP_BY_ID } from '../data/maps'
 import { newBuild, newRoute, uid } from '../game/route'
 
@@ -12,7 +12,6 @@ const arr = <T = unknown>(v: unknown): T[] => (Array.isArray(v) ? (v as T[]) : [
 const obj = (v: unknown): Record<string, unknown> | null => (v && typeof v === 'object' && !Array.isArray(v) ? (v as Record<string, unknown>) : null)
 const race = (v: unknown): Race | null => (RACES.includes(v as string) ? (v as Race) : null)
 const matchup = (v: unknown): Matchup => (RACES.includes(v as string) ? (v as Race) : 'any')
-const level = (v: unknown): Level => (v === 'beginner' ? 'beginner' : 'standard')
 const tags = (v: unknown) => arr(v).filter((t): t is string => typeof t === 'string' && !!t.trim()).slice(0, 12)
 
 export function sanitizeBuildSteps(v: unknown): BuildStep[] {
@@ -73,7 +72,6 @@ export function sanitizeRoute(input: unknown): { route: Route; legacyBuild: Buil
     name: str(r.name, base.name),
     race: race(r.race),
     vs: matchup(r.vs),
-    level: level(r.level),
     hero: typeof r.hero === 'string' ? r.hero : null,
     skills: [...skills, ...Array(10).fill('')].slice(0, 10),
     steps,
@@ -106,7 +104,6 @@ export function sanitizeBuild(input: unknown): Build | null {
     name: str(b.name, base.name),
     race: race(b.race),
     vs: matchup(b.vs),
-    level: level(b.level),
     notes: str(b.notes),
     tags: tags(b.tags),
     steps: sanitizeBuildSteps(b.steps),
