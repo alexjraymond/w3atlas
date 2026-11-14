@@ -67,7 +67,7 @@ export function CampDetails({ camp }: { camp: Camp }) {
                   <span>
                     {u.count > 1 && `${u.count}× `}
                     {u.name}
-                    {u.loot && <span style={{ color: '#ff8787' }}> ◆</span>}
+                    {u.drops.length > 0 && <span style={{ color: '#4dabf7' }}> {'◆'.repeat(u.drops.length)}</span>}
                   </span>
                 </Group>
               </Table.Td>

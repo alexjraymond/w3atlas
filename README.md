@@ -16,7 +16,33 @@ Plan **build orders and creep routes** for Warcraft III ladder/tournament maps, 
 
 Autumn Leaves, Concealed Hill, Echo Isles v2, Last Refuge, Shallow Grave.
 
-### Adding a map
+### Adding or updating a map from the map file (recommended)
+
+1. Put the map's `.w3x` file in `map-files/`. This folder is ignored by git.
+2. Run:
+
+```bash
+npm run import-map
+```
+
+This reads every map in `map-files/` and writes `src/data/maps/<slug>.json` with:
+- each camp's exact position, read from the map
+- which creeps are in each camp
+- what each creep drops, e.g. "random level 2 permanent"
+
+If a map already exists, its camp ids and names are kept when a camp is in about the same place, so saved routes keep working. Then:
+
+- Put the minimap image at `public/maps/<slug>.png`, covering the playable area (the importer tells you if it's missing).
+- Creep names and levels come from `src/data/creeps.json`, because map files only store a 4-letter unit id. The importer warns about unknown ids. Levels marked `"verified": true` have been confirmed from in-game XP numbers.
+- `src/data/itemPools.json` lists which items a random drop of each class and level can give.
+
+To import a single file under a specific slug:
+
+```bash
+npm run import-map -- path/to/map.w3x --slug my_map
+```
+
+### Adding a map by hand
 
 1. Save the minimap as `public/maps/<slug>.png`.
 2. Add `src/data/maps/<slug>.json` with the same slug:
@@ -38,7 +64,7 @@ Autumn Leaves, Concealed Hill, Echo Isles v2, Last Refuge, Shallow Grave.
 }
 ```
 
-`position` is in image pixels, and `dimensions` is the image size. Creep levels come from the `CREEP_LEVELS` table in `src/data/maps.ts` when a creep is listed there (levels are fixed per unit type on melee maps), otherwise from the JSON. The camp id prefix (`green-`, `orange-`, `red-`) sets the marker color. The rest of the id becomes the display name, unless you set `"name"`. The loot `type` is one of `permanent`, `charged`, `power up`, `artifact`, `custom`.
+`position` is in image pixels, and `dimensions` is the image size. Creep levels come from `src/data/creeps.json` when the creep is listed there (levels are fixed per unit type on melee maps), otherwise from the JSON. `loot` can be one drop or a list of drops, and `items` can be left out to use the item pools. The camp id prefix (`green-`, `orange-`, `red-`) sets the marker color. The rest of the id becomes the display name, unless you set `"name"`. The loot `type` is one of `permanent`, `charged`, `power up`, `artifact`, `custom`.
 
 The map appears in the app automatically.
 

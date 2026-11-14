@@ -1,0 +1,87 @@
+{
+ "_about": "Items a random drop of each class/level can give, keyed \"<class>-<level>\". Used when a map only says e.g. \"random level 2 permanent\".",
+ "pools": {
+  "charged-2": [
+   "potion_of_greater_healing",
+   "potion_of_greater_mana",
+   "potion_of_invulnerability",
+   "replenishment_potion",
+   "scroll_of_the_beast",
+   "sentry_wards",
+   "wand_of_illusion",
+   "wand_of_mana_stealing"
+  ],
+  "charged-3": [
+   "potion_of_greater_healing",
+   "potion_of_greater_mana",
+   "potion_of_invulnerability",
+   "scroll_of_the_beast",
+   "wand_of_mana_stealing"
+  ],
+  "charged-4": [
+   "potion_of_greater_healing",
+   "potion_of_greater_mana",
+   "potion_of_invulnerability",
+   "scroll_of_the_beast",
+   "wand_of_mana_stealing"
+  ],
+  "permanent-1": [
+   "cloak_of_shadows",
+   "gauntlets_of_ogre_strength",
+   "mantle_of_intelligence",
+   "ring_of_superiority",
+   "slippers_of_agility"
+  ],
+  "permanent-2": [
+   "claws_of_attack_+5",
+   "gloves_of_haste",
+   "ring_of_protection_+3"
+  ],
+  "permanent-3": [
+   "circlet_of_nobility",
+   "claws_of_attack_+8",
+   "pendant_of_energy",
+   "periapt_of_vitality",
+   "ring_of_regeneration",
+   "talisman_of_evasion"
+  ],
+  "permanent-4": [
+   "allerias_flute_of_accuracy",
+   "belt_of_strength_+6",
+   "boots_of_quelthalas",
+   "horn_of_endurance",
+   "ring_of_archmagi",
+   "robes_of_the_magi",
+   "runed_bracers",
+   "scourged_bone_chimes",
+   "sobi_mask"
+  ],
+  "permanent-5": [
+   "ancient_janggo_of_endurance",
+   "claws_of_attack_+12",
+   "cloak_of_flames",
+   "helm_of_valor",
+   "hood_of_cunning",
+   "khadgar's_pipe_of_insight",
+   "legion_doom_horn",
+   "medallion_of_courage",
+   "warsong_battle_drums"
+  ],
+  "powerup-1": [
+   "manual_of_health",
+   "tome_of_agility",
+   "tome_of_intelligence",
+   "tome_of_strength"
+  ],
+  "powerup-2": [
+   "manual_of_health",
+   "tome_of_agility",
+   "tome_of_agility_+2",
+   "tome_of_intelligence",
+   "tome_of_intelligence_+2",
+   "tome_of_knowledge",
+   "tome_of_strength",
+   "tome_of_strength_+2"
+  ]
+ }
+}

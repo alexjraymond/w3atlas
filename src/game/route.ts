@@ -122,7 +122,7 @@ export function simulateRoute(map: GameMap, steps: RouteStep[]): { results: Step
       levelBefore,
       after: levelProgress(xp),
       levelUps: range(levelBefore + 1, heroLevelForXp(xp)),
-      drops: killed.filter((c) => c.loot).map((c) => ({ from: c.name, ...c.loot! })),
+      drops: killed.flatMap((c) => c.drops.map((d) => ({ from: c.name, ...d }))),
       killed: killed.length,
       total: camp ? campInstances(camp).length : 0,
     }

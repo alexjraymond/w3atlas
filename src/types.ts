@@ -13,7 +13,8 @@ export interface CreepUnit {
   name: string
   count: number
   level: number
-  loot?: Loot
+  /** item drops (a creep can drop more than one item) */
+  drops: Loot[]
 }
 
 export interface Camp {
@@ -34,7 +35,7 @@ export interface CreepInstance {
   uid: string // `${unitIndex}-${instanceIndex}` - stable within a camp
   name: string
   level: number
-  loot?: Loot
+  drops: Loot[]
 }
 
 export interface GameMap {

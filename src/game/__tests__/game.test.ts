@@ -44,6 +44,12 @@ describe('maps', () => {
       expect(new Set(m.camps.map((c) => c.id)).size).toBe(m.camps.length)
     }
   })
+  it('reads multiple drops per creep and fills random drops from the item pools', () => {
+    const magi = MAP_BY_ID['autumn_leaves'].camps.find((c) => c.id === 'orange-camp-expo-frontal-1')!
+    const drops = magi.units.find((u) => u.name === 'Ogre Magi')!.drops
+    expect(drops.map((d) => `${d.type}-${d.level}`)).toEqual(['permanent-1', 'powerup-2'])
+    expect(drops.every((d) => d.items.length > 0)).toBe(true)
+  })
   it('names camps after the item dropper', () => {
     const shop = MAP_BY_ID['autumn_leaves'].camps.find((c) => c.id === 'orange-camp-shop-1')!
     expect(shop.title).toBe('Sasquatch +2')

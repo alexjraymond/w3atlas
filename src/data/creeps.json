@@ -1,0 +1,275 @@
+{
+ "_about": "Neutral creep unit types: map files store only the 4-letter id. Levels are fixed per unit type on melee maps. verified=true means confirmed from in-game XP numbers; the rest are best guesses to double-check against Liquipedia.",
+ "creeps": {
+  "ngno": {
+   "name": "Gnoll",
+   "level": 1,
+   "verified": false
+  },
+  "ngna": {
+   "name": "Gnoll Poacher",
+   "level": 2,
+   "verified": false
+  },
+  "ngnb": {
+   "name": "Gnoll Brute",
+   "level": 2,
+   "verified": false
+  },
+  "ngns": {
+   "name": "Gnoll Assassin",
+   "level": 3,
+   "verified": true
+  },
+  "ngnw": {
+   "name": "Gnoll Warden",
+   "level": 2,
+   "verified": false
+  },
+  "ngnv": {
+   "name": "Gnoll Overseer",
+   "level": 5,
+   "verified": true
+  },
+  "nkob": {
+   "name": "Kobold",
+   "level": 1,
+   "verified": false
+  },
+  "nkog": {
+   "name": "Kobold Geomancer",
+   "level": 2,
+   "verified": false
+  },
+  "nkot": {
+   "name": "Kobold Tunneler",
+   "level": 2,
+   "verified": false
+  },
+  "nkol": {
+   "name": "Kobold Taskmaster",
+   "level": 4,
+   "verified": false
+  },
+  "nftr": {
+   "name": "Forest Troll",
+   "level": 2,
+   "verified": false
+  },
+  "nfsp": {
+   "name": "Forest Troll Shadow Priest",
+   "level": null,
+   "verified": false
+  },
+  "nftt": {
+   "name": "Forest Troll Trapper",
+   "level": 3,
+   "verified": true
+  },
+  "nftb": {
+   "name": "Forest Troll Berserker",
+   "level": 4,
+   "verified": true
+  },
+  "nfsh": {
+   "name": "Forest Troll High Priest",
+   "level": 3,
+   "verified": false
+  },
+  "nftk": {
+   "name": "Forest Troll Warlord",
+   "level": 5,
+   "verified": false
+  },
+  "nogr": {
+   "name": "Ogre Warrior",
+   "level": 3,
+   "verified": false
+  },
+  "nomg": {
+   "name": "Ogre Magi",
+   "level": 5,
+   "verified": true
+  },
+  "nogm": {
+   "name": "Ogre Mauler",
+   "level": 3,
+   "verified": false
+  },
+  "nogl": {
+   "name": "Ogre Lord",
+   "level": 7,
+   "verified": false
+  },
+  "nmrl": {
+   "name": "Murloc Tiderunner",
+   "level": 1,
+   "verified": false
+  },
+  "nmrr": {
+   "name": "Murloc Huntsman",
+   "level": 2,
+   "verified": false
+  },
+  "nmfs": {
+   "name": "Murloc Flesheater",
+   "level": 3,
+   "verified": false
+  },
+  "nmrm": {
+   "name": "Murloc Nightcrawler",
+   "level": 3,
+   "verified": false
+  },
+  "nbrg": {
+   "name": "Brigand",
+   "level": 2,
+   "verified": false
+  },
+  "nrog": {
+   "name": "Rogue",
+   "level": 2,
+   "verified": false
+  },
+  "nass": {
+   "name": "Assassin",
+   "level": 3,
+   "verified": false
+  },
+  "nenf": {
+   "name": "Enforcer",
+   "level": 5,
+   "verified": true
+  },
+  "nbld": {
+   "name": "Bandit Lord",
+   "level": null,
+   "verified": false
+  },
+  "nwiz": {
+   "name": "Apprentice Wizard",
+   "level": 2,
+   "verified": false
+  },
+  "nwzr": {
+   "name": "Rogue Wizard",
+   "level": 3,
+   "verified": false
+  },
+  "nwzg": {
+   "name": "Renegade Wizard",
+   "level": 4,
+   "verified": false
+  },
+  "nwlt": {
+   "name": "Timber Wolf",
+   "level": null,
+   "verified": false
+  },
+  "nwlg": {
+   "name": "Giant Wolf",
+   "level": null,
+   "verified": false
+  },
+  "nwld": {
+   "name": "Dire Wolf",
+   "level": null,
+   "verified": false
+  },
+  "nwwf": {
+   "name": "Frost Wolf",
+   "level": 2,
+   "verified": true
+  },
+  "nwwg": {
+   "name": "Giant Frost Wolf",
+   "level": null,
+   "verified": false
+  },
+  "nwwd": {
+   "name": "Dire Frost Wolf",
+   "level": 5,
+   "verified": false
+  },
+  "ngrk": {
+   "name": "Mud Golem",
+   "level": 2,
+   "verified": false
+  },
+  "ngst": {
+   "name": "Rock Golem",
+   "level": 4,
+   "verified": false
+  },
+  "nggr": {
+   "name": "Granite Golem",
+   "level": 7,
+   "verified": false
+  },
+  "nsqt": {
+   "name": "Sasquatch",
+   "level": 5,
+   "verified": true
+  },
+  "nsqe": {
+   "name": "Elder Sasquatch",
+   "level": null,
+   "verified": false
+  },
+  "nowb": {
+   "name": "Wildkin",
+   "level": null,
+   "verified": false
+  },
+  "nowe": {
+   "name": "Enraged Wildkin",
+   "level": 5,
+   "verified": false
+  },
+  "nowk": {
+   "name": "Berserk Wildkin",
+   "level": null,
+   "verified": false
+  },
+  "nslf": {
+   "name": "Sludge Flinger",
+   "level": 2,
+   "verified": false
+  },
+  "nsln": {
+   "name": "Sludge Minion",
+   "level": null,
+   "verified": false
+  },
+  "nska": {
+   "name": "Skeleton Archer",
+   "level": 2,
+   "verified": false
+  },
+  "nskg": {
+   "name": "Skeleton Warrior",
+   "level": 2,
+   "verified": false
+  },
+  "ntrs": {
+   "name": "Sea Turtle",
+   "level": 2,
+   "verified": false
+  },
+  "ntrt": {
+   "name": "Giant Sea Turtle",
+   "level": 3,
+   "verified": false
+  },
+  "ntrg": {
+   "name": "Gargantuan Sea Turtle",
+   "level": 5,
+   "verified": false
+  },
+  "nrdr": {
+   "name": "Red Drake",
+   "level": 6,
+   "verified": false
+  }
+ }
+}
