@@ -3,11 +3,12 @@ import { Anchor, AppShell, Button, Container, FileButton, Group, Menu, Text } fr
 import { IconChevronDown, IconDatabaseExport, IconDatabaseImport, IconMap2 } from '@tabler/icons-react'
 import { MAPS } from '../data/maps'
 import { href, navigate } from '../lib/router'
-import { exportJson, importRoutes, useRoutes } from '../store/routes'
+import { exportBundle, importData, useBuilds, useRoutes } from '../store'
 import { downloadFile, readJsonFile } from '../lib/files'
 
 export function Layout({ children }: { children: ReactNode }) {
   const routes = useRoutes()
+  const allBuilds = useBuilds()
   return (
     <AppShell header={{ height: 52 }} padding="md">
       <AppShell.Header>
@@ -22,6 +23,9 @@ export function Layout({ children }: { children: ReactNode }) {
               </Group>
             </Anchor>
             <Group gap={4} wrap="nowrap">
+              <Button component="a" href={href.builds()} variant="subtle" color="gray" size="compact-sm">
+                Builds
+              </Button>
               <Menu position="bottom-end" shadow="md">
                 <Menu.Target>
                   <Button variant="subtle" color="gray" size="compact-sm" rightSection={<IconChevronDown size={14} />}>
@@ -43,22 +47,24 @@ export function Layout({ children }: { children: ReactNode }) {
                   </Button>
                 </Menu.Target>
                 <Menu.Dropdown>
-                  <Menu.Label>{routes.length} saved routes (this browser)</Menu.Label>
+                  <Menu.Label>
+                    {routes.length} routes · {allBuilds.length} builds (this browser)
+                  </Menu.Label>
                   <Menu.Item
                     leftSection={<IconDatabaseExport size={16} />}
-                    disabled={!routes.length}
-                    onClick={() => downloadFile(`w3atlas-routes-${new Date().toISOString().slice(0, 10)}.json`, exportJson(routes))}
+                    disabled={!routes.length && !allBuilds.length}
+                    onClick={() => downloadFile(`w3atlas-backup-${new Date().toISOString().slice(0, 10)}.json`, exportBundle(routes, allBuilds))}
                   >
-                    Export all routes
+                    Export everything
                   </Menu.Item>
                   <FileButton
                     accept="application/json,.json"
                     onChange={async (file) => {
                       if (!file) return
                       try {
-                        const imported = importRoutes(await readJsonFile(file))
-                        alert(`Imported ${imported.length} route(s).`)
-                        if (imported.length === 1) navigate(href.route(imported[0].id))
+                        const res = importData(await readJsonFile(file))
+                        alert(`Imported ${res.routes.length} route(s) and ${res.builds.length} build(s).`)
+                        if (res.routes.length === 1) navigate(href.route(res.routes[0].id))
                       } catch {
                         alert('That file could not be read as W3Atlas routes.')
                       }
@@ -66,7 +72,7 @@ export function Layout({ children }: { children: ReactNode }) {
                   >
                     {(props) => (
                       <Menu.Item leftSection={<IconDatabaseImport size={16} />} closeMenuOnClick={false} {...props}>
-                        Import routes…
+                        Import file…
                       </Menu.Item>
                     )}
                   </FileButton>

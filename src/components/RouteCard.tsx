@@ -5,7 +5,7 @@ import { HERO_BY_NAME, RACE_SHORT } from '../game/heroes'
 import { MAP_BY_ID } from '../data/maps'
 import { simulateRoute } from '../game/route'
 import { href, navigate } from '../lib/router'
-import { deleteRoute, duplicateRoute, exportJson } from '../store/routes'
+import { duplicateRoute, exportBundle, routes } from '../store'
 import { downloadFile, fileSafe } from '../lib/files'
 import { GameIcon } from './GameIcon'
 
@@ -41,13 +41,16 @@ export function RouteCard({ route, showMap }: { route: Route; showMap?: boolean 
               </Badge>
             )}
             <Badge size="xs" variant="light" color="yellow">
-              {route.steps.length} camps · Lv {level.toFixed(1)}
+              {route.steps.length} stops · Lv {level.toFixed(1)}
             </Badge>
-            {route.build.length > 0 && (
+            {route.buildId && (
               <Badge size="xs" variant="light" color="teal">
-                {route.build.length} build steps
+                + build
               </Badge>
             )}
+            <Badge size="xs" variant="outline" color="gray">
+              {route.level}
+            </Badge>
           </Group>
           <Text size="xs" c="dimmed">
             Edited {timeAgo(route.updatedAt)}
@@ -82,7 +85,7 @@ export function RouteCard({ route, showMap }: { route: Route; showMap?: boolean 
               leftSection={<IconDownload size={14} />}
               onClick={(e) => {
                 e.preventDefault()
-                downloadFile(`${fileSafe(route.name)}.json`, exportJson([route]))
+                downloadFile(`${fileSafe(route.name)}.json`, exportBundle([route]))
               }}
             >
               Export
@@ -92,7 +95,7 @@ export function RouteCard({ route, showMap }: { route: Route; showMap?: boolean 
               leftSection={<IconTrash size={14} />}
               onClick={(e) => {
                 e.preventDefault()
-                if (confirm(`Delete "${route.name}"? This can't be undone.`)) deleteRoute(route.id)
+                if (confirm(`Delete "${route.name}"? This can't be undone.`)) routes.remove(route.id)
               }}
             >
               Delete

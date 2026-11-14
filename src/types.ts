@@ -18,8 +18,13 @@ export interface CreepUnit {
 
 export interface Camp {
   id: string
+  /** where the camp is, e.g. "Shop 1" */
   name: string
+  /** what the camp is, e.g. "Sasquatch +2" (item dropper, or strongest creep) */
+  title: string
   difficulty: Difficulty
+  /** sum of creep levels in the camp */
+  level: number
   position: { x: number; y: number }
   units: CreepUnit[]
 }
@@ -41,18 +46,28 @@ export interface GameMap {
   camps: Camp[]
 }
 
-// ---------- User data (saved routes) ----------
+// ---------- User data ----------
 
 export type Race = 'human' | 'orc' | 'nightelf' | 'undead'
-export type Matchup = Race | 'random' | 'any'
+export type Matchup = Race | 'any'
+export type Level = 'beginner' | 'standard'
 
 export interface RouteStep {
   id: string
-  campId: string
-  /** uids of creeps in the camp that are NOT killed on this step */
-  skipped: string[]
-  /** helper units brought along, e.g. { Militia: 4 } */
+  kind: 'camp' | 'waypoint'
+  /** kind === 'camp' */
+  campId?: string
+  /** kind === 'waypoint': position in map pixels */
+  point?: { x: number; y: number }
+  /** kind === 'waypoint': what happens here, e.g. "Shop: buy TP" */
+  label?: string
+  /** Kill order: groups of creep uids. Creeps in one group die in any order. */
+  groups: string[][]
+  /** What happens to creeps not in any group. */
+  rest: 'clear' | 'skip'
+  /** units brought along, e.g. { Footman: 5 } */
   helpers: Record<string, number>
+  condition: string
   note: string
 }
 
@@ -72,18 +87,35 @@ export interface MapNote {
 
 export interface Route {
   id: string
-  version: 1
+  version: 2
   name: string
   mapId: string
   race: Race | null
   vs: Matchup
+  level: Level
   hero: string | null
   /** ability names for hero levels 1..10 ('' = not set) */
   skills: string[]
   steps: RouteStep[]
-  build: BuildStep[]
+  /** companion build order */
+  buildId: string | null
   mapNotes: MapNote[]
   notes: string
+  tags: string[]
+  createdAt: number
+  updatedAt: number
+}
+
+export interface Build {
+  id: string
+  version: 1
+  name: string
+  race: Race | null
+  vs: Matchup
+  level: Level
+  notes: string
+  tags: string[]
+  steps: BuildStep[]
   createdAt: number
   updatedAt: number
 }

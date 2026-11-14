@@ -1,13 +1,14 @@
 import { Button, Group, Stack, Text, Title } from '@mantine/core'
-import { decodeShare, importRoutes } from '../store/routes'
+import { decodeShare, importData } from '../store'
 import { MAP_BY_ID } from '../data/maps'
 import { href, navigate } from '../lib/router'
 import { MapCanvas } from '../components/MapCanvas'
 import { NotFound } from './NotFound'
 
 export function SharePage({ code }: { code: string }) {
-  const route = decodeShare(code)
-  if (!route) return <NotFound what="share link" />
+  const shared = decodeShare(code)
+  if (!shared) return <NotFound what="share link" />
+  const { route, build, raw } = shared
   const map = MAP_BY_ID[route.mapId]
 
   return (
@@ -18,15 +19,15 @@ export function SharePage({ code }: { code: string }) {
         </Text>
         <Title order={2}>{route.name}</Title>
         <Text size="sm" c="dimmed">
-          {route.hero ?? 'No hero'} · {route.steps.length} camps · {route.build.length} build steps
+          {route.hero ?? 'No hero'} · {route.steps.length} stops{build ? ` · build: ${build.name} (${build.steps.length} steps)` : ''}
         </Text>
       </div>
       <MapCanvas map={map} steps={route.steps} notes={route.mapNotes} readOnly />
       <Group>
         <Button
           onClick={() => {
-            const [saved] = importRoutes(route)
-            navigate(href.route(saved.id))
+            const res = importData(raw)
+            if (res.routes[0]) navigate(href.route(res.routes[0].id))
           }}
         >
           Save to my routes

@@ -1,7 +1,7 @@
 import { Badge, Card, Group, Image, SimpleGrid, Stack, Text, Title } from '@mantine/core'
 import { MAPS, DIFFICULTY_COLOR } from '../data/maps'
 import { href } from '../lib/router'
-import { useRoutes } from '../store/routes'
+import { useRoutes } from '../store'
 import { RouteCard } from '../components/RouteCard'
 
 export function HomePage() {

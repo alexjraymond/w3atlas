@@ -86,7 +86,6 @@ export const RACE_LABEL: Record<Matchup, string> = {
   orc: 'Orc',
   nightelf: 'Night Elf',
   undead: 'Undead',
-  random: 'Random',
   any: 'Any',
 }
 
@@ -95,16 +94,15 @@ export const RACE_SHORT: Record<Matchup, string> = {
   orc: 'O',
   nightelf: 'NE',
   undead: 'UD',
-  random: 'R',
-  any: 'X',
+  any: 'Any'
 }
 
-/** Units commonly used to help a hero creep, by race. */
-export const HELPERS: Record<Race, string[]> = {
-  human: ['Militia', 'Footman', 'Rifleman', 'Water Elemental'],
-  orc: ['Grunt', 'Headhunter', 'Spirit Wolf', 'Peon'],
-  nightelf: ['Ancient of War', 'Ancient Protector', 'Archer', 'Huntress', 'Treant', 'Wisp'],
-  undead: ['Ghoul', 'Crypt Fiend', 'Acolyte', 'Skeleton'],
+/** Units you might bring along to creep, by race (heroes are added separately). */
+export const UNITS: Record<Race, string[]> = {
+  human: ['Militia', 'Peasant', 'Footman', 'Rifleman', 'Knight', 'Priest', 'Sorceress', 'Spell Breaker', 'Water Elemental', 'Mortar Team'],
+  orc: ['Peon', 'Grunt', 'Headhunter', 'Raider', 'Shaman', 'Witch Doctor', 'Spirit Walker', 'Tauren', 'Spirit Wolf', 'Serpent Ward'],
+  nightelf: ['Wisp', 'Archer', 'Huntress', 'Dryad', 'Druid of the Claw', 'Mountain Giant', 'Treant', 'Ancient of War', 'Ancient Protector', 'Ancient of Lore'],
+  undead: ['Acolyte', 'Ghoul', 'Crypt Fiend', 'Necromancer', 'Banshee', 'Abomination', 'Gargoyle', 'Skeleton Warrior', 'Shade'],
 }
 
 /**

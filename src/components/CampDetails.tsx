@@ -1,6 +1,6 @@
 import { Badge, Group, Stack, Table, Text } from '@mantine/core'
 import type { Camp } from '../types'
-import { campDrops, campLevel, campRawXp, DIFFICULTY_COLOR, iconSlug, itemName, LOOT_COLOR, LOOT_LABEL } from '../data/maps'
+import { campDrops, campRawXp, DIFFICULTY_COLOR, DIFFICULTY_LABEL, iconSlug, itemName, LOOT_COLOR, LOOT_LABEL } from '../data/maps'
 import { creepXp } from '../game/xp'
 import { GameIcon } from './GameIcon'
 
@@ -38,17 +38,17 @@ export function CampDetails({ camp }: { camp: Camp }) {
   const drops = campDrops(camp)
   return (
     <Stack gap={8} w={300}>
-      <Group justify="space-between" wrap="nowrap">
+      <div>
         <Group gap={6} wrap="nowrap">
           <DifficultyDot camp={camp} />
           <Text fw={700} size="sm">
-            {camp.name}
+            {camp.title}
           </Text>
         </Group>
         <Text size="xs" c="dimmed">
-          Lvl {campLevel(camp)} · {campRawXp(camp)} XP
+          {camp.name} · {DIFFICULTY_LABEL[camp.difficulty]} · Lv {camp.level} · {campRawXp(camp)} raw XP
         </Text>
-      </Group>
+      </div>
 
       <Table withRowBorders={false} verticalSpacing={2} horizontalSpacing={4} fz="xs">
         <Table.Thead>

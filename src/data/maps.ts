@@ -1,4 +1,4 @@
-import type { Camp, CreepInstance, Difficulty, GameMap, LootClass } from '../types'
+import type { Camp, CreepInstance, CreepUnit, Difficulty, GameMap, LootClass } from '../types'
 import { creepXp } from '../game/xp'
 
 interface RawUnit {
@@ -26,6 +26,19 @@ const LOOT_CLASS: Record<string, LootClass> = {
   custom: 'custom',
 }
 
+/**
+ * Creep levels are fixed per unit type on melee maps, so they live here rather than per camp.
+ * Only levels that have been verified are listed; anything else falls back to the map JSON.
+ * Verified against warcraft-gym XP numbers (e.g. Sasquatch camp: trolls +116, Sasquatch +92).
+ */
+export const CREEP_LEVELS: Record<string, number> = {
+  Sasquatch: 5,
+  'Forest Troll Berserker': 4,
+  'Forest Troll Trapper': 3,
+  'Ogre Magi': 5,
+  'Frost Wolf': 2,
+}
+
 const titleCase = (s: string) => s.replace(/\b\w/g, (c) => c.toUpperCase())
 
 function campName(id: string): string {
@@ -39,16 +52,20 @@ function difficulty(id: string): Difficulty {
   return 'green'
 }
 
+/** "Sasquatch +2": the item dropper (or strongest creep) plus how many others are in the camp. */
+function campTitle(units: CreepUnit[]): string {
+  if (!units.length) return 'Empty camp'
+  const lead = units.find((u) => u.loot) ?? units.reduce((a, b) => (b.level > a.level ? b : a))
+  const others = units.reduce((n, u) => n + u.count, 0) - 1
+  return others > 0 ? `${lead.name} +${others}` : lead.name
+}
+
 function normalize(slug: string, raw: RawMap): GameMap {
-  const camps: Camp[] = raw.camps.map((c) => ({
-    id: c.id,
-    name: c.name ?? campName(c.id),
-    difficulty: difficulty(c.id),
-    position: c.position,
-    units: c.units.map((u) => ({
+  const camps: Camp[] = raw.camps.map((c) => {
+    const units: CreepUnit[] = c.units.map((u) => ({
       name: u.name,
       count: u.count ?? 1,
-      level: u.level,
+      level: CREEP_LEVELS[u.name] ?? u.level,
       loot: u.loot
         ? {
             level: u.loot.level,
@@ -56,8 +73,17 @@ function normalize(slug: string, raw: RawMap): GameMap {
             items: u.loot.items.filter(Boolean),
           }
         : undefined,
-    })),
-  }))
+    }))
+    return {
+      id: c.id,
+      name: c.name ?? campName(c.id),
+      title: campTitle(units),
+      difficulty: difficulty(c.id),
+      level: units.reduce((n, u) => n + u.level * u.count, 0),
+      position: c.position,
+      units,
+    }
+  })
   return {
     id: slug,
     name: raw.mapName,
@@ -95,10 +121,6 @@ export function campInstances(camp: Camp): CreepInstance[] {
   return list
 }
 
-export function campLevel(camp: Camp): number {
-  return campInstances(camp).reduce((sum, c) => sum + c.level, 0)
-}
-
 export function campRawXp(camp: Camp): number {
   return campInstances(camp).reduce((sum, c) => sum + creepXp(c.level), 0)
 }
@@ -111,6 +133,12 @@ export const DIFFICULTY_COLOR: Record<Difficulty, string> = {
   green: '#3ddc4a',
   orange: '#ffad33',
   red: '#ff4d4d',
+}
+
+export const DIFFICULTY_LABEL: Record<Difficulty, string> = {
+  green: 'Easy',
+  orange: 'Medium',
+  red: 'Hard',
 }
 
 export const LOOT_LABEL: Record<LootClass, string> = {

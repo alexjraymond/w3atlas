@@ -1,9 +1,11 @@
 import { describe, expect, it } from 'vitest'
 import { creepXp, heroLevelForXp, levelProgress, xpFromKill } from '../xp'
-import { parseBuildOrder, newRoute, newStep, simulateRoute } from '../route'
+import { parseBuildOrder, newRoute, newStep, newWaypoint, simulateRoute } from '../route'
 import { HERO_BY_NAME, validateSkill } from '../heroes'
 import { MAP_BY_ID, MAPS, campInstances } from '../../data/maps'
-import { decodeShare, encodeShare, sanitizeRoute } from '../../store/routes'
+import { sanitizeRoute } from '../../store/sanitize'
+import { decodeShare, encodeShare } from '../../store'
+import type { RouteStep } from '../../types'
 
 describe('xp', () => {
   it('creep xp table', () => {
@@ -17,9 +19,9 @@ describe('xp', () => {
     expect(heroLevelForXp(200)).toBe(2)
     expect(heroLevelForXp(1400)).toBe(5)
   })
-  it('xp rate drops with hero level and stops at 5', () => {
-    expect(xpFromKill(0, 2)).toBeCloseTo(32) // 40 * 0.8
-    expect(xpFromKill(250, 2)).toBeCloseTo(28) // 40 * 0.7
+  it('rate drops with hero level, rounds down per kill, stops at 5', () => {
+    expect(xpFromKill(0, 2)).toBe(32) // 40 * 0.8
+    expect(xpFromKill(250, 4)).toBe(59) // 85 * 0.7 = 59.5
     expect(xpFromKill(1400, 5)).toBe(0)
   })
   it('level progress', () => {
@@ -30,7 +32,7 @@ describe('xp', () => {
 })
 
 describe('maps', () => {
-  it('loads all maps with camps', () => {
+  it('loads all maps with sane camps', () => {
     expect(MAPS.length).toBeGreaterThanOrEqual(5)
     for (const m of MAPS) {
       expect(m.camps.length).toBeGreaterThan(0)
@@ -42,28 +44,42 @@ describe('maps', () => {
       expect(new Set(m.camps.map((c) => c.id)).size).toBe(m.camps.length)
     }
   })
-  it('autumn leaves is present and mirrored', () => {
-    const al = MAP_BY_ID['autumn_leaves']
-    expect(al.name).toBe('Autumn Leaves')
-    const camp = al.camps.find((c) => c.id === 'green-camp-wolves-1')!
-    expect(campInstances(camp)).toHaveLength(3)
+  it('names camps after the item dropper', () => {
+    const shop = MAP_BY_ID['autumn_leaves'].camps.find((c) => c.id === 'orange-camp-shop-1')!
+    expect(shop.title).toBe('Sasquatch +2')
+    expect(shop.level).toBe(12)
   })
 })
 
+// The three stops from a warcraft-gym Autumn Leaves route (Archmage, HvH):
+//   Sasquatch +2: trolls first (+116), then Sasquatch (+92) -> Lv 2, 208 xp
+//   Forest Troll Berserker +2 -> Lv 2, 337 xp
+//   Ogre Magi +2 -> Lv 3, 501 xp
 describe('route simulation', () => {
-  it('accumulates xp across camps in order', () => {
-    const map = MAP_BY_ID['autumn_leaves']
-    const steps = ['green-camp-wolves-1', 'green-camp-trolls-1'].map(newStep)
-    const { results, final } = simulateRoute(map, steps)
-    // wolves camp: 3 level-2 creeps = 3 * 40 * 0.8 = 96
-    expect(results[0].xpGained).toBeCloseTo(96)
-    expect(results[1].levelUps).toEqual([2])
-    expect(final.level).toBe(2)
+  const map = MAP_BY_ID['autumn_leaves']
+  it('matches a known route exactly', () => {
+    const s1: RouteStep = { ...newStep('orange-camp-shop-1'), groups: [['1-0', '2-0'], ['0-0']] }
+    const { results } = simulateRoute(map, [s1, newStep('green-camp-trolls-2'), newStep('orange-camp-expo-frontal-2')])
+    expect(results[0].groups.map((g) => g.xpGained)).toEqual([116, 92])
+    expect(results[0].groups[1].levelUps).toEqual([2])
+    expect(results[0].after.xp).toBe(208)
+    expect(results[1].after.xp).toBe(337)
+    expect(results[2].after.xp).toBe(501)
+    expect(results[2].after.level).toBe(3)
   })
-  it('respects skipped creeps', () => {
-    const map = MAP_BY_ID['autumn_leaves']
-    const step = { ...newStep('green-camp-wolves-1'), skipped: ['1-0', '1-1'] }
-    expect(simulateRoute(map, [step]).results[0].xpGained).toBeCloseTo(32)
+  it('skip the rest only kills the chosen groups', () => {
+    const step: RouteStep = { ...newStep('green-camp-wolves-1'), groups: [['0-0']], rest: 'skip' }
+    const r = simulateRoute(map, [step]).results[0]
+    expect(r.killed).toBe(1)
+    expect(r.total).toBe(3)
+  })
+  it('waypoints give no xp but count as stops', () => {
+    const { results } = simulateRoute(map, [newWaypoint(10, 10, 'Shop'), newStep('green-camp-wolves-1')])
+    expect(results[0].xpGained).toBe(0)
+    expect(results[1].xpGained).toBeGreaterThan(0)
+  })
+  it('instances expand counts', () => {
+    expect(campInstances(map.camps.find((c) => c.id === 'green-camp-wolves-1')!)).toHaveLength(3)
   })
 })
 
@@ -92,16 +108,32 @@ describe('build order parser', () => {
 })
 
 describe('storage', () => {
-  it('sanitizes junk and keeps valid routes', () => {
+  it('rejects unknown maps and junk steps', () => {
     expect(sanitizeRoute({ mapId: 'nope' })).toBeNull()
-    const r = sanitizeRoute({ mapId: 'autumn_leaves', name: 'x', skills: ['Blizzard'], steps: [{ campId: 'red-camp-granite-1' }, { bad: 1 }] })!
-    expect(r.skills).toHaveLength(10)
-    expect(r.steps).toHaveLength(1)
+    const r = sanitizeRoute({ mapId: 'autumn_leaves', skills: ['Blizzard'], steps: [{ campId: 'red-camp-granite-1' }, { bad: 1 }, { campId: 'nope' }] })!
+    expect(r.route.skills).toHaveLength(10)
+    expect(r.route.steps).toHaveLength(1)
+  })
+  it('migrates v1 routes: skipped creeps and inline build orders', () => {
+    const v1 = {
+      mapId: 'autumn_leaves',
+      name: 'Old',
+      vs: 'random',
+      steps: [{ id: 'a', campId: 'green-camp-wolves-1', skipped: ['1-1'], helpers: { Militia: 3 }, note: 'x' }],
+      build: [{ supply: '5', time: '', action: 'Altar' }],
+    }
+    const { route, legacyBuild } = sanitizeRoute(v1)!
+    expect(route.vs).toBe('any')
+    expect(route.steps[0].groups).toEqual([['0-0', '1-0']])
+    expect(route.steps[0].rest).toBe('skip')
+    expect(route.steps[0].helpers).toEqual({ Militia: 3 })
+    expect(legacyBuild?.steps[0].action).toBe('Altar')
+    expect(route.buildId).toBe(legacyBuild?.id)
   })
   it('share links round-trip (unicode safe)', () => {
     const r = newRoute('autumn_leaves', { name: 'Fast expo ⚔️', notes: 'naïve' })
     const back = decodeShare(encodeShare(r))!
-    expect(back.name).toBe('Fast expo ⚔️')
-    expect(back.notes).toBe('naïve')
+    expect(back.route.name).toBe('Fast expo ⚔️')
+    expect(back.route.notes).toBe('naïve')
   })
 })

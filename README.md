@@ -2,14 +2,15 @@
 
 Plan **build orders and creep routes** for Warcraft III ladder/tournament maps, save them, and pull them up before a game.
 
-- **Interactive minimaps.** Hover a camp to see its creeps, levels, XP and item drops. Click camps in order to draw your creep route.
-- **Live hero XP.** Shows the hero level after every camp, using the real per-level creep XP rates (80/70/62/55%, none from level 5). Level-ups show the skill you learn at that point.
-- **Partial camps and helpers.** Skip individual creeps, and note what you creep with (militia, ghouls, Ancient of War…).
-- **Build orders.** Type a build line by line (press Enter for the next line), or paste one as text (`5 Altar`, `2:10 12 Hero`).
+- **Interactive minimaps.** Hover a camp to see its creeps, levels, XP and item drops. Click camps in order to draw your route, and add waypoints for shop or tavern stops.
+- **Live hero XP.** Each stop shows your running level and XP ("Lv 3 · 501 xp"), using the game's rules: 80/70/62/55% of creep XP, rounded down per kill, none from level 5. Level-ups show the skill you learn at that point.
+- **Kill order.** Split a camp into ordered groups (a group is killed in any order). Each group shows its XP and any level-up. Then clear the rest, or skip it.
+- **Per-stop details.** Bring units (5× Footman, a second hero…), a condition ("only if no harass"), and a note.
+- **Build library.** Build orders are their own items, not tied to a map. Link one to any number of routes as the companion build. Type a build line by line (Enter for the next line), or paste one as text (`5 Altar`, `2:10 12 Hero`).
 - **Hero and skill order.** The skill order is checked: ultimate at level 6, at most 3 ranks per basic ability.
 - **Map notes.** Draggable sticky notes on the map.
-- **View mode.** A clean read-only layout for reference during a game.
-- **Saving.** Routes save automatically in your browser. Use **Backup → Export** to save a file or move routes to another device. **Copy share link** sends one route to a friend.
+- **Preview mode.** A clean read-only layout with Expand all, for reference during a game. Edit mode has Undo and drag-to-reorder.
+- **Saving.** Routes save automatically in your browser. Use **Backup → Export everything** to save a file or move your routes and builds to another device. **Copy share link** sends one route (with its build) to a friend.
 
 ## Maps
 
@@ -37,7 +38,7 @@ Autumn Leaves, Concealed Hill, Echo Isles v2, Last Refuge, Shallow Grave.
 }
 ```
 
-`position` is in image pixels, and `dimensions` is the image size. The camp id prefix (`green-`, `orange-`, `red-`) sets the marker color. The rest of the id becomes the display name, unless you set `"name"`. The loot `type` is one of `permanent`, `charged`, `power up`, `artifact`, `custom`.
+`position` is in image pixels, and `dimensions` is the image size. Creep levels come from the `CREEP_LEVELS` table in `src/data/maps.ts` when a creep is listed there (levels are fixed per unit type on melee maps), otherwise from the JSON. The camp id prefix (`green-`, `orange-`, `red-`) sets the marker color. The rest of the id becomes the display name, unless you set `"name"`. The loot `type` is one of `permanent`, `charged`, `power up`, `artifact`, `custom`.
 
 The map appears in the app automatically.
 

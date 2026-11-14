@@ -3,7 +3,6 @@ import {
   ActionIcon,
   Group,
   Popover,
-  SegmentedControl,
   SimpleGrid,
   Stack,
   Switch,
@@ -14,6 +13,7 @@ import {
 import type { Race, Route } from '../types'
 import { HERO_BY_NAME, heroesForRace, RACES, validateSkill, type Hero } from '../game/heroes'
 import { GameIcon } from './GameIcon'
+import { Label } from './BuildFields'
 
 interface Props {
   route: Route
@@ -151,9 +151,7 @@ export function HeroPanel({ route, onChange }: Props) {
   return (
     <Stack gap="sm">
       <div>
-        <Text size="xs" fw={700} c="dimmed" tt="uppercase" mb={6}>
-          Race
-        </Text>
+        <Label>Your race</Label>
         <RacePicker
           value={route.race}
           onChange={(race) => {
@@ -165,9 +163,7 @@ export function HeroPanel({ route, onChange }: Props) {
 
       <div>
         <Group justify="space-between" mb={6}>
-          <Text size="xs" fw={700} c="dimmed" tt="uppercase">
-            Hero
-          </Text>
+          <Label>Hero</Label>
           <Switch size="xs" label="Tavern" checked={tavern} onChange={(e) => setTavern(e.currentTarget.checked)} />
         </Group>
         {heroes.length ? (
@@ -186,9 +182,7 @@ export function HeroPanel({ route, onChange }: Props) {
       {current && (
         <div>
           <Group justify="space-between" mb={6}>
-            <Text size="xs" fw={700} c="dimmed" tt="uppercase">
-              Skill order
-            </Text>
+            <Label>Skill order</Label>
             <Text size="xs" c="dimmed">
               {current.name}
             </Text>
@@ -197,23 +191,5 @@ export function HeroPanel({ route, onChange }: Props) {
         </div>
       )}
     </Stack>
-  )
-}
-
-export function MatchupPicker({ value, onChange }: { value: Route['vs']; onChange: (v: Route['vs']) => void }) {
-  return (
-    <SegmentedControl
-      fullWidth
-      size="xs"
-      value={value}
-      onChange={(v) => onChange(v as Route['vs'])}
-      data={[
-        { value: 'any', label: 'Any' },
-        { value: 'human', label: 'H' },
-        { value: 'orc', label: 'O' },
-        { value: 'nightelf', label: 'NE' },
-        { value: 'undead', label: 'UD' },
-      ]}
-    />
   )
 }

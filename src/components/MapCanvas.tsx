@@ -1,7 +1,9 @@
 import { useRef } from 'react'
 import { HoverCard } from '@mantine/core'
+import { IconMapPinFilled } from '@tabler/icons-react'
 import type { GameMap, MapNote, RouteStep } from '../types'
-import { DIFFICULTY_COLOR } from '../data/maps'
+import { DIFFICULTY_COLOR, DIFFICULTY_LABEL } from '../data/maps'
+import { stepPosition } from '../game/route'
 import { CampDetails } from './CampDetails'
 import { StickyNote } from './StickyNote'
 import classes from './MapCanvas.module.css'
@@ -11,12 +13,15 @@ interface Props {
   steps?: RouteStep[]
   activeStepId?: string | null
   onCampClick?: (campId: string) => void
+  onStepClick?: (stepId: string) => void
   notes?: MapNote[]
-  placingNote?: boolean
-  onAddNote?: (x: number, y: number) => void
+  /** when set, the next click on the map reports its position (in map pixels) */
+  placing?: 'note' | 'waypoint' | null
+  onPlace?: (x: number, y: number) => void
   onChangeNote?: (note: MapNote) => void
   onDeleteNote?: (id: string) => void
   readOnly?: boolean
+  showLegend?: boolean
 }
 
 export function MapCanvas({
@@ -24,107 +29,149 @@ export function MapCanvas({
   steps = [],
   activeStepId,
   onCampClick,
+  onStepClick,
   notes = [],
-  placingNote,
-  onAddNote,
+  placing,
+  onPlace,
   onChangeNote,
   onDeleteNote,
   readOnly,
+  showLegend = true,
 }: Props) {
   const ref = useRef<HTMLDivElement>(null)
 
-  const orderOf = new Map(steps.map((s, i) => [s.campId, i + 1]))
+  const orderOf = new Map<string, number>()
+  steps.forEach((s, i) => s.campId && !orderOf.has(s.campId) && orderOf.set(s.campId, i + 1))
   const activeCamp = steps.find((s) => s.id === activeStepId)?.campId
-  const points = steps
-    .map((s) => map.camps.find((c) => c.id === s.campId)?.position)
-    .filter((p): p is { x: number; y: number } => !!p)
+  const points = steps.map((s) => stepPosition(map, s)).filter((p): p is { x: number; y: number } => !!p)
 
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!placingNote || !onAddNote || !ref.current) return
+    if (!placing || !onPlace || !ref.current) return
     const rect = ref.current.getBoundingClientRect()
-    onAddNote(((e.clientX - rect.left) / rect.width) * 100, ((e.clientY - rect.top) / rect.height) * 100)
+    onPlace(((e.clientX - rect.left) / rect.width) * map.width, ((e.clientY - rect.top) / rect.height) * map.height)
   }
 
   return (
-    <div
-      ref={ref}
-      className={classes.canvas}
-      style={{ aspectRatio: `${map.width} / ${map.height}`, cursor: placingNote ? 'crosshair' : undefined }}
-      onClick={handleClick}
-    >
-      <img src={map.image} alt={map.name} className={classes.image} draggable={false} />
+    <div>
+      <div
+        ref={ref}
+        className={classes.canvas}
+        style={{ aspectRatio: `${map.width} / ${map.height}`, cursor: placing ? 'crosshair' : undefined }}
+        onClick={handleClick}
+      >
+        <img src={map.image} alt={map.name} className={classes.image} draggable={false} />
 
-      {/* route path */}
-      <svg className={classes.path} viewBox={`0 0 ${map.width} ${map.height}`} preserveAspectRatio='none'>
-        <defs>
-          <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerUnits="userSpaceOnUse" markerWidth={map.width / 40} markerHeight={map.width / 40} orient="auto">
-            <path d="M0,0 L10,5 L0,10 z" fill="#ffd43b" />
-          </marker>
-        </defs>
-        {points.slice(1).map((p, i) => {
-          const a = points[i]
-          const mx = (a.x + p.x) / 2
-          const my = (a.y + p.y) / 2
+        <svg className={classes.path} viewBox={`0 0 ${map.width} ${map.height}`} preserveAspectRatio="none">
+          <defs>
+            <marker
+              id="arrow"
+              viewBox="0 0 10 10"
+              refX="5"
+              refY="5"
+              markerUnits="userSpaceOnUse"
+              markerWidth={map.width / 40}
+              markerHeight={map.width / 40}
+              orient="auto"
+            >
+              <path d="M0,0 L10,5 L0,10 z" fill="#ffd43b" />
+            </marker>
+          </defs>
+          {points.slice(1).map((p, i) => {
+            const a = points[i]
+            return (
+              <g key={i}>
+                <line x1={a.x} y1={a.y} x2={p.x} y2={p.y} className={classes.lineShadow} />
+                <line x1={a.x} y1={a.y} x2={p.x} y2={p.y} className={classes.line} />
+                {/* arrowhead at the midpoint so it isn't hidden under a marker */}
+                <line x1={a.x} y1={a.y} x2={(a.x + p.x) / 2} y2={(a.y + p.y) / 2} stroke="transparent" markerEnd="url(#arrow)" />
+              </g>
+            )
+          })}
+        </svg>
+
+        {map.camps.map((camp) => {
+          const order = orderOf.get(camp.id)
           return (
-            <g key={i}>
-              <line x1={a.x} y1={a.y} x2={p.x} y2={p.y} className={classes.lineShadow} />
-              <line x1={a.x} y1={a.y} x2={p.x} y2={p.y} className={classes.line} />
-              {/* arrowhead at midpoint so it isn't hidden under the marker */}
-              <line x1={a.x} y1={a.y} x2={mx} y2={my} stroke="transparent" markerEnd="url(#arrow)" strokeWidth={6} />
-            </g>
+            <HoverCard key={camp.id} position="top" withArrow shadow="xl" openDelay={80} closeDelay={40} disabled={!!placing}>
+              <HoverCard.Target>
+                <button
+                  type="button"
+                  aria-label={`${camp.title}, ${camp.name}${order ? `, step ${order}` : ''}`}
+                  className={classes.camp}
+                  data-selected={order ? true : undefined}
+                  data-active={activeCamp === camp.id || undefined}
+                  data-readonly={readOnly || undefined}
+                  style={{
+                    left: `${(camp.position.x / map.width) * 100}%`,
+                    top: `${(camp.position.y / map.height) * 100}%`,
+                    ['--camp-color' as string]: DIFFICULTY_COLOR[camp.difficulty],
+                  }}
+                  onClick={(e) => {
+                    if (placing) return // let the click reach the map to place something
+                    e.stopPropagation()
+                    if (!readOnly) onCampClick?.(camp.id)
+                    else {
+                      const step = steps.find((s) => s.campId === camp.id)
+                      if (step) onStepClick?.(step.id)
+                    }
+                  }}
+                >
+                  {order ?? ''}
+                </button>
+              </HoverCard.Target>
+              <HoverCard.Dropdown style={{ pointerEvents: 'none' }}>
+                <CampDetails camp={camp} />
+              </HoverCard.Dropdown>
+            </HoverCard>
           )
         })}
-      </svg>
 
-      {map.camps.map((camp) => {
-        const order = orderOf.get(camp.id)
-        const left = (camp.position.x / map.width) * 100
-        const top = (camp.position.y / map.height) * 100
-        return (
-          <HoverCard
-            key={camp.id}
-            position="top"
-            withArrow
-            shadow="xl"
-            openDelay={80}
-            closeDelay={60}
-            disabled={placingNote}
-          >
-            <HoverCard.Target>
-              <button
-                type="button"
-                aria-label={`${camp.name}${order ? `, step ${order}` : ''}`}
-                className={classes.camp}
-                data-selected={order ? true : undefined}
-                data-active={activeCamp === camp.id || undefined}
-                data-readonly={readOnly || undefined}
-                style={{ left: `${left}%`, top: `${top}%`, ['--camp-color' as string]: DIFFICULTY_COLOR[camp.difficulty] }}
-                onClick={(e) => {
-                  if (placingNote) return // let the click bubble to place a note
-                  e.stopPropagation()
-                  if (!readOnly) onCampClick?.(camp.id)
-                }}
-              >
-                {order ?? ''}
-              </button>
-            </HoverCard.Target>
-            <HoverCard.Dropdown style={{ pointerEvents: 'none' }}>
-              <CampDetails camp={camp} />
-            </HoverCard.Dropdown>
-          </HoverCard>
-        )
-      })}
+        {steps.map((s, i) =>
+          s.kind === 'waypoint' && s.point ? (
+            <button
+              key={s.id}
+              type="button"
+              className={classes.waypoint}
+              data-active={activeStepId === s.id || undefined}
+              title={s.label || 'Waypoint'}
+              aria-label={`Waypoint ${i + 1}${s.label ? `: ${s.label}` : ''}`}
+              style={{ left: `${(s.point.x / map.width) * 100}%`, top: `${(s.point.y / map.height) * 100}%` }}
+              onClick={(e) => {
+                if (placing) return
+                e.stopPropagation()
+                onStepClick?.(s.id)
+              }}
+            >
+              <IconMapPinFilled className={classes.pin} />
+              <span>{i + 1}</span>
+            </button>
+          ) : null,
+        )}
 
-      {notes.map((note) => (
-        <StickyNote
-          key={note.id}
-          note={note}
-          container={ref}
-          readOnly={readOnly}
-          onChange={(n) => onChangeNote?.(n)}
-          onDelete={() => onDeleteNote?.(note.id)}
-        />
-      ))}
+        {notes.map((note) => (
+          <StickyNote
+            key={note.id}
+            note={note}
+            container={ref}
+            readOnly={readOnly}
+            onChange={(n) => onChangeNote?.(n)}
+            onDelete={() => onDeleteNote?.(note.id)}
+          />
+        ))}
+      </div>
+      {showLegend && (
+        <div className={classes.legend}>
+          {(['green', 'orange', 'red'] as const).map((d) => (
+            <span key={d}>
+              <i style={{ background: DIFFICULTY_COLOR[d] }} />
+              {DIFFICULTY_LABEL[d]}
+            </span>
+          ))}
+          <span>
+            <IconMapPinFilled size={13} color="#4dabf7" /> Waypoint
+          </span>
+        </div>
+      )}
     </div>
   )
 }

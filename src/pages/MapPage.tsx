@@ -3,7 +3,7 @@ import { Anchor, Button, Grid, Group, SegmentedControl, SimpleGrid, Stack, Text,
 import { IconPlus } from '@tabler/icons-react'
 import { MAP_BY_ID } from '../data/maps'
 import { href, navigate } from '../lib/router'
-import { saveRoute, useRoutes } from '../store/routes'
+import { routes as routeStore, useRoutes } from '../store'
 import { newRoute } from '../game/route'
 import { MapCanvas } from '../components/MapCanvas'
 import { RouteCard } from '../components/RouteCard'
@@ -21,7 +21,7 @@ export function MapPage({ mapId }: { mapId: string }) {
     .sort((a, b) => b.updatedAt - a.updatedAt)
 
   const create = () => {
-    const r = saveRoute(newRoute(map.id, { name: `${map.name} route`, race: race === 'all' ? null : race }))
+    const r = routeStore.save(newRoute(map.id, { name: `${map.name} route`, race: race === 'all' ? null : race }))
     navigate(href.route(r.id))
   }
 
@@ -34,7 +34,7 @@ export function MapPage({ mapId }: { mapId: string }) {
           </Anchor>
           <Title order={2}>{map.name}</Title>
           <Text size="sm" c="dimmed">
-            {map.camps.length} creep camps · hover a camp for creeps & drops
+            {map.camps.length} creep camps · hover a camp to see its creeps and drops
           </Text>
         </div>
         <Button leftSection={<IconPlus size={16} />} onClick={create}>

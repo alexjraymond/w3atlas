@@ -1,6 +1,6 @@
 import { useSyncExternalStore } from 'react'
 
-// Tiny hash router: #/  ·  #/map/:mapId  ·  #/route/:routeId  ·  #/share/:code
+// Tiny hash router: #/ · #/map/:mapId · #/route/:id · #/builds · #/build/:id · #/share/:code
 // Hash routing works on any static host (GitHub Pages, Netlify, file server) with no config.
 
 export type RouteMatch =
@@ -8,12 +8,16 @@ export type RouteMatch =
   | { page: 'map'; mapId: string }
   | { page: 'route'; routeId: string }
   | { page: 'share'; code: string }
+  | { page: 'builds' }
+  | { page: 'build'; buildId: string }
 
 function parse(hash: string): RouteMatch {
   const parts = hash.replace(/^#\/?/, '').split('/').filter(Boolean).map(decodeURIComponent)
   if (parts[0] === 'map' && parts[1]) return { page: 'map', mapId: parts[1] }
   if (parts[0] === 'route' && parts[1]) return { page: 'route', routeId: parts[1] }
   if (parts[0] === 'share' && parts[1]) return { page: 'share', code: parts[1] }
+  if (parts[0] === 'builds') return { page: 'builds' }
+  if (parts[0] === 'build' && parts[1]) return { page: 'build', buildId: parts[1] }
   return { page: 'home' }
 }
 
@@ -38,6 +42,8 @@ export const href = {
   map: (mapId: string) => `#/map/${encodeURIComponent(mapId)}`,
   route: (routeId: string) => `#/route/${encodeURIComponent(routeId)}`,
   share: (code: string) => `#/share/${code}`,
+  builds: () => '#/builds',
+  build: (buildId: string) => `#/build/${encodeURIComponent(buildId)}`,
 }
 
 export function navigate(to: string) {

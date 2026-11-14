@@ -1,0 +1,86 @@
+.box {
+  position: relative;
+  display: inline-flex;
+  gap: 3px;
+  padding: 4px;
+  border-radius: 8px;
+  border: 1.5px solid var(--mantine-color-yellow-6);
+  background: rgba(255, 212, 59, 0.06);
+}
+
+.box[data-small] {
+  padding: 2px;
+  gap: 2px;
+  border-width: 1px;
+  border-radius: 6px;
+}
+
+.box[data-rest] {
+  border-style: dashed;
+  border-color: var(--mantine-color-dark-2);
+  background: transparent;
+}
+
+.box[data-skipped] {
+  border-color: transparent;
+  background: transparent;
+}
+
+.num {
+  position: absolute;
+  top: -9px;
+  left: -9px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 4px;
+  border-radius: 5px;
+  background: var(--mantine-color-dark-7);
+  border: 1px solid var(--mantine-color-yellow-6);
+  color: var(--mantine-color-yellow-4);
+  font-size: 11px;
+  font-weight: 800;
+  display: grid;
+  place-items: center;
+  z-index: 1;
+}
+
+.merge {
+  position: absolute;
+  top: -9px;
+  right: -9px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--mantine-color-dark-5);
+  border: 1px solid var(--mantine-color-dark-3);
+  color: var(--mantine-color-gray-4);
+  z-index: 1;
+}
+
+.merge:hover {
+  color: var(--mantine-color-yellow-4);
+  border-color: var(--mantine-color-yellow-6);
+}
+
+.creep {
+  position: relative;
+  display: inline-flex;
+  border-radius: 4px;
+}
+
+.creep[data-loot] {
+  box-shadow: 0 0 0 1.5px #4dabf7;
+}
+
+.lvl {
+  position: absolute;
+  right: 1px;
+  bottom: -1px;
+  font-size: 9px;
+  font-weight: 800;
+  color: #fff;
+  text-shadow: 0 0 2px #000, 0 0 2px #000;
+  pointer-events: none;
+}
