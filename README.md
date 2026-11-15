@@ -33,7 +33,28 @@ This writes `src/data/maps/<slug>.json` with:
 
 If a map already exists, its camp ids, names and `hidden` flag are kept when a camp is in about the same place, so saved routes keep working. New camps are named after what's next to them (Shop, Lab, Merc, Expo, Main…) or a compass direction.
 
-If `public/maps/<slug>.png` doesn't exist, the importer draws one from the map's own minimap and icon files (gold mines, neutral buildings, start locations). To redraw all of them, add `-- --minimaps`. A sharper image, such as the one on the map's Liquipedia page, can replace it at any time: it just needs to cover the playable area.
+#### Minimap images
+
+Each map's JSON has a `minimap` field:
+- `custom`: a hand-supplied image, e.g. from Liquipedia. Never overwritten.
+- `render`: built from a high-res render (see below).
+- `generated`: built from the map file's own 256px minimap.
+
+The importer draws a minimap when a map has none, and `npm run import-map -- --minimaps` redraws every non-custom one. Icons come from `scripts/assets/`:
+- the Liquipedia gold mine and house icons (`minimap-goldmine.png`, `minimap-building.png`)
+- building sprites by kind (`buildings/tavern.png`; add `merchant.png`, `laboratory.png`, `mercenary.png`… to show those buildings too)
+- start locations as crosses in player colour
+
+**High-res renders:** to use an overhead render, align it to the map once (needs Python 3 with numpy and Pillow, after a normal import):
+
+```bash
+python3 scripts/align-render.py path/to/render.png <slug>
+```
+```bash
+npm run import-map -- --minimaps
+```
+
+The first command matches the render's water against the map's own minimap, crops it to the playable area and saves `scripts/assets/renders/<slug>.jpg`. The second draws the icons on it. If the map's `minimap` is `custom`, change it to `render` first.
 
 To import a single file under a specific slug:
 

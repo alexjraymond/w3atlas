@@ -1,5 +1,6 @@
 {
   "mapName": "Twisted Meadows v1.9",
+  "minimap": "custom",
   "source": {
     "file": "TwistedMeadows_v1.9.w3x",
     "importedAt": "2026-11-15"

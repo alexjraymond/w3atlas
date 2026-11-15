@@ -14,7 +14,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { createRequire } from 'node:module'
 import { Archive } from 'mopaq'
-import { renderMinimap } from './lib/minimap.mjs'
+import { drawMinimap, minimapBase, PLAYER_COLORS } from './lib/minimap.mjs'
 
 const require = createRequire(import.meta.url)
 const T5 = require('wc3maptranslator')
@@ -190,9 +190,55 @@ function importMap(file) {
     taken.add(c.id)
   }
 
+  // ----- minimap -----
+  // minimap: 'custom' = a hand-supplied image (e.g. from Liquipedia), never overwritten;
+  // 'render' / 'generated' = built by this script, redrawn with --minimaps.
+  const img = path.join(IMG_DIR, `${slug}.png`)
+  let minimap = existing?.minimap ?? (fs.existsSync(img) ? 'custom' : undefined)
+  let minimapNote = null
+  const blp = read('war3mapMap.blp')
+  if (blp) {
+    // a clean (icon-free) base for scripts/align-render.py
+    const cache = path.join(ROOT, 'map-files', '.cache')
+    fs.mkdirSync(cache, { recursive: true })
+    fs.writeFileSync(path.join(cache, `${slug}-base.png`), drawMinimap(minimapBase(null, blp, dims).image, []))
+  }
+  if (!fs.existsSync(img) || (redrawMinimaps && minimap !== 'custom')) {
+    try {
+      const base = minimapBase(slug, blp, dims)
+      if (!base) throw new Error('no minimap in the map file')
+      const fx = (x) => (x - (cx - pw / 2)) / pw
+      const fy = (y) => ((cy + ph / 2) - y) / ph
+      const icons = [
+        ...units
+          .filter((u) => u.player !== PLAYER_NEUTRAL_HOSTILE)
+          .map((u) => ({ u, kind: buildingKind(u.type) }))
+          .filter(({ kind }) => kind)
+          .map(({ u, kind }) => ({
+            kind: kind === 'goldmine' ? 'goldmine' : 'building',
+            building: kind === 'goldmine' ? undefined : kind,
+            fx: fx(u.position[0]),
+            fy: fy(u.position[1]),
+          })),
+        ...(info.players ?? []).map((p) => ({
+          kind: 'start',
+          fx: fx(p.startingPos.x),
+          fy: fy(p.startingPos.y),
+          color: PLAYER_COLORS[p.playerNum] ?? [255, 255, 255],
+        })),
+      ]
+      fs.writeFileSync(img, drawMinimap(base.image, icons))
+      minimap = base.source
+      minimapNote = `minimap ${base.source === 'render' ? 'built from the high-res render' : 'generated from the map file'} → public/maps/${slug}.png`
+    } catch (e) {
+      minimapNote = `! could not build a minimap (${e.message}): save one as public/maps/${slug}.png (${dims.width}×${dims.height}, playable area)`
+    }
+  }
+
   const out = {
     mapName: fullName,
     ...(existing?.hidden ? { hidden: true } : {}),
+    ...(minimap ? { minimap } : {}),
     source: { file: path.basename(file), importedAt: new Date().toISOString().slice(0, 10) },
     dimensions: dims,
     camps: camps
@@ -202,7 +248,6 @@ function importMap(file) {
   fs.writeFileSync(outFile, JSON.stringify(out, null, 2) + '\n')
 
   // ----- report -----
-  const img = path.join(IMG_DIR, `${slug}.png`)
   console.log(`✓ ${fullName} → src/data/maps/${slug}.json (${camps.length} camps, ${hostile.length} creeps)`)
   if (existing) {
     const dropped = oldCamps.filter((_, j) => !usedOld.has(j)).map((o) => o.id)
@@ -210,19 +255,7 @@ function importMap(file) {
     if (dropped.length) console.log(`  removed camps: ${dropped.join(', ')}`)
     if (added.length) console.log(`  new camps: ${added.join(', ')}`)
   }
-  if (!fs.existsSync(img) || redrawMinimaps) {
-    const blp = read('war3mapMap.blp')
-    if (blp) {
-      try {
-        fs.writeFileSync(img, renderMinimap(blp, read('war3map.mmp'), dims))
-        console.log(`  minimap generated from the map file → public/maps/${slug}.png`)
-      } catch (e) {
-        console.log(`  ! could not build a minimap (${e.message}): save one as public/maps/${slug}.png (${dims.width}×${dims.height})`)
-      }
-    } else {
-      console.log(`  ! no minimap in the map file: save one as public/maps/${slug}.png (${dims.width}×${dims.height}, playable area)`)
-    }
-  }
+  if (minimapNote) console.log(`  ${minimapNote}`)
   for (const w of warnings) console.log(`  ! ${w}`)
 }
 
@@ -287,6 +320,21 @@ function resolveString(s, strings) {
 }
 
 // ---------- naming ----------
+
+/** What a neutral building is drawn as on generated minimaps (null = not drawn). */
+function buildingKind(type) {
+  const name = gameUnits[type]?.text?.Name ?? ''
+  if (!gameUnits[type]?.stats?.isbldg) return null
+  if (/gold mine/i.test(name)) return 'goldmine'
+  if (/tavern/i.test(name)) return 'tavern'
+  if (/merchant/i.test(name)) return 'merchant'
+  if (/laboratory/i.test(name)) return 'laboratory'
+  if (/mercenary/i.test(name)) return 'mercenary'
+  if (/marketplace/i.test(name)) return 'marketplace'
+  if (/fountain/i.test(name)) return 'fountain'
+  if (/dragon roost/i.test(name)) return 'roost'
+  return null
+}
 
 function landmarkLabel(type, pos, starts) {
   const name = gameUnits[type]?.text?.Name ?? ''

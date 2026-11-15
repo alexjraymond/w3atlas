@@ -1,5 +1,6 @@
 {
   "mapName": "Autumn Leaves v2.0",
+  "minimap": "custom",
   "source": {
     "file": "AutumnLeaves_v2.0.w3x",
     "importedAt": "2026-11-15"

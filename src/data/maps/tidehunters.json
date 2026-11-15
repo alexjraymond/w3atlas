@@ -1,5 +1,6 @@
 {
   "mapName": "Tidehunters v1.2",
+  "minimap": "custom",
   "source": {
     "file": "Tidehunters_v1.2.w3x",
     "importedAt": "2026-11-15"

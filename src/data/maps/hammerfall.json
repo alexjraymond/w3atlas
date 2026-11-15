@@ -1,5 +1,6 @@
 {
   "mapName": "Hammerfall",
+  "minimap": "custom",
   "source": {
     "file": "Hammerfall.w3x",
     "importedAt": "2026-11-15"

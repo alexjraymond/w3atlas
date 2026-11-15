@@ -1,5 +1,6 @@
 {
   "mapName": "Northern Isles v1.3",
+  "minimap": "custom",
   "source": {
     "file": "NorthernIsles_v1.3.w3x",
     "importedAt": "2026-11-15"
