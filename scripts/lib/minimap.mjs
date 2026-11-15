@@ -71,7 +71,7 @@ const house = (s) => (x, y) => (y >= -s * 0.15 && y <= s && Math.abs(x) <= s * 0
 const cross = (s, t) => (x, y) => Math.abs(x) <= s && Math.abs(y) <= s && (Math.abs(x - y) <= t || Math.abs(x + y) <= t)
 
 function drawIcon(img, icon, x, y, scale) {
-  const k = scale // ~2 when going 256 -> 512
+  const k = scale // output px per minimap px: 2 at 512 wide, 4 at 1024
   if (icon.type === 0) {
     fillShape(img, x, y, 7.5 * k, circle(7.5 * k), [20, 20, 10])
     fillShape(img, x, y, 6 * k, circle(6 * k), [255, 212, 0])
@@ -124,14 +124,33 @@ export function renderMinimap(blpBuf, mmpBuf, dims) {
       out.data[i + 3] = 255
     }
 
-  if (mmpBuf) {
-    const scale = 1 / sx
-    // buildings and mines first, start locations on top
-    for (const icon of parseMmp(mmpBuf).sort((a, b) => (a.type === 2) - (b.type === 2)))
-      drawIcon(out, icon, (icon.x - cx0) / sx, (icon.y - cy0) / sy, scale)
-  }
+  if (mmpBuf) drawIcons(out, mmpBuf)
 
   const png = new PNG({ width: dims.width, height: dims.height })
   out.data.copy(png.data)
+  return PNG.sync.write(png)
+}
+
+/** Draws the .mmp icons onto an RGBA image that covers exactly the playable area. */
+function drawIcons(img, mmpBuf) {
+  const S = 256
+  const aspect = img.width / img.height
+  const cw = aspect >= 1 ? S : S * aspect
+  const ch = aspect >= 1 ? S / aspect : S
+  const cx0 = (S - cw) / 2
+  const cy0 = (S - ch) / 2
+  const scale = img.width / cw
+  // buildings and mines first, start locations on top
+  for (const icon of parseMmp(mmpBuf).sort((a, b) => (a.type === 2) - (b.type === 2)))
+    drawIcon(img, icon, (icon.x - cx0) * scale, (icon.y - cy0) * (img.height / ch), scale)
+}
+
+/**
+ * Adds gold mine / building / start icons to an existing image (PNG) that shows the playable
+ * area, e.g. a high-res render without icons.
+ */
+export function addMinimapIcons(pngBuf, mmpBuf) {
+  const png = PNG.sync.read(pngBuf)
+  drawIcons({ width: png.width, height: png.height, data: png.data }, mmpBuf)
   return PNG.sync.write(png)
 }
