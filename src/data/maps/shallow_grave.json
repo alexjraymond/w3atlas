@@ -1,6 +1,7 @@
 {
   "mapName": "Shallow Grave v1.5",
-  "minimap": "custom",
+  "minimap": "render",
+  "image": "shallow_grave.jpg",
   "source": {
     "file": "ShallowGrave_v1.5.w3x",
     "importedAt": "2026-11-15"

@@ -1,6 +1,7 @@
 {
   "mapName": "Echo Isles v2.2",
-  "minimap": "custom",
+  "minimap": "render",
+  "image": "echo_isles_v2.jpg",
   "source": {
     "file": "EchoIsles_v2.2.w3x",
     "importedAt": "2026-11-15"

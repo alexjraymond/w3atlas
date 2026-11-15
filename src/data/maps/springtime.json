@@ -1,6 +1,7 @@
 {
   "mapName": "Springtime v1.4",
-  "minimap": "custom",
+  "minimap": "render",
+  "image": "springtime.jpg",
   "source": {
     "file": "Springtime_v1.4.w3x",
     "importedAt": "2026-11-15"

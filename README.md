@@ -40,21 +40,23 @@ Each map's JSON has a `minimap` field:
 - `render`: built from a high-res render (see below).
 - `generated`: built from the map file's own 256px minimap.
 
-The importer draws a minimap when a map has none, and `npm run import-map -- --minimaps` redraws every non-custom one. Icons come from `scripts/assets/`:
-- the Liquipedia gold mine and house icons (`minimap-goldmine.png`, `minimap-building.png`)
-- building sprites by kind (`buildings/tavern.png`; add `merchant.png`, `laboratory.png`, `mercenary.png`… to show those buildings too)
-- start locations as crosses in player colour
+The importer draws a minimap when a map has none, and `npm run import-map -- --minimaps` redraws every non-custom one. What it draws:
+- **base:** a high-res render from `scripts/assets/renders/<slug>.jpg` when there is one, otherwise the map's own 256px minimap
+- **buildings:** gold mines, taverns, goblin merchants, goblin laboratories, mercenary camps and marketplaces as in-game sprites from `scripts/assets/buildings/`. Other kinds fall back to Liquipedia's flat house icon.
+- **start locations:** a ring in the player's colour around the main's gold mine
 
-**High-res renders:** to use an overhead render, align it to the map once (needs Python 3 with numpy and Pillow, after a normal import):
+Render-based minimaps are saved as JPEG (`"image": "<slug>.jpg"` in the map JSON), since they're photo-like.
+
+**High-res renders:** to use one, line it up with the map once (needs Python 3 with numpy and Pillow, after a normal import), then redraw:
 
 ```bash
-python3 scripts/align-render.py path/to/render.png <slug>
+python3 scripts/align-render.py path/to/render.jpg <slug> --full
 ```
 ```bash
 npm run import-map -- --minimaps
 ```
 
-The first command matches the render's water against the map's own minimap, crops it to the playable area and saves `scripts/assets/renders/<slug>.jpg`. The second draws the icons on it. If the map's `minimap` is `custom`, change it to `render` first.
+`--full` means the image is exactly the playable area, which is usually the case for Liquipedia's previews. Leave it off to search for the map inside a larger image instead. Check that the gold mine sprites land on the mines in the render. If the map's `minimap` is `custom`, change it to `render` first. Angled shots can't be lined up.
 
 To import a single file under a specific slug:
 

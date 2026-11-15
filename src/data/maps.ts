@@ -19,6 +19,8 @@ interface RawMap {
   mapName: string
   /** not in the current ladder pool: hidden from lists, but saved routes still open */
   hidden?: boolean
+  /** minimap filename in /public/maps (default <slug>.png) */
+  image?: string
   dimensions: { width: number; height: number }
   camps: { id: string; name?: string; position: { x: number; y: number }; units: RawUnit[] }[]
 }
@@ -111,7 +113,7 @@ function normalize(slug: string, raw: RawMap): GameMap {
     name: raw.mapName,
     width: raw.dimensions.width,
     height: raw.dimensions.height,
-    image: `${import.meta.env.BASE_URL}maps/${slug}.png`,
+    image: `${import.meta.env.BASE_URL}maps/${raw.image ?? `${slug}.png`}`,
     hidden: !!raw.hidden,
     camps,
   }

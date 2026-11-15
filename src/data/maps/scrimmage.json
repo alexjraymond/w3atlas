@@ -1,6 +1,7 @@
 {
   "mapName": "Scrimmage v1.1",
   "minimap": "render",
+  "image": "scrimmage.jpg",
   "source": {
     "file": "Scrimmage_v1.1.w3x",
     "importedAt": "2026-11-15"

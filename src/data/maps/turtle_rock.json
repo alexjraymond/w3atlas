@@ -1,6 +1,7 @@
 {
   "mapName": "Turtle Rock v2.0",
-  "minimap": "custom",
+  "minimap": "render",
+  "image": "turtle_rock.jpg",
   "source": {
     "file": "TurtleRock_v2.0.w3x",
     "importedAt": "2026-11-15"

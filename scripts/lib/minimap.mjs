@@ -4,9 +4,9 @@
 //   1. a high-res render in scripts/assets/renders/<slug>.jpg|png, if there is one
 //      (aligned with scripts/align-render.py), else
 //   2. the map's own war3mapMap.blp (256px, letterboxed inside a square).
-// Icons on top: gold mines and neutral buildings use Liquipedia's minimap icons
-// (scripts/assets/minimap-*.png); buildings with a sprite in scripts/assets/buildings/<kind>.png
-// (e.g. tavern) are drawn as that building instead; start locations are coloured crosses.
+// On top: gold mines and neutral buildings as building sprites (scripts/assets/buildings/<kind>.png),
+// falling back to Liquipedia's flat minimap icons (scripts/assets/minimap-*.png); start locations
+// as a ring of teeth in the player's colour around the main's gold mine.
 
 import fs from 'node:fs'
 import path from 'node:path'
@@ -26,6 +26,10 @@ function readImage(file) {
   }
   const img = jpeg.decode(buf, { useTArray: true, formatAsRGBA: true })
   return { width: img.width, height: img.height, data: img.data }
+}
+
+function writeJpeg(img, quality = 86) {
+  return jpeg.encode({ width: img.width, height: img.height, data: img.data }, quality).data
 }
 
 function writePng(img) {
@@ -104,23 +108,6 @@ function stamp(img, sprite, cx, cy, scale) {
     }
 }
 
-function fillCross(img, cx, cy, size, thickness, color) {
-  for (let y = Math.floor(cy - size - 1); y <= cy + size + 1; y++)
-    for (let x = Math.floor(cx - size - 1); x <= cx + size + 1; x++) {
-      if (x < 0 || y < 0 || x >= img.width || y >= img.height) continue
-      let hits = 0
-      for (const [dx, dy] of [[0.25, 0.25], [0.75, 0.25], [0.25, 0.75], [0.75, 0.75]]) {
-        const px = x + dx - cx
-        const py = y + dy - cy
-        if (Math.abs(px) <= size && Math.abs(py) <= size && (Math.abs(px - py) <= thickness || Math.abs(px + py) <= thickness)) hits++
-      }
-      if (!hits) continue
-      const a = hits / 4
-      const i = (y * img.width + x) * 4
-      for (let c = 0; c < 3; c++) img.data[i + c] = img.data[i + c] * (1 - a) + color[c] * a
-    }
-}
-
 // ---------- sprites ----------
 
 const spriteCache = new Map()
@@ -132,8 +119,34 @@ function sprite(name) {
   return spriteCache.get(name)
 }
 
-/** On-map height (px at 512 wide) for building sprites, by kind. */
-const BUILDING_HEIGHT = { tavern: 46 }
+/** Building sprite height as a share of the map width (Liquipedia previews use ~5%). */
+const SPRITE_HEIGHT = 0.055
+
+/** Liquipedia-style start marker: a ring of teeth in the player's colour around (cx, cy). */
+function startRing(img, cx, cy, radius, color) {
+  const teeth = 18
+  const inner = radius * 0.7
+  const ring = radius * 0.16
+  const dark = color.map((c) => c * 0.45)
+  for (let y = Math.floor(cy - radius - 2); y <= cy + radius + 2; y++)
+    for (let x = Math.floor(cx - radius - 2); x <= cx + radius + 2; x++) {
+      if (x < 0 || y < 0 || x >= img.width || y >= img.height) continue
+      let fill = 0
+      let edge = 0
+      for (const [dx, dy] of [[0.25, 0.25], [0.75, 0.25], [0.25, 0.75], [0.75, 0.75]]) {
+        const px = x + dx - cx
+        const py = y + dy - cy
+        const r = Math.hypot(px, py)
+        const t = ((Math.atan2(py, px) / (2 * Math.PI)) * teeth + teeth) % 1
+        const outer = inner + ring + (radius - inner - ring) * (1 - Math.abs(t * 2 - 1)) // triangle teeth
+        if (r >= inner && r <= outer) fill++
+        else if (r >= inner - 1.2 && r <= outer + 1.2) edge++
+      }
+      const i = (y * img.width + x) * 4
+      if (fill) for (let c = 0; c < 3; c++) img.data[i + c] = img.data[i + c] * (1 - fill / 4) + color[c] * (fill / 4)
+      if (edge) for (let c = 0; c < 3; c++) img.data[i + c] = img.data[i + c] * (1 - (edge / 4) * 0.7) + dark[c] * (edge / 4) * 0.7
+    }
+}
 
 // ---------- public api ----------
 
@@ -163,32 +176,38 @@ export function minimapBase(slug, blp, dims) {
 }
 
 /**
- * Draws icons and returns PNG contents.
+ * Draws icons and returns the image file (PNG, or JPEG with format 'jpg').
  * @param base   RGBA image covering the playable area
  * @param icons  [{ kind: 'goldmine' | 'building' | 'start', building?: 'tavern' | ..., fx, fy, color? }]
  *               with fx/fy as 0..1 fractions of the playable area (fy from the top)
  */
-export function drawMinimap(base, icons) {
+export function drawMinimap(base, icons, format = 'png') {
   const img = { width: base.width, height: base.height, data: new Uint8Array(base.data) }
-  const k = img.width / 512 // icons are sized for a 512px-wide map
-  const order = { goldmine: 0, building: 1, start: 2 }
-  for (const icon of [...icons].sort((a, b) => order[a.kind] - order[b.kind])) {
+  const k = img.width / 512 // flat icons are sized for a 512px-wide map
+  const mines = icons.filter((i) => i.kind === 'goldmine')
+  // start rings go under everything, centred on the main's gold mine like Liquipedia's previews
+  for (const icon of icons.filter((i) => i.kind === 'start')) {
+    const mine = mines
+      .map((m) => ({ m, d: Math.hypot((m.fx - icon.fx) * img.width, (m.fy - icon.fy) * img.height) }))
+      .filter(({ d }) => d < img.width * 0.08)
+      .sort((a, b) => a.d - b.d)[0]?.m
+    const at = mine ?? icon
+    startRing(img, at.fx * img.width, at.fy * img.height, img.width * 0.045, icon.color ?? [255, 0, 0])
+  }
+  for (const icon of icons.filter((i) => i.kind !== 'start')) {
     const x = icon.fx * img.width
     const y = icon.fy * img.height
-    if (icon.kind === 'start') {
-      fillCross(img, x, y, 12 * k, 4.6 * k, [20, 20, 20])
-      fillCross(img, x, y, 10.5 * k, 2.8 * k, icon.color ?? [255, 0, 0])
-      continue
-    }
-    const special = icon.kind === 'building' && icon.building ? sprite(`buildings/${icon.building}`) : null
+    // a building sprite when we have one (gold mine, tavern, merchant, lab, merc camp, marketplace)
+    const special = sprite(`buildings/${icon.kind === 'goldmine' ? 'goldmine' : icon.building}`)
     if (special) {
-      stamp(img, special, x, y, ((BUILDING_HEIGHT[icon.building] ?? 44) * k) / special.height)
+      stamp(img, special, x, y, (SPRITE_HEIGHT * img.width) / Math.max(special.width, special.height))
       continue
     }
-    const s = sprite(icon.kind === 'goldmine' ? 'minimap-goldmine' : 'minimap-building')
-    if (s) stamp(img, s, x, y, k)
+    // otherwise Liquipedia's flat minimap icon
+    const flat = sprite(icon.kind === 'goldmine' ? 'minimap-goldmine' : 'minimap-building')
+    if (flat) stamp(img, flat, x, y, k)
   }
-  return writePng(img)
+  return format === 'jpg' ? writeJpeg(img) : writePng(img)
 }
 
 /** Player colours for start-location crosses (player index -> RGB). */

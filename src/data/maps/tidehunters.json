@@ -1,6 +1,7 @@
 {
   "mapName": "Tidehunters v1.2",
-  "minimap": "custom",
+  "minimap": "render",
+  "image": "tidehunters.jpg",
   "source": {
     "file": "Tidehunters_v1.2.w3x",
     "importedAt": "2026-11-15"

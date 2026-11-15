@@ -193,7 +193,9 @@ function importMap(file) {
   // ----- minimap -----
   // minimap: 'custom' = a hand-supplied image (e.g. from Liquipedia), never overwritten;
   // 'render' / 'generated' = built by this script, redrawn with --minimaps.
-  const img = path.join(IMG_DIR, `${slug}.png`)
+  // render-based minimaps are photo-like, so they're saved as JPEG (much smaller than PNG)
+  let image = existing?.image ?? `${slug}.png`
+  let img = path.join(IMG_DIR, image)
   let minimap = existing?.minimap ?? (fs.existsSync(img) ? 'custom' : undefined)
   let minimapNote = null
   const blp = read('war3mapMap.blp')
@@ -227,9 +229,14 @@ function importMap(file) {
           color: PLAYER_COLORS[p.playerNum] ?? [255, 255, 255],
         })),
       ]
-      fs.writeFileSync(img, drawMinimap(base.image, icons))
+      const format = base.source === 'render' ? 'jpg' : 'png'
+      const nextImage = `${slug}.${format}`
+      if (nextImage !== image && fs.existsSync(img) && minimap !== 'custom') fs.rmSync(img)
+      image = nextImage
+      img = path.join(IMG_DIR, image)
+      fs.writeFileSync(img, drawMinimap(base.image, icons, format))
       minimap = base.source
-      minimapNote = `minimap ${base.source === 'render' ? 'built from the high-res render' : 'generated from the map file'} → public/maps/${slug}.png`
+      minimapNote = `minimap ${base.source === 'render' ? 'built from the high-res render' : 'generated from the map file'} → public/maps/${image}`
     } catch (e) {
       minimapNote = `! could not build a minimap (${e.message}): save one as public/maps/${slug}.png (${dims.width}×${dims.height}, playable area)`
     }
@@ -239,6 +246,7 @@ function importMap(file) {
     mapName: fullName,
     ...(existing?.hidden ? { hidden: true } : {}),
     ...(minimap ? { minimap } : {}),
+    ...(image !== `${slug}.png` ? { image } : {}),
     source: { file: path.basename(file), importedAt: new Date().toISOString().slice(0, 10) },
     dimensions: dims,
     camps: camps

@@ -1,6 +1,7 @@
 {
   "mapName": "Northern Isles v1.3",
-  "minimap": "custom",
+  "minimap": "render",
+  "image": "northern_isles.jpg",
   "source": {
     "file": "NorthernIsles_v1.3.w3x",
     "importedAt": "2026-11-15"

@@ -1,6 +1,7 @@
 {
   "mapName": "Hammerfall",
-  "minimap": "custom",
+  "minimap": "render",
+  "image": "hammerfall.jpg",
   "source": {
     "file": "Hammerfall.w3x",
     "importedAt": "2026-11-15"
