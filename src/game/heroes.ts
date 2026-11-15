@@ -101,10 +101,20 @@ export const RACE_SHORT: Record<Matchup, string> = {
  * The one unit each race commonly brings to creep (Orc has none). Marked per stop with a toggle
  * and shown as a badge on the camp's map marker.
  */
-export const CREEP_HELPER: Partial<Record<Race, { name: string; icon: string }>> = {
-  human: { name: 'Militia', icon: 'militia' },
-  nightelf: { name: 'Ancient of War', icon: 'ancientofwar' },
-  undead: { name: 'Ghoul', icon: 'ghoul' },
+export interface CreepHelper {
+  name: string
+  icon: string
+  /** how many you bring matters (Militia, Ghouls); false = it's always one (Ancient of War) */
+  counted: boolean
+  /** count used when the toggle is first switched on */
+  defaultCount: number
+  maxCount: number
+}
+
+export const CREEP_HELPER: Partial<Record<Race, CreepHelper>> = {
+  human: { name: 'Militia', icon: 'militia', counted: true, defaultCount: 5, maxCount: 20 },
+  nightelf: { name: 'Ancient of War', icon: 'ancientofwar', counted: false, defaultCount: 1, maxCount: 1 },
+  undead: { name: 'Ghoul', icon: 'ghoul', counted: true, defaultCount: 2, maxCount: 20 },
 }
 
 /** Hotkey-style labels and colours for the four ability rows (3 basics + ultimate). */

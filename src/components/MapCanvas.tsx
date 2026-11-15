@@ -23,7 +23,7 @@ interface Props {
   readOnly?: boolean
   showLegend?: boolean
   /** race helper unit (Militia / Ancient of War / Ghoul): shown as a badge on camps that use it */
-  helper?: { name: string; icon: string }
+  helper?: { name: string; icon: string; counted: boolean }
 }
 
 export function MapCanvas({
@@ -46,7 +46,9 @@ export function MapCanvas({
   const orderOf = new Map<string, number>()
   steps.forEach((s, i) => s.campId && !orderOf.has(s.campId) && orderOf.set(s.campId, i + 1))
   const activeCamp = steps.find((s) => s.id === activeStepId)?.campId
-  const helped = new Set(helper ? steps.filter((s) => s.campId && s.helpers[helper.name]).map((s) => s.campId) : [])
+  /** campId -> how many helper units are brought there */
+  const helped = new Map<string, number>()
+  if (helper) steps.forEach((s) => s.campId && s.helpers[helper.name] && helped.set(s.campId, s.helpers[helper.name]))
   const points = steps.map((s) => stepPosition(map, s)).filter((p): p is { x: number; y: number } => !!p)
 
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -122,7 +124,10 @@ export function MapCanvas({
                 >
                   {order ?? ''}
                   {helper && helped.has(camp.id) && (
-                    <img className={classes.helperBadge} src={`${import.meta.env.BASE_URL}icons/${helper.icon}.png`} alt={helper.name} title={`With ${helper.name}`} />
+                    <span className={classes.helperBadge} title={`With ${helper.counted ? `${helped.get(camp.id)} ` : ''}${helper.name}`}>
+                      <img src={`${import.meta.env.BASE_URL}icons/${helper.icon}.png`} alt={helper.name} />
+                      {helper.counted && <b>{helped.get(camp.id)}</b>}
+                    </span>
                   )}
                 </button>
               </HoverCard.Target>

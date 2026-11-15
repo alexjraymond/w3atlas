@@ -21,6 +21,7 @@ import {
   IconChevronsUp,
   IconGripVertical,
   IconMapPinFilled,
+  IconMinus,
   IconPlus,
   IconTrash,
 } from '@tabler/icons-react'
@@ -99,24 +100,41 @@ interface StepProps {
 function HelperToggle({ route, step, onChange }: { route: Route; step: RouteStep; onChange: (s: RouteStep) => void }) {
   const helper = route.race ? CREEP_HELPER[route.race] : undefined
   if (!helper) return null
-  const on = !!step.helpers[helper.name]
+  const count = step.helpers[helper.name] ?? 0
+  const on = count > 0
+  const setCount = (n: number) => {
+    const helpers = { ...step.helpers }
+    if (n <= 0) delete helpers[helper.name]
+    else helpers[helper.name] = Math.min(n, helper.maxCount)
+    onChange({ ...step, helpers })
+  }
   return (
-    <Button
-      size="xs"
-      variant={on ? 'light' : 'default'}
-      color={on ? 'yellow' : 'gray'}
-      leftSection={<GameIcon name={helper.icon} size={18} alt={helper.name} dim={!on} />}
-      onClick={() => {
-        const helpers = { ...step.helpers }
-        if (on) delete helpers[helper.name]
-        else helpers[helper.name] = 1
-        onChange({ ...step, helpers })
-      }}
-      aria-pressed={on}
-    >
-      {helper.name}
-      {on ? ' ✓' : '?'}
-    </Button>
+    <Group gap={2} wrap="nowrap">
+      <Button
+        size="xs"
+        variant={on ? 'light' : 'default'}
+        color={on ? 'yellow' : 'gray'}
+        leftSection={<GameIcon name={helper.icon} size={18} alt={helper.name} dim={!on} />}
+        onClick={() => setCount(on ? 0 : helper.defaultCount)}
+        aria-pressed={on}
+      >
+        {helper.name}
+        {on ? ' ✓' : '?'}
+      </Button>
+      {on && helper.counted && (
+        <Group gap={0} wrap="nowrap" style={{ border: '1px solid var(--mantine-color-dark-4)', borderRadius: 6 }}>
+          <ActionIcon size="md" variant="subtle" color="gray" onClick={() => setCount(count - 1)} aria-label={`One less ${helper.name}`}>
+            <IconMinus size={14} />
+          </ActionIcon>
+          <Text size="sm" fw={700} ff="monospace" w={24} ta="center" aria-label={`${count} ${helper.name}`}>
+            {count}
+          </Text>
+          <ActionIcon size="md" variant="subtle" color="gray" disabled={count >= helper.maxCount} onClick={() => setCount(count + 1)} aria-label={`One more ${helper.name}`}>
+            <IconPlus size={14} />
+          </ActionIcon>
+        </Group>
+      )}
+    </Group>
   )
 }
 
@@ -202,6 +220,7 @@ function StepCard(p: StepProps) {
               ))}
               {withHelper && helper && (
                 <Badge size="xs" variant="light" color="yellow" leftSection={<GameIcon name={helper.icon} size={12} />}>
+                  {helper.counted ? `${step.helpers[helper.name]}× ` : ''}
                   {helper.name}
                 </Badge>
               )}
