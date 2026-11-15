@@ -1,6 +1,7 @@
 {
   "mapName": "Last Refuge v1.5",
-  "minimap": "custom",
+  "minimap": "render",
+  "image": "last_refuge.jpg",
   "source": {
     "file": "LastRefuge_v1.5.w3x",
     "importedAt": "2026-11-15"
