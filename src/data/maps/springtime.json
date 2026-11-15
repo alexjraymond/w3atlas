@@ -1,0 +1,638 @@
+{
+  "mapName": "Springtime v1.4",
+  "source": {
+    "file": "Springtime_v1.4.w3x",
+    "importedAt": "2026-11-15"
+  },
+  "dimensions": {
+    "width": 512,
+    "height": 512
+  },
+  "camps": [
+    {
+      "id": "green-camp-furbolg-shaman-1",
+      "name": "East",
+      "position": {
+        "x": 392,
+        "y": 220
+      },
+      "units": [
+        {
+          "name": "Furbolg Shaman",
+          "count": 1,
+          "level": 4,
+          "loot": {
+            "level": 2,
+            "type": "charged",
+            "items": []
+          }
+        },
+        {
+          "name": "Timber Wolf",
+          "count": 2,
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "green-camp-furbolg-shaman-2",
+      "name": "West",
+      "position": {
+        "x": 120,
+        "y": 292
+      },
+      "units": [
+        {
+          "name": "Furbolg Shaman",
+          "count": 1,
+          "level": 4,
+          "loot": {
+            "level": 2,
+            "type": "charged",
+            "items": []
+          }
+        },
+        {
+          "name": "Timber Wolf",
+          "count": 2,
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "green-camp-gnoll-brute-1",
+      "name": "Tavern",
+      "position": {
+        "x": 231,
+        "y": 281
+      },
+      "units": [
+        {
+          "name": "Gnoll Brute",
+          "count": 1,
+          "level": 3,
+          "loot": {
+            "level": 1,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Forest Troll Trapper",
+          "count": 1,
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "green-camp-gnoll-warden-1",
+      "name": "Northwest 1",
+      "position": {
+        "x": 114,
+        "y": 64
+      },
+      "units": [
+        {
+          "name": "Gnoll Warden",
+          "count": 1,
+          "level": 3,
+          "loot": {
+            "level": 1,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Timber Wolf",
+          "count": 1,
+          "level": 2
+        },
+        {
+          "name": "Gnoll Poacher",
+          "count": 1,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "id": "green-camp-gnoll-warden-2",
+      "name": "Southeast 2",
+      "position": {
+        "x": 398,
+        "y": 448
+      },
+      "units": [
+        {
+          "name": "Gnoll Warden",
+          "count": 1,
+          "level": 3,
+          "loot": {
+            "level": 1,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Timber Wolf",
+          "count": 1,
+          "level": 2
+        },
+        {
+          "name": "Gnoll Poacher",
+          "count": 1,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "id": "green-camp-mammoth-1",
+      "name": "Southeast 1",
+      "position": {
+        "x": 345,
+        "y": 380
+      },
+      "units": [
+        {
+          "name": "Mammoth",
+          "count": 1,
+          "level": 3,
+          "loot": {
+            "level": 2,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Tuskarr Trapper",
+          "count": 1,
+          "level": 4
+        },
+        {
+          "name": "Tuskarr Spearman",
+          "count": 1,
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "green-camp-mammoth-2",
+      "name": "Northwest 2",
+      "position": {
+        "x": 167,
+        "y": 131
+      },
+      "units": [
+        {
+          "name": "Mammoth",
+          "count": 1,
+          "level": 3,
+          "loot": {
+            "level": 2,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Tuskarr Trapper",
+          "count": 1,
+          "level": 4
+        },
+        {
+          "name": "Tuskarr Spearman",
+          "count": 1,
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "orange-camp-furbolg-tracker-1",
+      "name": "Center 2",
+      "position": {
+        "x": 334,
+        "y": 294
+      },
+      "units": [
+        {
+          "name": "Furbolg Tracker",
+          "count": 1,
+          "level": 6,
+          "loot": {
+            "level": 4,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Forest Troll Berserker",
+          "count": 1,
+          "level": 4
+        },
+        {
+          "name": "Forest Troll High Priest",
+          "count": 1,
+          "level": 4
+        },
+        {
+          "name": "Furbolg",
+          "count": 1,
+          "level": 4
+        }
+      ]
+    },
+    {
+      "id": "orange-camp-furbolg-tracker-2",
+      "name": "Center 1",
+      "position": {
+        "x": 178,
+        "y": 218
+      },
+      "units": [
+        {
+          "name": "Furbolg Tracker",
+          "count": 1,
+          "level": 6,
+          "loot": {
+            "level": 4,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Forest Troll Berserker",
+          "count": 1,
+          "level": 4
+        },
+        {
+          "name": "Forest Troll High Priest",
+          "count": 1,
+          "level": 4
+        },
+        {
+          "name": "Furbolg",
+          "count": 1,
+          "level": 4
+        }
+      ]
+    },
+    {
+      "id": "orange-camp-ogre-magi-1",
+      "name": "Shop 1",
+      "position": {
+        "x": 189,
+        "y": 361
+      },
+      "units": [
+        {
+          "name": "Ogre Magi",
+          "count": 1,
+          "level": 5,
+          "loot": {
+            "level": 3,
+            "type": "charged",
+            "items": []
+          }
+        },
+        {
+          "name": "Forest Troll Berserker",
+          "count": 1,
+          "level": 4
+        },
+        {
+          "name": "Polar Bear",
+          "count": 1,
+          "level": 4
+        },
+        {
+          "name": "Ice Troll Trapper",
+          "count": 1,
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "orange-camp-ogre-magi-2",
+      "name": "Shop 2",
+      "position": {
+        "x": 323,
+        "y": 151
+      },
+      "units": [
+        {
+          "name": "Ogre Magi",
+          "count": 1,
+          "level": 5,
+          "loot": {
+            "level": 3,
+            "type": "charged",
+            "items": []
+          }
+        },
+        {
+          "name": "Forest Troll Berserker",
+          "count": 1,
+          "level": 4
+        },
+        {
+          "name": "Polar Bear",
+          "count": 1,
+          "level": 4
+        },
+        {
+          "name": "Ice Troll Trapper",
+          "count": 1,
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "orange-camp-polar-furbolg-tracker-1",
+      "name": "Lab 2",
+      "position": {
+        "x": 367,
+        "y": 79
+      },
+      "units": [
+        {
+          "name": "Polar Furbolg Tracker",
+          "count": 1,
+          "level": 6,
+          "loot": {
+            "level": 3,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Tuskarr Sorcerer",
+          "count": 1,
+          "level": 5
+        },
+        {
+          "name": "Tuskarr Trapper",
+          "count": 1,
+          "level": 4
+        }
+      ]
+    },
+    {
+      "id": "orange-camp-polar-furbolg-tracker-2",
+      "name": "Lab 1",
+      "position": {
+        "x": 145,
+        "y": 433
+      },
+      "units": [
+        {
+          "name": "Polar Furbolg Tracker",
+          "count": 1,
+          "level": 6,
+          "loot": {
+            "level": 3,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Tuskarr Sorcerer",
+          "count": 1,
+          "level": 5
+        },
+        {
+          "name": "Tuskarr Trapper",
+          "count": 1,
+          "level": 4
+        }
+      ]
+    },
+    {
+      "id": "orange-camp-sasquatch-1",
+      "name": "Expo 1",
+      "position": {
+        "x": 252,
+        "y": 455
+      },
+      "units": [
+        {
+          "name": "Sasquatch",
+          "count": 1,
+          "level": 5,
+          "loot": {
+            "level": 2,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Ice Troll Trapper",
+          "count": 1,
+          "level": 3,
+          "loot": {
+            "level": 1,
+            "type": "powerup",
+            "items": []
+          }
+        },
+        {
+          "name": "Ice Troll Trapper",
+          "count": 1,
+          "level": 3
+        },
+        {
+          "name": "Ice Troll Priest",
+          "count": 1,
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "orange-camp-sasquatch-2",
+      "name": "Expo 2",
+      "position": {
+        "x": 261,
+        "y": 57
+      },
+      "units": [
+        {
+          "name": "Sasquatch",
+          "count": 1,
+          "level": 5,
+          "loot": {
+            "level": 2,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Ice Troll Trapper",
+          "count": 1,
+          "level": 3,
+          "loot": {
+            "level": 1,
+            "type": "powerup",
+            "items": []
+          }
+        },
+        {
+          "name": "Ice Troll Trapper",
+          "count": 1,
+          "level": 3
+        },
+        {
+          "name": "Ice Troll Priest",
+          "count": 1,
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "orange-camp-sasquatch-3",
+      "name": "Merc 1",
+      "position": {
+        "x": 45,
+        "y": 273
+      },
+      "units": [
+        {
+          "name": "Sasquatch",
+          "count": 1,
+          "level": 5,
+          "loot": {
+            "level": 3,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Forest Troll High Priest",
+          "count": 1,
+          "level": 4
+        },
+        {
+          "name": "Ice Troll Trapper",
+          "count": 1,
+          "level": 3
+        },
+        {
+          "name": "Frost Wolf",
+          "count": 1,
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "orange-camp-sasquatch-4",
+      "name": "Merc 2",
+      "position": {
+        "x": 467,
+        "y": 239
+      },
+      "units": [
+        {
+          "name": "Sasquatch",
+          "count": 1,
+          "level": 5,
+          "loot": {
+            "level": 3,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Forest Troll High Priest",
+          "count": 1,
+          "level": 4
+        },
+        {
+          "name": "Ice Troll Trapper",
+          "count": 1,
+          "level": 3
+        },
+        {
+          "name": "Frost Wolf",
+          "count": 1,
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "red-camp-magnataur-reaver-1",
+      "name": "Northeast",
+      "position": {
+        "x": 441,
+        "y": 151
+      },
+      "units": [
+        {
+          "name": "Magnataur Reaver",
+          "count": 1,
+          "level": 8,
+          "loot": {
+            "level": 5,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Giant Polar Bear",
+          "count": 1,
+          "level": 6,
+          "loot": {
+            "level": 1,
+            "type": "powerup",
+            "items": []
+          }
+        },
+        {
+          "name": "Ice Troll Berserker",
+          "count": 1,
+          "level": 4
+        },
+        {
+          "name": "Ice Troll High Priest",
+          "count": 1,
+          "level": 4
+        }
+      ]
+    },
+    {
+      "id": "red-camp-magnataur-reaver-2",
+      "name": "Southwest",
+      "position": {
+        "x": 72,
+        "y": 363
+      },
+      "units": [
+        {
+          "name": "Magnataur Reaver",
+          "count": 1,
+          "level": 8,
+          "loot": {
+            "level": 5,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Giant Polar Bear",
+          "count": 1,
+          "level": 6,
+          "loot": {
+            "level": 1,
+            "type": "powerup",
+            "items": []
+          }
+        },
+        {
+          "name": "Ice Troll Berserker",
+          "count": 1,
+          "level": 4
+        },
+        {
+          "name": "Ice Troll High Priest",
+          "count": 1,
+          "level": 4
+        }
+      ]
+    }
+  ]
+}

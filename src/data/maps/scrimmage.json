@@ -1,0 +1,743 @@
+{
+  "mapName": "Scrimmage v1.1",
+  "source": {
+    "file": "Scrimmage_v1.1.w3x",
+    "importedAt": "2026-11-15"
+  },
+  "dimensions": {
+    "width": 512,
+    "height": 366
+  },
+  "camps": [
+    {
+      "id": "green-camp-forest-troll-trapper-1",
+      "name": "South 1",
+      "position": {
+        "x": 215,
+        "y": 244
+      },
+      "units": [
+        {
+          "name": "Forest Troll Trapper",
+          "count": 1,
+          "level": 3,
+          "loot": {
+            "level": 1,
+            "type": "powerup",
+            "items": []
+          }
+        },
+        {
+          "name": "Forest Troll",
+          "count": 1,
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "green-camp-forest-troll-trapper-2",
+      "name": "North 3",
+      "position": {
+        "x": 297,
+        "y": 122
+      },
+      "units": [
+        {
+          "name": "Forest Troll Trapper",
+          "count": 1,
+          "level": 3,
+          "loot": {
+            "level": 1,
+            "type": "powerup",
+            "items": []
+          }
+        },
+        {
+          "name": "Forest Troll",
+          "count": 1,
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "green-camp-murloc-nightcrawler-1",
+      "name": "West",
+      "position": {
+        "x": 31,
+        "y": 238
+      },
+      "units": [
+        {
+          "name": "Murloc Nightcrawler",
+          "count": 1,
+          "level": 3,
+          "loot": {
+            "level": 1,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Murloc Huntsman",
+          "count": 1,
+          "level": 2
+        },
+        {
+          "name": "Murloc Tiderunner",
+          "count": 1,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "id": "green-camp-murloc-nightcrawler-2",
+      "name": "East",
+      "position": {
+        "x": 481,
+        "y": 128
+      },
+      "units": [
+        {
+          "name": "Murloc Nightcrawler",
+          "count": 1,
+          "level": 3,
+          "loot": {
+            "level": 1,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Murloc Huntsman",
+          "count": 1,
+          "level": 2
+        },
+        {
+          "name": "Murloc Tiderunner",
+          "count": 1,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "id": "green-camp-rogue-1",
+      "name": "North 2",
+      "position": {
+        "x": 228,
+        "y": 48
+      },
+      "units": [
+        {
+          "name": "Rogue",
+          "count": 1,
+          "level": 3,
+          "loot": {
+            "level": 2,
+            "type": "powerup",
+            "items": []
+          }
+        },
+        {
+          "name": "Brigand",
+          "count": 2,
+          "level": 2
+        },
+        {
+          "name": "Bandit",
+          "count": 2,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "id": "green-camp-rogue-2",
+      "name": "South 2",
+      "position": {
+        "x": 284,
+        "y": 318
+      },
+      "units": [
+        {
+          "name": "Rogue",
+          "count": 1,
+          "level": 3,
+          "loot": {
+            "level": 2,
+            "type": "powerup",
+            "items": []
+          }
+        },
+        {
+          "name": "Brigand",
+          "count": 2,
+          "level": 2
+        },
+        {
+          "name": "Bandit",
+          "count": 2,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "id": "orange-camp-forest-troll-berserker-1",
+      "name": "Merc 1",
+      "position": {
+        "x": 28,
+        "y": 175
+      },
+      "units": [
+        {
+          "name": "Forest Troll Berserker",
+          "count": 1,
+          "level": 4,
+          "loot": {
+            "level": 2,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Ogre Warrior",
+          "count": 1,
+          "level": 3,
+          "loot": {
+            "level": 1,
+            "type": "powerup",
+            "items": []
+          }
+        },
+        {
+          "name": "Forest Troll Trapper",
+          "count": 1,
+          "level": 3
+        },
+        {
+          "name": "Forest Troll Shadow Priest",
+          "count": 1,
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "orange-camp-forest-troll-berserker-2",
+      "name": "Merc 2",
+      "position": {
+        "x": 484,
+        "y": 191
+      },
+      "units": [
+        {
+          "name": "Forest Troll Berserker",
+          "count": 1,
+          "level": 4,
+          "loot": {
+            "level": 2,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Ogre Warrior",
+          "count": 1,
+          "level": 3,
+          "loot": {
+            "level": 1,
+            "type": "powerup",
+            "items": []
+          }
+        },
+        {
+          "name": "Forest Troll Trapper",
+          "count": 1,
+          "level": 3
+        },
+        {
+          "name": "Forest Troll Shadow Priest",
+          "count": 1,
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "orange-camp-giant-sea-turtle-1",
+      "name": "Shop 1",
+      "position": {
+        "x": 145,
+        "y": 199
+      },
+      "units": [
+        {
+          "name": "Giant Sea Turtle",
+          "count": 1,
+          "level": 4,
+          "loot": {
+            "level": 2,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Murloc Nightcrawler",
+          "count": 1,
+          "level": 3,
+          "loot": {
+            "level": 1,
+            "type": "powerup",
+            "items": []
+          }
+        },
+        {
+          "name": "Murloc Nightcrawler",
+          "count": 1,
+          "level": 3
+        },
+        {
+          "name": "Sea Turtle Hatchling",
+          "count": 2,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "id": "orange-camp-giant-sea-turtle-2",
+      "name": "Shop 2",
+      "position": {
+        "x": 367,
+        "y": 167
+      },
+      "units": [
+        {
+          "name": "Giant Sea Turtle",
+          "count": 1,
+          "level": 4,
+          "loot": {
+            "level": 2,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Murloc Nightcrawler",
+          "count": 1,
+          "level": 3,
+          "loot": {
+            "level": 1,
+            "type": "powerup",
+            "items": []
+          }
+        },
+        {
+          "name": "Murloc Nightcrawler",
+          "count": 1,
+          "level": 3
+        },
+        {
+          "name": "Sea Turtle Hatchling",
+          "count": 2,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "id": "orange-camp-gnoll-overseer-1",
+      "name": "Expo 3",
+      "position": {
+        "x": 283,
+        "y": 45
+      },
+      "units": [
+        {
+          "name": "Gnoll Overseer",
+          "count": 1,
+          "level": 5,
+          "loot": {
+            "level": 3,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Gnoll Warden",
+          "count": 1,
+          "level": 3,
+          "loot": {
+            "level": 1,
+            "type": "powerup",
+            "items": []
+          }
+        },
+        {
+          "name": "Gnoll Brute",
+          "count": 2,
+          "level": 3
+        },
+        {
+          "name": "Gnoll Poacher",
+          "count": 1,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "id": "orange-camp-gnoll-overseer-2",
+      "name": "Expo 2",
+      "position": {
+        "x": 229,
+        "y": 321
+      },
+      "units": [
+        {
+          "name": "Gnoll Overseer",
+          "count": 1,
+          "level": 5,
+          "loot": {
+            "level": 3,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Gnoll Warden",
+          "count": 1,
+          "level": 3,
+          "loot": {
+            "level": 1,
+            "type": "powerup",
+            "items": []
+          }
+        },
+        {
+          "name": "Gnoll Brute",
+          "count": 2,
+          "level": 3
+        },
+        {
+          "name": "Gnoll Poacher",
+          "count": 1,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "id": "orange-camp-ogre-magi-1",
+      "name": "Lab 1",
+      "position": {
+        "x": 208,
+        "y": 152
+      },
+      "units": [
+        {
+          "name": "Ogre Magi",
+          "count": 1,
+          "level": 5,
+          "loot": {
+            "level": 4,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Forest Troll Berserker",
+          "count": 1,
+          "level": 4
+        },
+        {
+          "name": "Forest Troll High Priest",
+          "count": 1,
+          "level": 4
+        },
+        {
+          "name": "Ogre Warrior",
+          "count": 1,
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "orange-camp-ogre-magi-2",
+      "name": "Lab 2",
+      "position": {
+        "x": 304,
+        "y": 214
+      },
+      "units": [
+        {
+          "name": "Ogre Magi",
+          "count": 1,
+          "level": 5,
+          "loot": {
+            "level": 4,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Forest Troll Berserker",
+          "count": 1,
+          "level": 4
+        },
+        {
+          "name": "Forest Troll High Priest",
+          "count": 1,
+          "level": 4
+        },
+        {
+          "name": "Ogre Warrior",
+          "count": 1,
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "orange-camp-ogre-mauler-1",
+      "name": "Expo 1",
+      "position": {
+        "x": 81,
+        "y": 111
+      },
+      "units": [
+        {
+          "name": "Ogre Mauler",
+          "count": 1,
+          "level": 5,
+          "loot": {
+            "level": 3,
+            "type": "charged",
+            "items": []
+          }
+        },
+        {
+          "name": "Forest Troll Berserker",
+          "count": 1,
+          "level": 4,
+          "loot": {
+            "level": 1,
+            "type": "powerup",
+            "items": []
+          }
+        },
+        {
+          "name": "Forest Troll High Priest",
+          "count": 1,
+          "level": 4
+        },
+        {
+          "name": "Forest Troll Shadow Priest",
+          "count": 1,
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "orange-camp-ogre-mauler-2",
+      "name": "Expo 4",
+      "position": {
+        "x": 431,
+        "y": 255
+      },
+      "units": [
+        {
+          "name": "Ogre Mauler",
+          "count": 1,
+          "level": 5,
+          "loot": {
+            "level": 3,
+            "type": "charged",
+            "items": []
+          }
+        },
+        {
+          "name": "Forest Troll Berserker",
+          "count": 1,
+          "level": 4,
+          "loot": {
+            "level": 1,
+            "type": "powerup",
+            "items": []
+          }
+        },
+        {
+          "name": "Forest Troll High Priest",
+          "count": 1,
+          "level": 4
+        },
+        {
+          "name": "Forest Troll Shadow Priest",
+          "count": 1,
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "orange-camp-renegade-wizard-1",
+      "name": "Southwest",
+      "position": {
+        "x": 166,
+        "y": 329
+      },
+      "units": [
+        {
+          "name": "Renegade Wizard",
+          "count": 1,
+          "level": 5,
+          "loot": {
+            "level": 2,
+            "type": "charged",
+            "items": []
+          }
+        },
+        {
+          "name": "Rogue",
+          "count": 1,
+          "level": 3,
+          "loot": {
+            "level": 1,
+            "type": "powerup",
+            "items": []
+          }
+        },
+        {
+          "name": "Brigand",
+          "count": 1,
+          "level": 2
+        },
+        {
+          "name": "Bandit",
+          "count": 1,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "id": "orange-camp-renegade-wizard-2",
+      "name": "Northeast",
+      "position": {
+        "x": 346,
+        "y": 37
+      },
+      "units": [
+        {
+          "name": "Renegade Wizard",
+          "count": 1,
+          "level": 5,
+          "loot": {
+            "level": 2,
+            "type": "charged",
+            "items": []
+          }
+        },
+        {
+          "name": "Rogue",
+          "count": 1,
+          "level": 3,
+          "loot": {
+            "level": 1,
+            "type": "powerup",
+            "items": []
+          }
+        },
+        {
+          "name": "Brigand",
+          "count": 1,
+          "level": 2
+        },
+        {
+          "name": "Bandit",
+          "count": 1,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "id": "red-camp-dark-wizard-1",
+      "name": "North 1",
+      "position": {
+        "x": 177,
+        "y": 74
+      },
+      "units": [
+        {
+          "name": "Dark Wizard",
+          "count": 1,
+          "level": 8,
+          "loot": {
+            "level": 5,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Enforcer",
+          "count": 1,
+          "level": 5,
+          "loot": {
+            "level": 1,
+            "type": "powerup",
+            "items": []
+          }
+        },
+        {
+          "name": "Enraged Elemental",
+          "count": 1,
+          "level": 4
+        },
+        {
+          "name": "Rogue Wizard",
+          "count": 1,
+          "level": 3
+        },
+        {
+          "name": "Apprentice Wizard",
+          "count": 1,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "id": "red-camp-dark-wizard-2",
+      "name": "South 3",
+      "position": {
+        "x": 335,
+        "y": 292
+      },
+      "units": [
+        {
+          "name": "Dark Wizard",
+          "count": 1,
+          "level": 8,
+          "loot": {
+            "level": 5,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Enforcer",
+          "count": 1,
+          "level": 5,
+          "loot": {
+            "level": 1,
+            "type": "powerup",
+            "items": []
+          }
+        },
+        {
+          "name": "Enraged Elemental",
+          "count": 1,
+          "level": 4
+        },
+        {
+          "name": "Rogue Wizard",
+          "count": 1,
+          "level": 3
+        },
+        {
+          "name": "Apprentice Wizard",
+          "count": 1,
+          "level": 1
+        }
+      ]
+    }
+  ]
+}

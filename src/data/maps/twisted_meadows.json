@@ -1,0 +1,1035 @@
+{
+  "mapName": "Twisted Meadows v1.9",
+  "source": {
+    "file": "TwistedMeadows_v1.9.w3x",
+    "importedAt": "2026-11-15"
+  },
+  "dimensions": {
+    "width": 512,
+    "height": 512
+  },
+  "camps": [
+    {
+      "id": "green-camp-gnoll-brute-1",
+      "name": "Merc 4",
+      "position": {
+        "x": 272,
+        "y": 176
+      },
+      "units": [
+        {
+          "name": "Gnoll Brute",
+          "count": 1,
+          "level": 3,
+          "loot": {
+            "level": 1,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Gnoll Warden",
+          "count": 1,
+          "level": 3
+        },
+        {
+          "name": "Gnoll Poacher",
+          "count": 1,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "id": "green-camp-gnoll-brute-2",
+      "name": "Shop 2",
+      "position": {
+        "x": 181,
+        "y": 242
+      },
+      "units": [
+        {
+          "name": "Gnoll Brute",
+          "count": 1,
+          "level": 3,
+          "loot": {
+            "level": 1,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Gnoll Warden",
+          "count": 1,
+          "level": 3
+        },
+        {
+          "name": "Gnoll Poacher",
+          "count": 1,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "id": "green-camp-gnoll-brute-3",
+      "name": "Merc 1",
+      "position": {
+        "x": 239,
+        "y": 332
+      },
+      "units": [
+        {
+          "name": "Gnoll Brute",
+          "count": 1,
+          "level": 3,
+          "loot": {
+            "level": 1,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Gnoll Warden",
+          "count": 1,
+          "level": 3
+        },
+        {
+          "name": "Gnoll Poacher",
+          "count": 1,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "id": "green-camp-gnoll-brute-4",
+      "name": "Center",
+      "position": {
+        "x": 327,
+        "y": 274
+      },
+      "units": [
+        {
+          "name": "Gnoll Brute",
+          "count": 1,
+          "level": 3,
+          "loot": {
+            "level": 1,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Gnoll Warden",
+          "count": 1,
+          "level": 3
+        },
+        {
+          "name": "Gnoll Poacher",
+          "count": 1,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "id": "green-camp-gnoll-overseer-1",
+      "name": "West",
+      "position": {
+        "x": 129,
+        "y": 190
+      },
+      "units": [
+        {
+          "name": "Gnoll Overseer",
+          "count": 1,
+          "level": 5,
+          "loot": {
+            "level": 2,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Gnoll Warden",
+          "count": 1,
+          "level": 3
+        },
+        {
+          "name": "Gnoll",
+          "count": 1,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "id": "green-camp-gnoll-overseer-2",
+      "name": "South",
+      "position": {
+        "x": 189,
+        "y": 393
+      },
+      "units": [
+        {
+          "name": "Gnoll Overseer",
+          "count": 1,
+          "level": 5,
+          "loot": {
+            "level": 2,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Gnoll Warden",
+          "count": 1,
+          "level": 3
+        },
+        {
+          "name": "Gnoll",
+          "count": 1,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "id": "green-camp-gnoll-overseer-3",
+      "name": "North",
+      "position": {
+        "x": 328,
+        "y": 114
+      },
+      "units": [
+        {
+          "name": "Gnoll Overseer",
+          "count": 1,
+          "level": 5,
+          "loot": {
+            "level": 2,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Gnoll Warden",
+          "count": 1,
+          "level": 3
+        },
+        {
+          "name": "Gnoll",
+          "count": 1,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "id": "green-camp-gnoll-overseer-4",
+      "name": "East",
+      "position": {
+        "x": 388,
+        "y": 326
+      },
+      "units": [
+        {
+          "name": "Gnoll Overseer",
+          "count": 1,
+          "level": 5,
+          "loot": {
+            "level": 2,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Gnoll Warden",
+          "count": 1,
+          "level": 3
+        },
+        {
+          "name": "Gnoll",
+          "count": 1,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "id": "orange-camp-forest-troll-warlord-1",
+      "name": "Shop 1",
+      "position": {
+        "x": 171,
+        "y": 276
+      },
+      "units": [
+        {
+          "name": "Forest Troll Warlord",
+          "count": 1,
+          "level": 6,
+          "loot": {
+            "level": 4,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Forest Troll Trapper",
+          "count": 1,
+          "level": 3,
+          "loot": {
+            "level": 1,
+            "type": "powerup",
+            "items": []
+          }
+        },
+        {
+          "name": "Forest Troll Trapper",
+          "count": 1,
+          "level": 3
+        },
+        {
+          "name": "Ogre Warrior",
+          "count": 2,
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "orange-camp-forest-troll-warlord-2",
+      "name": "Shop 3",
+      "position": {
+        "x": 345,
+        "y": 238
+      },
+      "units": [
+        {
+          "name": "Forest Troll Warlord",
+          "count": 1,
+          "level": 6,
+          "loot": {
+            "level": 4,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Forest Troll Trapper",
+          "count": 1,
+          "level": 3,
+          "loot": {
+            "level": 1,
+            "type": "powerup",
+            "items": []
+          }
+        },
+        {
+          "name": "Forest Troll Trapper",
+          "count": 1,
+          "level": 3
+        },
+        {
+          "name": "Ogre Warrior",
+          "count": 2,
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "orange-camp-ogre-magi-1",
+      "name": "Expo 5",
+      "position": {
+        "x": 470,
+        "y": 325
+      },
+      "units": [
+        {
+          "name": "Ogre Magi",
+          "count": 1,
+          "level": 5,
+          "loot": {
+            "level": 3,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Forest Troll Trapper",
+          "count": 2,
+          "level": 3
+        },
+        {
+          "name": "Ogre Warrior",
+          "count": 1,
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "orange-camp-ogre-magi-2",
+      "name": "Expo 4",
+      "position": {
+        "x": 339,
+        "y": 39
+      },
+      "units": [
+        {
+          "name": "Ogre Magi",
+          "count": 1,
+          "level": 5,
+          "loot": {
+            "level": 3,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Forest Troll Trapper",
+          "count": 2,
+          "level": 3
+        },
+        {
+          "name": "Ogre Warrior",
+          "count": 1,
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "orange-camp-ogre-magi-3",
+      "name": "Expo 2",
+      "position": {
+        "x": 50,
+        "y": 177
+      },
+      "units": [
+        {
+          "name": "Ogre Magi",
+          "count": 1,
+          "level": 5,
+          "loot": {
+            "level": 3,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Forest Troll Trapper",
+          "count": 2,
+          "level": 3
+        },
+        {
+          "name": "Ogre Warrior",
+          "count": 1,
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "orange-camp-ogre-magi-4",
+      "name": "Expo 3",
+      "position": {
+        "x": 169,
+        "y": 466
+      },
+      "units": [
+        {
+          "name": "Ogre Magi",
+          "count": 1,
+          "level": 5,
+          "loot": {
+            "level": 3,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Forest Troll Trapper",
+          "count": 2,
+          "level": 3
+        },
+        {
+          "name": "Ogre Warrior",
+          "count": 1,
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "orange-camp-rock-golem-1",
+      "name": "Lab 2",
+      "position": {
+        "x": 175,
+        "y": 38
+      },
+      "units": [
+        {
+          "name": "Rock Golem",
+          "count": 1,
+          "level": 6,
+          "loot": {
+            "level": 4,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Forest Troll High Priest",
+          "count": 1,
+          "level": 4,
+          "loot": {
+            "level": 1,
+            "type": "powerup",
+            "items": []
+          }
+        },
+        {
+          "name": "Forest Troll Trapper",
+          "count": 2,
+          "level": 3
+        },
+        {
+          "name": "Mud Golem",
+          "count": 1,
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "orange-camp-rock-golem-2",
+      "name": "Lab 1",
+      "position": {
+        "x": 32,
+        "y": 332
+      },
+      "units": [
+        {
+          "name": "Rock Golem",
+          "count": 1,
+          "level": 6,
+          "loot": {
+            "level": 4,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Forest Troll High Priest",
+          "count": 1,
+          "level": 4,
+          "loot": {
+            "level": 1,
+            "type": "powerup",
+            "items": []
+          }
+        },
+        {
+          "name": "Forest Troll Trapper",
+          "count": 2,
+          "level": 3
+        },
+        {
+          "name": "Mud Golem",
+          "count": 1,
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "orange-camp-rock-golem-3",
+      "name": "Merc 3",
+      "position": {
+        "x": 270,
+        "y": 349
+      },
+      "units": [
+        {
+          "name": "Rock Golem",
+          "count": 1,
+          "level": 6,
+          "loot": [
+            {
+              "level": 3,
+              "type": "charged",
+              "items": []
+            },
+            {
+              "level": 1,
+              "type": "permanent",
+              "items": []
+            }
+          ]
+        },
+        {
+          "name": "Ogre Warrior",
+          "count": 2,
+          "level": 3
+        },
+        {
+          "name": "Forest Troll",
+          "count": 2,
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "orange-camp-rock-golem-4",
+      "name": "Merc 2",
+      "position": {
+        "x": 241,
+        "y": 158
+      },
+      "units": [
+        {
+          "name": "Rock Golem",
+          "count": 1,
+          "level": 6,
+          "loot": [
+            {
+              "level": 3,
+              "type": "charged",
+              "items": []
+            },
+            {
+              "level": 1,
+              "type": "permanent",
+              "items": []
+            }
+          ]
+        },
+        {
+          "name": "Ogre Warrior",
+          "count": 2,
+          "level": 3
+        },
+        {
+          "name": "Forest Troll",
+          "count": 2,
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "orange-camp-rock-golem-5",
+      "name": "Lab 3",
+      "position": {
+        "x": 330,
+        "y": 475
+      },
+      "units": [
+        {
+          "name": "Rock Golem",
+          "count": 1,
+          "level": 6,
+          "loot": {
+            "level": 4,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Forest Troll High Priest",
+          "count": 1,
+          "level": 4,
+          "loot": {
+            "level": 1,
+            "type": "powerup",
+            "items": []
+          }
+        },
+        {
+          "name": "Forest Troll Trapper",
+          "count": 2,
+          "level": 3
+        },
+        {
+          "name": "Mud Golem",
+          "count": 1,
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "orange-camp-rock-golem-6",
+      "name": "Lab 4",
+      "position": {
+        "x": 479,
+        "y": 186
+      },
+      "units": [
+        {
+          "name": "Rock Golem",
+          "count": 1,
+          "level": 6,
+          "loot": {
+            "level": 4,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Forest Troll High Priest",
+          "count": 1,
+          "level": 4,
+          "loot": {
+            "level": 1,
+            "type": "powerup",
+            "items": []
+          }
+        },
+        {
+          "name": "Forest Troll Trapper",
+          "count": 2,
+          "level": 3
+        },
+        {
+          "name": "Mud Golem",
+          "count": 1,
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "red-camp-forest-troll-warlord-1",
+      "name": "Main 4",
+      "position": {
+        "x": 414,
+        "y": 128
+      },
+      "units": [
+        {
+          "name": "Forest Troll Warlord",
+          "count": 1,
+          "level": 6,
+          "loot": {
+            "level": 6,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Forest Troll High Priest",
+          "count": 1,
+          "level": 4,
+          "loot": {
+            "level": 1,
+            "type": "powerup",
+            "items": []
+          }
+        },
+        {
+          "name": "Ogre Magi",
+          "count": 1,
+          "level": 5
+        },
+        {
+          "name": "Ogre Mauler",
+          "count": 1,
+          "level": 5
+        },
+        {
+          "name": "Forest Troll Berserker",
+          "count": 1,
+          "level": 4
+        }
+      ]
+    },
+    {
+      "id": "red-camp-forest-troll-warlord-2",
+      "name": "Main 2",
+      "position": {
+        "x": 130,
+        "y": 93
+      },
+      "units": [
+        {
+          "name": "Forest Troll Warlord",
+          "count": 1,
+          "level": 6,
+          "loot": {
+            "level": 6,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Forest Troll High Priest",
+          "count": 1,
+          "level": 4,
+          "loot": {
+            "level": 1,
+            "type": "powerup",
+            "items": []
+          }
+        },
+        {
+          "name": "Ogre Magi",
+          "count": 1,
+          "level": 5
+        },
+        {
+          "name": "Ogre Mauler",
+          "count": 1,
+          "level": 5
+        },
+        {
+          "name": "Forest Troll Berserker",
+          "count": 1,
+          "level": 4
+        }
+      ]
+    },
+    {
+      "id": "red-camp-forest-troll-warlord-3",
+      "name": "Main 1",
+      "position": {
+        "x": 96,
+        "y": 381
+      },
+      "units": [
+        {
+          "name": "Forest Troll Warlord",
+          "count": 1,
+          "level": 6,
+          "loot": {
+            "level": 6,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Forest Troll High Priest",
+          "count": 1,
+          "level": 4,
+          "loot": {
+            "level": 1,
+            "type": "powerup",
+            "items": []
+          }
+        },
+        {
+          "name": "Ogre Magi",
+          "count": 1,
+          "level": 5
+        },
+        {
+          "name": "Ogre Mauler",
+          "count": 1,
+          "level": 5
+        },
+        {
+          "name": "Forest Troll Berserker",
+          "count": 1,
+          "level": 4
+        }
+      ]
+    },
+    {
+      "id": "red-camp-forest-troll-warlord-4",
+      "name": "Main 3",
+      "position": {
+        "x": 379,
+        "y": 418
+      },
+      "units": [
+        {
+          "name": "Forest Troll Warlord",
+          "count": 1,
+          "level": 6,
+          "loot": {
+            "level": 6,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Forest Troll High Priest",
+          "count": 1,
+          "level": 4,
+          "loot": {
+            "level": 1,
+            "type": "powerup",
+            "items": []
+          }
+        },
+        {
+          "name": "Ogre Magi",
+          "count": 1,
+          "level": 5
+        },
+        {
+          "name": "Ogre Mauler",
+          "count": 1,
+          "level": 5
+        },
+        {
+          "name": "Forest Troll Berserker",
+          "count": 1,
+          "level": 4
+        }
+      ]
+    },
+    {
+      "id": "red-camp-granite-golem-1",
+      "name": "Northwest",
+      "position": {
+        "x": 34,
+        "y": 28
+      },
+      "units": [
+        {
+          "name": "Granite Golem",
+          "count": 1,
+          "level": 9,
+          "loot": [
+            {
+              "level": 5,
+              "type": "charged",
+              "items": []
+            },
+            {
+              "level": 2,
+              "type": "powerup",
+              "items": []
+            }
+          ]
+        },
+        {
+          "name": "Forest Troll Berserker",
+          "count": 1,
+          "level": 4
+        },
+        {
+          "name": "Forest Troll Trapper",
+          "count": 1,
+          "level": 3
+        },
+        {
+          "name": "Red Dragon Whelp",
+          "count": 2,
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "red-camp-granite-golem-2",
+      "name": "Expo 1",
+      "position": {
+        "x": 28,
+        "y": 487
+      },
+      "units": [
+        {
+          "name": "Granite Golem",
+          "count": 1,
+          "level": 9,
+          "loot": [
+            {
+              "level": 5,
+              "type": "charged",
+              "items": []
+            },
+            {
+              "level": 2,
+              "type": "powerup",
+              "items": []
+            }
+          ]
+        },
+        {
+          "name": "Forest Troll Berserker",
+          "count": 1,
+          "level": 4
+        },
+        {
+          "name": "Forest Troll Trapper",
+          "count": 1,
+          "level": 3
+        },
+        {
+          "name": "Red Dragon Whelp",
+          "count": 2,
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "red-camp-granite-golem-3",
+      "name": "Expo 6",
+      "position": {
+        "x": 483,
+        "y": 482
+      },
+      "units": [
+        {
+          "name": "Granite Golem",
+          "count": 1,
+          "level": 9,
+          "loot": [
+            {
+              "level": 5,
+              "type": "charged",
+              "items": []
+            },
+            {
+              "level": 2,
+              "type": "powerup",
+              "items": []
+            }
+          ]
+        },
+        {
+          "name": "Forest Troll Berserker",
+          "count": 1,
+          "level": 4
+        },
+        {
+          "name": "Forest Troll Trapper",
+          "count": 1,
+          "level": 3
+        },
+        {
+          "name": "Red Dragon Whelp",
+          "count": 2,
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "red-camp-granite-golem-4",
+      "name": "Expo 7",
+      "position": {
+        "x": 490,
+        "y": 29
+      },
+      "units": [
+        {
+          "name": "Granite Golem",
+          "count": 1,
+          "level": 9,
+          "loot": [
+            {
+              "level": 5,
+              "type": "charged",
+              "items": []
+            },
+            {
+              "level": 2,
+              "type": "powerup",
+              "items": []
+            }
+          ]
+        },
+        {
+          "name": "Forest Troll Berserker",
+          "count": 1,
+          "level": 4
+        },
+        {
+          "name": "Forest Troll Trapper",
+          "count": 1,
+          "level": 3
+        },
+        {
+          "name": "Red Dragon Whelp",
+          "count": 2,
+          "level": 3
+        }
+      ]
+    }
+  ]
+}

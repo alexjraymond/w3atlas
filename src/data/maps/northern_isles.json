@@ -1,0 +1,603 @@
+{
+  "mapName": "Northern Isles v1.3",
+  "source": {
+    "file": "NorthernIsles_v1.3.w3x",
+    "importedAt": "2026-11-15"
+  },
+  "dimensions": {
+    "width": 512,
+    "height": 408
+  },
+  "camps": [
+    {
+      "id": "green-camp-murloc-flesheater-1",
+      "name": "West 2",
+      "position": {
+        "x": 122,
+        "y": 245
+      },
+      "units": [
+        {
+          "name": "Murloc Flesheater",
+          "count": 1,
+          "level": 3,
+          "loot": {
+            "level": 1,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Murloc Huntsman",
+          "count": 1,
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "green-camp-murloc-flesheater-2",
+      "name": "South",
+      "position": {
+        "x": 192,
+        "y": 300
+      },
+      "units": [
+        {
+          "name": "Murloc Flesheater",
+          "count": 1,
+          "level": 3,
+          "loot": {
+            "level": 2,
+            "type": "charged",
+            "items": []
+          }
+        },
+        {
+          "name": "Murloc Huntsman",
+          "count": 1,
+          "level": 2
+        },
+        {
+          "name": "Murloc Tiderunner",
+          "count": 2,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "id": "green-camp-murloc-flesheater-3",
+      "name": "North",
+      "position": {
+        "x": 319,
+        "y": 107
+      },
+      "units": [
+        {
+          "name": "Murloc Flesheater",
+          "count": 1,
+          "level": 3,
+          "loot": {
+            "level": 2,
+            "type": "charged",
+            "items": []
+          }
+        },
+        {
+          "name": "Murloc Huntsman",
+          "count": 1,
+          "level": 2
+        },
+        {
+          "name": "Murloc Tiderunner",
+          "count": 2,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "id": "green-camp-murloc-flesheater-4",
+      "name": "East 1",
+      "position": {
+        "x": 390,
+        "y": 167
+      },
+      "units": [
+        {
+          "name": "Murloc Flesheater",
+          "count": 1,
+          "level": 3,
+          "loot": {
+            "level": 1,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Murloc Huntsman",
+          "count": 1,
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "green-camp-ogre-warrior-1",
+      "name": "Southwest",
+      "position": {
+        "x": 132,
+        "y": 391
+      },
+      "units": [
+        {
+          "name": "Ogre Warrior",
+          "count": 1,
+          "level": 3,
+          "loot": {
+            "level": 2,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Gnoll Warden",
+          "count": 1,
+          "level": 3
+        },
+        {
+          "name": "Ice Troll",
+          "count": 1,
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "green-camp-ogre-warrior-2",
+      "name": "Northeast",
+      "position": {
+        "x": 381,
+        "y": 15
+      },
+      "units": [
+        {
+          "name": "Ogre Warrior",
+          "count": 1,
+          "level": 3,
+          "loot": {
+            "level": 2,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Gnoll Warden",
+          "count": 1,
+          "level": 3
+        },
+        {
+          "name": "Ice Troll",
+          "count": 1,
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "orange-camp-gnoll-overseer-1",
+      "name": "Shop",
+      "position": {
+        "x": 216,
+        "y": 162
+      },
+      "units": [
+        {
+          "name": "Gnoll Overseer",
+          "count": 1,
+          "level": 5,
+          "loot": {
+            "level": 4,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Gnoll Assassin",
+          "count": 1,
+          "level": 3
+        },
+        {
+          "name": "Gnoll Brute",
+          "count": 2,
+          "level": 3
+        },
+        {
+          "name": "Gnoll Warden",
+          "count": 1,
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "orange-camp-ice-troll-warlord-1",
+      "name": "Market",
+      "position": {
+        "x": 298,
+        "y": 245
+      },
+      "units": [
+        {
+          "name": "Ice Troll Warlord",
+          "count": 1,
+          "level": 6,
+          "loot": {
+            "level": 4,
+            "type": "charged",
+            "items": []
+          }
+        },
+        {
+          "name": "Ice Troll Berserker",
+          "count": 1,
+          "level": 4
+        },
+        {
+          "name": "Ice Troll High Priest",
+          "count": 1,
+          "level": 4
+        },
+        {
+          "name": "Ice Troll",
+          "count": 2,
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "orange-camp-ogre-magi-1",
+      "name": "West 1",
+      "position": {
+        "x": 45,
+        "y": 212
+      },
+      "units": [
+        {
+          "name": "Ogre Magi",
+          "count": 1,
+          "level": 5,
+          "loot": {
+            "level": 3,
+            "type": "charged",
+            "items": []
+          }
+        },
+        {
+          "name": "Tuskarr Trapper",
+          "count": 1,
+          "level": 4
+        },
+        {
+          "name": "Tuskarr Warrior",
+          "count": 1,
+          "level": 4
+        }
+      ]
+    },
+    {
+      "id": "orange-camp-ogre-magi-2",
+      "name": "Expo 3",
+      "position": {
+        "x": 265,
+        "y": 360
+      },
+      "units": [
+        {
+          "name": "Ogre Magi",
+          "count": 1,
+          "level": 5,
+          "loot": {
+            "level": 3,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Tuskarr Trapper",
+          "count": 1,
+          "level": 4
+        },
+        {
+          "name": "Ice Troll",
+          "count": 1,
+          "level": 2
+        },
+        {
+          "name": "Ice Troll Priest",
+          "count": 1,
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "orange-camp-ogre-magi-3",
+      "name": "East 2",
+      "position": {
+        "x": 468,
+        "y": 195
+      },
+      "units": [
+        {
+          "name": "Ogre Magi",
+          "count": 1,
+          "level": 5,
+          "loot": {
+            "level": 3,
+            "type": "charged",
+            "items": []
+          }
+        },
+        {
+          "name": "Tuskarr Trapper",
+          "count": 1,
+          "level": 4
+        },
+        {
+          "name": "Tuskarr Warrior",
+          "count": 1,
+          "level": 4
+        }
+      ]
+    },
+    {
+      "id": "orange-camp-ogre-magi-4",
+      "name": "Expo 2",
+      "position": {
+        "x": 249,
+        "y": 48
+      },
+      "units": [
+        {
+          "name": "Ogre Magi",
+          "count": 1,
+          "level": 5,
+          "loot": {
+            "level": 3,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Tuskarr Trapper",
+          "count": 1,
+          "level": 4
+        },
+        {
+          "name": "Ice Troll",
+          "count": 1,
+          "level": 2
+        },
+        {
+          "name": "Ice Troll Priest",
+          "count": 1,
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "orange-camp-overlord-arachnathid-1",
+      "name": "Northwest",
+      "position": {
+        "x": 165,
+        "y": 60
+      },
+      "units": [
+        {
+          "name": "Overlord Arachnathid",
+          "count": 1,
+          "level": 5,
+          "loot": {
+            "level": 2,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Nerubian Webspinner",
+          "count": 1,
+          "level": 3,
+          "loot": {
+            "level": 2,
+            "type": "charged",
+            "items": []
+          }
+        },
+        {
+          "name": "Warrior Arachnathid",
+          "count": 1,
+          "level": 3
+        },
+        {
+          "name": "Barbed Arachnathid",
+          "count": 1,
+          "level": 1
+        },
+        {
+          "name": "Crystal Arachnathid",
+          "count": 1,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "id": "orange-camp-overlord-arachnathid-2",
+      "name": "Southeast",
+      "position": {
+        "x": 349,
+        "y": 349
+      },
+      "units": [
+        {
+          "name": "Overlord Arachnathid",
+          "count": 1,
+          "level": 5,
+          "loot": {
+            "level": 2,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Nerubian Webspinner",
+          "count": 1,
+          "level": 3,
+          "loot": {
+            "level": 2,
+            "type": "charged",
+            "items": []
+          }
+        },
+        {
+          "name": "Warrior Arachnathid",
+          "count": 1,
+          "level": 3
+        },
+        {
+          "name": "Barbed Arachnathid",
+          "count": 1,
+          "level": 1
+        },
+        {
+          "name": "Crystal Arachnathid",
+          "count": 1,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "id": "orange-camp-polar-furbolg-tracker-1",
+      "name": "Lab 2",
+      "position": {
+        "x": 385,
+        "y": 244
+      },
+      "units": [
+        {
+          "name": "Polar Furbolg Tracker",
+          "count": 1,
+          "level": 6,
+          "loot": {
+            "level": 3,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Tuskarr Sorcerer",
+          "count": 2,
+          "level": 5
+        }
+      ]
+    },
+    {
+      "id": "orange-camp-polar-furbolg-tracker-2",
+      "name": "Lab 1",
+      "position": {
+        "x": 127,
+        "y": 167
+      },
+      "units": [
+        {
+          "name": "Polar Furbolg Tracker",
+          "count": 1,
+          "level": 6,
+          "loot": {
+            "level": 3,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Tuskarr Sorcerer",
+          "count": 2,
+          "level": 5
+        }
+      ]
+    },
+    {
+      "id": "red-camp-magnataur-reaver-1",
+      "name": "Expo 4",
+      "position": {
+        "x": 445,
+        "y": 329
+      },
+      "units": [
+        {
+          "name": "Magnataur Reaver",
+          "count": 1,
+          "level": 8,
+          "loot": {
+            "level": 5,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Ogre Magi",
+          "count": 1,
+          "level": 5,
+          "loot": {
+            "level": 2,
+            "type": "powerup",
+            "items": []
+          }
+        },
+        {
+          "name": "Polar Furbolg Shaman",
+          "count": 1,
+          "level": 4
+        },
+        {
+          "name": "Ogre Warrior",
+          "count": 1,
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "red-camp-magnataur-reaver-2",
+      "name": "Expo 1",
+      "position": {
+        "x": 67,
+        "y": 79
+      },
+      "units": [
+        {
+          "name": "Magnataur Reaver",
+          "count": 1,
+          "level": 8,
+          "loot": {
+            "level": 5,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Ogre Magi",
+          "count": 1,
+          "level": 5,
+          "loot": {
+            "level": 2,
+            "type": "powerup",
+            "items": []
+          }
+        },
+        {
+          "name": "Polar Furbolg Shaman",
+          "count": 1,
+          "level": 4
+        },
+        {
+          "name": "Ogre Warrior",
+          "count": 1,
+          "level": 3
+        }
+      ]
+    }
+  ]
+}

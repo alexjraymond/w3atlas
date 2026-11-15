@@ -66,6 +66,11 @@ describe('maps', () => {
     const sludge = MAP_BY_ID['autumn_leaves'].camps.find((c) => c.id === 'green-camp-sludge-1')!
     expect(sludge.units.map((u) => u.name)).toContain('Giant Skeleton Warrior')
   })
+  it('has the 1v1 ladder pool imported', () => {
+    const ids = POOL_MAPS.map((m) => m.id)
+    for (const id of ['autumn_leaves', 'echo_isles_v2', 'hammerfall', 'last_refuge', 'northern_isles', 'scrimmage', 'shallow_grave', 'springtime', 'tidehunters', 'turtle_rock', 'twisted_meadows'])
+      expect(ids).toContain(id)
+  })
   it('hides maps outside the ladder pool from lists', () => {
     expect(MAP_BY_ID['concealed_hill'].hidden).toBe(true)
     expect(POOL_MAPS.some((m) => m.id === 'concealed_hill')).toBe(false)

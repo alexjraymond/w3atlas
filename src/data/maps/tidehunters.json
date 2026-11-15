@@ -1,0 +1,652 @@
+{
+  "mapName": "Tidehunters v1.2",
+  "source": {
+    "file": "Tidehunters_v1.2.w3x",
+    "importedAt": "2026-11-15"
+  },
+  "dimensions": {
+    "width": 512,
+    "height": 512
+  },
+  "camps": [
+    {
+      "id": "green-camp-giant-sea-turtle-1",
+      "name": "East 1",
+      "position": {
+        "x": 352,
+        "y": 293
+      },
+      "units": [
+        {
+          "name": "Giant Sea Turtle",
+          "count": 1,
+          "level": 4,
+          "loot": {
+            "level": 1,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Sea Turtle",
+          "count": 1,
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "green-camp-giant-sea-turtle-2",
+      "name": "North 1",
+      "position": {
+        "x": 218,
+        "y": 157
+      },
+      "units": [
+        {
+          "name": "Giant Sea Turtle",
+          "count": 1,
+          "level": 4,
+          "loot": {
+            "level": 1,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Sea Turtle",
+          "count": 1,
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "green-camp-murloc-flesheater-1",
+      "name": "West 1",
+      "position": {
+        "x": 46,
+        "y": 230
+      },
+      "units": [
+        {
+          "name": "Murloc Flesheater",
+          "count": 1,
+          "level": 3,
+          "loot": {
+            "level": 1,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Murloc Huntsman",
+          "count": 1,
+          "level": 2
+        },
+        {
+          "name": "Murloc Tiderunner",
+          "count": 1,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "id": "green-camp-murloc-flesheater-2",
+      "name": "South 2",
+      "position": {
+        "x": 282,
+        "y": 467
+      },
+      "units": [
+        {
+          "name": "Murloc Flesheater",
+          "count": 1,
+          "level": 3,
+          "loot": {
+            "level": 1,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Murloc Huntsman",
+          "count": 1,
+          "level": 2
+        },
+        {
+          "name": "Murloc Tiderunner",
+          "count": 1,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "id": "green-camp-murloc-nightcrawler-1",
+      "name": "East 2",
+      "position": {
+        "x": 394,
+        "y": 210
+      },
+      "units": [
+        {
+          "name": "Murloc Nightcrawler",
+          "count": 1,
+          "level": 3,
+          "loot": {
+            "level": 2,
+            "type": "powerup",
+            "items": []
+          }
+        },
+        {
+          "name": "Murloc Huntsman",
+          "count": 2,
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "green-camp-murloc-nightcrawler-2",
+      "name": "North 2",
+      "position": {
+        "x": 303,
+        "y": 117
+      },
+      "units": [
+        {
+          "name": "Murloc Nightcrawler",
+          "count": 1,
+          "level": 3,
+          "loot": {
+            "level": 2,
+            "type": "powerup",
+            "items": []
+          }
+        },
+        {
+          "name": "Murloc Huntsman",
+          "count": 2,
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "green-camp-skeletal-orc-1",
+      "name": "Center",
+      "position": {
+        "x": 185,
+        "y": 326
+      },
+      "units": [
+        {
+          "name": "Skeletal Orc",
+          "count": 1,
+          "level": 3,
+          "loot": {
+            "level": 2,
+            "type": "powerup",
+            "items": []
+          }
+        },
+        {
+          "name": "Stormreaver Hermit",
+          "count": 1,
+          "level": 3
+        },
+        {
+          "name": "Stormreaver Apprentice",
+          "count": 1,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "id": "orange-camp-forest-troll-berserker-1",
+      "name": "Northwest",
+      "position": {
+        "x": 116,
+        "y": 61
+      },
+      "units": [
+        {
+          "name": "Forest Troll Berserker",
+          "count": 1,
+          "level": 4,
+          "loot": {
+            "level": 2,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Forest Troll Trapper",
+          "count": 1,
+          "level": 3
+        },
+        {
+          "name": "Sea Giant",
+          "count": 1,
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "orange-camp-forest-troll-berserker-2",
+      "name": "Southeast",
+      "position": {
+        "x": 451,
+        "y": 397
+      },
+      "units": [
+        {
+          "name": "Forest Troll Berserker",
+          "count": 1,
+          "level": 4,
+          "loot": {
+            "level": 2,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Forest Troll Trapper",
+          "count": 1,
+          "level": 3
+        },
+        {
+          "name": "Sea Giant",
+          "count": 1,
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "orange-camp-gargantuan-sea-turtle-1",
+      "name": "Expo 1",
+      "position": {
+        "x": 44,
+        "y": 368
+      },
+      "units": [
+        {
+          "name": "Gargantuan Sea Turtle",
+          "count": 1,
+          "level": 7,
+          "loot": {
+            "level": 3,
+            "type": "charged",
+            "items": []
+          }
+        },
+        {
+          "name": "Giant Sea Turtle",
+          "count": 2,
+          "level": 4
+        }
+      ]
+    },
+    {
+      "id": "orange-camp-gargantuan-sea-turtle-2",
+      "name": "Expo 2",
+      "position": {
+        "x": 142,
+        "y": 467
+      },
+      "units": [
+        {
+          "name": "Gargantuan Sea Turtle",
+          "count": 1,
+          "level": 7,
+          "loot": {
+            "level": 3,
+            "type": "charged",
+            "items": []
+          }
+        },
+        {
+          "name": "Giant Sea Turtle",
+          "count": 2,
+          "level": 4
+        }
+      ]
+    },
+    {
+      "id": "orange-camp-gnoll-overseer-1",
+      "name": "South 1",
+      "position": {
+        "x": 272,
+        "y": 380
+      },
+      "units": [
+        {
+          "name": "Gnoll Overseer",
+          "count": 1,
+          "level": 5,
+          "loot": {
+            "level": 3,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Gnoll Assassin",
+          "count": 1,
+          "level": 3
+        },
+        {
+          "name": "Gnoll Brute",
+          "count": 1,
+          "level": 3
+        },
+        {
+          "name": "Gnoll Warden",
+          "count": 1,
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "orange-camp-gnoll-overseer-2",
+      "name": "West 2",
+      "position": {
+        "x": 133,
+        "y": 241
+      },
+      "units": [
+        {
+          "name": "Gnoll Overseer",
+          "count": 1,
+          "level": 5,
+          "loot": {
+            "level": 3,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Gnoll Assassin",
+          "count": 1,
+          "level": 3
+        },
+        {
+          "name": "Gnoll Brute",
+          "count": 1,
+          "level": 3
+        },
+        {
+          "name": "Gnoll Warden",
+          "count": 1,
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "orange-camp-makrura-snapper-1",
+      "name": "Shop",
+      "position": {
+        "x": 242,
+        "y": 272
+      },
+      "units": [
+        {
+          "name": "Makrura Snapper",
+          "count": 1,
+          "level": 5,
+          "loot": [
+            {
+              "level": 2,
+              "type": "charged",
+              "items": []
+            },
+            {
+              "level": 1,
+              "type": "powerup",
+              "items": []
+            }
+          ]
+        },
+        {
+          "name": "Giant Sea Turtle",
+          "count": 2,
+          "level": 4
+        }
+      ]
+    },
+    {
+      "id": "orange-camp-mur-gul-snarecaster-1",
+      "name": "Expo 3",
+      "position": {
+        "x": 261,
+        "y": 47
+      },
+      "units": [
+        {
+          "name": "Mur'gul Snarecaster",
+          "count": 1,
+          "level": 4,
+          "loot": {
+            "level": 2,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Mur'gul Tidewarrior",
+          "count": 2,
+          "level": 3
+        },
+        {
+          "name": "Mur'gul Blood-Gill",
+          "count": 1,
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "orange-camp-mur-gul-snarecaster-2",
+      "name": "Expo 4",
+      "position": {
+        "x": 464,
+        "y": 251
+      },
+      "units": [
+        {
+          "name": "Mur'gul Snarecaster",
+          "count": 1,
+          "level": 4,
+          "loot": {
+            "level": 2,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Mur'gul Tidewarrior",
+          "count": 2,
+          "level": 3
+        },
+        {
+          "name": "Mur'gul Blood-Gill",
+          "count": 1,
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "orange-camp-ogre-magi-1",
+      "name": "Market",
+      "position": {
+        "x": 373,
+        "y": 139
+      },
+      "units": [
+        {
+          "name": "Ogre Magi",
+          "count": 1,
+          "level": 5,
+          "loot": {
+            "level": 3,
+            "type": "charged",
+            "items": []
+          }
+        },
+        {
+          "name": "Enraged Elemental",
+          "count": 2,
+          "level": 4
+        },
+        {
+          "name": "Reef Elemental",
+          "count": 2,
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "orange-camp-rock-golem-1",
+      "name": "Lab 2",
+      "position": {
+        "x": 375,
+        "y": 336
+      },
+      "units": [
+        {
+          "name": "Rock Golem",
+          "count": 1,
+          "level": 6,
+          "loot": {
+            "level": 4,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Forest Troll High Priest",
+          "count": 1,
+          "level": 4
+        },
+        {
+          "name": "Forest Troll Trapper",
+          "count": 1,
+          "level": 3
+        },
+        {
+          "name": "Forest Troll",
+          "count": 1,
+          "level": 2
+        },
+        {
+          "name": "Mud Golem",
+          "count": 1,
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "orange-camp-rock-golem-2",
+      "name": "Lab 1",
+      "position": {
+        "x": 176,
+        "y": 135
+      },
+      "units": [
+        {
+          "name": "Rock Golem",
+          "count": 1,
+          "level": 6,
+          "loot": {
+            "level": 4,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Forest Troll High Priest",
+          "count": 1,
+          "level": 4
+        },
+        {
+          "name": "Forest Troll Trapper",
+          "count": 1,
+          "level": 3
+        },
+        {
+          "name": "Forest Troll",
+          "count": 1,
+          "level": 2
+        },
+        {
+          "name": "Mud Golem",
+          "count": 1,
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "red-camp-moss-covered-granite-golem-1",
+      "name": "Northeast",
+      "position": {
+        "x": 436,
+        "y": 79
+      },
+      "units": [
+        {
+          "name": "Moss Covered Granite Golem",
+          "count": 1,
+          "level": 9,
+          "loot": [
+            {
+              "level": 5,
+              "type": "permanent",
+              "items": []
+            },
+            {
+              "level": 2,
+              "type": "powerup",
+              "items": []
+            }
+          ]
+        },
+        {
+          "name": "Sea Giant Hunter",
+          "count": 2,
+          "level": 5
+        },
+        {
+          "name": "Mud Golem",
+          "count": 1,
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "red-camp-mur-gul-marauder-1",
+      "name": "Southwest",
+      "position": {
+        "x": 116,
+        "y": 396
+      },
+      "units": [
+        {
+          "name": "Mur'gul Marauder",
+          "count": 1,
+          "level": 6,
+          "loot": {
+            "level": 4,
+            "type": "charged",
+            "items": []
+          }
+        },
+        {
+          "name": "Mur'gul Snarecaster",
+          "count": 2,
+          "level": 4
+        },
+        {
+          "name": "Murloc Nightcrawler",
+          "count": 2,
+          "level": 3
+        }
+      ]
+    }
+  ]
+}

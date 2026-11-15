@@ -11,6 +11,7 @@
   "camps": [
     {
       "id": "green-camp-rogue-1",
+      "name": "Rogue 1",
       "position": {
         "x": 61,
         "y": 86
@@ -40,6 +41,7 @@
     },
     {
       "id": "green-camp-rogue-2",
+      "name": "Rogue 2",
       "position": {
         "x": 450,
         "y": 426
@@ -69,6 +71,7 @@
     },
     {
       "id": "green-camp-sludge-1",
+      "name": "Sludge 1",
       "position": {
         "x": 404,
         "y": 335
@@ -98,6 +101,7 @@
     },
     {
       "id": "green-camp-sludge-2",
+      "name": "Sludge 2",
       "position": {
         "x": 108,
         "y": 177
@@ -127,6 +131,7 @@
     },
     {
       "id": "green-camp-trolls-1",
+      "name": "Trolls 1",
       "position": {
         "x": 259,
         "y": 406
@@ -156,6 +161,7 @@
     },
     {
       "id": "green-camp-trolls-2",
+      "name": "Trolls 2",
       "position": {
         "x": 254,
         "y": 104
@@ -185,6 +191,7 @@
     },
     {
       "id": "green-camp-wolves-1",
+      "name": "Wolves 1",
       "position": {
         "x": 104,
         "y": 409
@@ -209,6 +216,7 @@
     },
     {
       "id": "green-camp-wolves-2",
+      "name": "Wolves 2",
       "position": {
         "x": 408,
         "y": 103
@@ -233,6 +241,7 @@
     },
     {
       "id": "orange-camp-expo-corner-1",
+      "name": "Expo Corner 1",
       "position": {
         "x": 134,
         "y": 37
@@ -262,6 +271,7 @@
     },
     {
       "id": "orange-camp-expo-corner-2",
+      "name": "Expo Corner 2",
       "position": {
         "x": 378,
         "y": 474
@@ -291,6 +301,7 @@
     },
     {
       "id": "orange-camp-expo-frontal-1",
+      "name": "Expo Frontal 1",
       "position": {
         "x": 163,
         "y": 297
@@ -322,6 +333,7 @@
     },
     {
       "id": "orange-camp-expo-frontal-2",
+      "name": "Expo Frontal 2",
       "position": {
         "x": 349,
         "y": 215
@@ -353,6 +365,7 @@
     },
     {
       "id": "orange-camp-gnoll-1",
+      "name": "Gnoll 1",
       "position": {
         "x": 43,
         "y": 293
@@ -382,6 +395,7 @@
     },
     {
       "id": "orange-camp-gnoll-2",
+      "name": "Gnoll 2",
       "position": {
         "x": 468,
         "y": 219
@@ -411,6 +425,7 @@
     },
     {
       "id": "orange-camp-lab",
+      "name": "Lab",
       "position": {
         "x": 213,
         "y": 205
@@ -445,6 +460,7 @@
     },
     {
       "id": "orange-camp-merc",
+      "name": "Merc",
       "position": {
         "x": 300,
         "y": 306
@@ -479,6 +495,7 @@
     },
     {
       "id": "orange-camp-shop-1",
+      "name": "Shop 1",
       "position": {
         "x": 167,
         "y": 131
@@ -508,6 +525,7 @@
     },
     {
       "id": "orange-camp-shop-2",
+      "name": "Shop 2",
       "position": {
         "x": 345,
         "y": 380
@@ -537,6 +555,7 @@
     },
     {
       "id": "red-camp-granite-1",
+      "name": "Granite 1",
       "position": {
         "x": 27,
         "y": 199
@@ -561,6 +580,7 @@
     },
     {
       "id": "red-camp-granite-2",
+      "name": "Granite 2",
       "position": {
         "x": 484,
         "y": 311

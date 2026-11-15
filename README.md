@@ -15,7 +15,7 @@ Plan **build orders and creep routes** for Warcraft III ladder/tournament maps, 
 
 ## Maps
 
-Autumn Leaves, Echo Isles v2, Last Refuge, Shallow Grave (Concealed Hill is hidden: not in the current pool).
+The current 1v1 ladder pool: Autumn Leaves, Echo Isles, Hammerfall, Last Refuge, Northern Isles, Scrimmage, Shallow Grave, Springtime, Tidehunters, Turtle Rock and Twisted Meadows (Fading Autumn still to come). Concealed Hill is hidden: it's not in the current pool.
 
 ### Adding or updating a map from the map file (recommended)
 
@@ -31,7 +31,9 @@ This writes `src/data/maps/<slug>.json` with:
 - which creeps are in each camp, with names and levels from the game data
 - what each creep drops, e.g. "random level 2 permanent", with the items that drop can be
 
-If a map already exists, its camp ids, names and `hidden` flag are kept when a camp is in about the same place, so saved routes keep working. Then put the minimap image at `public/maps/<slug>.png`, covering the playable area (the importer tells you if it's missing).
+If a map already exists, its camp ids, names and `hidden` flag are kept when a camp is in about the same place, so saved routes keep working. New camps are named after what's next to them (Shop, Lab, Merc, Expo, Main…) or a compass direction.
+
+If `public/maps/<slug>.png` doesn't exist, the importer draws one from the map's own minimap and icon files (gold mines, neutral buildings, start locations). To redraw all of them, add `-- --minimaps`. A sharper image, such as the one on the map's Liquipedia page, can replace it at any time: it just needs to cover the playable area.
 
 To import a single file under a specific slug:
 

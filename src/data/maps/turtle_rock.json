@@ -1,0 +1,713 @@
+{
+  "mapName": "Turtle Rock v2.0",
+  "source": {
+    "file": "TurtleRock_v2.0.w3x",
+    "importedAt": "2026-11-15"
+  },
+  "dimensions": {
+    "width": 512,
+    "height": 512
+  },
+  "camps": [
+    {
+      "id": "green-camp-giant-sea-turtle-1",
+      "name": "Expo 2",
+      "position": {
+        "x": 124,
+        "y": 251
+      },
+      "units": [
+        {
+          "name": "Giant Sea Turtle",
+          "count": 1,
+          "level": 4,
+          "loot": {
+            "level": 1,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Sea Turtle Hatchling",
+          "count": 2,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "id": "green-camp-giant-sea-turtle-2",
+      "name": "Expo 4",
+      "position": {
+        "x": 242,
+        "y": 133
+      },
+      "units": [
+        {
+          "name": "Giant Sea Turtle",
+          "count": 1,
+          "level": 4,
+          "loot": {
+            "level": 1,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Sea Turtle Hatchling",
+          "count": 2,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "id": "green-camp-giant-sea-turtle-3",
+      "name": "Expo 9",
+      "position": {
+        "x": 406,
+        "y": 274
+      },
+      "units": [
+        {
+          "name": "Giant Sea Turtle",
+          "count": 1,
+          "level": 4,
+          "loot": {
+            "level": 1,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Sea Turtle Hatchling",
+          "count": 2,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "id": "green-camp-giant-sea-turtle-4",
+      "name": "Expo 7",
+      "position": {
+        "x": 297,
+        "y": 392
+      },
+      "units": [
+        {
+          "name": "Giant Sea Turtle",
+          "count": 1,
+          "level": 4,
+          "loot": {
+            "level": 1,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Sea Turtle Hatchling",
+          "count": 2,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "id": "orange-camp-forest-troll-warlord-1",
+      "name": "Main 1",
+      "position": {
+        "x": 47,
+        "y": 178
+      },
+      "units": [
+        {
+          "name": "Forest Troll Warlord",
+          "count": 1,
+          "level": 6,
+          "loot": {
+            "level": 4,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Forest Troll Trapper",
+          "count": 2,
+          "level": 3
+        },
+        {
+          "name": "Ogre Warrior",
+          "count": 2,
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "orange-camp-forest-troll-warlord-2",
+      "name": "Main 3",
+      "position": {
+        "x": 362,
+        "y": 461
+      },
+      "units": [
+        {
+          "name": "Forest Troll Warlord",
+          "count": 1,
+          "level": 6,
+          "loot": {
+            "level": 4,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Forest Troll Trapper",
+          "count": 2,
+          "level": 3
+        },
+        {
+          "name": "Ogre Warrior",
+          "count": 2,
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "orange-camp-forest-troll-warlord-3",
+      "name": "Main 2",
+      "position": {
+        "x": 166,
+        "y": 64
+      },
+      "units": [
+        {
+          "name": "Forest Troll Warlord",
+          "count": 1,
+          "level": 6,
+          "loot": {
+            "level": 4,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Forest Troll Trapper",
+          "count": 2,
+          "level": 3
+        },
+        {
+          "name": "Ogre Warrior",
+          "count": 2,
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "orange-camp-forest-troll-warlord-4",
+      "name": "Main 4",
+      "position": {
+        "x": 465,
+        "y": 339
+      },
+      "units": [
+        {
+          "name": "Forest Troll Warlord",
+          "count": 1,
+          "level": 6,
+          "loot": {
+            "level": 4,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Forest Troll Trapper",
+          "count": 2,
+          "level": 3
+        },
+        {
+          "name": "Ogre Warrior",
+          "count": 2,
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "orange-camp-gargantuan-sea-turtle-1",
+      "name": "Expo 6",
+      "position": {
+        "x": 267,
+        "y": 171
+      },
+      "units": [
+        {
+          "name": "Gargantuan Sea Turtle",
+          "count": 1,
+          "level": 7,
+          "loot": {
+            "level": 3,
+            "type": "charged",
+            "items": []
+          }
+        },
+        {
+          "name": "Giant Sea Turtle",
+          "count": 1,
+          "level": 4,
+          "loot": {
+            "level": 1,
+            "type": "powerup",
+            "items": []
+          }
+        },
+        {
+          "name": "Giant Sea Turtle",
+          "count": 1,
+          "level": 4
+        }
+      ]
+    },
+    {
+      "id": "orange-camp-gargantuan-sea-turtle-2",
+      "name": "Expo 5",
+      "position": {
+        "x": 262,
+        "y": 355
+      },
+      "units": [
+        {
+          "name": "Gargantuan Sea Turtle",
+          "count": 1,
+          "level": 7,
+          "loot": {
+            "level": 3,
+            "type": "charged",
+            "items": []
+          }
+        },
+        {
+          "name": "Giant Sea Turtle",
+          "count": 1,
+          "level": 4,
+          "loot": {
+            "level": 1,
+            "type": "powerup",
+            "items": []
+          }
+        },
+        {
+          "name": "Giant Sea Turtle",
+          "count": 1,
+          "level": 4
+        }
+      ]
+    },
+    {
+      "id": "orange-camp-gargantuan-sea-turtle-3",
+      "name": "Expo 8",
+      "position": {
+        "x": 366,
+        "y": 255
+      },
+      "units": [
+        {
+          "name": "Gargantuan Sea Turtle",
+          "count": 1,
+          "level": 7,
+          "loot": {
+            "level": 3,
+            "type": "charged",
+            "items": []
+          }
+        },
+        {
+          "name": "Giant Sea Turtle",
+          "count": 1,
+          "level": 4,
+          "loot": {
+            "level": 1,
+            "type": "powerup",
+            "items": []
+          }
+        },
+        {
+          "name": "Giant Sea Turtle",
+          "count": 1,
+          "level": 4
+        }
+      ]
+    },
+    {
+      "id": "orange-camp-gargantuan-sea-turtle-4",
+      "name": "Expo 3",
+      "position": {
+        "x": 166,
+        "y": 279
+      },
+      "units": [
+        {
+          "name": "Gargantuan Sea Turtle",
+          "count": 1,
+          "level": 7,
+          "loot": {
+            "level": 3,
+            "type": "charged",
+            "items": []
+          }
+        },
+        {
+          "name": "Giant Sea Turtle",
+          "count": 1,
+          "level": 4,
+          "loot": {
+            "level": 1,
+            "type": "powerup",
+            "items": []
+          }
+        },
+        {
+          "name": "Giant Sea Turtle",
+          "count": 1,
+          "level": 4
+        }
+      ]
+    },
+    {
+      "id": "orange-camp-ogre-magi-1",
+      "name": "Shop 1",
+      "position": {
+        "x": 149,
+        "y": 385
+      },
+      "units": [
+        {
+          "name": "Ogre Magi",
+          "count": 1,
+          "level": 5,
+          "loot": {
+            "level": 3,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Forest Troll Trapper",
+          "count": 1,
+          "level": 3,
+          "loot": {
+            "level": 2,
+            "type": "powerup",
+            "items": []
+          }
+        },
+        {
+          "name": "Forest Troll Trapper",
+          "count": 1,
+          "level": 3
+        },
+        {
+          "name": "Ogre Warrior",
+          "count": 2,
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "orange-camp-ogre-magi-2",
+      "name": "Shop 2",
+      "position": {
+        "x": 377,
+        "y": 146
+      },
+      "units": [
+        {
+          "name": "Ogre Magi",
+          "count": 1,
+          "level": 5,
+          "loot": {
+            "level": 3,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Forest Troll Trapper",
+          "count": 1,
+          "level": 3,
+          "loot": {
+            "level": 2,
+            "type": "powerup",
+            "items": []
+          }
+        },
+        {
+          "name": "Forest Troll Trapper",
+          "count": 1,
+          "level": 3
+        },
+        {
+          "name": "Ogre Warrior",
+          "count": 2,
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "orange-camp-ogre-warrior-1",
+      "name": "South",
+      "position": {
+        "x": 214,
+        "y": 463
+      },
+      "units": [
+        {
+          "name": "Ogre Warrior",
+          "count": 1,
+          "level": 3,
+          "loot": {
+            "level": 2,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Ogre Warrior",
+          "count": 1,
+          "level": 3
+        },
+        {
+          "name": "Forest Troll",
+          "count": 2,
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "orange-camp-ogre-warrior-2",
+      "name": "North",
+      "position": {
+        "x": 312,
+        "y": 37
+      },
+      "units": [
+        {
+          "name": "Ogre Warrior",
+          "count": 1,
+          "level": 3,
+          "loot": {
+            "level": 2,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Ogre Warrior",
+          "count": 1,
+          "level": 3
+        },
+        {
+          "name": "Forest Troll",
+          "count": 2,
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "orange-camp-ogre-warrior-3",
+      "name": "East",
+      "position": {
+        "x": 458,
+        "y": 191
+      },
+      "units": [
+        {
+          "name": "Ogre Warrior",
+          "count": 1,
+          "level": 3,
+          "loot": {
+            "level": 2,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Ogre Warrior",
+          "count": 1,
+          "level": 3
+        },
+        {
+          "name": "Forest Troll",
+          "count": 2,
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "orange-camp-ogre-warrior-4",
+      "name": "Southwest",
+      "position": {
+        "x": 55,
+        "y": 344
+      },
+      "units": [
+        {
+          "name": "Ogre Warrior",
+          "count": 1,
+          "level": 3,
+          "loot": {
+            "level": 2,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Ogre Warrior",
+          "count": 1,
+          "level": 3
+        },
+        {
+          "name": "Forest Troll",
+          "count": 2,
+          "level": 2
+        }
+      ]
+    },
+    {
+      "id": "orange-camp-spider-crab-behemoth-1",
+      "name": "Southeast",
+      "position": {
+        "x": 417,
+        "y": 396
+      },
+      "units": [
+        {
+          "name": "Spider Crab Behemoth",
+          "count": 1,
+          "level": 5,
+          "loot": {
+            "level": 3,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Giant Sea Turtle",
+          "count": 2,
+          "level": 4
+        },
+        {
+          "name": "Spider Crab Shorecrawler",
+          "count": 1,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "id": "orange-camp-spider-crab-behemoth-2",
+      "name": "Northwest",
+      "position": {
+        "x": 104,
+        "y": 116
+      },
+      "units": [
+        {
+          "name": "Spider Crab Behemoth",
+          "count": 1,
+          "level": 5,
+          "loot": {
+            "level": 3,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Giant Sea Turtle",
+          "count": 2,
+          "level": 4
+        },
+        {
+          "name": "Spider Crab Shorecrawler",
+          "count": 1,
+          "level": 1
+        }
+      ]
+    },
+    {
+      "id": "red-camp-ogre-lord-1",
+      "name": "Expo 10",
+      "position": {
+        "x": 432,
+        "y": 84
+      },
+      "units": [
+        {
+          "name": "Ogre Lord",
+          "count": 1,
+          "level": 7,
+          "loot": {
+            "level": 5,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Ogre Magi",
+          "count": 1,
+          "level": 5,
+          "loot": {
+            "level": 2,
+            "type": "powerup",
+            "items": []
+          }
+        },
+        {
+          "name": "Forest Troll Berserker",
+          "count": 2,
+          "level": 4
+        },
+        {
+          "name": "Ogre Warrior",
+          "count": 2,
+          "level": 3
+        }
+      ]
+    },
+    {
+      "id": "red-camp-ogre-lord-2",
+      "name": "Expo 1",
+      "position": {
+        "x": 98,
+        "y": 431
+      },
+      "units": [
+        {
+          "name": "Ogre Lord",
+          "count": 1,
+          "level": 7,
+          "loot": {
+            "level": 5,
+            "type": "permanent",
+            "items": []
+          }
+        },
+        {
+          "name": "Ogre Magi",
+          "count": 1,
+          "level": 5,
+          "loot": {
+            "level": 2,
+            "type": "powerup",
+            "items": []
+          }
+        },
+        {
+          "name": "Forest Troll Berserker",
+          "count": 2,
+          "level": 4
+        },
+        {
+          "name": "Ogre Warrior",
+          "count": 2,
+          "level": 3
+        }
+      ]
+    }
+  ]
+}

@@ -4,6 +4,7 @@
 //   npm run import-map                      # every map in ./map-files
 //   npm run import-map -- path/to/map.w3x   # specific files or folders
 //   npm run import-map -- map.w3x --slug autumn_leaves
+//   npm run import-map -- --minimaps          # also redraw minimap images from the map files
 //
 // What comes from the map: camp positions, which creeps are in each camp, and what each creep drops.
 // What comes from src/data/creeps.json: creep names and levels (maps only store a 4-letter unit id).
@@ -13,10 +14,12 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { createRequire } from 'node:module'
 import { Archive } from 'mopaq'
+import { renderMinimap } from './lib/minimap.mjs'
 
 const require = createRequire(import.meta.url)
 const T5 = require('wc3maptranslator')
 const T4 = require('wc3maptranslator-v4')
+const { units: gameUnits } = require('wc3data')
 
 const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..')
 const MAPS_DIR = path.join(ROOT, 'src/data/maps')
@@ -31,9 +34,11 @@ const LOOT_CLASS = { i: 'permanent', j: 'charged', k: 'powerup', l: 'artifact', 
 // ---------- args ----------
 const args = process.argv.slice(2)
 let forcedSlug = null
+let redrawMinimaps = false
 const inputs = []
 for (let i = 0; i < args.length; i++) {
   if (args[i] === '--slug') forcedSlug = args[++i]
+  else if (args[i] === '--minimaps') redrawMinimaps = true
   else inputs.push(args[i])
 }
 if (!inputs.length) inputs.push(path.join(ROOT, 'map-files'))
@@ -83,15 +88,19 @@ function importMap(file) {
 
   const fullName = resolveString(info.map.name, strings) || path.basename(file).replace(/\.\w+$/, '')
   const baseName = fullName.replace(/\s+v?\d+(\.\d+)*\s*$/i, '').trim()
-  const slug = forcedSlug ?? pickSlug([slugify(baseName), slugify(fullName)])
+  const major = /\s+v?(\d+)(\.\d+)*\s*$/i.exec(fullName)?.[1]
+  // existing file wins (e.g. "Echo Isles v2.2" -> echo_isles_v2); new maps get the plain name
+  const slug = forcedSlug ?? pickSlug([slugify(baseName), ...(major ? [slugify(`${baseName} v${major}`)] : []), slugify(fullName)])
   const outFile = path.join(MAPS_DIR, `${slug}.json`)
   const existing = fs.existsSync(outFile) ? JSON.parse(fs.readFileSync(outFile, 'utf8')) : null
 
-  // Playable area (what minimaps show), centred on the terrain's centre.
+  // Playable area (what minimaps show) = terrain minus the camera-bounds margins, which are given in
+  // tiles as [left, right, bottom, top] and are often uneven (so the area isn't always centred).
   const pw = info.map.playableArea.width * 128
   const ph = info.map.playableArea.height * 128
-  const cx = terrain.offsetX + ((terrain.width - 1) * 128) / 2
-  const cy = terrain.offsetY + ((terrain.height - 1) * 128) / 2
+  const [marginLeft, , marginBottom] = info.camera?.complements ?? [0, 0, 0, 0]
+  const cx = terrain.offsetX + marginLeft * 128 + pw / 2
+  const cy = terrain.offsetY + marginBottom * 128 + ph / 2
   const dims = existing?.dimensions ?? (pw >= ph ? { width: 512, height: Math.round((512 * ph) / pw) } : { width: Math.round((512 * pw) / ph), height: 512 })
   const toPx = (x, y) => ({
     x: Math.round(((x - (cx - pw / 2)) / pw) * dims.width),
@@ -130,7 +139,7 @@ function importMap(file) {
     }
     const camUnits = [...byType.values()].sort((a, b) => !!b.loot - !!a.loot || b.level - a.level || a.name.localeCompare(b.name))
     const level = camUnits.reduce((s, u) => s + u.level * u.count, 0)
-    return { position: toPx(x, y), units: camUnits, level }
+    return { position: toPx(x, y), world: [x, y], units: camUnits, level }
   })
 
   // ----- keep ids of existing camps that are still in about the same place -----
@@ -145,8 +154,31 @@ function importMap(file) {
     usedNew.add(i)
     usedOld.add(j)
     camps[i].id = oldCamps[j].id
-    if (oldCamps[j].name) camps[i].name = oldCamps[j].name
+    camps[i].name = oldCamps[j].name ?? campNameFromId(oldCamps[j].id)
+    camps[i].keepName = true
   }
+  // ----- location names for new camps: what's next to them, else a compass direction -----
+  const starts = (info.players ?? []).map((p) => [p.startingPos.x, p.startingPos.y])
+  const landmarks = units
+    .filter((u) => u.player !== PLAYER_NEUTRAL_HOSTILE && gameUnits[u.type]?.stats?.isbldg)
+    .map((u) => ({ pos: u.position, label: landmarkLabel(u.type, u.position, starts) }))
+    .filter((l) => l.label)
+  for (const c of camps) {
+    if (c.name) continue
+    const near = landmarks
+      .map((l) => ({ ...l, d: dist(c.world, l.pos) }))
+      .filter((l) => l.d < 1100)
+      .sort((a, b) => a.d - b.d)[0]
+    c.name = near?.label ?? compass(c.world[0] - cx, c.world[1] - cy, pw, ph)
+  }
+  // number duplicates ("Shop 1", "Shop 2"), left to right then top to bottom
+  const byName = new Map()
+  for (const c of camps) if (!c.keepName) (byName.get(c.name) ?? byName.set(c.name, []).get(c.name)).push(c)
+  for (const [name, list] of byName) {
+    if (list.length < 2) continue
+    list.sort((a, b) => a.position.x - b.position.x || a.position.y - b.position.y).forEach((c, i) => (c.name = `${name} ${i + 1}`))
+  }
+
   const taken = new Set(camps.map((c) => c.id).filter(Boolean))
   for (const c of camps) {
     if (c.id) continue
@@ -165,7 +197,7 @@ function importMap(file) {
     dimensions: dims,
     camps: camps
       .sort((a, b) => a.id.localeCompare(b.id))
-      .map((c) => ({ id: c.id, ...(c.name ? { name: c.name } : {}), position: c.position, units: c.units })),
+      .map((c) => ({ id: c.id, name: c.name, position: c.position, units: c.units })),
   }
   fs.writeFileSync(outFile, JSON.stringify(out, null, 2) + '\n')
 
@@ -178,8 +210,18 @@ function importMap(file) {
     if (dropped.length) console.log(`  removed camps: ${dropped.join(', ')}`)
     if (added.length) console.log(`  new camps: ${added.join(', ')}`)
   }
-  if (!fs.existsSync(img)) {
-    console.log(`  ! no minimap image yet: save one as public/maps/${slug}.png (${dims.width}×${dims.height}, playable area)`)
+  if (!fs.existsSync(img) || redrawMinimaps) {
+    const blp = read('war3mapMap.blp')
+    if (blp) {
+      try {
+        fs.writeFileSync(img, renderMinimap(blp, read('war3map.mmp'), dims))
+        console.log(`  minimap generated from the map file → public/maps/${slug}.png`)
+      } catch (e) {
+        console.log(`  ! could not build a minimap (${e.message}): save one as public/maps/${slug}.png (${dims.width}×${dims.height})`)
+      }
+    } else {
+      console.log(`  ! no minimap in the map file: save one as public/maps/${slug}.png (${dims.width}×${dims.height}, playable area)`)
+    }
   }
   for (const w of warnings) console.log(`  ! ${w}`)
 }
@@ -242,6 +284,34 @@ function parseWts(text) {
 function resolveString(s, strings) {
   const m = /^TRIGSTR_0*(\d+)$/.exec(s ?? '')
   return m ? (strings[m[1]] ?? '') : (s ?? '')
+}
+
+// ---------- naming ----------
+
+function landmarkLabel(type, pos, starts) {
+  const name = gameUnits[type]?.text?.Name ?? ''
+  if (/gold mine/i.test(name)) return starts.some((s) => dist(pos, s) < 1600) ? 'Main' : 'Expo'
+  if (/merchant/i.test(name)) return 'Shop'
+  if (/laboratory/i.test(name)) return 'Lab'
+  if (/mercenary/i.test(name)) return 'Merc'
+  if (/tavern/i.test(name)) return 'Tavern'
+  if (/marketplace/i.test(name)) return 'Market'
+  if (/fountain/i.test(name)) return 'Fountain'
+  if (/dragon roost/i.test(name)) return 'Roost'
+  return null
+}
+
+function compass(dx, dy, w, h) {
+  const nx = dx / (w / 2)
+  const ny = dy / (h / 2)
+  if (Math.hypot(nx, ny) < 0.3) return 'Center'
+  const ns = ny > 0.33 ? 'North' : ny < -0.33 ? 'South' : ''
+  const ew = nx > 0.33 ? 'east' : nx < -0.33 ? 'west' : ''
+  return ns ? ns + ew : ew ? ew[0].toUpperCase() + ew.slice(1) : 'Center'
+}
+
+function campNameFromId(id) {
+  return id.replace(/^(green|orange|red)-camp-/, '').replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
 }
 
 // ---------- utils ----------
