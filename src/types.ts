@@ -47,6 +47,7 @@ export interface GameMap {
   width: number
   height: number
   image: string
+  hidden: boolean
   camps: Camp[]
 }
 

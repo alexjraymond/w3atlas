@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { creepXp, heroLevelForXp, levelProgress, xpFromKill } from '../xp'
 import { parseBuildOrder, newRoute, newStep, newWaypoint, simulateRoute } from '../route'
 import { autoSkills, HERO_BY_NAME, maxOrder, validateSkill } from '../heroes'
-import { MAP_BY_ID, MAPS, campInstances } from '../../data/maps'
+import { MAP_BY_ID, MAPS, POOL_MAPS, campInstances } from '../../data/maps'
 import { sanitizeRoute } from '../../store/sanitize'
 import { decodeShare, encodeShare } from '../../store'
 import type { RouteStep } from '../../types'
@@ -50,20 +50,25 @@ describe('maps', () => {
     expect(drops.map((d) => `${d.type}-${d.level}`)).toEqual(['permanent-1', 'powerup-2'])
     expect(drops.every((d) => d.items.length > 0)).toBe(true)
   })
-  it('uses Liquipedia levels: camp totals match', () => {
+  it('uses game-data levels: camp totals match', () => {
     const al = MAP_BY_ID['autumn_leaves']
     const total = (id: string) => al.camps.find((c) => c.id === id)!.level
     expect(total('green-camp-wolves-1')).toBe(7)
-    expect(total('green-camp-sludge-1')).toBe(5)
+    // Giant Skeleton Warrior (nskg) is level 3 in the game data; Liquipedia lists a level 1 Skeleton Warrior
+    expect(total('green-camp-sludge-1')).toBe(7)
     expect(total('green-camp-rogue-1')).toBe(8)
     expect(total('orange-camp-expo-corner-1')).toBe(14)
     expect(total('orange-camp-merc')).toBe(19)
     expect(total('orange-camp-lab')).toBe(17)
     expect(total('red-camp-granite-1')).toBe(21)
   })
-  it('half-XP creeps: Skeleton Warrior is worth 12.5', () => {
+  it('creep names come from the game data by unit id', () => {
     const sludge = MAP_BY_ID['autumn_leaves'].camps.find((c) => c.id === 'green-camp-sludge-1')!
-    expect(sludge.units.find((u) => u.name === 'Skeleton Warrior')!.xp).toBe(12.5)
+    expect(sludge.units.map((u) => u.name)).toContain('Giant Skeleton Warrior')
+  })
+  it('hides maps outside the ladder pool from lists', () => {
+    expect(MAP_BY_ID['concealed_hill'].hidden).toBe(true)
+    expect(POOL_MAPS.some((m) => m.id === 'concealed_hill')).toBe(false)
   })
   it('names camps after the item dropper', () => {
     const shop = MAP_BY_ID['autumn_leaves'].camps.find((c) => c.id === 'orange-camp-shop-1')!

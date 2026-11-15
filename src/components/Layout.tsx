@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 import { Anchor, AppShell, Button, Container, FileButton, Group, Menu, Text } from '@mantine/core'
 import { IconChevronDown, IconDatabaseExport, IconDatabaseImport, IconMap2 } from '@tabler/icons-react'
-import { MAPS } from '../data/maps'
+import { POOL_MAPS } from '../data/maps'
 import { href, navigate } from '../lib/router'
 import { exportBundle, importData, useBuilds, useRoutes } from '../store'
 import { downloadFile, readJsonFile } from '../lib/files'
@@ -33,7 +33,7 @@ export function Layout({ children }: { children: ReactNode }) {
                   </Button>
                 </Menu.Target>
                 <Menu.Dropdown>
-                  {MAPS.map((m) => (
+                  {POOL_MAPS.map((m) => (
                     <Menu.Item key={m.id} component="a" href={href.map(m.id)}>
                       {m.name}
                     </Menu.Item>

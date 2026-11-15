@@ -2,7 +2,7 @@
   "mapName": "Autumn Leaves v2.0",
   "source": {
     "file": "AutumnLeaves_v2.0.w3x",
-    "importedAt": "2026-11-14"
+    "importedAt": "2026-11-15"
   },
   "dimensions": {
     "width": 512,
@@ -85,12 +85,12 @@
           }
         },
         {
-          "name": "Skeleton Archer",
+          "name": "Giant Skeleton Warrior",
           "count": 1,
-          "level": 1
+          "level": 3
         },
         {
-          "name": "Skeleton Warrior",
+          "name": "Skeleton Archer",
           "count": 1,
           "level": 1
         }
@@ -114,12 +114,12 @@
           }
         },
         {
-          "name": "Skeleton Archer",
+          "name": "Giant Skeleton Warrior",
           "count": 1,
-          "level": 1
+          "level": 3
         },
         {
-          "name": "Skeleton Warrior",
+          "name": "Skeleton Archer",
           "count": 1,
           "level": 1
         }

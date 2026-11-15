@@ -17,6 +17,8 @@ interface RawLoot {
 }
 interface RawMap {
   mapName: string
+  /** not in the current ladder pool: hidden from lists, but saved routes still open */
+  hidden?: boolean
   dimensions: { width: number; height: number }
   camps: { id: string; name?: string; position: { x: number; y: number }; units: RawUnit[] }[]
 }
@@ -41,8 +43,11 @@ const LOOT_CLASS: Record<string, LootClass> = {
 type CreepDef = { name: string; level: number | null; xpFactor?: number }
 const CREEP_DEFS = Object.values(creepData.creeps as Record<string, CreepDef>)
 
+const levelsByName = new Map<string, Set<number>>()
+for (const c of CREEP_DEFS) if (c.level != null) levelsByName.set(c.name, (levelsByName.get(c.name) ?? new Set()).add(c.level))
+/** name -> level, only for names that mean one level (some campaign variants share a name) */
 export const CREEP_LEVELS: Record<string, number> = Object.fromEntries(
-  CREEP_DEFS.filter((c) => c.level != null).map((c) => [c.name, c.level as number]),
+  [...levelsByName].filter(([, s]) => s.size === 1).map(([name, s]) => [name, [...s][0]]),
 )
 /** Creeps that give a share of normal XP (e.g. Skeleton Warrior: 0.5). */
 const XP_FACTOR: Record<string, number> = Object.fromEntries(
@@ -107,6 +112,7 @@ function normalize(slug: string, raw: RawMap): GameMap {
     width: raw.dimensions.width,
     height: raw.dimensions.height,
     image: `${import.meta.env.BASE_URL}maps/${slug}.png`,
+    hidden: !!raw.hidden,
     camps,
   }
 }
@@ -116,6 +122,9 @@ export const MAPS: GameMap[] = Object.entries(files)
   .sort((a, b) => a.name.localeCompare(b.name))
 
 export const MAP_BY_ID: Record<string, GameMap> = Object.fromEntries(MAPS.map((m) => [m.id, m]))
+
+/** Maps shown in lists (the current ladder pool). */
+export const POOL_MAPS: GameMap[] = MAPS.filter((m) => !m.hidden)
 
 // ---------- camp helpers ----------
 

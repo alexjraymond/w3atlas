@@ -1,5 +1,5 @@
 import { Badge, Card, Group, Image, SimpleGrid, Stack, Text, Title } from '@mantine/core'
-import { MAPS, DIFFICULTY_COLOR } from '../data/maps'
+import { POOL_MAPS, DIFFICULTY_COLOR } from '../data/maps'
 import { href } from '../lib/router'
 import { useRoutes } from '../store'
 import { RouteCard } from '../components/RouteCard'
@@ -18,7 +18,7 @@ export function HomePage() {
       </div>
 
       <SimpleGrid cols={{ base: 2, sm: 3, md: 5 }} spacing="md">
-        {MAPS.map((m) => {
+        {POOL_MAPS.map((m) => {
           const count = routes.filter((r) => r.mapId === m.id).length
           const byDiff = (d: string) => m.camps.filter((c) => c.difficulty === d).length
           return (

@@ -1,5 +1,6 @@
 {
   "mapName": "Concealed Hill",
+  "hidden": true,
   "dimensions": {
     "width": 416,
     "height": 512

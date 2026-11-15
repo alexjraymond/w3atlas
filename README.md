@@ -15,7 +15,7 @@ Plan **build orders and creep routes** for Warcraft III ladder/tournament maps, 
 
 ## Maps
 
-Autumn Leaves, Concealed Hill, Echo Isles v2, Last Refuge, Shallow Grave.
+Autumn Leaves, Echo Isles v2, Last Refuge, Shallow Grave (Concealed Hill is hidden: not in the current pool).
 
 ### Adding or updating a map from the map file (recommended)
 
@@ -26,22 +26,33 @@ Autumn Leaves, Concealed Hill, Echo Isles v2, Last Refuge, Shallow Grave.
 npm run import-map
 ```
 
-This reads every map in `map-files/` and writes `src/data/maps/<slug>.json` with:
+This writes `src/data/maps/<slug>.json` with:
 - each camp's exact position, read from the map
-- which creeps are in each camp
-- what each creep drops, e.g. "random level 2 permanent"
+- which creeps are in each camp, with names and levels from the game data
+- what each creep drops, e.g. "random level 2 permanent", with the items that drop can be
 
-If a map already exists, its camp ids and names are kept when a camp is in about the same place, so saved routes keep working. Then:
-
-- Put the minimap image at `public/maps/<slug>.png`, covering the playable area (the importer tells you if it's missing).
-- Creep names and levels come from `src/data/creeps.json`, because map files only store a 4-letter unit id. The importer warns about unknown ids. Levels marked `"verified": true` have been confirmed from in-game XP numbers.
-- `src/data/itemPools.json` lists which items a random drop of each class and level can give.
+If a map already exists, its camp ids, names and `hidden` flag are kept when a camp is in about the same place, so saved routes keep working. Then put the minimap image at `public/maps/<slug>.png`, covering the playable area (the importer tells you if it's missing).
 
 To import a single file under a specific slug:
 
 ```bash
 npm run import-map -- path/to/map.w3x --slug my_map
 ```
+
+### Game data
+
+Map files only store 4-letter unit ids, so creep names and levels (`src/data/creeps.json`) and the item lists for random drops (`src/data/itemPools.json`) come from the game's own data tables, via the `wc3data` package. After a game patch:
+
+```bash
+npm i -D wc3data@latest
+```
+```bash
+npm run update-game-data
+```
+
+### Map pool
+
+Maps not in the current ladder pool get `"hidden": true` in their JSON. They disappear from the map list, but saved routes on them still open.
 
 ### Adding a map by hand
 

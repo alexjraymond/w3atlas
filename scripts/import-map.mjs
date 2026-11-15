@@ -160,6 +160,7 @@ function importMap(file) {
 
   const out = {
     mapName: fullName,
+    ...(existing?.hidden ? { hidden: true } : {}),
     source: { file: path.basename(file), importedAt: new Date().toISOString().slice(0, 10) },
     dimensions: dims,
     camps: camps
