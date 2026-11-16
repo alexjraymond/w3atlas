@@ -139,7 +139,7 @@ export function MapCanvas({
         {map.camps.map((camp) => {
           const order = orderOf.get(camp.id)
           return (
-            <HoverCard key={camp.id} position="top" withArrow shadow="xl" openDelay={80} closeDelay={40} disabled={!!placing}>
+            <HoverCard key={camp.id} position="top" withArrow shadow="xl" openDelay={80} closeDelay={180} disabled={!!placing}>
               <HoverCard.Target>
                 <button
                   type="button"
@@ -163,16 +163,23 @@ export function MapCanvas({
                     }
                   }}
                 >
-                  {order ?? ''}
                   {helper && helped.has(camp.id) && (
-                    <span className={classes.helperBadge} title={`With ${helper.counted ? `${helped.get(camp.id)} ` : ''}${helper.name}`}>
-                      <img src={`${import.meta.env.BASE_URL}icons/${helper.icon}.png`} alt={helper.name} />
-                      {helper.counted && <b>{helped.get(camp.id)}</b>}
+                    <img
+                      className={classes.helperFill}
+                      src={`${import.meta.env.BASE_URL}icons/${helper.icon}.png`}
+                      alt=""
+                      title={`With ${helper.counted ? `${helped.get(camp.id)} ` : ''}${helper.name}`}
+                    />
+                  )}
+                  <span className={classes.campNum}>{order ?? ''}</span>
+                  {helper?.counted && helped.has(camp.id) && (
+                    <span className={classes.helperCount} aria-label={`${helped.get(camp.id)} ${helper.name}`}>
+                      {helped.get(camp.id)}
                     </span>
                   )}
                 </button>
               </HoverCard.Target>
-              <HoverCard.Dropdown style={{ pointerEvents: 'none' }}>
+              <HoverCard.Dropdown>
                 <CampDetails camp={camp} />
               </HoverCard.Dropdown>
             </HoverCard>

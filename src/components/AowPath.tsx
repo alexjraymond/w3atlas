@@ -1,4 +1,4 @@
-import { ActionIcon, Button, Group, Stack, Text, TextInput, Tooltip } from '@mantine/core'
+import { ActionIcon, Button, Group, Stack, Text, TextInput } from '@mantine/core'
 import { IconPlus, IconTrash, IconX } from '@tabler/icons-react'
 import type { AowPoint } from '../types'
 import { GameIcon } from './GameIcon'
@@ -32,25 +32,21 @@ export function AowPathEditor({
       title={<Title count={path.length} />}
       tone="white"
       bodyStyle={{ padding: 12 }}
-      right={
-        <Group gap={6} wrap="nowrap">
-          {path.length > 0 && !placing && (
-            <Tooltip label="Remove the whole path">
-              <ActionIcon variant="subtle" color="red" size="sm" aria-label="Clear AoW path" onClick={() => confirm('Remove the Ancient of War path?') && onChange([])}>
-                <IconTrash size={14} />
-              </ActionIcon>
-            </Tooltip>
-          )}
-          <Button size="compact-xs" variant={placing ? 'filled' : 'default'} leftSection={placing ? undefined : <IconPlus size={12} />} onClick={onTogglePlacing}>
-            {placing ? 'Done' : path.length ? 'Add points' : 'Draw path'}
-          </Button>
-        </Group>
-      }
     >
+      <Group gap={8} mb={10}>
+        <Button size="xs" variant={placing ? 'filled' : 'default'} leftSection={placing ? undefined : <IconPlus size={14} />} onClick={onTogglePlacing}>
+          {placing ? 'Done' : path.length ? 'Add points' : 'Draw path'}
+        </Button>
+        {path.length > 0 && !placing && (
+          <Button size="xs" variant="default" leftSection={<IconTrash size={14} />} onClick={() => confirm('Remove the Ancient of War path?') && onChange([])}>
+            Remove path
+          </Button>
+        )}
+      </Group>
       {path.length === 0 ? (
         <Text size="xs" c="dimmed">
-          Plan where the Ancient of War walks while the hero creeps. It's slow, so the path matters. Draw it point by point; drag points on the map to
-          adjust, right-click one to remove it.
+          Plan where the Ancient of War walks while the hero creeps. It's slow, so the path matters. Draw it point by point, then drag points on the map
+          to adjust them. Remove one with its × below, or right-click it on the map.
         </Text>
       ) : (
         <Stack gap={4}>

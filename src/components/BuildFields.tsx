@@ -5,7 +5,7 @@ import { GameIcon } from './GameIcon'
 
 export function Label({ children }: { children: React.ReactNode }) {
   return (
-    <Text size="xs" fw={900} c="dimmed" tt="uppercase" mb={6} style={{ letterSpacing: '0.08em' }}>
+    <Text ff="var(--w-pixel)" fz={9} lh={1.6} tt="uppercase" mb={8}>
       {children}
     </Text>
   )

@@ -21,6 +21,13 @@
   --mantine-color-default-border: var(--w-ink);
 }
 
+:root[data-mantine-color-scheme],
+[data-mantine-color-scheme='light'] {
+  --mantine-color-dimmed: #4f5b4a;
+  --mantine-color-text: #1d2b1f;
+  --mantine-color-body: #f3eedf;
+}
+
 html,
 body,
 #root {
@@ -115,6 +122,13 @@ a {
   color: var(--w-ink);
 }
 
+.mantine-ActionIcon-root:is(:disabled, [data-disabled]) {
+  background: transparent;
+  color: #a3ab9e;
+  border-color: transparent;
+  box-shadow: none;
+}
+
 .mantine-ActionIcon-root[data-variant='default'] {
   border: var(--w-line);
   box-shadow: var(--w-shadow-xs);
@@ -162,12 +176,13 @@ a {
   font-weight: 600;
 }
 .mantine-InputWrapper-label {
-  font-size: 13px;
-  font-weight: 900;
-  letter-spacing: 0.08em;
+  font-family: var(--w-pixel);
+  font-size: 9px;
+  font-weight: 400;
+  line-height: 1.6;
   text-transform: uppercase;
-  color: var(--w-muted);
-  margin-bottom: 6px;
+  color: var(--w-ink);
+  margin-bottom: 8px;
 }
 
 .mantine-SegmentedControl-root {

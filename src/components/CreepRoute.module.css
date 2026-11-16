@@ -122,19 +122,31 @@
   color: var(--w-muted);
 }
 
-/* touch: bigger targets, no drag grip (reorder with the arrows) */
+.toolsInline {
+  display: none;
+}
+
+/* touch: no drag grip (reorder with Up and Down) */
 @media (pointer: coarse) {
   .grip {
     display: none;
   }
-  .tools {
-    flex-direction: row;
-    gap: 2px;
+}
+
+/* narrow screens: the row keeps its width; reorder and remove move into the opened stop */
+@media (max-width: 48em) {
+  .tools,
+  .grip {
+    display: none;
   }
-  .tools :global(.mantine-ActionIcon-root) {
-    width: 40px;
-    height: 40px;
-    min-width: 40px;
-    min-height: 40px;
+  .toolsInline {
+    display: flex;
+  }
+  .row {
+    gap: 8px;
+    padding: 10px;
+  }
+  .title {
+    font-size: 15px;
   }
 }

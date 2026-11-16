@@ -1,4 +1,4 @@
-import { Badge, Group, Stack, Table, Text } from '@mantine/core'
+import { Badge, Group, Stack, Table, Text, Tooltip } from '@mantine/core'
 import type { Camp } from '../types'
 import { campDrops, campRawXp, DIFFICULTY_COLOR, DIFFICULTY_LABEL, iconSlug, itemName, LOOT_COLOR, LOOT_LABEL } from '../data/maps'
 import { GameIcon } from './GameIcon'
@@ -92,7 +92,11 @@ export function CampDetails({ camp }: { camp: Camp }) {
               {d.items.length > 0 && (
                 <Group gap={4}>
                   {d.items.map((item) => (
-                    <GameIcon key={item} name={iconSlug(item)} size={24} alt={itemName(item)} />
+                    <Tooltip key={item} label={itemName(item)} openDelay={60} withinPortal={false}>
+                      <span style={{ display: 'flex', cursor: 'help' }}>
+                        <GameIcon name={iconSlug(item)} size={24} alt={itemName(item)} />
+                      </span>
+                    </Tooltip>
                   ))}
                 </Group>
               )}

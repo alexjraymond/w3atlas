@@ -219,13 +219,13 @@ function StepCard(p: StepProps) {
 
           {/* possible item drops: badge + the items that drop can be */}
           {result.drops.length > 0 && (
-            <Group gap={10}>
+            <Group gap={10} style={{ rowGap: 6 }}>
               {result.drops.map((d, i) => (
-                <Group key={i} gap={4} wrap="nowrap">
-                  <Badge size="xs" variant="light" color={LOOT_COLOR[d.type]}>
+                <Group key={i} gap={4} wrap="wrap" style={{ rowGap: 4 }}>
+                  <Badge size="sm" variant="filled" color={LOOT_COLOR[d.type]} fz={11}>
                     L{d.level} {LOOT_LABEL[d.type]}
                   </Badge>
-                  <Group gap={2} wrap="nowrap">
+                  <Group gap={2} wrap="wrap">
                     {d.items.map((item) => (
                       <Tooltip key={item} label={itemName(item)} openDelay={100}>
                         <span style={{ display: 'flex' }}>
@@ -296,7 +296,7 @@ function StepCard(p: StepProps) {
                 </>
               ) : (
                 <>
-                  <Group gap={8} wrap="nowrap" align="center">
+                  <Group gap={8} wrap="wrap" align="center">
                     {camp && <HelperToggle route={route} step={step} onChange={p.onChange} />}
                     {showCondition || step.condition ? (
                       <TextInput
@@ -323,6 +323,19 @@ function StepCard(p: StepProps) {
                     value={step.note}
                     onChange={(e) => p.onChange({ ...step, note: e.currentTarget.value })}
                   />
+                  {/* narrow screens: reorder and remove live here so the row keeps its width */}
+                  <Group gap={8} className={classes.toolsInline}>
+                    <Button size="xs" variant="default" leftSection={<IconArrowUp size={14} />} disabled={index === 0} onClick={() => p.onMove(-1)}>
+                      Up
+                    </Button>
+                    <Button size="xs" variant="default" leftSection={<IconArrowDown size={14} />} disabled={index === p.count - 1} onClick={() => p.onMove(1)}>
+                      Down
+                    </Button>
+                    <span style={{ flex: 1 }} />
+                    <Button size="xs" variant="default" color="red" leftSection={<IconTrash size={14} />} onClick={p.onRemove}>
+                      Remove
+                    </Button>
+                  </Group>
                 </>
               )}
             </Stack>

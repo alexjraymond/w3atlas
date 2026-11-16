@@ -64,3 +64,21 @@
 .dock :global(.mantine-Button-root) {
   height: 46px;
 }
+
+/* chips stay on one line; on a phone they scroll sideways next to the actions */
+.chipRow {
+  min-width: 0;
+}
+.chipRow > * {
+  flex: none;
+}
+@media (max-width: 48em) {
+  .chipRow {
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding-bottom: 2px;
+  }
+  .chipRow::-webkit-scrollbar {
+    display: none;
+  }
+}

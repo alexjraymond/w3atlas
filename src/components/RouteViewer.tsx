@@ -1,6 +1,6 @@
 import { useState, type ReactNode } from 'react'
 import { Anchor, Avatar, Badge, Button, Group, Stack, Text } from '@mantine/core'
-import { IconExternalLink } from '@tabler/icons-react'
+import { IconArrowLeft, IconExternalLink } from '@tabler/icons-react'
 import type { Build, Route } from '../types'
 import { MAP_BY_ID } from '../data/maps'
 import { href } from '../lib/router'
@@ -46,7 +46,8 @@ export function RouteViewer({ route, build, actions, author, buildHref, children
         <Stack gap={10} style={{ flex: 1, minWidth: 260 }}>
           <Group gap={6}>
             <Anchor href={href.map(map.id)} className={chips.chip} data-tone="sky" underline="never">
-              ← {map.name}
+              <IconArrowLeft size={14} stroke={2.5} />
+            {map.name}
             </Anchor>
             {route.race && (
               <span className={chips.chip} data-tone="lime">

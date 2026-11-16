@@ -8,16 +8,15 @@ import classes from './LevelBar.module.css'
  * The hero's level as a 2002 install bar: every stop fills its own striped segment,
  * stops that level the hero up are gold, and level thresholds are dashed marks.
  */
-export function LevelBar({ map, route }: { map: GameMap; route: Route }) {
+export function LevelBar({ map, route, compact }: { map: GameMap; route: Route; compact?: boolean }) {
   const { results, final } = simulateRoute(map, route.steps)
   const capped = final.level >= 5
   const max = HERO_XP_TO_REACH[Math.min(final.level + 1, 5)] || 1
   const thresholds = [2, 3, 4, 5].filter((l) => HERO_XP_TO_REACH[l] <= max)
   const pct = (xp: number) => `${Math.min(100, (xp / max) * 100)}%`
 
-  return (
-    <Win title="Level.exe" right={<span>{route.steps.length} stops</span>}>
-      <div className={classes.wrap}>
+  const body = (
+      <div className={classes.wrap} data-compact={compact || undefined}>
         <span className={classes.level} aria-label={`Hero level ${final.level}`}>
           LV {final.level}
         </span>
@@ -59,11 +58,21 @@ export function LevelBar({ map, route }: { map: GameMap; route: Route }) {
             ))}
           </div>
         </div>
-        <span className={classes.xp}>
-          {capped ? 'Level 5: creeps give no more XP' : `${Math.round(final.intoLevel)} / ${final.levelSpan} XP to level ${final.level + 1}`}
-          <small>{Math.round(final.xp)} XP total</small>
-        </span>
+        {compact ? (
+          <span className={classes.xp}>{capped ? 'Max' : `${Math.round(final.intoLevel)}/${final.levelSpan}`}</span>
+        ) : (
+          <span className={classes.xp}>
+            {capped ? 'Level 5: creeps give no more XP' : `${Math.round(final.intoLevel)} / ${final.levelSpan} XP to level ${final.level + 1}`}
+            <small>{Math.round(final.xp)} XP total</small>
+          </span>
+        )}
       </div>
+  )
+  // phone: one framed row (level, bar, XP) so the map stays in the first screen
+  if (compact) return <section className={classes.compactBox}>{body}</section>
+  return (
+    <Win title="Level.exe" right={<span>{route.steps.length} stops</span>}>
+      {body}
     </Win>
   )
 }

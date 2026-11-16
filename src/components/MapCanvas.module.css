@@ -228,3 +228,42 @@
 .aowPoint[data-placing] {
   pointer-events: none;
 }
+
+/* race helper inside the camp: its icon fills the circle at half strength, the stop number stays on top */
+.camp {
+  overflow: visible;
+}
+.helperFill {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  opacity: 0.55;
+  pointer-events: none;
+}
+.campNum {
+  position: relative;
+  z-index: 1;
+  text-shadow:
+    0 0 2px #fff,
+    0 0 3px #fff;
+}
+.helperCount {
+  position: absolute;
+  top: -40%;
+  right: -40%;
+  min-width: 15px;
+  height: 15px;
+  padding: 0 3px;
+  display: grid;
+  place-items: center;
+  background: var(--w-body);
+  border: 1.5px solid var(--w-ink);
+  font-family: var(--w-pixel);
+  font-size: 7px;
+  color: var(--w-ink);
+  z-index: 2;
+  pointer-events: none;
+}
