@@ -7,6 +7,7 @@ import { exportBundle, importData, useBuilds, useRoutes } from '../store'
 import { downloadFile, readJsonFile } from '../lib/files'
 import { cloud } from '../cloud'
 import { AccountMenu } from './AccountMenu'
+import { Footer } from './Footer'
 
 export function Layout({ children }: { children: ReactNode }) {
   const routes = useRoutes()
@@ -94,6 +95,7 @@ export function Layout({ children }: { children: ReactNode }) {
         <Container size="xl" px={{ base: 0, sm: 'md' }}>
           {children}
         </Container>
+        <Footer />
       </AppShell.Main>
     </AppShell>
   )

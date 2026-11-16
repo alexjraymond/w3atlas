@@ -109,6 +109,24 @@ Maps not in the current ladder pool get `"hidden": true` in their JSON. They dis
 
 The map appears in the app automatically.
 
+## Built with
+
+W3Atlas stands on open-source work. If it helps you, please support these projects (sponsor links where they take donations; a GitHub star helps too):
+
+- [Mantine](https://github.com/mantinedev/mantine): UI components ([sponsor](https://opencollective.com/mantinedev))
+- [Vite](https://github.com/vitejs/vite): dev server and build ([sponsor](https://github.com/sponsors/vitejs))
+- [React](https://github.com/facebook/react): UI library
+- [Supabase](https://github.com/supabase/supabase-js): accounts, sync, ratings and comments
+- [Tabler Icons](https://github.com/tabler/tabler-icons): interface icons ([sponsor](https://github.com/sponsors/codecalm))
+- [WC3MapTranslator](https://github.com/ChiefOfGxBxL/WC3MapTranslator): reads Warcraft III map data
+- [mopaq](https://github.com/jeany55/mopaq): opens `.w3x` archives
+- [wc3data](https://github.com/voces/wc3data): creep and item data
+- [jpeg-js](https://github.com/eugeneware/jpeg-js) and [pngjs](https://github.com/pngjs/pngjs): minimap image processing
+
+Run `npm fund` to see every dependency that accepts donations.
+
+Warcraft III is a trademark of Blizzard Entertainment. W3Atlas is a fan project and isn't affiliated with Blizzard.
+
 ## Development
 
 ```bash
