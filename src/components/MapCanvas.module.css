@@ -233,6 +233,15 @@
 .camp {
   overflow: visible;
 }
+.camp[data-helped] {
+  border: 4px solid var(--camp-color);
+  background: var(--w-body);
+}
+.camp[data-helped][data-selected] {
+  border-color: var(--camp-color);
+  outline: 2px solid var(--w-path);
+  outline-offset: 0;
+}
 .helperFill {
   position: absolute;
   inset: 0;

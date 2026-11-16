@@ -147,6 +147,7 @@ export function MapCanvas({
                   className={classes.camp}
                   data-selected={order ? true : undefined}
                   data-active={activeCamp === camp.id || undefined}
+                  data-helped={(helper && helped.has(camp.id)) || undefined}
                   data-readonly={readOnly || undefined}
                   style={{
                     left: `${(camp.position.x / map.width) * 100}%`,

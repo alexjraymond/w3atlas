@@ -106,7 +106,7 @@ export function KillOrder({ camp, step, groups, readOnly, onChange }: Props) {
   return (
     <Stack gap={8}>
       <Group justify="space-between" gap={6}>
-        <Text size="xs" fw={700} c="dimmed" tt="uppercase">
+        <Text ff="var(--w-pixel)" fz={9} lh={1.6} tt="uppercase">
           Kill order
         </Text>
         {!readOnly && (

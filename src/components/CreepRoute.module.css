@@ -142,6 +142,9 @@
   .toolsInline {
     display: flex;
   }
+  .toolsInline :global(.mantine-Button-root) {
+    height: 44px;
+  }
   .row {
     gap: 8px;
     padding: 10px;
