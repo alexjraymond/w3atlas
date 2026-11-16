@@ -71,7 +71,7 @@
 .camp[data-selected] {
   background: var(--camp-color);
   border-color: var(--w-path);
-  box-shadow: 0 0 0 2px var(--w-on-accent), 2px 2px 0 2px var(--w-on-accent);
+  box-shadow: 0 0 0 2px var(--w-on-accent), 0 2px 8px var(--w-shadow-c);
   z-index: 2;
 }
 
@@ -247,7 +247,8 @@
   display: grid;
   place-items: center;
   background: var(--w-body);
-  border: 1.5px solid var(--w-edge);
+  border: 1px solid var(--w-edge);
+  border-radius: 4px;
   font-family: var(--mantine-font-family);
   font-weight: 900;
   font-size: 10px;

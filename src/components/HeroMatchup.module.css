@@ -93,7 +93,7 @@
   filter: none;
 }
 .circle:active {
-  transform: translate(1px, 1px);
+  transform: translateY(1px);
 }
 
 /* heroes */
@@ -150,7 +150,7 @@
   filter: grayscale(1);
 }
 .ability:not(:disabled):active {
-  transform: translate(1px, 1px);
+  transform: translateY(1px);
 }
 .ability b {
   position: absolute;

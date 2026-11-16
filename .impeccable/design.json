@@ -1,425 +1,629 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-16T21:29:46+00:00",
+  "generatedAt": "2026-11-16T22:33:48Z",
   "title": "Design System: W3Atlas",
   "extensions": {
     "colorMeta": {
-      "gold": {
+      "route-yellow": {
         "role": "primary",
-        "displayName": "Warcraft Gold",
+        "displayName": "Route Yellow",
+        "canonical": "#FFD43B",
         "tonalRamp": [
-          "#4F3A08",
-          "#7A5B12",
-          "#A27A1C",
-          "#C99B2A",
-          "#E2B33C",
-          "#EDC965",
-          "#F3D88C",
-          "#FDF6E3"
-        ]
-      },
-      "gold-wash": {
-        "role": "primary",
-        "displayName": "Gold Wash",
-        "tonalRamp": [
-          "#4F3A08",
-          "#7A5B12",
-          "#A27A1C",
-          "#C99B2A",
-          "#E2B33C",
-          "#EDC965",
-          "#F3D88C",
-          "#FDF6E3"
-        ],
-        "night": "#3A301A"
-      },
-      "gold-tint": {
-        "role": "primary",
-        "displayName": "Gold Tint",
-        "tonalRamp": [
-          "#4F3A08",
-          "#7A5B12",
-          "#A27A1C",
-          "#C99B2A",
-          "#E2B33C",
-          "#EDC965",
-          "#F3D88C",
-          "#FDF6E3"
-        ],
-        "night": "#262414"
-      },
-      "sky": {
-        "role": "secondary",
-        "displayName": "Mana Sky",
-        "tonalRamp": [
-          "#123A55",
-          "#1F5A82",
-          "#2F7AAE",
-          "#4A9AD0",
-          "#8EC9F2",
-          "#B4DEF8",
-          "#D3ECFC",
-          "#EAF6FE"
-        ]
-      },
-      "xp": {
-        "role": "tertiary",
-        "displayName": "Hero XP Purple",
-        "tonalRamp": [
-          "#25103F",
-          "#3D1A6B",
-          "#5A26A0",
-          "#7432C8",
-          "#8B3FD9",
-          "#A974E6",
-          "#CDB3F1",
-          "#ECE4F7"
-        ],
-        "night": "#9D5CF0"
-      },
-      "xp-track": {
-        "role": "tertiary",
-        "displayName": "XP Track",
-        "tonalRamp": [
-          "#25103F",
-          "#3D1A6B",
-          "#5A26A0",
-          "#7432C8",
-          "#8B3FD9",
-          "#A974E6",
-          "#CDB3F1",
-          "#ECE4F7"
-        ],
-        "night": "#221A30"
-      },
-      "hero-path": {
-        "role": "tertiary",
-        "displayName": "Hero Path Yellow",
-        "tonalRamp": [
-          "#4A3A00",
-          "#7A6000",
-          "#A88400",
-          "#D9AA0A",
+          "#C78A00",
+          "#E8A100",
+          "#FAB005",
+          "#FCC419",
           "#FFD43B",
           "#FFE066",
           "#FFEC99",
           "#FFF9DB"
         ]
       },
-      "aow-path": {
-        "role": "tertiary",
-        "displayName": "AoW Green",
+      "mana-blue": {
+        "role": "secondary",
+        "displayName": "Mana Blue",
+        "canonical": "#74C0FC",
         "tonalRamp": [
-          "#123D1C",
-          "#1E5E2B",
-          "#2B8A3E",
-          "#51CF66",
-          "#8CE99A",
-          "#B2F2BB",
-          "#D3F9D8",
-          "#EBFBEE"
+          "#172632",
+          "#2E4D65",
+          "#467397",
+          "#5D9ACA",
+          "#90CDFD",
+          "#B3DCFD",
+          "#D5ECFE",
+          "#EEF7FF"
         ]
       },
-      "camp-easy": {
-        "role": "tertiary",
-        "displayName": "Camp Easy",
+      "mana-blue-day": {
+        "role": "secondary",
+        "displayName": "Mana Blue (day)",
+        "canonical": "#4DABF7",
         "tonalRamp": [
-          "#0E3D12",
-          "#17621D",
-          "#21892A",
-          "#2DB738",
-          "#3DDC4A",
-          "#7CE885",
-          "#B6F2BB",
-          "#E3FAE5"
+          "#0F2231",
+          "#1F4463",
+          "#2E6794",
+          "#3E89C6",
+          "#71BCF9",
+          "#9DD1FB",
+          "#CAE6FD",
+          "#EAF5FE"
         ]
       },
-      "camp-medium": {
-        "role": "tertiary",
-        "displayName": "Camp Medium",
+      "xp-purple": {
+        "role": "secondary",
+        "displayName": "XP Purple",
+        "canonical": "#9B5CF6",
         "tonalRamp": [
-          "#4A2E00",
-          "#7A4C00",
-          "#A86A00",
-          "#D98A10",
-          "#FFAD33",
-          "#FFC56E",
-          "#FFDDA8",
-          "#FFF3E0"
+          "#1F1231",
+          "#3E2562",
+          "#5D3794",
+          "#7C4AC5",
+          "#AF7DF8",
+          "#C8A5FA",
+          "#E1CEFC",
+          "#F3EBFE"
         ]
       },
-      "camp-hard": {
-        "role": "tertiary",
-        "displayName": "Camp Hard",
+      "xp-purple-day": {
+        "role": "secondary",
+        "displayName": "XP Purple (day)",
+        "canonical": "#7C3AED",
         "tonalRamp": [
-          "#4D0C0C",
-          "#7A1414",
-          "#A81D1D",
-          "#D93333",
-          "#FF4D4D",
-          "#FF8080",
-          "#FFB3B3",
-          "#FFE5E5"
+          "#190C2F",
+          "#32175F",
+          "#4A238E",
+          "#632EBE",
+          "#9661F1",
+          "#B793F5",
+          "#D8C4FA",
+          "#EFE7FD"
+        ]
+      },
+      "xp-track": {
+        "role": "secondary",
+        "displayName": "XP Track",
+        "canonical": "#241A35",
+        "tonalRamp": [
+          "#07050B",
+          "#0E0A15",
+          "#161020",
+          "#1D152A",
+          "#50485D",
+          "#878190",
+          "#BDBAC2",
+          "#E5E4E7"
+        ]
+      },
+      "xp-track-day": {
+        "role": "secondary",
+        "displayName": "XP Track (day)",
+        "canonical": "#E7DEFA",
+        "tonalRamp": [
+          "#2E2C32",
+          "#5C5964",
+          "#8B8596",
+          "#B9B2C8",
+          "#ECE5FB",
+          "#F2EDFC",
+          "#F8F5FE",
+          "#FCFBFE"
+        ]
+      },
+      "stage-black": {
+        "role": "neutral",
+        "displayName": "Stage Black",
+        "canonical": "#05070A",
+        "tonalRamp": [
+          "#010102",
+          "#020304",
+          "#030406",
+          "#040608",
+          "#37393B",
+          "#767778",
+          "#B4B5B6",
+          "#E1E1E2"
         ]
       },
       "ground": {
         "role": "neutral",
-        "displayName": "Grid Paper Cream",
+        "displayName": "Ground",
+        "canonical": "#07090C",
         "tonalRamp": [
-          "#3B3726",
-          "#5E5940",
-          "#857F62",
-          "#ADA78A",
-          "#D2CCB2",
-          "#E6E0CB",
-          "#F3EEDF",
-          "#FAF8F0"
-        ],
-        "night": "#121915"
+          "#010202",
+          "#030405",
+          "#040507",
+          "#06070A",
+          "#393A3D",
+          "#777879",
+          "#B5B5B6",
+          "#E1E1E2"
+        ]
+      },
+      "ground-day": {
+        "role": "neutral",
+        "displayName": "Ground (Day)",
+        "canonical": "#E9ECF1",
+        "tonalRamp": [
+          "#2F2F30",
+          "#5D5E60",
+          "#8C8E91",
+          "#BABDC1",
+          "#EDF0F4",
+          "#F3F5F7",
+          "#F8F9FB",
+          "#FCFDFD"
+        ]
+      },
+      "panel": {
+        "role": "neutral",
+        "displayName": "Panel",
+        "canonical": "rgba(10, 13, 18, 0.94)"
+      },
+      "panel-day": {
+        "role": "neutral",
+        "displayName": "Panel (Day)",
+        "canonical": "rgba(255, 255, 255, 0.95)"
+      },
+      "body": {
+        "role": "neutral",
+        "displayName": "Body",
+        "canonical": "#10141A",
+        "tonalRamp": [
+          "#030405",
+          "#06080A",
+          "#0A0C10",
+          "#0D1015",
+          "#404348",
+          "#7C7E81",
+          "#B7B8BA",
+          "#E2E3E4"
+        ]
+      },
+      "body-day": {
+        "role": "neutral",
+        "displayName": "Body (Day)",
+        "canonical": "#FFFFFF",
+        "tonalRamp": [
+          "#333333",
+          "#666666",
+          "#999999",
+          "#CCCCCC",
+          "#FFFFFF",
+          "#FFFFFF",
+          "#FFFFFF",
+          "#FFFFFF"
+        ]
       },
       "ink": {
         "role": "neutral",
-        "displayName": "Forest Ink",
+        "displayName": "Ink",
+        "canonical": "#EEF1F4",
         "tonalRamp": [
-          "#1D2B1F",
-          "#2A3527",
-          "#3A4636",
-          "#4F5B4A",
-          "#71806A",
-          "#919F8B",
-          "#D9DFD6",
-          "#EEF1EC"
-        ],
-        "night": "#EDE7D6"
+          "#303031",
+          "#5F6062",
+          "#8F9192",
+          "#BEC1C3",
+          "#F1F4F6",
+          "#F6F7F9",
+          "#FAFBFC",
+          "#FDFDFE"
+        ]
       },
-      "edge": {
+      "ink-day": {
         "role": "neutral",
-        "displayName": "Edge (bronze trim at night)",
+        "displayName": "Ink (Day)",
+        "canonical": "#11151B",
         "tonalRamp": [
-          "#2E220C",
-          "#4A3814",
-          "#6B521F",
-          "#8C6B2E",
-          "#A8833F",
-          "#C4A266",
-          "#DDC597",
-          "#F3EAD6"
-        ],
-        "night": "#A8833F"
+          "#030405",
+          "#07080B",
+          "#0A0D10",
+          "#0E1116",
+          "#414449",
+          "#7C7E82",
+          "#B8B9BB",
+          "#E2E3E4"
+        ]
       },
-      "window-white": {
+      "on-accent": {
         "role": "neutral",
-        "displayName": "Window White",
+        "displayName": "On Accent",
+        "canonical": "#11151B",
         "tonalRamp": [
-          "#1D2B1F",
-          "#2A3527",
-          "#3A4636",
-          "#4F5B4A",
-          "#71806A",
-          "#919F8B",
-          "#D9DFD6",
-          "#EEF1EC"
-        ],
-        "night": "#1C261F"
-      },
-      "paper": {
-        "role": "neutral",
-        "displayName": "Paper",
-        "tonalRamp": [
-          "#1D2B1F",
-          "#2A3527",
-          "#3A4636",
-          "#4F5B4A",
-          "#71806A",
-          "#919F8B",
-          "#D9DFD6",
-          "#EEF1EC"
-        ],
-        "night": "#19221B"
+          "#030405",
+          "#07080B",
+          "#0A0D10",
+          "#0E1116",
+          "#414449",
+          "#7C7E82",
+          "#B8B9BB",
+          "#E2E3E4"
+        ]
       },
       "muted": {
         "role": "neutral",
-        "displayName": "Moss Muted",
+        "displayName": "Muted",
+        "canonical": "#9AA4B2",
         "tonalRamp": [
-          "#1D2B1F",
-          "#2A3527",
-          "#3A4636",
-          "#4F5B4A",
-          "#71806A",
-          "#919F8B",
-          "#D9DFD6",
-          "#EEF1EC"
-        ],
-        "night": "#AAB4A5"
+          "#1F2124",
+          "#3E4247",
+          "#5C626B",
+          "#7B838E",
+          "#AEB6C1",
+          "#C7CDD5",
+          "#E1E4E8",
+          "#F3F4F6"
+        ]
+      },
+      "muted-day": {
+        "role": "neutral",
+        "displayName": "Muted (Day)",
+        "canonical": "#5B6573",
+        "tonalRamp": [
+          "#121417",
+          "#24282E",
+          "#373D45",
+          "#49515C",
+          "#7C848F",
+          "#A5AAB2",
+          "#CED1D5",
+          "#EBEDEE"
+        ]
       },
       "faint": {
         "role": "neutral",
         "displayName": "Faint",
+        "canonical": "#6B7686",
         "tonalRamp": [
-          "#1D2B1F",
-          "#2A3527",
-          "#3A4636",
-          "#4F5B4A",
-          "#71806A",
-          "#919F8B",
-          "#D9DFD6",
-          "#EEF1EC"
-        ],
-        "night": "#87927F"
+          "#15181B",
+          "#2B2F36",
+          "#404750",
+          "#565E6B",
+          "#89919E",
+          "#AEB4BC",
+          "#D3D6DB",
+          "#EDEFF0"
+        ]
       },
-      "disabled-stroke": {
+      "faint-day": {
         "role": "neutral",
-        "displayName": "Disabled Stroke",
+        "displayName": "Faint (Day)",
+        "canonical": "#8A95A5",
         "tonalRamp": [
-          "#1D2B1F",
-          "#2A3527",
-          "#3A4636",
-          "#4F5B4A",
-          "#71806A",
-          "#919F8B",
-          "#D9DFD6",
-          "#EEF1EC"
-        ],
-        "night": "#4A564B"
+          "#1C1E21",
+          "#373C42",
+          "#535963",
+          "#6E7784",
+          "#A1AAB7",
+          "#BFC5CE",
+          "#DCDFE4",
+          "#F1F2F4"
+        ]
       },
-      "disabled-text": {
+      "edge": {
         "role": "neutral",
-        "displayName": "Disabled Text",
+        "displayName": "Edge",
+        "canonical": "#2C3440",
         "tonalRamp": [
-          "#1D2B1F",
-          "#2A3527",
-          "#3A4636",
-          "#4F5B4A",
-          "#71806A",
-          "#919F8B",
-          "#D9DFD6",
-          "#EEF1EC"
-        ],
-        "night": "#87927F"
+          "#090A0D",
+          "#12151A",
+          "#1A1F26",
+          "#232A33",
+          "#565D66",
+          "#8B8F96",
+          "#C0C2C6",
+          "#E6E7E8"
+        ]
+      },
+      "edge-day": {
+        "role": "neutral",
+        "displayName": "Edge (Day)",
+        "canonical": "#CFD6DF",
+        "tonalRamp": [
+          "#292B2D",
+          "#535659",
+          "#7C8086",
+          "#A6ABB2",
+          "#D9DEE5",
+          "#E5E8ED",
+          "#F1F3F5",
+          "#F9FAFB"
+        ]
+      },
+      "wash": {
+        "role": "neutral",
+        "displayName": "Wash",
+        "canonical": "#1B222C",
+        "tonalRamp": [
+          "#050709",
+          "#0B0E12",
+          "#10141A",
+          "#161B23",
+          "#494E56",
+          "#82858B",
+          "#BBBDC0",
+          "#E4E4E6"
+        ]
+      },
+      "wash-day": {
+        "role": "neutral",
+        "displayName": "Wash (Day)",
+        "canonical": "#F1F3F6",
+        "tonalRamp": [
+          "#303131",
+          "#606162",
+          "#919294",
+          "#C1C2C5",
+          "#F4F5F8",
+          "#F7F8FA",
+          "#FBFBFC",
+          "#FDFEFE"
+        ]
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Paper",
+        "canonical": "#0C1015",
+        "tonalRamp": [
+          "#020304",
+          "#050608",
+          "#070A0D",
+          "#0A0D11",
+          "#3D4044",
+          "#797C7E",
+          "#B6B7B9",
+          "#E2E2E3"
+        ]
+      },
+      "paper-day": {
+        "role": "neutral",
+        "displayName": "Paper (Day)",
+        "canonical": "#F7F8FA",
+        "tonalRamp": [
+          "#313232",
+          "#636364",
+          "#949596",
+          "#C6C6C8",
+          "#F9F9FB",
+          "#FBFBFC",
+          "#FDFDFE",
+          "#FEFEFE"
+        ]
+      },
+      "aow-text": {
+        "role": "tertiary",
+        "displayName": "AoW Green",
+        "canonical": "#6FDC8C",
+        "tonalRamp": [
+          "#162C1C",
+          "#2C5838",
+          "#438454",
+          "#59B070",
+          "#8CE3A3",
+          "#B0ECC0",
+          "#D4F4DC",
+          "#EEFBF1"
+        ]
+      },
+      "aow-text-day": {
+        "role": "tertiary",
+        "displayName": "AoW Green (day)",
+        "canonical": "#2B8A3E",
+        "tonalRamp": [
+          "#091C0C",
+          "#113719",
+          "#1A5325",
+          "#226E32",
+          "#55A165",
+          "#8ABF95",
+          "#BFDCC5",
+          "#E6F1E8"
+        ]
+      },
+      "aow-wash": {
+        "role": "tertiary",
+        "displayName": "AoW Wash",
+        "canonical": "#0F2016",
+        "tonalRamp": [
+          "#030604",
+          "#060D09",
+          "#09130D",
+          "#0C1A12",
+          "#3F4D45",
+          "#7B847F",
+          "#B7BCB9",
+          "#E2E4E3"
+        ]
+      },
+      "aow-wash-day": {
+        "role": "tertiary",
+        "displayName": "AoW Wash (day)",
+        "canonical": "#EBFBEE",
+        "tonalRamp": [
+          "#2F3230",
+          "#5E645F",
+          "#8D978F",
+          "#BCC9BE",
+          "#EFFCF1",
+          "#F4FDF6",
+          "#F9FEFA",
+          "#FDFFFD"
+        ]
+      },
+      "hero-path": {
+        "role": "game",
+        "displayName": "Hero Path",
+        "canonical": "#FFD43B",
+        "tonalRamp": [
+          "#332A0C",
+          "#665518",
+          "#997F23",
+          "#CCAA2F",
+          "#FFDD62",
+          "#FFE793",
+          "#FFF2C4",
+          "#FFFAE7"
+        ]
+      },
+      "aow-path": {
+        "role": "game",
+        "displayName": "AoW Path",
+        "canonical": "#8CE99A",
+        "tonalRamp": [
+          "#1C2F1F",
+          "#385D3E",
+          "#548C5C",
+          "#70BA7B",
+          "#A3EDAE",
+          "#C0F3C7",
+          "#DCF8E1",
+          "#F1FCF3"
+        ]
+      },
+      "camp-easy": {
+        "role": "game",
+        "displayName": "Camp Easy",
+        "canonical": "#3DDC4A",
+        "tonalRamp": [
+          "#0C2C0F",
+          "#18581E",
+          "#25842C",
+          "#31B03B",
+          "#64E36E",
+          "#94EC9B",
+          "#C5F4C9",
+          "#E8FBE9"
+        ]
+      },
+      "camp-medium": {
+        "role": "game",
+        "displayName": "Camp Medium",
+        "canonical": "#FFAD33",
+        "tonalRamp": [
+          "#33230A",
+          "#664514",
+          "#99681F",
+          "#CC8A29",
+          "#FFBD5C",
+          "#FFD28F",
+          "#FFE6C2",
+          "#FFF5E7"
+        ]
+      },
+      "camp-hard": {
+        "role": "game",
+        "displayName": "Camp Hard",
+        "canonical": "#FF4D4D",
+        "tonalRamp": [
+          "#330F0F",
+          "#661F1F",
+          "#992E2E",
+          "#CC3E3E",
+          "#FF7171",
+          "#FF9D9D",
+          "#FFCACA",
+          "#FFEAEA"
+        ]
       }
     },
     "typographyMeta": {
-      "display": {
-        "displayName": "Display",
-        "purpose": "The route name, edited in place; one per page."
-      },
       "headline": {
         "displayName": "Headline",
-        "purpose": "Mantine h1 to h6 in Cinzel 700 (32/24/19/16/14/13px)."
+        "purpose": "Page headings on non-stage pages (h2 23px, h3 18px)."
+      },
+      "route-name": {
+        "displayName": "Route Name",
+        "purpose": "Editable route name in the HUD bar."
       },
       "level-number": {
-        "displayName": "Level number",
-        "purpose": "'Lv n' in XP purple beside the level bar; 18px compact."
+        "displayName": "Level Number",
+        "purpose": "Hero level beside the XP bar, in XP purple."
       },
-      "window-title": {
-        "displayName": "Window title",
-        "purpose": "Title bars; 15px in the phone stop sheet."
+      "panel-title": {
+        "displayName": "Panel Title",
+        "purpose": "Panel title rows."
       },
-      "label": {
-        "displayName": "Label",
-        "purpose": "Field labels and block captions inside windows."
+      "number": {
+        "displayName": "Number",
+        "purpose": "Stop XP, stop numbers, level tags; tabular."
       },
       "button": {
         "displayName": "Button",
-        "purpose": "Outlined buttons and segmented options."
+        "purpose": "Buttons, segmented labels, chips."
       },
-      "stop-number": {
-        "displayName": "Stop number",
-        "purpose": "The 34px number box of each stop row."
+      "field-label": {
+        "displayName": "Field Label",
+        "purpose": "Uppercase caption directly above a control; never a section kicker."
       },
       "title": {
         "displayName": "Title",
-        "purpose": "Stop and camp names, the picked hero name."
+        "purpose": "Camp and stop names."
       },
       "body": {
         "displayName": "Body",
-        "purpose": "Everything read: notes, hints, inputs (700)."
+        "purpose": "Running text, notes, inputs."
       },
       "meta": {
         "displayName": "Meta",
-        "purpose": "Muted difficulty, level and position lines, XP subtotals, legends."
-      },
-      "chip": {
-        "displayName": "Chip",
-        "purpose": "Uppercase context chips above the route name."
-      },
-      "marker": {
-        "displayName": "Marker",
-        "purpose": "Stop numbers inside camp circles and waypoint pins on the map."
+        "purpose": "Muted secondary lines, legends, counts."
       }
     },
     "shadows": [
       {
-        "name": "window",
-        "value": "4px 4px 0 var(--w-shadow-c)",
-        "purpose": "Windows, cards, bordered papers, dropdowns, the phone dock, the compact level bar. Shadow colour #1D2B1F by day, #050806 at night."
+        "name": "float",
+        "value": "0 8px 24px var(--w-shadow-c)",
+        "purpose": "Floating panels, HUD bar, popovers, menus, phone dock."
       },
       {
-        "name": "control",
-        "value": "3px 3px 0 var(--w-shadow-c)",
-        "purpose": "Buttons at rest; drops to none on active."
+        "name": "rest",
+        "value": "0 2px 8px var(--w-shadow-c)",
+        "purpose": "Cards and bordered papers on ordinary pages."
       },
       {
-        "name": "small",
-        "value": "2px 2px 0 var(--w-shadow-c)",
-        "purpose": "Inputs, default action icons."
+        "name": "hairline",
+        "value": "0 1px 2px var(--w-shadow-c)",
+        "purpose": "Small lifted bits."
       },
       {
-        "name": "selected-portrait",
-        "value": "0 0 0 3px var(--w-accent), 2px 2px 0 3px var(--w-shadow-c)",
-        "purpose": "Picked race circle and hero icon."
+        "name": "shadow-colour-night",
+        "value": "rgba(0, 0, 0, 0.5)",
+        "purpose": "--w-shadow-c in the dark scheme."
       },
       {
-        "name": "lifted",
-        "value": "6px 6px 0",
-        "purpose": "Hover on linked cards, with a -2px -2px move."
+        "name": "shadow-colour-day",
+        "value": "rgba(15, 20, 30, 0.18)",
+        "purpose": "--w-shadow-c in the light scheme."
       },
       {
-        "name": "input-focus",
-        "value": "2px 2px 0 #8EC9F2",
-        "purpose": "Input shadow turns sky on focus."
+        "name": "level-up-ring",
+        "value": "0 0 0 2px var(--w-panel), 0 0 0 4px var(--w-xp)",
+        "purpose": "Ring on a stop number where the hero levels up."
       },
       {
-        "name": "focus-ring",
-        "value": "outline: 3px solid #8EC9F2; outline-offset: 2px",
-        "purpose": "Global :focus-visible."
-      },
-      {
-        "name": "map-halo",
-        "value": "rgba(0,0,0,0.7) 5px stroke under path lines; drop-shadow(0 1px 2px rgba(0,0,0,0.8)) on waypoints",
-        "purpose": "Minimap only: legibility over terrain."
+        "name": "stage-backdrop",
+        "value": "filter: blur(18px) saturate(0.85) brightness(0.32)",
+        "purpose": "The blurred, darkened copy of the minimap behind the route stage."
       }
     ],
     "motion": [
       {
-        "name": "window-spawn",
-        "value": "220ms cubic-bezier(0.34, 1.56, 0.64, 1); scale 0.97 to 1, fade in",
-        "purpose": "Windows opening."
-      },
-      {
-        "name": "fold",
-        "value": "160ms cubic-bezier(0.22, 1, 0.36, 1); chevron rotates -90deg when closed",
-        "purpose": "Foldable window title bars."
-      },
-      {
         "name": "press",
-        "value": "80ms linear; translate by shadow offset",
-        "purpose": "Buttons and action icons pressing into their shadow."
+        "value": "transform 80ms ease-out",
+        "purpose": "1px downward nudge on button press."
       },
       {
-        "name": "xp-fill",
-        "value": "400ms cubic-bezier(0.22, 1, 0.36, 1)",
-        "purpose": "Level bar fill width as stops change."
+        "name": "state",
+        "value": "120ms ease-out",
+        "purpose": "Background and border changes on rows and buttons."
       },
       {
-        "name": "marker-hover",
-        "value": "120ms ease; scale 1.18 (hover), 1.3 (active)",
-        "purpose": "Camp markers on the map."
+        "name": "ease-out-quint",
+        "value": "cubic-bezier(0.22, 1, 0.36, 1)",
+        "purpose": "Panel fold chevron (160ms) and XP bar fill (400ms)."
       },
       {
         "name": "reduced-motion",
-        "value": "durations forced to 0.01ms",
-        "purpose": "prefers-reduced-motion: reduce."
+        "value": "0.01ms",
+        "purpose": "All animation and transition durations under prefers-reduced-motion."
       }
     ],
     "breakpoints": [
@@ -432,169 +636,151 @@
         "value": "62em"
       },
       {
-        "name": "touch",
-        "value": "(pointer: coarse)"
+        "name": "narrow-side",
+        "value": "75em"
       }
     ]
   },
   "components": [
     {
-      "name": "Window",
-      "kind": "card",
-      "refersTo": "window-bar",
-      "description": "Titled window, foldable from a chevron in its title bar. Gold for the working window, sky for reference, white for secondary.",
-      "html": "<section class=\"ds-win\"><div class=\"ds-win-bar\"><button class=\"ds-win-fold\" aria-expanded=\"true\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M6 9l6 6l6 -6\"/></svg><span>Route</span></button><span class=\"ds-win-right\">4 stops</span><span class=\"ds-win-dots\"><i></i><i></i><i></i></span></div><div class=\"ds-win-body\">Renegade Wizard +3 &middot; +192 XP</div></section>",
-      "css": ":host{--w-ink:#1d2b1f;--w-edge:#1d2b1f;--w-accent:#e2b33c;--w-sky:#8ec9f2;--w-xp:#8b3fd9;--w-xp-track:#ece4f7;--w-body:#fff;--w-muted:#4f5b4a;--w-on-accent:#1d2b1f;--w-shadow-c:#1d2b1f;--w-paper:#fbfaf5;--w-faint:#7c8577;--w-disabled:#6d7568;--w-disabled-line:#9aa395;--w-line:2px solid var(--w-edge)}.ds-win{background:var(--w-body);border:var(--w-line);box-shadow:4px 4px 0 var(--w-shadow-c);color:var(--w-ink);font-family:Nunito,system-ui,sans-serif;font-weight:700;animation:ds-spawn 220ms cubic-bezier(0.34,1.56,0.64,1) both;max-width:360px}@keyframes ds-spawn{from{transform:scale(0.97);opacity:0}}.ds-win-bar{display:flex;align-items:center;gap:10px;min-height:32px;padding:4px 10px;background:var(--w-accent);color:var(--w-on-accent);border-bottom:var(--w-line);font-family:Cinzel,'Times New Roman',serif;font-size:14px;font-weight:700;letter-spacing:0.04em;line-height:1.3;position:relative}.ds-win-bar::after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(transparent 0 2px,rgba(255,255,255,0.12) 2px 4px);pointer-events:none}.ds-win-fold{flex:1;display:flex;align-items:center;gap:6px;padding:0;border:0;background:none;color:inherit;font:inherit;letter-spacing:inherit;cursor:pointer;position:relative;z-index:1}.ds-win-fold svg{transition:transform 160ms cubic-bezier(0.22,1,0.36,1)}.ds-win-fold:hover svg{transform:rotate(-90deg)}.ds-win-fold:focus-visible{outline:3px solid var(--w-sky);outline-offset:2px}.ds-win-right{font-family:Nunito,system-ui,sans-serif;font-size:13px;position:relative;z-index:1}.ds-win-dots{display:flex;gap:4px}.ds-win-dots i{width:10px;height:10px;border:1.5px solid currentColor}.ds-win-body{padding:12px}"
-    },
-    {
       "name": "Primary Button",
       "kind": "button",
       "refersTo": "button-primary",
-      "description": "Gold filled, outlined, Cinzel label, presses into its shadow.",
-      "html": "<button class=\"ds-btn ds-btn-primary\">Stops 4</button>",
-      "css": ":host{--w-ink:#1d2b1f;--w-edge:#1d2b1f;--w-accent:#e2b33c;--w-sky:#8ec9f2;--w-xp:#8b3fd9;--w-xp-track:#ece4f7;--w-body:#fff;--w-muted:#4f5b4a;--w-on-accent:#1d2b1f;--w-shadow-c:#1d2b1f;--w-paper:#fbfaf5;--w-faint:#7c8577;--w-disabled:#6d7568;--w-disabled-line:#9aa395;--w-line:2px solid var(--w-edge)}.ds-btn{border:var(--w-line);box-shadow:3px 3px 0 var(--w-shadow-c);border-radius:0;font-family:Cinzel,'Times New Roman',serif;font-weight:700;font-size:12px;letter-spacing:0.03em;color:var(--w-on-accent);padding:10px 16px;cursor:pointer;transition:transform 80ms linear,box-shadow 80ms linear}.ds-btn-primary{background:var(--w-accent)}.ds-btn:hover{filter:brightness(1.04)}.ds-btn:active{transform:translate(3px,3px);box-shadow:none}.ds-btn:focus-visible{outline:3px solid var(--w-sky);outline-offset:2px}"
+      "description": "The one yellow action on a surface.",
+      "html": "<button class=\"ds-btn-primary\">Preview</button>",
+      "css": ".ds-btn-primary{background:var(--w-accent,#FFD43B);color:var(--w-on-accent,#11151B);border:1px solid var(--w-accent,#FFD43B);border-radius:6px;padding:0 14px;height:34px;font-family:'Chakra Petch',system-ui,sans-serif;font-weight:600;font-size:13px;letter-spacing:.02em;cursor:pointer;transition:transform 80ms ease-out,background-color 120ms ease-out}.ds-btn-primary:hover{background:#FCC419}.ds-btn-primary:active{transform:translateY(1px)}.ds-btn-primary:focus-visible{outline:3px solid var(--w-sky,#74C0FC);outline-offset:2px}"
     },
     {
       "name": "Default Button",
       "kind": "button",
       "refersTo": "button-default",
-      "description": "White outlined button for secondary actions; disabled is dashed and shadowless.",
-      "html": "<button class=\"ds-btn2\">Waypoint</button> <button class=\"ds-btn2\" disabled>Undo</button>",
-      "css": ":host{--w-ink:#1d2b1f;--w-edge:#1d2b1f;--w-accent:#e2b33c;--w-sky:#8ec9f2;--w-xp:#8b3fd9;--w-xp-track:#ece4f7;--w-body:#fff;--w-muted:#4f5b4a;--w-on-accent:#1d2b1f;--w-shadow-c:#1d2b1f;--w-paper:#fbfaf5;--w-faint:#7c8577;--w-disabled:#6d7568;--w-disabled-line:#9aa395;--w-line:2px solid var(--w-edge)}.ds-btn2{background:var(--w-body);border:var(--w-line);box-shadow:3px 3px 0 var(--w-shadow-c);border-radius:0;font-family:Cinzel,'Times New Roman',serif;font-weight:700;font-size:12px;letter-spacing:0.03em;color:var(--w-ink);padding:10px 16px;cursor:pointer;transition:transform 80ms linear,box-shadow 80ms linear}.ds-btn2:hover:not(:disabled){filter:brightness(1.04)}.ds-btn2:active:not(:disabled){transform:translate(3px,3px);box-shadow:none}.ds-btn2:focus-visible{outline:3px solid var(--w-sky);outline-offset:2px}.ds-btn2:disabled{background:transparent;border-style:dashed;border-color:var(--w-disabled-line);color:var(--w-disabled);box-shadow:none;cursor:default}"
+      "description": "Secondary HUD control.",
+      "html": "<button class=\"ds-btn-default\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M9 14l-4 -4l4 -4\"/><path d=\"M5 10h11a4 4 0 1 1 0 8h-1\"/></svg>Undo</button>",
+      "css": ".ds-btn-default{display:inline-flex;align-items:center;gap:6px;background:var(--w-wash,#1B222C);color:var(--w-ink,#EEF1F4);border:1px solid var(--w-edge,#2C3440);border-radius:6px;padding:0 12px;height:34px;font-family:'Chakra Petch',system-ui,sans-serif;font-weight:600;font-size:13px;letter-spacing:.02em;cursor:pointer;transition:transform 80ms ease-out,border-color 120ms ease-out}.ds-btn-default:hover{border-color:var(--w-faint,#6B7686)}.ds-btn-default:active{transform:translateY(1px)}.ds-btn-default:focus-visible{outline:3px solid var(--w-sky,#74C0FC);outline-offset:2px}"
     },
     {
-      "name": "Context Chips",
+      "name": "Chip",
       "kind": "chip",
       "refersTo": "chip",
-      "description": "Uppercase Nunito chips above the route name: sky back-to-map, white facts.",
-      "html": "<a class=\"ds-chip ds-chip-sky\" href=\"#\">&larr; Scrimmage</a> <span class=\"ds-chip\">Night Elf vs any</span> <span class=\"ds-chip\">Demon Hunter</span>",
-      "css": ":host{--w-ink:#1d2b1f;--w-edge:#1d2b1f;--w-accent:#e2b33c;--w-sky:#8ec9f2;--w-xp:#8b3fd9;--w-xp-track:#ece4f7;--w-body:#fff;--w-muted:#4f5b4a;--w-on-accent:#1d2b1f;--w-shadow-c:#1d2b1f;--w-paper:#fbfaf5;--w-faint:#7c8577;--w-disabled:#6d7568;--w-disabled-line:#9aa395;--w-line:2px solid var(--w-edge)}.ds-chip{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border:var(--w-line);background:var(--w-body);color:var(--w-ink);font-family:Nunito,system-ui,sans-serif;font-size:12px;font-weight:900;letter-spacing:0.06em;text-transform:uppercase;text-decoration:none}.ds-chip-sky{background:var(--w-sky);color:var(--w-on-accent)}a.ds-chip:hover{filter:brightness(1.04)}a.ds-chip:focus-visible{outline:3px solid var(--w-sky);outline-offset:2px}"
+      "description": "Context chip in the HUD bar.",
+      "html": "<a class=\"ds-chip\" href=\"#\">Scrimmage v1.1</a> <span class=\"ds-chip\">Night Elf vs Orc</span>",
+      "css": ".ds-chip{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:5px;background:var(--w-wash,#1B222C);color:var(--w-ink,#EEF1F4);font-family:'Chakra Petch',system-ui,sans-serif;font-size:12px;font-weight:600;text-decoration:none;white-space:nowrap}a.ds-chip{color:var(--w-sky,#74C0FC)}a.ds-chip:hover{filter:brightness(1.15)}a.ds-chip:focus-visible{outline:3px solid var(--w-sky,#74C0FC);outline-offset:2px}"
     },
     {
       "name": "Text Input",
       "kind": "input",
       "refersTo": "input",
-      "description": "Outlined white field with a Cinzel label; focus turns the shadow sky.",
-      "html": "<label class=\"ds-field\"><span class=\"ds-label\">Tags</span><input class=\"ds-input\" placeholder=\"fast level 3, tower rush\"></label>",
-      "css": ":host{--w-ink:#1d2b1f;--w-edge:#1d2b1f;--w-accent:#e2b33c;--w-sky:#8ec9f2;--w-xp:#8b3fd9;--w-xp-track:#ece4f7;--w-body:#fff;--w-muted:#4f5b4a;--w-on-accent:#1d2b1f;--w-shadow-c:#1d2b1f;--w-paper:#fbfaf5;--w-faint:#7c8577;--w-disabled:#6d7568;--w-disabled-line:#9aa395;--w-line:2px solid var(--w-edge)}.ds-field{display:block;max-width:320px}.ds-label{display:block;font-family:Cinzel,'Times New Roman',serif;font-size:13px;font-weight:700;line-height:1.4;color:var(--w-ink);margin-bottom:6px}.ds-input{width:100%;border:var(--w-line);border-radius:0;box-shadow:2px 2px 0 var(--w-shadow-c);background:var(--w-body);color:var(--w-ink);font-family:Nunito,system-ui,sans-serif;font-weight:700;font-size:16px;padding:8px 12px}.ds-input::placeholder{color:var(--w-disabled);font-weight:600}.ds-input:focus{outline:none;box-shadow:2px 2px 0 var(--w-sky)}"
+      "description": "Field with its caption label.",
+      "html": "<label class=\"ds-field\"><span>Description</span><input class=\"ds-input\" placeholder=\"Wizard first, then loop west\"></label>",
+      "css": ".ds-field{display:flex;flex-direction:column;gap:6px}.ds-field span{font-family:'Chakra Petch',system-ui,sans-serif;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--w-muted,#9AA4B2)}.ds-input{height:36px;padding:0 12px;border:1px solid var(--w-edge,#2C3440);border-radius:6px;background:var(--w-paper,#0C1015);color:var(--w-ink,#EEF1F4);font-family:'Hanken Grotesk',system-ui,sans-serif;font-weight:600;font-size:14px}.ds-input::placeholder{color:var(--w-disabled,#6B7686)}.ds-input:focus{border-color:var(--w-sky,#74C0FC);outline:none}"
+    },
+    {
+      "name": "HUD Panel",
+      "kind": "card",
+      "refersTo": "panel",
+      "description": "Floating panel with a colour tab before the title.",
+      "html": "<section class=\"ds-win\"><div class=\"ds-win-bar\"><span class=\"ds-win-title\">Route</span><span class=\"ds-win-right\">4 stops</span></div><div class=\"ds-win-body\">Stops go here.</div></section>",
+      "css": ".ds-win{background:var(--w-panel,rgba(10,13,18,.94));border:1px solid var(--w-edge,#2C3440);border-radius:8px;box-shadow:0 8px 24px var(--w-shadow-c,rgba(0,0,0,.5));overflow:hidden;color:var(--w-ink,#EEF1F4)}.ds-win-bar{display:flex;align-items:center;gap:10px;min-height:44px;padding:6px 14px;font-family:'Chakra Petch',system-ui,sans-serif;font-size:15px;font-weight:600;letter-spacing:.02em}.ds-win-bar::before{content:'';width:4px;height:16px;border-radius:2px;background:var(--w-accent,#FFD43B)}.ds-win-title{flex:1}.ds-win-right{font-family:'Hanken Grotesk',system-ui,sans-serif;font-size:13px;font-weight:700;color:var(--w-muted,#9AA4B2)}.ds-win-body{border-top:1px solid var(--w-edge,#2C3440);padding:12px 14px;font-family:'Hanken Grotesk',system-ui,sans-serif;font-size:15px}"
     },
     {
       "name": "Hero Level Bar",
       "kind": "custom",
-      "refersTo": "xp-fill",
-      "description": "Plain purple XP bar showing only progress toward the next level, purple Cinzel level number.",
-      "html": "<div class=\"ds-lv\"><span class=\"ds-lv-n\">Lv 3</span><div><div class=\"ds-lv-track\"><div class=\"ds-lv-fill\" style=\"width:62%\"></div><i style=\"left:26%\"></i><i style=\"left:59%\"></i></div><div class=\"ds-lv-ticks\"><span style=\"left:26%\">Lv 2</span><span style=\"left:59%\">Lv 3</span></div></div><span class=\"ds-lv-sub\">167 / 400 XP to level 4</span></div>",
-      "css": ":host{--w-ink:#1d2b1f;--w-edge:#1d2b1f;--w-accent:#e2b33c;--w-sky:#8ec9f2;--w-xp:#8b3fd9;--w-xp-track:#ece4f7;--w-body:#fff;--w-muted:#4f5b4a;--w-on-accent:#1d2b1f;--w-shadow-c:#1d2b1f;--w-paper:#fbfaf5;--w-faint:#7c8577;--w-disabled:#6d7568;--w-disabled-line:#9aa395;--w-line:2px solid var(--w-edge)}.ds-lv{display:grid;grid-template-columns:auto 1fr;align-items:center;gap:4px 14px;padding:12px 14px 10px;background:var(--w-body);border:var(--w-line);box-shadow:4px 4px 0 var(--w-shadow-c);color:var(--w-ink);font-family:Nunito,system-ui,sans-serif;max-width:420px}.ds-lv-n{font-family:Cinzel,'Times New Roman',serif;font-weight:900;font-size:26px;line-height:1;color:var(--w-xp)}.ds-lv-track{position:relative;height:18px;border:var(--w-line);background:var(--w-xp-track);overflow:hidden}.ds-lv-fill{height:100%;background:var(--w-xp);transition:width 400ms cubic-bezier(0.22,1,0.36,1)}.ds-lv:hover .ds-lv-fill{width:80%!important}.ds-lv-track i{position:absolute;top:0;bottom:0;border-left:2px solid var(--w-edge)}.ds-lv-ticks{position:relative;height:15px;margin-top:3px;font-size:11px;font-weight:800;color:var(--w-muted)}.ds-lv-ticks span{position:absolute;transform:translateX(-50%)}.ds-lv-sub{grid-column:2;font-weight:800;font-size:14px;color:var(--w-muted);font-variant-numeric:tabular-nums}"
+      "refersTo": "xp-bar",
+      "description": "Level number and current-level XP progress.",
+      "html": "<div class=\"ds-level\"><b>Lv 3</b><div class=\"ds-track\"><div class=\"ds-fill\" style=\"width:42%\"></div></div><small>167 / 400 XP to level 4</small></div>",
+      "css": ".ds-level{display:grid;grid-template-columns:auto 1fr;align-items:center;gap:4px 14px;padding:12px 14px}.ds-level b{font-family:'Chakra Petch',system-ui,sans-serif;font-weight:700;font-size:26px;line-height:1;color:var(--w-xp,#9B5CF6)}.ds-track{height:10px;border-radius:5px;background:var(--w-xp-track,#241A35);overflow:hidden}.ds-fill{height:100%;border-radius:5px;background:var(--w-xp,#9B5CF6);transition:width 400ms cubic-bezier(.22,1,.36,1)}.ds-level small{grid-column:2;font-family:'Hanken Grotesk',system-ui,sans-serif;font-weight:700;font-size:13px;color:var(--w-muted,#9AA4B2);font-variant-numeric:tabular-nums}"
     },
     {
-      "name": "Race Matchup",
+      "name": "Stop Numbers",
       "kind": "custom",
-      "refersTo": "race-circle",
-      "description": "Your race left vs opponent right as round portraits; the picked one gets a gold ring and hard shadow.",
-      "html": "<div class=\"ds-vs\"><button class=\"ds-rc\" aria-pressed=\"false\">H</button><button class=\"ds-rc\" aria-pressed=\"true\">N</button><span class=\"ds-vs-w\">vs.</span><button class=\"ds-rc\" aria-pressed=\"false\">O</button><button class=\"ds-rc\" aria-pressed=\"false\">U</button></div>",
-      "css": ":host{--w-ink:#1d2b1f;--w-edge:#1d2b1f;--w-accent:#e2b33c;--w-sky:#8ec9f2;--w-xp:#8b3fd9;--w-xp-track:#ece4f7;--w-body:#fff;--w-muted:#4f5b4a;--w-on-accent:#1d2b1f;--w-shadow-c:#1d2b1f;--w-paper:#fbfaf5;--w-faint:#7c8577;--w-disabled:#6d7568;--w-disabled-line:#9aa395;--w-line:2px solid var(--w-edge)}.ds-vs{display:flex;align-items:center;gap:6px}.ds-vs-w{font-family:Cinzel,'Times New Roman',serif;font-weight:900;font-size:15px;color:var(--w-muted);margin:0 4px}.ds-rc{width:42px;height:42px;padding:0;border-radius:50%;border:2px solid var(--w-edge);background:var(--w-body);color:var(--w-muted);opacity:.6;font-family:Cinzel,'Times New Roman',serif;font-weight:900;cursor:pointer;transition:transform 80ms linear,box-shadow 80ms linear}.ds-rc:hover{opacity:.85}.ds-rc[aria-pressed=true]{opacity:1;color:var(--w-ink);box-shadow:0 0 0 3px var(--w-accent),2px 2px 0 3px var(--w-shadow-c)}.ds-rc:active{transform:translate(1px,1px)}.ds-rc:focus-visible{outline:3px solid var(--w-sky);outline-offset:2px}"
-    },
-    {
-      "name": "Skill Order Slots",
-      "kind": "custom",
-      "refersTo": "skill-slot",
-      "description": "Ten 34px level slots: dashed on paper when empty, solid edge when filled.",
-      "html": "<div class=\"ds-slots\"><span class=\"ds-slot ds-f\">1</span><span class=\"ds-slot ds-f\">2</span><span class=\"ds-slot ds-f\">3</span><span class=\"ds-slot\">4</span><span class=\"ds-slot\">5</span><span class=\"ds-slot\">6</span></div>",
-      "css": ":host{--w-ink:#1d2b1f;--w-edge:#1d2b1f;--w-accent:#e2b33c;--w-sky:#8ec9f2;--w-xp:#8b3fd9;--w-xp-track:#ece4f7;--w-body:#fff;--w-muted:#4f5b4a;--w-on-accent:#1d2b1f;--w-shadow-c:#1d2b1f;--w-paper:#fbfaf5;--w-faint:#7c8577;--w-disabled:#6d7568;--w-disabled-line:#9aa395;--w-line:2px solid var(--w-edge)}.ds-slots{display:grid;grid-template-columns:repeat(10,minmax(0,34px));gap:4px;font-family:Nunito,system-ui,sans-serif}.ds-slot{aspect-ratio:1;display:grid;place-items:center;border:2px dashed var(--w-disabled-line);background:var(--w-paper);font-size:11px;font-weight:900;color:var(--w-faint)}.ds-slot.ds-f{border-style:solid;border-color:var(--w-edge);background:#4a3a8a;color:#fff}"
+      "refersTo": "stop-number",
+      "description": "Cleared, skipped, level-up and waypoint states.",
+      "html": "<div class=\"ds-nums\"><span class=\"ds-num\">1</span><span class=\"ds-num\" data-state=\"partial\">2</span><span class=\"ds-num\" data-state=\"up\">3</span><span class=\"ds-num\" data-state=\"waypoint\">4</span></div>",
+      "css": ".ds-nums{display:flex;gap:12px;padding:8px}.ds-num{width:28px;height:28px;box-sizing:border-box;display:grid;place-items:center;border-radius:50%;background:var(--w-accent,#FFD43B);color:var(--w-on-accent,#11151B);font-family:'Chakra Petch',system-ui,sans-serif;font-weight:700;font-size:14px}.ds-num[data-state=partial]{background:transparent;color:var(--w-accent,#FFD43B);border:2px dashed var(--w-accent,#FFD43B)}.ds-num[data-state=up]{box-shadow:0 0 0 2px var(--w-panel,#0A0D12),0 0 0 4px var(--w-xp,#9B5CF6)}.ds-num[data-state=waypoint]{background:var(--w-sky,#74C0FC)}"
     },
     {
       "name": "Stop Row",
       "kind": "custom",
       "refersTo": "stop-number",
-      "description": "Route stop: state-filled Cinzel number box, camp name, meta and XP; a level-up opens with a double rule.",
-      "html": "<div class=\"ds-stops\"><div class=\"ds-stop\"><span class=\"ds-num\">1</span><div class=\"ds-stop-main\"><b>Renegade Wizard +3</b><small>Medium &middot; Lv 11 &middot; Southwest</small></div><span class=\"ds-xp\">+192</span></div><div class=\"ds-stop ds-stop-up\"><span class=\"ds-num ds-num-up\">2</span><div class=\"ds-stop-main\"><b>Forest Troll Trapper +1</b><small>Easy &middot; Lv 5</small></div><span class=\"ds-xp\">+74</span></div><div class=\"ds-stop\"><span class=\"ds-num ds-num-partial\">3</span><div class=\"ds-stop-main\"><b>Giant Sea Turtle</b><small>Skipped rest</small></div><span class=\"ds-xp\">+40</span></div></div>",
-      "css": ":host{--w-ink:#1d2b1f;--w-edge:#1d2b1f;--w-accent:#e2b33c;--w-sky:#8ec9f2;--w-xp:#8b3fd9;--w-xp-track:#ece4f7;--w-body:#fff;--w-muted:#4f5b4a;--w-on-accent:#1d2b1f;--w-shadow-c:#1d2b1f;--w-paper:#fbfaf5;--w-faint:#7c8577;--w-disabled:#6d7568;--w-disabled-line:#9aa395;--w-line:2px solid var(--w-edge)}.ds-stops{background:var(--w-body);border:var(--w-line);max-width:380px;color:var(--w-ink);font-family:Nunito,system-ui,sans-serif}.ds-stop{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border-top:var(--w-line);transition:background 120ms linear}.ds-stop:first-child{border-top:0}.ds-stop:hover{background:#fbf4df}.ds-stop-up{border-top:6px double var(--w-edge)}.ds-num{flex:none;width:34px;height:34px;display:grid;place-items:center;border:var(--w-line);background:var(--w-ink);color:var(--w-body);font-family:Cinzel,'Times New Roman',serif;font-weight:900;font-size:16px}.ds-num-up{background:var(--w-accent);color:var(--w-on-accent)}.ds-num-partial{background:var(--w-body);color:var(--w-ink);border-style:dashed}.ds-stop-main{flex:1}.ds-stop-main b{display:block;font-weight:900;font-size:16px;line-height:1.3}.ds-stop-main small{font-size:13px;font-weight:700;color:var(--w-muted)}.ds-xp{font-weight:900;font-variant-numeric:tabular-nums}"
+      "description": "One stop in the route list.",
+      "html": "<div class=\"ds-stop\"><span class=\"ds-stop-num\">1</span><div class=\"ds-stop-main\"><div class=\"ds-stop-title\">Renegade Wizard +3</div><div class=\"ds-stop-sub\">Medium · Lv 11 · Southwest</div></div><div class=\"ds-stop-xp\">+192<small>Lv 1 · 192 xp</small></div></div>",
+      "css": ".ds-stop{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border-top:1px solid var(--w-edge,#2C3440);color:var(--w-ink,#EEF1F4);transition:background 120ms ease-out}.ds-stop:hover{background:var(--w-wash,#1B222C)}.ds-stop-num{flex:none;width:28px;height:28px;display:grid;place-items:center;border-radius:50%;background:var(--w-accent,#FFD43B);color:var(--w-on-accent,#11151B);font-family:'Chakra Petch',system-ui,sans-serif;font-weight:700;font-size:14px}.ds-stop-main{flex:1}.ds-stop-title{font-family:'Hanken Grotesk',system-ui,sans-serif;font-weight:800;font-size:15px;line-height:1.3}.ds-stop-sub{font-family:'Hanken Grotesk',system-ui,sans-serif;font-size:13px;font-weight:700;color:var(--w-muted,#9AA4B2)}.ds-stop-xp{text-align:right;font-family:'Chakra Petch',system-ui,sans-serif;font-size:15px;font-weight:700;font-variant-numeric:tabular-nums}.ds-stop-xp small{display:block;font-size:12px;color:var(--w-muted,#9AA4B2)}"
+    },
+    {
+      "name": "Ancient of War Row",
+      "kind": "custom",
+      "refersTo": "aow-row",
+      "description": "AoW move note between stops.",
+      "html": "<div class=\"ds-aow\"><span class=\"ds-aow-label\">AoW</span><span class=\"ds-aow-text\">Walk to the next camp and tank</span></div>",
+      "css": ".ds-aow{display:flex;align-items:center;gap:8px;padding:6px 14px 6px 52px;border-top:1px solid var(--w-edge,#2C3440);background:var(--w-aow-wash,#0F2016);color:var(--w-ink,#EEF1F4)}.ds-aow-label{font-family:'Chakra Petch',system-ui,sans-serif;font-weight:700;font-size:12px;color:var(--w-aow-text,#6FDC8C)}.ds-aow-text{font-family:'Hanken Grotesk',system-ui,sans-serif;font-size:14px;font-weight:700}"
     },
     {
       "name": "Camp Markers",
       "kind": "custom",
-      "refersTo": "camp-marker",
-      "description": "Game-map camp circles in green/orange/red with Nunito stop numbers; selected gets a hero-yellow ring.",
-      "html": "<div class=\"ds-map\"><button class=\"ds-camp\" style=\"--c:#3ddc4a\">2</button><button class=\"ds-camp\" style=\"--c:#ffad33\">1</button><button class=\"ds-camp ds-sel\" style=\"--c:#ff4d4d\">3</button></div>",
-      "css": ".ds-map{display:flex;gap:18px;padding:18px;background:#2f4a2a;border:2px solid #1d2b1f}.ds-camp{width:30px;height:30px;padding:0;border-radius:50%;border:2px solid rgba(255,255,255,0.9);background:color-mix(in srgb,var(--c) 72%,transparent);color:#1d2b1f;font-family:Nunito,system-ui,sans-serif;font-weight:900;font-size:13px;box-shadow:0 0 0 1.5px #1d2b1f;cursor:pointer;transition:transform 120ms ease,box-shadow 120ms ease}.ds-camp:hover{transform:scale(1.18)}.ds-camp.ds-sel{background:var(--c);border-color:#ffd43b;box-shadow:0 0 0 2px #1d2b1f,2px 2px 0 2px #1d2b1f}.ds-camp:focus-visible{outline:2px solid #fff;outline-offset:2px}"
-    },
-    {
-      "name": "Header Nav",
-      "kind": "nav",
-      "description": "White strip with a 2px bottom rule, Cinzel wordmark, Nunito 800 links.",
-      "html": "<nav class=\"ds-nav\"><span class=\"ds-mark\">W3ATLAS</span><span class=\"ds-links\"><a href=\"#\">Builds</a><a href=\"#\">Maps</a><a href=\"#\">Backup</a></span></nav>",
-      "css": ":host{--w-ink:#1d2b1f;--w-edge:#1d2b1f;--w-accent:#e2b33c;--w-sky:#8ec9f2;--w-xp:#8b3fd9;--w-xp-track:#ece4f7;--w-body:#fff;--w-muted:#4f5b4a;--w-on-accent:#1d2b1f;--w-shadow-c:#1d2b1f;--w-paper:#fbfaf5;--w-faint:#7c8577;--w-disabled:#6d7568;--w-disabled-line:#9aa395;--w-line:2px solid var(--w-edge)}.ds-nav{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;background:var(--w-body);border-bottom:var(--w-line);color:var(--w-ink)}.ds-mark{font-family:Cinzel,'Times New Roman',serif;font-weight:900;font-size:20px;letter-spacing:0.04em}.ds-links{display:flex;gap:20px}.ds-links a{font-family:Nunito,system-ui,sans-serif;font-weight:800;font-size:14px;color:var(--w-ink);text-decoration:none}.ds-links a:hover{text-decoration:underline;text-underline-offset:3px}.ds-links a:focus-visible{outline:3px solid var(--w-sky);outline-offset:2px}"
+      "refersTo": "stop-number",
+      "description": "Game-coloured camp circles on the map.",
+      "html": "<div class=\"ds-map\"><span class=\"ds-camp\" style=\"--c:#3DDC4A\">2</span><span class=\"ds-camp\" style=\"--c:#FFAD33\">3</span><span class=\"ds-camp\" style=\"--c:#FF4D4D\"></span><span class=\"ds-camp ds-camp-active\" style=\"--c:#FFAD33\">4</span></div>",
+      "css": ".ds-map{display:flex;gap:16px;padding:14px;background:#24401f;border-radius:8px}.ds-camp{width:26px;height:26px;box-sizing:border-box;display:grid;place-items:center;border-radius:50%;border:2px solid rgba(255,255,255,.9);background:var(--c);color:#11151B;font-family:'Hanken Grotesk',system-ui,sans-serif;font-weight:900;font-size:12px;box-shadow:0 0 0 1.5px #11151B;transition:transform 120ms ease}.ds-camp:hover{transform:scale(1.18)}.ds-camp-active{transform:scale(1.3);box-shadow:0 0 0 3px #11151B,0 0 0 6px #FFD43B}"
     }
   ],
   "narrative": {
-    "northStar": "Clan Site 2002",
-    "overview": "**Creative North Star: \"Clan Site 2002\"**\n\nW3Atlas looks like a Warcraft III fan site from 2002 left open on a desk: a cream grid-paper desktop, and each part of the plan sitting on it as its own titled window. Windows have hard outlines, sharp corners and a hard offset shadow with no blur. They pop open with a short spring, and buttons press down into their shadows. The palette borrows from the game itself: Warcraft gold for title bars and what you can press, mana-sky blue for reference windows, the purple of the hero's experience bar, and bronze trim on the outlines at night. By day the look stays bright, flat and tactile.\n\nTwo type voices do separate jobs. Cinzel, a carved Roman capital face that reads like the game's own lettering, is the chrome voice: window titles, buttons, field labels, the route name, the level number and stop numbers. Nunito, at heavy weights, carries everything a player actually reads: camp names, XP, drops, notes and the numbers on the map. Numbers are tabular everywhere. Density is high but stays readable. Rank comes from weight, face and window structure more than from many sizes.\n\nThe minimap is game territory, not site chrome. On the map, the Warcraft III vocabulary stays: green, orange and red camp circles, classic WC3 button icons, numbered stops, the yellow hero path and the green Ancient of War path. The site world frames the map. It never repaints it.\n\nThis system was carbonized from the route page (edit and preview, desktop and phone, day and night). The home, map, builds and community pages pick up the theme and the restyled Mantine controls, but their layouts have not been redesigned in this world yet.",
+    "northStar": "The Map HUD",
+    "overview": "The minimap is the screen. On the route page it fills the first viewport, fitted so every camp stays visible and clickable, and sits on a blurred, darkened copy of itself. Everything else floats over it the way a game interface floats over the battlefield: a HUD bar across the top with the route name and actions, and a right column of panels for Hero and matchup, Hero level and the Route. Dark HUD panels are the default; a day scheme swaps them for white panels on a pale ground without changing the structure.\n\nThe system is quiet so the map can be loud. Panels are near-black plates with a 1px edge, an 8px corner and a soft shadow. Colour carries meaning, not decoration: route yellow marks what you press and where the hero goes, purple is experience, mana blue is waypoints and focus, green is the Ancient of War. Two type voices split the work: Chakra Petch, a squared technical face, for anything that reads as interface (titles, numbers, buttons, labels); Hanken Grotesk for anything a player reads. Density is high, numbers are tabular everywhere.\n\nOther pages (home, maps, builds, community) inherit the tokens, panels and controls but not the stage; the stage belongs to the route page.",
     "keyCharacteristics": [
-      "Cream grid-paper ground (32px cells) under white windows with 2px outlines and hard 4px offset shadows.",
-      "Warcraft gold marks what you can press, the main working window and level-ups. Sky marks reference windows. Purple is hero experience and nothing else.",
-      "Square corners everywhere except round race portraits and game markers on the map.",
-      "Cinzel for titles, controls, labels and big numbers. Heavy Nunito for anything read.",
-      "Stop state is shown by structure: filled, dashed, double rule.",
-      "Short spring when a window opens. Buttons press 3px down into their shadow. Long windows fold from a chevron in their title bar."
+      "Map-first: the minimap owns the first screen; panels float beside it and never cover camps.",
+      "Dark by default, light as an equal second scheme with the same structure.",
+      "One accent (route yellow) shared by the hero path, stop numbers and primary actions.",
+      "Soft depth: blurred shadows, translucent panels, 1px edges, gently rounded corners.",
+      "Stop states by shape: filled, dashed, ringed."
     ],
     "rules": [
       {
-        "name": "The Gold Means Press Rule",
-        "body": "Gold goes on things you can press, on the main working window, on selection and on level-ups. If an element can't be pressed, isn't selected, isn't primary and isn't a level gained, it isn't gold.",
-        "section": "colors"
-      },
-      {
-        "name": "The Purple Is Experience Rule",
-        "body": "XP purple belongs to the hero level bar and its level number. It is not a second accent.",
+        "name": "The One Yellow Rule",
+        "body": "Route yellow means \"press this\" or \"the hero goes here\". It is the only fill on a primary button and the only colour of a stop number. Don't spend it on decoration, headings or panel chrome beyond the small title tab.",
         "section": "colors"
       },
       {
         "name": "The Map Keeps Its Colours Rule",
-        "body": "Camp green, orange and red, hero yellow and AoW green come from the game and are not reinterpreted. Don't tint them toward the palette, and don't use them for site UI.",
+        "body": "Camp green, orange and red, hero yellow and AoW green come from the game and are not reinterpreted. Don't tint them toward the palette, and don't use the camp colours for site UI.",
+        "section": "colors"
+      },
+      {
+        "name": "The Dark Text On Yellow Rule",
+        "body": "Text on yellow, blue or a game colour uses on-accent, which is dark in both schemes. Never use ink there; ink turns light at night.",
         "section": "colors"
       },
       {
         "name": "The Two Voices Rule",
-        "body": "Cinzel is for chrome: titles, controls, labels, the route name, the level number and stop numbers. It is never used for a sentence, a paragraph, or a value someone has to read precisely, such as XP counts. Status text in a title bar's right slot and the folded summary are Nunito.",
+        "body": "Chakra Petch for interface and numbers, Hanken Grotesk for reading. Don't set a camp name or a note in Chakra Petch, and don't set a button in Hanken.",
         "section": "typography"
       },
       {
         "name": "The Tabular Rule",
-        "body": "Every number uses tabular figures (set on body), so XP columns line up.",
+        "body": "Numbers are tabular everywhere (set on body). XP columns must line up.",
         "section": "typography"
       },
       {
-        "name": "The Press Into The Shadow Rule",
-        "body": "A pressable outlined control casts a hard shadow at rest and, when active, moves by exactly its shadow offset (3px for buttons, 2px for action icons) while the shadow drops to none. Portrait and ability buttons nudge 1px. Disabled controls lose the shadow and switch to a dashed outline.",
-        "section": "elevation"
-      },
-      {
-        "name": "The No Blur Rule",
-        "body": "Site chrome never uses blurred or coloured ambient shadows. The only soft shadows are the map halos, which are there for legibility over terrain.",
+        "name": "The Map Is The Bottom Layer Rule",
+        "body": "The map and its blurred copy are the lowest plane; everything interface floats above with the Float shadow. Nothing sits under the map.",
         "section": "elevation"
       }
     ],
     "dos": [
-      "**Do** put every distinct part of the plan in its own titled window: a white body, a 2px outline and a 4px hard shadow.",
-      "**Do** use gold title bars for the working window, sky for reference windows and white for secondary ones.",
-      "**Do** give long windows a fold chevron in the title bar instead of a separate collapse control.",
-      "**Do** make pressable controls press down by their shadow offset and lose the shadow on active.",
-      "**Do** show state by structure: filled for cleared, dashed for partial, empty or disabled, a 6px double rule for a level-up.",
-      "**Do** keep Cinzel to titles, controls, labels, the route name, the level number and stop numbers, and set everything read in Nunito 600 to 900.",
-      "**Do** draw every outline with `--w-edge` (ink by day, bronze at night) and every text-on-colour with `--w-on-accent`.",
-      "**Do** keep hero experience as one plain purple bar showing only the current level's progress.",
-      "**Do** keep the game-map language on the minimap: camp green/orange/red, classic WC3 icons, numbered stops, hero path #FFD43B and AoW path #8CE99A.",
-      "**Do** keep phone primary actions in a bottom dock within thumb reach, with touch targets of at least 44px."
+      "**Do** give the map the first screen on the route page and keep every camp visible; size the map to its container, never crop it.",
+      "**Do** float interface on panel plates: panel fill, 1px edge, 8px corner, the Float shadow.",
+      "**Do** mark a panel with its small colour tab (yellow to act, blue for reference) rather than a filled title bar.",
+      "**Do** keep route yellow for primary actions, stop numbers and the hero path.",
+      "**Do** use on-accent (dark) for text on yellow, blue and game colours in both schemes.",
+      "**Do** show stop states by shape: filled, dashed, ringed.",
+      "**Do** keep both schemes structurally identical; only the token values change."
     ],
     "donts": [
-      "**Don't** make night the default or replace the cream grid-paper day ground. Night is an option the player picks.",
-      "**Don't** round site chrome. Radius is 0 everywhere except race portraits and game markers on the map.",
-      "**Don't** use blurred or ambient shadows in site chrome. The only soft shadow is the halo on the map.",
-      "**Don't** use gold on things that can't be pressed, aren't selected, aren't primary and aren't a level gained.",
-      "**Don't** use XP purple for anything but hero experience.",
-      "**Don't** stripe, segment or animate the XP bar.",
-      "**Don't** set sentences, paragraphs or values someone must read precisely in Cinzel.",
-      "**Don't** recolour camp, hero-path or AoW-path colours to match the palette."
+      "**Don't** use hard offset shadows or zero-blur shadows; depth here is soft.",
+      "**Don't** add a second accent or use XP purple and mana blue for actions.",
+      "**Don't** repaint the map: camp colours and path colours stay the game's.",
+      "**Don't** set reading text in Chakra Petch or buttons in Hanken Grotesk.",
+      "**Don't** put uppercase tracked labels above headings as section kickers; the uppercase field label is only for a caption directly above a control.",
+      "**Don't** cover the map with panels on desktop; panels live in the right column."
     ]
   }
 }

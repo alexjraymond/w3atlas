@@ -17,18 +17,14 @@ Feels wrong: hard to read fast, generic SaaS, awkward with thumbs.
 
 ## Direction contract
 
-Replaced again (user choice from a four-sketch round): Map-first overlay. The map owns the first screen on a darkened copy of itself; a HUD bar runs across the top; Hero & matchup, the purple XP bar and the route float in a right column. Dark HUD panels by default, light panels in day mode; Chakra Petch for headings and numbers, Hanken Grotesk for reading; route yellow for actions and stop numbers. DESIGN.md is the current record.
+THESIS: The map is the screen. The route page opens on the minimap at full size, and the plan floats beside it as HUD panels; it refuses the category's stacked card page where the map is one box among many.
 
-Updated after the user's Warcraft round: the accent is Warcraft gold, not lime; the display face is Cinzel, not Press Start 2P; the level bar is a plain purple XP bar beside the route; Hero & matchup sits on top and folds. DESIGN.md is the current record of the system.
+OWN-WORLD: Near-black HUD panels (rgba(10,13,18,.94), 1px #2C3440 edges, 8px radius, soft shadows) over a blurred, darkened copy of the map; route yellow #FFD43B for actions, stop numbers and the hero path; XP purple; Chakra Petch for interface text, Hanken Grotesk for reading. Light scheme swaps in white panels.
 
-THESIS: The plan as a 2002 Warcraft fan-site desktop: each part of the plan is its own titled window on grid paper, and the hero's level loads as a striped install bar. It refuses the dark gamer dashboard with gold accents that every Warcraft tool ships.
+STORY: The player sees the whole route on the map at once, reads level, XP and every stop's drops in the right column, and edits by clicking camps.
 
-OWN-WORLD: Cream grid-paper ground (#F3EEDF), forest-ink 2px borders and hard 4px offset shadows with no blur, white window bodies, lime (#BFEA4B) title bars and only on pressable or primary things, sky (#8EC9F2) title bars for reference windows. Sharp corners. Press Start 2P only in title bars, buttons, labels and the level number; Nunito for everything read. Few sizes, rank by weight and case, tabular numbers. Stop states by structure: filled cleared, dashed skipped, double rule level-up.
+FIRST VIEWPORT: Desktop: HUD bar across the top (map chip, route name, hint, actions); the map fitted to the free area with every camp visible; right column: Hero & matchup (foldable), Hero level bar, Route list (scrolls). Phone: stacked, compact level bar, map, bottom dock, stop sheet.
 
-STORY: The player sees the route, the level it reaches and every stop's XP and drops at once, edits by clicking camps, and trusts the numbers.
-
-FIRST VIEWPORT: Desktop: nav strip; route title with map, matchup and hero chips; full-width LEVEL window with the install bar and XP; Map window (left, about 60%) and Route window (right) side by side, the Route window holding the tools and the stop list. Phone: map fills the width under a compact level bar; stops open as one full-height sheet; primary actions sit in a bottom bar within thumb reach.
-
-FORM: Clan Site 2002 (fan-site windows on grid paper), position 3 on the ordered list; seed:cb550da2d2092f2b. Signature interaction: the level bar fills in steps as stops are added, with the level-up stops marked on it. Motion: windows spawn with a short spring, buttons press down into their shadow.
+FORM: Map-first overlay, chosen by the user from four sketches (.impeccable/mocks/round2/c-overlay.html); seed: none (pinned).
 
 FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance

@@ -216,7 +216,7 @@ export function MapCanvas({
             </span>
           ))}
           <span>
-            <IconMapPinFilled size={14} color="#8ec9f2" stroke="#1d2b1f" strokeWidth={1.5} /> Waypoint
+            <IconMapPinFilled size={14} color="var(--w-sky)" /> Waypoint
           </span>
           {steps.length > 1 && (
             <span>
