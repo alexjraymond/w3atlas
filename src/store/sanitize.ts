@@ -82,6 +82,10 @@ export function sanitizeRoute(input: unknown): { route: Route; legacyBuild: Buil
       .map(obj)
       .filter((n): n is Record<string, unknown> => !!n && typeof n.x === 'number' && typeof n.y === 'number')
       .map((n) => ({ id: str(n.id, uid()), x: n.x as number, y: n.y as number, text: str(n.text) })),
+    aowPath: arr(r.aowPath)
+      .map(obj)
+      .filter((n): n is Record<string, unknown> => !!n && typeof n.x === 'number' && typeof n.y === 'number')
+      .map((n) => ({ id: str(n.id, uid()), x: n.x as number, y: n.y as number, note: str(n.note) })),
     notes: str(r.notes),
     tags: tags(r.tags),
     createdAt: num(r.createdAt, base.createdAt),

@@ -89,6 +89,14 @@ export interface MapNote {
   text: string
 }
 
+/** A point on the Ancient of War's walking path (map pixels), with an optional note. */
+export interface AowPoint {
+  id: string
+  x: number
+  y: number
+  note: string
+}
+
 export interface Route {
   id: string // a UUID (also the database id once synced)
   version: 2
@@ -107,6 +115,8 @@ export interface Route {
   /** companion build order */
   buildId: string | null
   mapNotes: MapNote[]
+  /** Night Elf: where the Ancient of War walks, independent of the hero's route */
+  aowPath: AowPoint[]
   notes: string
   tags: string[]
   createdAt: number

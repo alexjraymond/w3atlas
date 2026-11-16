@@ -26,7 +26,7 @@ import {
   IconTrash,
 } from '@tabler/icons-react'
 import type { GameMap, Route, RouteStep } from '../types'
-import { campInstances, DIFFICULTY_LABEL, LOOT_COLOR, LOOT_LABEL } from '../data/maps'
+import { campInstances, DIFFICULTY_LABEL, iconSlug, itemName, LOOT_COLOR, LOOT_LABEL } from '../data/maps'
 import { simulateRoute, type StepResult } from '../game/route'
 import { CREEP_HELPER, HERO_BY_NAME } from '../game/heroes'
 import { DifficultyDot } from './CampDetails'
@@ -210,14 +210,31 @@ function StepCard(p: StepProps) {
             </Group>
           </UnstyledButton>
 
-          {/* summary line: drops, helper, condition, skills learned */}
-          {(result.drops.length > 0 || withHelper || step.condition || result.levelUps.length > 0) && (
-            <Group gap={6}>
+          {/* possible item drops: badge + the items that drop can be */}
+          {result.drops.length > 0 && (
+            <Group gap={10}>
               {result.drops.map((d, i) => (
-                <Badge key={i} size="xs" variant="light" color={LOOT_COLOR[d.type]}>
-                  L{d.level} {LOOT_LABEL[d.type]}
-                </Badge>
+                <Group key={i} gap={4} wrap="nowrap">
+                  <Badge size="xs" variant="light" color={LOOT_COLOR[d.type]}>
+                    L{d.level} {LOOT_LABEL[d.type]}
+                  </Badge>
+                  <Group gap={2} wrap="nowrap">
+                    {d.items.map((item) => (
+                      <Tooltip key={item} label={itemName(item)} openDelay={100}>
+                        <span style={{ display: 'flex' }}>
+                          <GameIcon name={iconSlug(item)} size={18} alt={itemName(item)} />
+                        </span>
+                      </Tooltip>
+                    ))}
+                  </Group>
+                </Group>
               ))}
+            </Group>
+          )}
+
+          {/* summary line: helper, condition, skills learned */}
+          {(withHelper || step.condition || result.levelUps.length > 0) && (
+            <Group gap={6}>
               {withHelper && helper && (
                 <Badge size="xs" variant="light" color="yellow" leftSection={<GameIcon name={helper.icon} size={12} />}>
                   {helper.counted ? `${step.helpers[helper.name]}× ` : ''}

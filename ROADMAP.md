@@ -21,4 +21,5 @@ Ideas and open items, roughly in priority order.
 
 - **Host the app online** (Vercel / Netlify / GitHub Pages) so it opens on a phone or tournament PC.
 - **"Two paths"**: a route that branches ("if they rush, go here instead").
-- **Missing icons**: some creep and item icons still show the grey placeholder.
+- **Missing icons**: Stormreaver Apprentice and Stormreaver Hermit (Tidehunters) need `npm run build-icons`
+  on a machine with the icon folder; anything else still grey, report it.

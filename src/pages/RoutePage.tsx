@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react'
+import { AowPathEditor } from '../components/AowPath'
 import {
   ActionIcon,
   Anchor,
@@ -59,7 +60,7 @@ export function RoutePage({ routeId }: { routeId: string }) {
   const allBuilds = useBuilds()
   const allRoutes = useRoutes()
   const [mode, setMode] = useState<'edit' | 'view'>(() => (route && route.steps.length > 0 ? 'view' : 'edit'))
-  const [placing, setPlacing] = useState<'note' | 'waypoint' | null>(null)
+  const [placing, setPlacing] = useState<'note' | 'waypoint' | 'aow' | null>(null)
   const [activeStep, setActiveStep] = useState<string | null>(null)
   const [expanded, setExpanded] = useState<Set<string>>(new Set())
   // undo history (this page visit only)
@@ -108,6 +109,10 @@ export function RoutePage({ routeId }: { routeId: string }) {
       const wp = newWaypoint(Math.round(x), Math.round(y))
       patch({ steps: [...route.steps, wp] })
       setExpanded(new Set([wp.id]))
+    } else if (placing === 'aow') {
+      // keep placing: the path usually has several points
+      patch({ aowPath: [...route.aowPath, { id: uid(), x: Math.round(x), y: Math.round(y), note: '' }] })
+      return
     } else if (placing === 'note') {
       patch({ mapNotes: [...route.mapNotes, { id: uid(), x: (x / map.width) * 100, y: (y / map.height) * 100, text: '' }] })
     }
@@ -229,15 +234,27 @@ export function RoutePage({ routeId }: { routeId: string }) {
         onDeleteNote={(id) => patch({ mapNotes: route.mapNotes.filter((n) => n.id !== id) })}
         readOnly={readOnly}
         helper={route.race ? CREEP_HELPER[route.race] : undefined}
+        aowPath={route.aowPath}
+        onAowPathChange={(aowPath) => patch({ aowPath })}
       />
       {!readOnly && (
         <Text size="xs" c="dimmed">
-          {placing === 'waypoint'
+          {placing === 'aow'
+            ? 'Click the map to add points to the Ancient of War path, in walking order. Press Done when finished.'
+            : placing === 'waypoint'
             ? 'Click the map where the waypoint goes (shop, tavern, a spot to wait…).'
             : placing === 'note'
               ? 'Click anywhere on the map to drop the note.'
               : 'Click a camp to add it as the next stop, or click it again to remove it.'}
         </Text>
+      )}
+      {(route.race === 'nightelf' || route.aowPath.length > 0) && (
+        <AowPathEditor
+          path={route.aowPath}
+          onChange={(aowPath) => patch({ aowPath })}
+          placing={placing === 'aow'}
+          onTogglePlacing={() => setPlacing((p) => (p === 'aow' ? null : 'aow'))}
+        />
       )}
     </Stack>
   )

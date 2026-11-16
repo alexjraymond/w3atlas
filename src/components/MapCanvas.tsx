@@ -1,7 +1,7 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { HoverCard } from '@mantine/core'
 import { IconMapPinFilled } from '@tabler/icons-react'
-import type { GameMap, MapNote, RouteStep } from '../types'
+import type { AowPoint, GameMap, MapNote, RouteStep } from '../types'
 import { DIFFICULTY_COLOR, DIFFICULTY_LABEL } from '../data/maps'
 import { stepPosition } from '../game/route'
 import { CampDetails } from './CampDetails'
@@ -16,7 +16,7 @@ interface Props {
   onStepClick?: (stepId: string) => void
   notes?: MapNote[]
   /** when set, the next click on the map reports its position (in map pixels) */
-  placing?: 'note' | 'waypoint' | null
+  placing?: 'note' | 'waypoint' | 'aow' | null
   onPlace?: (x: number, y: number) => void
   onChangeNote?: (note: MapNote) => void
   onDeleteNote?: (id: string) => void
@@ -24,6 +24,10 @@ interface Props {
   showLegend?: boolean
   /** race helper unit (Militia / Ancient of War / Ghoul): shown as a badge on camps that use it */
   helper?: { name: string; icon: string; counted: boolean }
+  /** the Ancient of War's walking path, drawn separately from the hero's route */
+  aowPath?: AowPoint[]
+  /** edit mode: points can be dragged (and right-clicked to remove) */
+  onAowPathChange?: (path: AowPoint[]) => void
 }
 
 export function MapCanvas({
@@ -40,8 +44,23 @@ export function MapCanvas({
   readOnly,
   showLegend = true,
   helper,
+  aowPath = [],
+  onAowPathChange,
 }: Props) {
   const ref = useRef<HTMLDivElement>(null)
+  /** an AoW point being dragged: shown at its live position, saved on release */
+  const [drag, setDrag] = useState<{ id: string; x: number; y: number } | null>(null)
+  const aow = aowPath.map((p) => (drag && drag.id === p.id ? { ...p, x: drag.x, y: drag.y } : p))
+  const editAow = !readOnly && !!onAowPathChange
+
+  const toMap = (clientX: number, clientY: number) => {
+    const rect = ref.current!.getBoundingClientRect()
+    const clamp = (v: number, max: number) => Math.round(Math.min(max, Math.max(0, v)))
+    return {
+      x: clamp(((clientX - rect.left) / rect.width) * map.width, map.width),
+      y: clamp(((clientY - rect.top) / rect.height) * map.height, map.height),
+    }
+  }
 
   const orderOf = new Map<string, number>()
   steps.forEach((s, i) => s.campId && !orderOf.has(s.campId) && orderOf.set(s.campId, i + 1))
@@ -81,6 +100,18 @@ export function MapCanvas({
             >
               <path d="M0,0 L10,5 L0,10 z" fill="#ffd43b" />
             </marker>
+            <marker
+              id="aowArrow"
+              viewBox="0 0 10 10"
+              refX="5"
+              refY="5"
+              markerUnits="userSpaceOnUse"
+              markerWidth={map.width / 50}
+              markerHeight={map.width / 50}
+              orient="auto"
+            >
+              <path d="M0,0 L10,5 L0,10 z" fill="#8ce99a" />
+            </marker>
           </defs>
           {points.slice(1).map((p, i) => {
             const a = points[i]
@@ -90,6 +121,16 @@ export function MapCanvas({
                 <line x1={a.x} y1={a.y} x2={p.x} y2={p.y} className={classes.line} />
                 {/* arrowhead at the midpoint so it isn't hidden under a marker */}
                 <line x1={a.x} y1={a.y} x2={(a.x + p.x) / 2} y2={(a.y + p.y) / 2} stroke="transparent" markerEnd="url(#arrow)" />
+              </g>
+            )
+          })}
+          {aow.slice(1).map((p, i) => {
+            const a = aow[i]
+            return (
+              <g key={`aow${i}`}>
+                <line x1={a.x} y1={a.y} x2={p.x} y2={p.y} className={classes.lineShadow} />
+                <line x1={a.x} y1={a.y} x2={p.x} y2={p.y} className={classes.aowLine} />
+                <line x1={a.x} y1={a.y} x2={(a.x + p.x) / 2} y2={(a.y + p.y) / 2} stroke="transparent" markerEnd="url(#aowArrow)" />
               </g>
             )
           })}
@@ -160,6 +201,42 @@ export function MapCanvas({
           ) : null,
         )}
 
+        {aow.map((p, i) => (
+          <span
+            key={p.id}
+            role={editAow ? 'button' : undefined}
+            className={classes.aowPoint}
+            data-start={i === 0 || undefined}
+            data-edit={editAow || undefined}
+            data-placing={placing ? true : undefined}
+            title={`Ancient of War ${i === 0 ? 'starts here' : `stop ${i}`}${p.note ? `: ${p.note}` : ''}${editAow ? ' (drag to move, right-click to remove)' : ''}`}
+            style={{ left: `${(p.x / map.width) * 100}%`, top: `${(p.y / map.height) * 100}%` }}
+            onPointerDown={(e) => {
+              if (!editAow || placing || e.button !== 0) return
+              e.stopPropagation()
+              e.currentTarget.setPointerCapture(e.pointerId)
+              setDrag({ id: p.id, x: p.x, y: p.y })
+            }}
+            onPointerMove={(e) => drag?.id === p.id && setDrag({ id: p.id, ...toMap(e.clientX, e.clientY) })}
+            onPointerUp={() => {
+              if (drag?.id !== p.id) return
+              // `p` already shows the live drag position, so compare with the saved point
+              const saved = aowPath.find((q) => q.id === p.id)
+              if (saved && (saved.x !== drag.x || saved.y !== drag.y))
+                onAowPathChange?.(aowPath.map((q) => (q.id === p.id ? { ...q, x: drag.x, y: drag.y } : q)))
+              setDrag(null)
+            }}
+            onClick={(e) => !placing && e.stopPropagation()}
+            onContextMenu={(e) => {
+              if (!editAow) return
+              e.preventDefault()
+              onAowPathChange?.(aowPath.filter((q) => q.id !== p.id))
+            }}
+          >
+            {i === 0 ? <img src={`${import.meta.env.BASE_URL}icons/ancientofwar.png`} alt="Ancient of War" /> : i}
+          </span>
+        ))}
+
         {notes.map((note) => (
           <StickyNote
             key={note.id}
@@ -182,6 +259,11 @@ export function MapCanvas({
           <span>
             <IconMapPinFilled size={13} color="#4dabf7" /> Waypoint
           </span>
+          {aow.length > 0 && (
+            <span>
+              <i style={{ background: '#8ce99a', borderRadius: 2, width: 14, height: 3 }} /> Ancient of War path
+            </span>
+          )}
         </div>
       )}
     </div>

@@ -111,6 +111,30 @@ for (const [name, btn] of Object.entries(ABILITIES)) want(name, [btn, `PAS${btn}
 const HERO_ART = { Edem: 'BTNHeroDemonHunter', Udea: 'BTNHeroDeathKnight', Ulic: 'BTNLichVersion2' }
 for (const [display, id] of Object.entries(HEROES)) want(display, [artName(units[id]?.art?.Art), HERO_ART[id]])
 
+// creeps the game data has no button art for: classic button names (first that exists wins).
+// Most match Liquipedia's creep tables; several creeps share one icon in the game.
+const CREEP_ART = {
+  'Apprentice Wizard': ['BTNBanditMage'], 'Rogue Wizard': ['BTNBanditMage'], 'Renegade Wizard': ['BTNBanditMage'], 'Dark Wizard': ['BTNBanditMage'],
+  Brigand: ['BTNBanditSpearThrower'], Rogue: ['BTNBandit'], Enforcer: ['BTNBandit'], Assassin: ['BTNBandit'], 'Bandit Lord': ['BTNBanditLord', 'BTNBandit'],
+  'Frost Wolf': ['BTNTimberWolf'], 'Dire Frost Wolf': ['BTNTimberWolf', 'BTNDireWolf'], 'Giant Frost Wolf': ['BTNTimberWolf'],
+  'Enraged Wildkin': ['BTNOwlBear'], 'Forest Troll Warlord': ['BTNForestTroll'],
+  'Granite Golem': ['BTNRockGolem'], 'Moss Covered Granite Golem': ['BTNRockGolem'], 'Mud Golem': ['BTNRockGolem'],
+  'Giant Skeleton Warrior': ['BTNSkeletonWarrior'], 'Sludge Flinger': ['BTNSludgeCreature'],
+  'Kobold Taskmaster': ['BTNKobold'], 'Kobold Tunneler': ['BTNKobold'],
+  'Gnoll Brute': ['BTNGnoll'], 'Ogre Mauler': ['BTNOgre'], 'Murloc Huntsman': ['BTNMurloc'],
+  'Sea Turtle Hatchling': ['BTNSeaTurtleGreen'], 'Giant Sea Turtle': ['BTNSeaTurtleGreen'], 'Gargantuan Sea Turtle': ['BTNSeaTurtleRed', 'BTNSeaTurtleGreen'],
+  'Spider Crab Behemoth': ['BTNSpiderCrab'], 'Makrura Snapper': ['BTNLobstrokkGreen', 'BTNLobstrokkRed'],
+  'Enraged Elemental': ['BTNSeaElemental'], 'Reef Elemental': ['BTNSeaElemental'],
+  "Mur'gul Marauder": ['BTNMurgulTideWarrior', 'BTNMurgulBloodGill', 'BTNMurgalSlave'], "Mur'gul Snarecaster": ['BTNMurgulShadowCaster', 'BTNMurgulBloodGill'],
+  'Ice Troll Berserker': ['BTNIceTroll'], 'Ice Troll Trapper': ['BTNIceTroll'], 'Ice Troll Warlord': ['BTNIceTroll'],
+  'Giant Polar Bear': ['BTNFrostBear', 'BTNPolarBear'], 'Red Dragon Whelp': ['BTNRedDragon', 'BTNRedDrake'],
+  'Nerubian Webspinner': ['BTNNerubian', 'BTNNerubianQueen'], 'Warrior Arachnathid': ['BTNArachnathid', 'BTNArachnathidGreen'],
+  'Tuskarr Sorcerer': ['BTNTuskaarGold', 'BTNTuskaarBlack', 'BTNTuskaarBrown'], 'Tuskarr Trapper': ['BTNTuskaarBrown', 'BTNTuskaarBlack', 'BTNTuskaarGold'],
+  'Tuskarr Warrior': ['BTNTuskaarBlack', 'BTNTuskaarBrown', 'BTNTuskaarGold'],
+  'Stormreaver Apprentice': ['BTNStormreaverApprentice', 'BTNWarlock', 'BTNDarkRitual'], 'Stormreaver Hermit': ['BTNStormreaverHermit', 'BTNWarlock', 'BTNHeroWarlock'],
+}
+for (const [n, names] of Object.entries(CREEP_ART)) want(n, names)
+
 // every other unit the game knows (creeps, helpers, ...); melee versions win over campaign ones
 const byName = new Map()
 const ordered = Object.values(units).sort((a, b) => !!a.editor?.campaign - !!b.editor?.campaign)
@@ -145,5 +169,7 @@ for (const [s, { label, names }] of wanted) {
 console.log(`✓ copied ${copied} icons into public/icons (from ${index.size} files in ${path.relative(ROOT, SRC) || SRC})`)
 const abilityMissing = missing.filter((m) => Object.keys(ABILITIES).some((a) => m.startsWith(a + ' (')))
 if (abilityMissing.length) console.log(`! hero ability icons not found (please report): ${abilityMissing.join(', ')}`)
-console.log(`  ${missing.length - abilityMissing.length} units/items had no matching file (mostly campaign-only; fine)`)
+const creepMissing = missing.filter((m) => Object.keys(CREEP_ART).some((c) => m.startsWith(c + ' (')))
+if (creepMissing.length) console.log(`! map creep icons not found (please report): ${creepMissing.join(', ')}`)
+console.log(`  ${missing.length - abilityMissing.length - creepMissing.length} other units/items had no matching file (mostly campaign-only; fine)`)
 if (dupes.size) console.log(`  note: ${dupes.size} names exist in more than one non-Reforged folder; the first one found was used`)

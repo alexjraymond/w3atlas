@@ -7,6 +7,7 @@ import { href } from '../lib/router'
 import { CREEP_HELPER, HERO_BY_NAME, RACE_LABEL } from '../game/heroes'
 import type { Author } from '../cloud/types'
 import { MapCanvas } from './MapCanvas'
+import { AowPathList } from './AowPath'
 import { CreepRoute, XpSummary } from './CreepRoute'
 import { BuildOrder } from './BuildOrder'
 import { GameIcon } from './GameIcon'
@@ -114,7 +115,9 @@ export function RouteViewer({ route, build, actions, author, buildHref, children
               notes={route.mapNotes}
               readOnly
               helper={route.race ? CREEP_HELPER[route.race] : undefined}
+              aowPath={route.aowPath}
             />
+            {route.aowPath.length > 0 && <AowPathList path={route.aowPath} />}
             {hero && route.skills.some(Boolean) && (
               <Card withBorder padding="sm">
                 <Group gap={8} mb={8}>

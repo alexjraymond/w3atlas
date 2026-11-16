@@ -1,0 +1,109 @@
+import { ActionIcon, Button, Card, Group, Stack, Text, TextInput, Tooltip } from '@mantine/core'
+import { IconPlus, IconTrash, IconX } from '@tabler/icons-react'
+import type { AowPoint } from '../types'
+import { GameIcon } from './GameIcon'
+
+const label = (i: number) => (i === 0 ? 'Start' : `${i}`)
+
+function Header({ count, children }: { count: number; children?: React.ReactNode }) {
+  return (
+    <Group justify="space-between" mb={6} wrap="nowrap">
+      <Group gap={8} wrap="nowrap">
+        <GameIcon name="ancientofwar" size={22} />
+        <Text size="xs" fw={700} c="dimmed" tt="uppercase">
+          Ancient of War path
+        </Text>
+        {count > 0 && (
+          <Text size="xs" c="dimmed">
+            {count} points
+          </Text>
+        )}
+      </Group>
+      {children}
+    </Group>
+  )
+}
+
+/** Edit mode: the list of AoW path points (placed on the map), with a note for each. */
+export function AowPathEditor({
+  path,
+  onChange,
+  placing,
+  onTogglePlacing,
+}: {
+  path: AowPoint[]
+  onChange: (path: AowPoint[]) => void
+  placing: boolean
+  onTogglePlacing: () => void
+}) {
+  return (
+    <Card withBorder padding="sm" style={{ borderLeft: '3px solid #8ce99a' }}>
+      <Header count={path.length}>
+        <Group gap={4} wrap="nowrap">
+          {path.length > 0 && !placing && (
+            <Tooltip label="Remove the whole path">
+              <ActionIcon variant="subtle" color="red" size="sm" aria-label="Clear AoW path" onClick={() => confirm('Remove the Ancient of War path?') && onChange([])}>
+                <IconTrash size={14} />
+              </ActionIcon>
+            </Tooltip>
+          )}
+          <Button size="compact-xs" variant={placing ? 'filled' : 'light'} color="green" leftSection={placing ? undefined : <IconPlus size={12} />} onClick={onTogglePlacing}>
+            {placing ? 'Done' : path.length ? 'Add points' : 'Draw path'}
+          </Button>
+        </Group>
+      </Header>
+      {path.length === 0 ? (
+        <Text size="xs" c="dimmed">
+          Plan where the Ancient of War walks while the hero creeps. It's slow, so the path matters. Draw it point by point; drag points on the map to
+          adjust, right-click one to remove it.
+        </Text>
+      ) : (
+        <Stack gap={4}>
+          {path.map((p, i) => (
+            <Group key={p.id} gap={6} wrap="nowrap">
+              <Text size="xs" fw={700} w={34} c="green.4">
+                {label(i)}
+              </Text>
+              <TextInput
+                size="xs"
+                style={{ flex: 1 }}
+                placeholder={i === 0 ? 'e.g. Built at home, uproot at 0:50' : 'e.g. Wait here for the hero, then root'}
+                value={p.note}
+                onChange={(e) => onChange(path.map((q) => (q.id === p.id ? { ...q, note: e.currentTarget.value } : q)))}
+              />
+              <ActionIcon variant="subtle" color="gray" size="sm" aria-label={`Remove point ${label(i)}`} onClick={() => onChange(path.filter((q) => q.id !== p.id))}>
+                <IconX size={14} />
+              </ActionIcon>
+            </Group>
+          ))}
+        </Stack>
+      )}
+    </Card>
+  )
+}
+
+/** View mode: the path's notes (only points that have one). */
+export function AowPathList({ path }: { path: AowPoint[] }) {
+  const noted = path.map((p, i) => ({ ...p, i })).filter((p) => p.note.trim())
+  return (
+    <Card withBorder padding="sm" style={{ borderLeft: '3px solid #8ce99a' }}>
+      <Header count={path.length} />
+      {noted.length === 0 ? (
+        <Text size="xs" c="dimmed">
+          Follow the green dotted line on the map.
+        </Text>
+      ) : (
+        <Stack gap={2}>
+          {noted.map((p) => (
+            <Text key={p.id} size="sm">
+              <Text span fw={700} c="green.4" mr={6}>
+                {label(p.i)}
+              </Text>
+              {p.note}
+            </Text>
+          ))}
+        </Stack>
+      )}
+    </Card>
+  )
+}

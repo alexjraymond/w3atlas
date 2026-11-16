@@ -31,6 +31,7 @@ export function newRoute(mapId: string, partial: Partial<Route> = {}): Route {
     steps: [],
     buildId: null,
     mapNotes: [],
+    aowPath: [],
     notes: '',
     tags: [],
     createdAt: now,
