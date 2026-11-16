@@ -73,6 +73,8 @@ export interface RouteStep {
   helpers: Record<string, number>
   condition: string
   note: string
+  /** Night Elf: what the Ancient of War does after this stop, e.g. "make 5 archers then move" */
+  aowNote?: string
 }
 
 export interface BuildStep {

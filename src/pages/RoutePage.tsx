@@ -1,6 +1,5 @@
 import { useRef, useState } from "react";
 import { useMediaQuery } from "@mantine/hooks";
-import { AowPathEditor } from "../components/AowPath";
 import { Win } from "../components/Win";
 import { LevelBar } from "../components/LevelBar";
 import chips from "./RoutePage.module.css";
@@ -75,7 +74,7 @@ export function RoutePage({ routeId }: { routeId: string }) {
   const [mode, setMode] = useState<"edit" | "view">(() =>
     route && route.steps.length > 0 ? "view" : "edit",
   );
-  const [placing, setPlacing] = useState<"note" | "waypoint" | "aow" | null>(
+  const [placing, setPlacing] = useState<"note" | "waypoint" | null>(
     null,
   );
   const [activeStep, setActiveStep] = useState<string | null>(null);
@@ -135,15 +134,6 @@ export function RoutePage({ routeId }: { routeId: string }) {
       const wp = newWaypoint(Math.round(x), Math.round(y));
       patch({ steps: [...route.steps, wp] });
       setExpanded(new Set([wp.id]));
-    } else if (placing === "aow") {
-      // keep placing: the path usually has several points
-      patch({
-        aowPath: [
-          ...route.aowPath,
-          { id: uid(), x: Math.round(x), y: Math.round(y), note: "" },
-        ],
-      });
-      return;
     } else if (placing === "note") {
       patch({
         mapNotes: [
@@ -288,9 +278,7 @@ export function RoutePage({ routeId }: { routeId: string }) {
   );
 
   const hint =
-    placing === "aow"
-      ? "Tap the map to add Ancient of War path points, in walking order. Press Done when finished."
-      : placing === "waypoint"
+    placing === "waypoint"
         ? "Tap the map where the waypoint goes: a shop, the tavern, a spot to wait."
         : placing === "note"
           ? "Tap anywhere on the map to drop the note."
@@ -315,23 +303,11 @@ export function RoutePage({ routeId }: { routeId: string }) {
       }
       readOnly={readOnly}
       helper={route.race ? CREEP_HELPER[route.race] : undefined}
-      aowPath={route.aowPath}
-      onAowPathChange={(aowPath) => patch({ aowPath })}
     />
   );
 
-  const togglePlacing = (what: "note" | "waypoint" | "aow") =>
+  const togglePlacing = (what: "note" | "waypoint") =>
     setPlacing((p) => (p === what ? null : what));
-  const showAow = route.race === "nightelf" || route.aowPath.length > 0;
-
-  const aowEditor = showAow && (
-    <AowPathEditor
-      path={route.aowPath}
-      onChange={(aowPath) => patch({ aowPath })}
-      placing={placing === "aow"}
-      onTogglePlacing={() => togglePlacing("aow")}
-    />
-  );
 
   const routeTools = (
     <Group
@@ -607,7 +583,6 @@ export function RoutePage({ routeId }: { routeId: string }) {
             {hint}
           </Text>
         </Win>
-        {aowEditor}
         {buildSection}
         {detailsWindow}
 
@@ -628,16 +603,6 @@ export function RoutePage({ routeId }: { routeId: string }) {
           >
             <IconMapPin size={18} />
           </Button>
-          {showAow && (
-            <Button
-              variant={placing === "aow" ? "filled" : "default"}
-              onClick={() => togglePlacing("aow")}
-              aria-label="Draw the Ancient of War path"
-              px={10}
-            >
-              AoW
-            </Button>
-          )}
           <Button
             variant={placing === "note" ? "filled" : "default"}
             onClick={() => togglePlacing("note")}
@@ -704,8 +669,7 @@ export function RoutePage({ routeId }: { routeId: string }) {
               {hint}
             </Text>
           </Win>
-          {aowEditor}
-        </Stack>
+          </Stack>
         <Stack gap="md">
           <LevelBar map={map} route={route} />
           {routeWindow}

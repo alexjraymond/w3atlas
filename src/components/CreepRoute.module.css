@@ -125,6 +125,46 @@
   color: var(--w-muted);
 }
 
+/* the Ancient of War's next move, between stops */
+.aowLeg {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 12px 5px 56px;
+  border-top: 2px dashed var(--w-aow-text);
+  background: var(--w-aow-wash);
+}
+.aowLabel {
+  flex: none;
+  font-family: var(--w-display);
+  font-weight: 900;
+  font-size: 12px;
+  color: var(--w-aow-text);
+}
+.aowText {
+  font-size: 14px;
+  font-weight: 700;
+}
+.aowInput {
+  flex: 1;
+  min-width: 0;
+  height: 30px;
+  padding: 0 8px;
+  border: 1.5px solid var(--w-aow-text);
+  background: var(--w-body);
+  color: var(--w-ink);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 700;
+}
+.aowInput:focus {
+  outline: 2px solid var(--w-aow);
+  outline-offset: 0;
+}
+.aowInput::placeholder {
+  color: var(--w-disabled);
+}
+
 .toolsInline {
   display: none;
 }
@@ -138,6 +178,9 @@
 
 /* narrow screens: the row keeps its width; reorder and remove move into the opened stop */
 @media (max-width: 48em) {
+  .aowLeg {
+    padding-left: 12px;
+  }
   .tools,
   .grip {
     display: none;

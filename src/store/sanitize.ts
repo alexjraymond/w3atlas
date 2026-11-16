@@ -37,6 +37,7 @@ function sanitizeStep(raw: unknown, map: GameMap): RouteStep | null {
     helpers,
     condition: str(s.condition),
     note: str(s.note),
+    ...(typeof s.aowNote === 'string' ? { aowNote: s.aowNote } : {}),
   }
   const point = obj(s.point)
   if (s.kind === 'waypoint' && point && typeof point.x === 'number' && typeof point.y === 'number') {

@@ -26,6 +26,7 @@
   --w-disabled-line: #9aa395;
   --w-grid: rgba(29, 43, 31, 0.07);
   --w-aow-text: #2b8a3e;
+  --w-aow-wash: #ebfbee;
   --w-sponsor: #a61e4d;
   --w-display: 'Cinzel', 'Times New Roman', serif;
   --w-line: 2px solid var(--w-edge);
@@ -59,6 +60,7 @@
   --w-disabled-line: #4a564b;
   --w-grid: rgba(226, 179, 60, 0.05);
   --w-aow-text: #8ce99a;
+  --w-aow-wash: #17281b;
   --w-sponsor: #f783ac;
   --w-shadow-c: #050806;
 }
