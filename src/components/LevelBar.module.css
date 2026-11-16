@@ -41,27 +41,7 @@
   transition: width 400ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.tick {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 0;
-  border-left: 2px solid var(--w-edge);
-}
 
-.ticks {
-  position: relative;
-  height: 15px;
-  margin-top: 3px;
-  font-size: 11px;
-  font-weight: 800;
-  color: var(--w-muted);
-}
-.ticks span {
-  position: absolute;
-  transform: translateX(-50%);
-  white-space: nowrap;
-}
 
 /* phone: one framed row so the map stays in the first screen */
 .compactBox {
@@ -69,7 +49,7 @@
   grid-template-columns: auto 1fr auto;
   align-items: center;
   gap: 10px;
-  padding: 8px 10px 2px;
+  padding: 8px 10px;
   background: var(--w-body);
   border: var(--w-line);
   box-shadow: var(--w-shadow);

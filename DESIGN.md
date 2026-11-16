@@ -252,7 +252,7 @@ A sunlit Warcraft palette on cream: forest ink for every letter, gold for action
 - **Edge** (edge): every 2px outline: windows, title-bar rules, buttons, inputs, chips, badges, race circles, hero and ability icons, filled skill slots. Ink by day.
 - **Window White** (window-white): window bodies, inputs, default buttons, chips, the header strip, empty race circles.
 - **Paper** (paper): an opened stop, empty skill slots.
-- **Moss Muted** (muted): secondary text such as camp meta, XP subtotals, level-bar tick labels, legends, hints and the "vs." between race groups.
+- **Moss Muted** (muted): secondary text such as camp meta, XP subtotals, legends, hints and the "vs." between race groups.
 - **Faint** (faint): drag grips, empty skill-slot numbers, disabled action icons.
 - **Disabled Stroke / Disabled Text** (disabled-stroke, disabled-text): the dashed outline and label of a disabled button and the dashed outline of an empty skill slot. Disabled text is also the placeholder colour.
 
@@ -291,7 +291,7 @@ Both fonts are self-hosted through @fontsource. Nunito's lightest loaded weight 
 - **Stop number** (Cinzel 900, 16px): the number box of each stop row.
 - **Title** (Nunito 900, 16px, line-height 1.3; 15px on narrow screens): stop and camp names, the picked hero's name.
 - **Body** (Nunito 600 to 700, 16px): everything read, including notes, hints and inputs (inputs at 700).
-- **Meta** (Nunito 700 to 800, 12 to 14px, muted): camp difficulty, level and position lines, XP subtotals, level-bar ticks (11px 800), legends, the XP line under the level bar (14px 800).
+- **Meta** (Nunito 700 to 800, 12 to 14px, muted): camp difficulty, level and position lines, XP subtotals, legends, the XP line under the level bar (14px 800).
 - **Chip** (Nunito 900, 12px, 0.06em, uppercase): context chips above the route name. Badges use Nunito 900 with 0.04em tracking.
 - **Marker** (Nunito 900, clamp(9px, 2vw, 13px)): stop numbers inside camp circles and waypoint pins on the map. Small count badges are Nunito 900 10px.
 
@@ -350,7 +350,7 @@ The building block of the world: a white body with a 2px outline and the window 
 The hero's experience after the route, as Warcraft's purple XP bar.
 - **Layout:** in a white "Hero level" window: "Lv n" in purple Cinzel, then the track, then the XP line under it in Nunito 800 muted ("167 / 400 XP to level 4"; at level 5, "Level 5: creeps give no more XP"). The title bar's right slot shows total XP.
 - **Track:** 18px tall, xp-track background, 2px outline, no shadow, filled from the left with one plain XP-purple bar. No stripes and no segments.
-- **Level marks:** a 2px solid edge-coloured line across the track at each level threshold, labelled "Lv 2" to "Lv 5" below in Nunito 800 11px muted.
+- **Current level only:** the fill shows progress from the current level to the next (empty at the start of a level, full at the next one). No marks for earlier levels.
 - **Motion:** the fill width eases over 400ms (`cubic-bezier(0.22, 1, 0.36, 1)`).
 - **Compact (phone):** one framed row with the window shadow and no title bar: an 18px level number, a 14px track and short XP text ("167/400", "Max").
 
@@ -413,7 +413,7 @@ A white header strip with a 2px bottom rule (bronze at night). The W3ATLAS wordm
 - **Do** show state by structure: filled for cleared, dashed for partial, empty or disabled, a 6px double rule for a level-up.
 - **Do** keep Cinzel to titles, controls, labels, the route name, the level number and stop numbers, and set everything read in Nunito 600 to 900.
 - **Do** draw every outline with `--w-edge` (ink by day, bronze at night) and every text-on-colour with `--w-on-accent`.
-- **Do** keep hero experience as one plain purple bar with level marks.
+- **Do** keep hero experience as one plain purple bar showing only the current level's progress.
 - **Do** keep the game-map language on the minimap: camp green/orange/red, classic WC3 icons, numbered stops, hero path #FFD43B and AoW path #8CE99A.
 - **Do** keep phone primary actions in a bottom dock within thumb reach, with touch targets of at least 44px.
 
