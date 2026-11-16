@@ -146,36 +146,6 @@
   border: 1.5px solid var(--w-ink);
 }
 
-/* race helper (Militia / Ancient of War / Ghoul) as a notification-style badge, with a count */
-.helperBadge {
-  position: absolute;
-  top: -45%;
-  left: 55%;
-  display: flex;
-  align-items: center;
-  height: 70%;
-  min-height: 13px;
-  border-radius: 5px;
-  background: #1a1b1e;
-  border: 1.5px solid #ffd43b;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
-  pointer-events: none;
-  overflow: hidden;
-}
-
-.helperBadge img {
-  height: 100%;
-  aspect-ratio: 1;
-  display: block;
-}
-
-.helperBadge b {
-  padding: 0 3px;
-  font-size: clamp(8px, 1.9vw, 11px);
-  font-weight: 800;
-  line-height: 1;
-  color: #ffd43b;
-}
 
 /* Ancient of War walking path (Night Elf), separate from the hero route */
 .aowLine {

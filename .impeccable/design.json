@@ -1,0 +1,474 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-16T20:27:23+00:00",
+  "title": "Design System: W3Atlas",
+  "extensions": {
+    "colorMeta": {
+      "lime": {
+        "role": "primary",
+        "displayName": "Install Lime",
+        "tonalRamp": [
+          "#374A07",
+          "#5A7612",
+          "#7FA31C",
+          "#A6D12F",
+          "#BFEA4B",
+          "#CEEB6E",
+          "#EEF8CC",
+          "#F7FCE6"
+        ]
+      },
+      "lime-wash": {
+        "role": "primary",
+        "displayName": "Lime Wash",
+        "tonalRamp": [
+          "#374A07",
+          "#5A7612",
+          "#7FA31C",
+          "#A6D12F",
+          "#BFEA4B",
+          "#CEEB6E",
+          "#EEF8CC",
+          "#F7FCE6"
+        ]
+      },
+      "lime-tint": {
+        "role": "primary",
+        "displayName": "Lime Tint",
+        "tonalRamp": [
+          "#374A07",
+          "#5A7612",
+          "#7FA31C",
+          "#A6D12F",
+          "#BFEA4B",
+          "#CEEB6E",
+          "#EEF8CC",
+          "#F7FCE6"
+        ]
+      },
+      "sky": {
+        "role": "secondary",
+        "displayName": "Clan Sky",
+        "tonalRamp": [
+          "#123A55",
+          "#1F5A82",
+          "#2F7AAE",
+          "#4A9AD0",
+          "#8EC9F2",
+          "#B4DEF8",
+          "#D3ECFC",
+          "#EAF6FE"
+        ]
+      },
+      "hero-path": {
+        "role": "tertiary",
+        "displayName": "Hero Path Yellow",
+        "tonalRamp": [
+          "#4A3A00",
+          "#7A6000",
+          "#A88400",
+          "#D9AA0A",
+          "#FFD43B",
+          "#FFE066",
+          "#FFEC99",
+          "#FFF9DB"
+        ]
+      },
+      "aow-path": {
+        "role": "tertiary",
+        "displayName": "AoW Green",
+        "tonalRamp": [
+          "#123D1C",
+          "#1E5E2B",
+          "#2B8A3E",
+          "#51CF66",
+          "#8CE99A",
+          "#B2F2BB",
+          "#D3F9D8",
+          "#EBFBEE"
+        ]
+      },
+      "camp-easy": {
+        "role": "tertiary",
+        "displayName": "Camp Easy",
+        "tonalRamp": [
+          "#0E3D12",
+          "#17621D",
+          "#21892A",
+          "#2DB738",
+          "#3DDC4A",
+          "#7CE885",
+          "#B6F2BB",
+          "#E3FAE5"
+        ]
+      },
+      "camp-medium": {
+        "role": "tertiary",
+        "displayName": "Camp Medium",
+        "tonalRamp": [
+          "#4A2E00",
+          "#7A4C00",
+          "#A86A00",
+          "#D98A10",
+          "#FFAD33",
+          "#FFC56E",
+          "#FFDDA8",
+          "#FFF3E0"
+        ]
+      },
+      "camp-hard": {
+        "role": "tertiary",
+        "displayName": "Camp Hard",
+        "tonalRamp": [
+          "#4D0C0C",
+          "#7A1414",
+          "#A81D1D",
+          "#D93333",
+          "#FF4D4D",
+          "#FF8080",
+          "#FFB3B3",
+          "#FFE5E5"
+        ]
+      },
+      "ground": {
+        "role": "neutral",
+        "displayName": "Grid Paper Cream",
+        "tonalRamp": [
+          "#3B3726",
+          "#5E5940",
+          "#857F62",
+          "#ADA78A",
+          "#D2CCB2",
+          "#E6E0CB",
+          "#F3EEDF",
+          "#FAF8F0"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Forest Ink",
+        "tonalRamp": [
+          "#1D2B1F",
+          "#2A3527",
+          "#3A4636",
+          "#4F5B4A",
+          "#71806A",
+          "#919F8B",
+          "#D9DFD6",
+          "#EEF1EC"
+        ]
+      },
+      "window-white": {
+        "role": "neutral",
+        "displayName": "Window White",
+        "tonalRamp": [
+          "#1D2B1F",
+          "#2A3527",
+          "#3A4636",
+          "#4F5B4A",
+          "#71806A",
+          "#919F8B",
+          "#D9DFD6",
+          "#EEF1EC"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Moss Muted",
+        "tonalRamp": [
+          "#1D2B1F",
+          "#2A3527",
+          "#3A4636",
+          "#4F5B4A",
+          "#71806A",
+          "#919F8B",
+          "#D9DFD6",
+          "#EEF1EC"
+        ]
+      },
+      "disabled-stroke": {
+        "role": "neutral",
+        "displayName": "Disabled Stroke",
+        "tonalRamp": [
+          "#1D2B1F",
+          "#2A3527",
+          "#3A4636",
+          "#4F5B4A",
+          "#71806A",
+          "#919F8B",
+          "#D9DFD6",
+          "#EEF1EC"
+        ]
+      },
+      "disabled-text": {
+        "role": "neutral",
+        "displayName": "Disabled Text",
+        "tonalRamp": [
+          "#1D2B1F",
+          "#2A3527",
+          "#3A4636",
+          "#4F5B4A",
+          "#71806A",
+          "#919F8B",
+          "#D9DFD6",
+          "#EEF1EC"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "The route name, edited in place; one per page."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Mantine h1 to h3 in pixel type (22/17/14px)."
+      },
+      "level-number": {
+        "displayName": "Level number",
+        "purpose": "'LV n' in the install bar; 15px under 640px, 13px compact."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Window titles, button labels, field labels, segmented options; uppercase in bars and labels."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Stop and camp names."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Everything read: notes, hints, inputs (700)."
+      },
+      "meta": {
+        "displayName": "Meta",
+        "purpose": "Muted difficulty, level and position lines, XP subtotals, legends."
+      },
+      "chip": {
+        "displayName": "Chip",
+        "purpose": "Uppercase context chips above the route name."
+      }
+    },
+    "shadows": [
+      {
+        "name": "window",
+        "value": "4px 4px 0 #1D2B1F",
+        "purpose": "Windows, cards, bordered papers, dropdowns, the phone dock, the compact level bar."
+      },
+      {
+        "name": "control",
+        "value": "3px 3px 0 #1D2B1F",
+        "purpose": "Buttons at rest; drops to none on active."
+      },
+      {
+        "name": "small",
+        "value": "2px 2px 0 #1D2B1F",
+        "purpose": "Inputs, default action icons, the install-bar track."
+      },
+      {
+        "name": "lifted",
+        "value": "6px 6px 0 #1D2B1F",
+        "purpose": "Hover on linked cards, with a -2px -2px move."
+      },
+      {
+        "name": "input-focus",
+        "value": "2px 2px 0 #8EC9F2",
+        "purpose": "Input shadow turns sky on focus."
+      },
+      {
+        "name": "focus-ring",
+        "value": "outline: 3px solid #8EC9F2; outline-offset: 2px",
+        "purpose": "Global :focus-visible."
+      },
+      {
+        "name": "map-halo",
+        "value": "rgba(0,0,0,0.7) 5px stroke under path lines; drop-shadow(0 1px 2px rgba(0,0,0,0.8)) on waypoints",
+        "purpose": "Minimap only: legibility over terrain."
+      }
+    ],
+    "motion": [
+      {
+        "name": "window-spawn",
+        "value": "220ms cubic-bezier(0.34, 1.56, 0.64, 1); scale 0.97 to 1, fade in",
+        "purpose": "Windows opening."
+      },
+      {
+        "name": "press",
+        "value": "80ms linear; translate by shadow offset",
+        "purpose": "Buttons and action icons pressing into their shadow."
+      },
+      {
+        "name": "level-fill",
+        "value": "400ms cubic-bezier(0.22, 1, 0.36, 1)",
+        "purpose": "Install-bar segment widths as stops change."
+      },
+      {
+        "name": "stripe-march",
+        "value": "0.8s linear infinite, running on hover only",
+        "purpose": "Install-bar stripes."
+      },
+      {
+        "name": "marker-hover",
+        "value": "120ms ease; scale 1.18 (hover), 1.3 (active)",
+        "purpose": "Camp markers on the map."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "durations forced to 0.01ms",
+        "purpose": "prefers-reduced-motion: reduce."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "phone-compact",
+        "value": "640px"
+      },
+      {
+        "name": "phone",
+        "value": "48em"
+      },
+      {
+        "name": "split",
+        "value": "62em"
+      },
+      {
+        "name": "touch",
+        "value": "(pointer: coarse)"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Window",
+      "kind": "card",
+      "refersTo": "window-bar",
+      "description": "Titled window: the building block. Lime for working windows, sky for reference, white for secondary.",
+      "html": "<section class=\"ds-win\"><div class=\"ds-win-bar\"><span class=\"ds-win-title\">Route</span><span class=\"ds-win-right\">4 stops</span><span class=\"ds-win-dots\"><i></i><i></i><i></i></span></div><div class=\"ds-win-body\">Renegade Wizard +3 &middot; +192 XP</div></section>",
+      "css": ".ds-win{background:#fff;border:2px solid #1d2b1f;box-shadow:4px 4px 0 #1d2b1f;color:#1d2b1f;font-family:Nunito,system-ui,sans-serif;font-weight:700;animation:ds-spawn 220ms cubic-bezier(0.34,1.56,0.64,1) both;max-width:360px}@keyframes ds-spawn{from{transform:scale(0.97);opacity:0}}.ds-win-bar{display:flex;align-items:center;gap:10px;min-height:32px;padding:4px 10px;background:#bfea4b;border-bottom:2px solid #1d2b1f;font-family:'Press Start 2P',monospace;font-size:9px;line-height:1.6;text-transform:uppercase;position:relative}.ds-win-bar::after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(transparent 0 2px,rgba(255,255,255,0.12) 2px 4px);pointer-events:none}.ds-win-title{flex:1}.ds-win-right{font-family:Nunito,system-ui,sans-serif;font-size:13px;text-transform:none}.ds-win-dots{display:flex;gap:4px}.ds-win-dots i{width:10px;height:10px;border:1.5px solid #1d2b1f;background:#fff}.ds-win-body{padding:12px}"
+    },
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Lime filled, outlined, presses into its shadow.",
+      "html": "<button class=\"ds-btn ds-btn-primary\">Stops 4</button>",
+      "css": ".ds-btn{border:2px solid #1d2b1f;box-shadow:3px 3px 0 #1d2b1f;border-radius:0;font-family:'Press Start 2P',monospace;font-size:9px;letter-spacing:0.02em;color:#1d2b1f;padding:12px 16px;cursor:pointer;transition:transform 80ms linear,box-shadow 80ms linear}.ds-btn-primary{background:#bfea4b}.ds-btn:hover{filter:brightness(1.04)}.ds-btn:active{transform:translate(3px,3px);box-shadow:none}.ds-btn:focus-visible{outline:3px solid #8ec9f2;outline-offset:2px}"
+    },
+    {
+      "name": "Default Button",
+      "kind": "button",
+      "refersTo": "button-default",
+      "description": "White outlined button for secondary actions; disabled is dashed and shadowless.",
+      "html": "<button class=\"ds-btn2\">Waypoint</button> <button class=\"ds-btn2\" disabled>Undo</button>",
+      "css": ".ds-btn2{background:#fff;border:2px solid #1d2b1f;box-shadow:3px 3px 0 #1d2b1f;border-radius:0;font-family:'Press Start 2P',monospace;font-size:9px;letter-spacing:0.02em;color:#1d2b1f;padding:12px 16px;cursor:pointer;transition:transform 80ms linear,box-shadow 80ms linear}.ds-btn2:hover:not(:disabled){filter:brightness(1.04)}.ds-btn2:active:not(:disabled){transform:translate(3px,3px);box-shadow:none}.ds-btn2:focus-visible{outline:3px solid #8ec9f2;outline-offset:2px}.ds-btn2:disabled{background:transparent;border-style:dashed;border-color:#9aa395;color:#6d7568;box-shadow:none;cursor:default}"
+    },
+    {
+      "name": "Context Chips",
+      "kind": "chip",
+      "refersTo": "chip",
+      "description": "Uppercase Nunito chips above the route name: sky back-to-map, lime matchup, white hero.",
+      "html": "<a class=\"ds-chip ds-chip-sky\" href=\"#\">&larr; Scrimmage</a> <span class=\"ds-chip ds-chip-lime\">Night Elf vs any</span> <span class=\"ds-chip\">Demon Hunter</span>",
+      "css": ".ds-chip{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border:2px solid #1d2b1f;background:#fff;color:#1d2b1f;font-family:Nunito,system-ui,sans-serif;font-size:12px;font-weight:900;letter-spacing:0.06em;text-transform:uppercase;text-decoration:none}.ds-chip-sky{background:#8ec9f2}.ds-chip-lime{background:#bfea4b}a.ds-chip:focus-visible{outline:3px solid #8ec9f2;outline-offset:2px}"
+    },
+    {
+      "name": "Text Input",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Outlined white field with a pixel label; focus turns the shadow sky.",
+      "html": "<label class=\"ds-field\"><span class=\"ds-label\">Tags</span><input class=\"ds-input\" placeholder=\"fast level 3, tower rush\"></label>",
+      "css": ".ds-field{display:block;max-width:320px}.ds-label{display:block;font-family:'Press Start 2P',monospace;font-size:9px;line-height:1.6;text-transform:uppercase;color:#1d2b1f;margin-bottom:8px}.ds-input{width:100%;border:2px solid #1d2b1f;border-radius:0;box-shadow:2px 2px 0 #1d2b1f;background:#fff;color:#1d2b1f;font-family:Nunito,system-ui,sans-serif;font-weight:700;font-size:16px;padding:8px 12px}.ds-input::placeholder{color:#6d7568;font-weight:600}.ds-input:focus{outline:none;box-shadow:2px 2px 0 #8ec9f2}"
+    },
+    {
+      "name": "Level Bar",
+      "kind": "custom",
+      "refersTo": "level-track",
+      "description": "Signature install bar: striped segment per stop, gold for level-ups, dashed thresholds.",
+      "html": "<div class=\"ds-lv\"><span class=\"ds-lv-n\">LV 3</span><div class=\"ds-lv-track\"><div class=\"ds-lv-seg\" style=\"width:30%\"></div><div class=\"ds-lv-seg ds-up\" style=\"width:22%\"></div><div class=\"ds-lv-seg\" style=\"width:18%\"></div><i class=\"ds-lv-tick\" style=\"left:40%\"></i></div><span class=\"ds-lv-xp\">167 / 400 XP</span></div>",
+      "css": ".ds-lv{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:16px;padding:12px 16px;background:#fff;border:2px solid #1d2b1f;box-shadow:4px 4px 0 #1d2b1f;color:#1d2b1f}.ds-lv-n{font-family:'Press Start 2P',monospace;font-size:20px;line-height:1}.ds-lv-track{position:relative;height:24px;border:2px solid #1d2b1f;background:#fff;box-shadow:2px 2px 0 #1d2b1f;display:flex;overflow:hidden}.ds-lv-seg{height:100%;background:repeating-linear-gradient(45deg,#bfea4b 0 8px,#1d2b1f 8px 10px);border-right:2px solid #1d2b1f;animation:ds-march .8s linear infinite paused}.ds-lv-seg.ds-up{background:repeating-linear-gradient(45deg,#ffd43b 0 8px,#1d2b1f 8px 10px)}.ds-lv-track:hover .ds-lv-seg{animation-play-state:running}@keyframes ds-march{to{background-position:14px 0}}.ds-lv-tick{position:absolute;top:-2px;bottom:-2px;border-left:2px dashed #1d2b1f}.ds-lv-xp{font-family:Nunito,system-ui,sans-serif;font-weight:900;font-variant-numeric:tabular-nums;white-space:nowrap}"
+    },
+    {
+      "name": "Stop Row",
+      "kind": "custom",
+      "refersTo": "stop-number",
+      "description": "Route stop: state-filled number box, camp name, meta and XP; a level-up opens with a double rule.",
+      "html": "<div class=\"ds-stops\"><div class=\"ds-stop\"><span class=\"ds-num\">1</span><div class=\"ds-stop-main\"><b>Renegade Wizard +3</b><small>Medium &middot; Lv 11 &middot; Southwest</small></div><span class=\"ds-xp\">+192</span></div><div class=\"ds-stop ds-stop-up\"><span class=\"ds-num ds-num-up\">2</span><div class=\"ds-stop-main\"><b>Forest Troll Trapper +1</b><small>Easy &middot; Lv 5</small></div><span class=\"ds-xp\">+74</span></div><div class=\"ds-stop\"><span class=\"ds-num ds-num-partial\">3</span><div class=\"ds-stop-main\"><b>Giant Sea Turtle</b><small>Skipped rest</small></div><span class=\"ds-xp\">+40</span></div></div>",
+      "css": ".ds-stops{background:#fff;border:2px solid #1d2b1f;max-width:380px;color:#1d2b1f;font-family:Nunito,system-ui,sans-serif}.ds-stop{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border-top:2px solid #1d2b1f;transition:background 120ms linear}.ds-stop:first-child{border-top:0}.ds-stop:hover{background:#f7fce6}.ds-stop-up{border-top:6px double #1d2b1f}.ds-num{flex:none;width:34px;height:34px;display:grid;place-items:center;border:2px solid #1d2b1f;background:#1d2b1f;color:#fff;font-family:'Press Start 2P',monospace;font-size:11px}.ds-num-up{background:#bfea4b;color:#1d2b1f}.ds-num-partial{background:#fff;color:#1d2b1f;border-style:dashed}.ds-stop-main{flex:1}.ds-stop-main b{display:block;font-weight:900;font-size:16px;line-height:1.3}.ds-stop-main small{font-size:13px;font-weight:700;color:#4f5b4a}.ds-xp{font-weight:900;font-variant-numeric:tabular-nums}"
+    },
+    {
+      "name": "Camp Markers",
+      "kind": "custom",
+      "refersTo": "camp-marker",
+      "description": "Game-map camp circles in green/orange/red with pixel stop numbers; selected gets a hero-yellow ring.",
+      "html": "<div class=\"ds-map\"><button class=\"ds-camp\" style=\"--c:#3ddc4a\">2</button><button class=\"ds-camp\" style=\"--c:#ffad33\">1</button><button class=\"ds-camp ds-sel\" style=\"--c:#ff4d4d\">3</button></div>",
+      "css": ".ds-map{display:flex;gap:18px;padding:18px;background:#2f4a2a;border:2px solid #1d2b1f}.ds-camp{width:30px;height:30px;padding:0;border-radius:50%;border:2px solid rgba(255,255,255,0.9);background:color-mix(in srgb,var(--c) 72%,transparent);color:#1d2b1f;font-family:'Press Start 2P',monospace;font-size:10px;box-shadow:0 0 0 1.5px #1d2b1f;cursor:pointer;transition:transform 120ms ease,box-shadow 120ms ease}.ds-camp:hover{transform:scale(1.18)}.ds-camp.ds-sel{background:var(--c);border-color:#ffd43b;box-shadow:0 0 0 2px #1d2b1f,2px 2px 0 2px #1d2b1f}.ds-camp:focus-visible{outline:2px solid #fff;outline-offset:2px}"
+    },
+    {
+      "name": "Header Nav",
+      "kind": "nav",
+      "description": "White strip with a 2px ink bottom rule, pixel wordmark, Nunito 800 links.",
+      "html": "<nav class=\"ds-nav\"><span class=\"ds-mark\">W3ATLAS</span><span class=\"ds-links\"><a href=\"#\">Builds</a><a href=\"#\">Maps</a><a href=\"#\">Backup</a></span></nav>",
+      "css": ".ds-nav{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;background:#fff;border-bottom:2px solid #1d2b1f;color:#1d2b1f}.ds-mark{font-family:'Press Start 2P',monospace;font-size:12px}.ds-links{display:flex;gap:20px}.ds-links a{font-family:Nunito,system-ui,sans-serif;font-weight:800;font-size:14px;color:#1d2b1f;text-decoration:none}.ds-links a:hover{text-decoration:underline;text-underline-offset:3px}.ds-links a:focus-visible{outline:3px solid #8ec9f2;outline-offset:2px}"
+    }
+  ],
+  "narrative": {
+    "northStar": "Clan Site 2002",
+    "overview": "**Creative North Star: \"Clan Site 2002\"**\n\nW3Atlas looks like a Warcraft III fan site from 2002 left open on a desk: a cream grid-paper desktop, and each part of the plan sitting on it as its own titled window. Windows have forest-ink outlines, sharp corners and a hard offset shadow with no blur. They pop open with a short spring, and buttons press down into their shadows. The level a route reaches loads like a striped install bar. The look is bright, flat and tactile on purpose. It rejects the dark gamer dashboard with gold accents that most Warcraft tools ship.\n\nTwo type voices do separate jobs. Press Start 2P is the machine voice: window titles, buttons, labels, the level number and the route name. Nunito, at heavy weights, carries everything a player actually reads: camp names, XP, drops and notes. Numbers are tabular everywhere. Density is high but stays readable. Rank comes from weight, case and window structure more than from many sizes.\n\nThe minimap is game territory, not site chrome. On the map, the Warcraft III vocabulary stays: green, orange and red camp circles, classic WC3 button icons, numbered stops, the yellow hero path and the green Ancient of War path. The site world frames the map. It never repaints it.\n\nThis system was carbonized from the route page (edit and preview, desktop and phone). The home, map, builds and community pages pick up the theme and the restyled Mantine controls, but their layouts have not been redesigned in this world yet.",
+    "keyCharacteristics": [
+      "Cream grid-paper ground (32px cells) under white windows with 2px ink outlines and hard 4px offset shadows.",
+      "Lime marks what you can press or what is primary. Sky marks reference windows.",
+      "Square corners everywhere except game markers on the map.",
+      "Pixel type for titles, controls and labels. Heavy Nunito for anything read.",
+      "Stop state is shown by structure: filled, dashed, double rule.",
+      "Short spring when a window opens. Buttons press 3px down into their shadow."
+    ],
+    "rules": [
+      {
+        "name": "The Lime Means Press Rule",
+        "body": "Lime goes on things you can press, on primary windows and on progress. If an element can't be pressed and isn't the main working surface, it isn't lime.",
+        "section": "colors"
+      },
+      {
+        "name": "The Map Keeps Its Colours Rule",
+        "body": "Camp green, orange and red, hero yellow and AoW green come from the game and are not reinterpreted. Don't tint them toward the palette, and don't use them for site UI except where they stand for the same game concept, such as gold for level-ups.",
+        "section": "colors"
+      },
+      {
+        "name": "The Two Voices Rule",
+        "body": "Press Start 2P is for chrome: titles, controls, labels, the level number and the route name. It is never used for a sentence or a paragraph, or for a value someone has to read precisely. Nunito is never used in a title bar.",
+        "section": "typography"
+      },
+      {
+        "name": "The Tabular Rule",
+        "body": "Every number uses tabular figures (set on body), so XP columns line up.",
+        "section": "typography"
+      },
+      {
+        "name": "The Press Into The Shadow Rule",
+        "body": "A pressable outlined control casts a hard shadow at rest and, when active, moves by exactly its shadow offset (3px for buttons, 2px for action icons) while the shadow drops to none. Disabled controls lose the shadow and switch to a dashed outline.",
+        "section": "elevation"
+      },
+      {
+        "name": "The No Blur Rule",
+        "body": "Site chrome never uses blurred or coloured ambient shadows. The only soft shadows are the map halos, which are there for legibility over terrain.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** put every distinct part of the plan in its own titled window: a white body, a 2px ink outline and a 4px hard ink shadow.",
+      "**Do** use lime title bars for working windows, sky for reference windows and white for secondary ones.",
+      "**Do** make pressable controls press down by their shadow offset and lose the shadow on active.",
+      "**Do** show state by structure: filled for cleared, dashed for partial or disabled, a 6px double rule for a level-up.",
+      "**Do** keep Press Start 2P to titles, controls, labels, the level number and the route name, and set everything read in Nunito 600–900.",
+      "**Do** keep the game-map language on the minimap: camp green/orange/red, classic WC3 icons, numbered stops, hero path #FFD43B and AoW path #8CE99A.",
+      "**Do** keep phone primary actions in a bottom dock within thumb reach, with touch targets of at least 44px."
+    ],
+    "donts": [
+      "**Don't** build the dark gamer dashboard with gold accents. The ground stays cream grid paper.",
+      "**Don't** round site chrome. Radius is 0 everywhere except game markers on the map.",
+      "**Don't** use blurred or ambient shadows in site chrome. The only soft shadow is the halo on the map.",
+      "**Don't** use lime on things that can't be pressed and aren't primary.",
+      "**Don't** set sentences, paragraphs or values someone must read precisely in Press Start 2P.",
+      "**Don't** recolour camp, hero-path or AoW-path colours to match the palette."
+    ]
+  }
+}
