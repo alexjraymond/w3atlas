@@ -19,8 +19,6 @@ export const WORLD = {
   sans: 'Nunito, system-ui, -apple-system, "Segoe UI", sans-serif',
 } as const
 
-// lime[5] is the brand lime; darker shades are for text on cream
-const lime: MantineColorsTuple = ['#F7FCE6', '#EEF8CC', '#DDF19A', '#CEEB6E', '#C4E758', '#BFEA4B', '#A6D12F', '#7FA31C', '#5A7612', '#374A07']
 const forest: MantineColorsTuple = ['#EEF1EC', '#D9DFD6', '#B6C0B1', '#919F8B', '#71806A', '#5A6953', '#4F5B4A', '#3A4636', '#2A3527', '#1D2B1F']
 // Mantine's dark scheme draws from this ramp: forest-black instead of its default slate
 const dark: MantineColorsTuple = ['#EDE7D6', '#C9C3B3', '#AAB4A5', '#87927F', '#4A564B', '#3A463C', '#243026', '#1C261F', '#121915', '#0B100D']
@@ -35,7 +33,7 @@ export const theme = createTheme({
   luminanceThreshold: 0.45,
   black: WORLD.ink,
   white: WORLD.body,
-  colors: { lime, gold, forest, sky, dark },
+  colors: { gold, forest, sky, dark },
   defaultRadius: 0,
   fontFamily: WORLD.sans,
   fontFamilyMonospace: 'ui-monospace, monospace',
@@ -53,11 +51,11 @@ export const theme = createTheme({
   },
   fontSizes: { xs: '13px', sm: '14px', md: '16px', lg: '18px', xl: '20px' },
   shadows: {
-    xs: `2px 2px 0 ${WORLD.ink}`,
-    sm: `3px 3px 0 ${WORLD.ink}`,
-    md: `4px 4px 0 ${WORLD.ink}`,
-    lg: `6px 6px 0 ${WORLD.ink}`,
-    xl: `6px 6px 0 ${WORLD.ink}`,
+    xs: `2px 2px 0 var(--w-shadow-c)`,
+    sm: `3px 3px 0 var(--w-shadow-c)`,
+    md: `4px 4px 0 var(--w-shadow-c)`,
+    lg: `6px 6px 0 var(--w-shadow-c)`,
+    xl: `6px 6px 0 var(--w-shadow-c)`,
   },
   components: {
     Tooltip: { defaultProps: { color: 'forest.9' } },

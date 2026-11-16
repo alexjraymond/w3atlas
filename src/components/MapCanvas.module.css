@@ -56,7 +56,7 @@
   place-items: center;
   cursor: pointer;
   transition: transform 120ms ease, box-shadow 120ms ease;
-  box-shadow: 0 0 0 1.5px var(--w-ink);
+  box-shadow: 0 0 0 1.5px var(--w-on-accent);
 }
 
 .camp:hover {
@@ -71,13 +71,13 @@
 .camp[data-selected] {
   background: var(--camp-color);
   border-color: var(--w-path);
-  box-shadow: 0 0 0 2px var(--w-ink), 2px 2px 0 2px var(--w-ink);
+  box-shadow: 0 0 0 2px var(--w-on-accent), 2px 2px 0 2px var(--w-on-accent);
   z-index: 2;
 }
 
 .camp[data-active] {
   transform: translate(-50%, -50%) scale(1.3);
-  box-shadow: 0 0 0 3px var(--w-ink), 0 0 0 6px var(--w-accent);
+  box-shadow: 0 0 0 3px var(--w-on-accent), 0 0 0 6px var(--w-accent);
   z-index: 4;
 }
 

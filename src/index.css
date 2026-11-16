@@ -316,7 +316,7 @@ a.hover-lift {
 }
 a.hover-lift:hover {
   transform: translate(-2px, -2px);
-  box-shadow: 6px 6px 0 var(--w-ink);
+  box-shadow: 6px 6px 0 var(--w-shadow-c);
 }
 
 @media (prefers-reduced-motion: reduce) {

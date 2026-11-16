@@ -17,6 +17,8 @@ Feels wrong: hard to read fast, generic SaaS, awkward with thumbs.
 
 ## Direction contract
 
+Updated after the user's Warcraft round: the accent is Warcraft gold, not lime; the display face is Cinzel, not Press Start 2P; the level bar is a plain purple XP bar beside the route; Hero & matchup sits on top and folds. DESIGN.md is the current record of the system.
+
 THESIS: The plan as a 2002 Warcraft fan-site desktop: each part of the plan is its own titled window on grid paper, and the hero's level loads as a striped install bar. It refuses the dark gamer dashboard with gold accents that every Warcraft tool ships.
 
 OWN-WORLD: Cream grid-paper ground (#F3EEDF), forest-ink 2px borders and hard 4px offset shadows with no blur, white window bodies, lime (#BFEA4B) title bars and only on pressable or primary things, sky (#8EC9F2) title bars for reference windows. Sharp corners. Press Start 2P only in title bars, buttons, labels and the level number; Nunito for everything read. Few sizes, rank by weight and case, tabular numbers. Stop states by structure: filled cleared, dashed skipped, double rule level-up.

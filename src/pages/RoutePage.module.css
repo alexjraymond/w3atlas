@@ -16,7 +16,7 @@
   background: var(--w-sky);
   color: var(--w-on-accent);
 }
-.chip[data-tone='lime'] {
+.chip[data-tone='accent'] {
   background: var(--w-accent);
   color: var(--w-on-accent);
 }
