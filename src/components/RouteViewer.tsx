@@ -1,57 +1,84 @@
-import { useState, type ReactNode } from 'react'
-import { Anchor, Avatar, Badge, Button, Group, Stack, Text } from '@mantine/core'
-import { IconArrowLeft, IconExternalLink } from '@tabler/icons-react'
-import type { Build, Route } from '../types'
-import { MAP_BY_ID } from '../data/maps'
-import { href } from '../lib/router'
-import { CREEP_HELPER, HERO_BY_NAME, RACE_LABEL } from '../game/heroes'
-import type { Author } from '../cloud/types'
-import { MapCanvas } from './MapCanvas'
-import { AowPathList } from './AowPath'
-import { CreepRoute } from './CreepRoute'
-import { BuildOrder } from './BuildOrder'
-import { GameIcon } from './GameIcon'
-import { SkillGrid } from './SkillGrid'
-import { Win } from './Win'
-import { LevelBar } from './LevelBar'
-import chips from '../pages/RoutePage.module.css'
+import { useState, type ReactNode } from "react";
+import {
+  Anchor,
+  Avatar,
+  Badge,
+  Button,
+  Group,
+  Stack,
+  Text,
+} from "@mantine/core";
+import { IconArrowLeft, IconExternalLink } from "@tabler/icons-react";
+import type { Build, Route } from "../types";
+import { MAP_BY_ID } from "../data/maps";
+import { href } from "../lib/router";
+import { CREEP_HELPER, HERO_BY_NAME, RACE_LABEL } from "../game/heroes";
+import type { Author } from "../cloud/types";
+import { MapCanvas } from "./MapCanvas";
+import { AowPathList } from "./AowPath";
+import { CreepRoute } from "./CreepRoute";
+import { BuildOrder } from "./BuildOrder";
+import { GameIcon } from "./GameIcon";
+import { HeroMatchup } from "./HeroMatchup";
+import { Win } from "./Win";
+import { LevelBar } from "./LevelBar";
+import chips from "../pages/RoutePage.module.css";
 
-const ago = (t: number) => new Date(t).toLocaleDateString(undefined, { day: 'numeric', month: 'long', year: 'numeric' })
+const ago = (t: number) =>
+  new Date(t).toLocaleDateString(undefined, {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
 
 interface Props {
-  route: Route
-  build: Build | null | undefined
+  route: Route;
+  build: Build | null | undefined;
   /** buttons shown top-right (edit toggle, menu, rating summary...) */
-  actions?: ReactNode
+  actions?: ReactNode;
   /** who made it (public routes) */
-  author?: Author
+  author?: Author;
   /** link for the companion build, if it can be opened here */
-  buildHref?: string
+  buildHref?: string;
   /** extra content under the route (ratings, comments) */
-  children?: ReactNode
+  children?: ReactNode;
 }
 
 /** Read-only presentation of a route: header, level bar, map and stops, skill order, companion build. */
-export function RouteViewer({ route, build, actions, author, buildHref, children }: Props) {
-  const [activeStep, setActiveStep] = useState<string | null>(null)
-  const [expanded, setExpanded] = useState<Set<string>>(new Set())
-  const map = MAP_BY_ID[route.mapId]
-  if (!map) return null
-  const hero = route.hero ? HERO_BY_NAME[route.hero] : null
-  const allOpen = route.steps.length > 0 && route.steps.every((s) => expanded.has(s.id))
+export function RouteViewer({
+  route,
+  build,
+  actions,
+  author,
+  buildHref,
+  children,
+}: Props) {
+  const [activeStep, setActiveStep] = useState<string | null>(null);
+  const [expanded, setExpanded] = useState<Set<string>>(new Set());
+  const map = MAP_BY_ID[route.mapId];
+  if (!map) return null;
+  const hero = route.hero ? HERO_BY_NAME[route.hero] : null;
+  const allOpen =
+    route.steps.length > 0 && route.steps.every((s) => expanded.has(s.id));
 
   return (
-    <Stack gap="lg" px={{ base: 'xs', sm: 0 }}>
+    <Stack gap="lg" px={{ base: "xs", sm: 0 }}>
       <Group justify="space-between" align="flex-end" wrap="wrap" gap="md">
         <Stack gap={10} style={{ flex: 1, minWidth: 260 }}>
           <Group gap={6}>
-            <Anchor href={href.map(map.id)} className={chips.chip} data-tone="sky" underline="never">
+            <Anchor
+              href={href.map(map.id)}
+              className={chips.chip}
+              data-tone="sky"
+              underline="never"
+            >
               <IconArrowLeft size={14} stroke={2.5} />
-            {map.name}
+              {map.name}
             </Anchor>
             {route.race && (
-              <span className={chips.chip} data-tone="lime">
-                {RACE_LABEL[route.race]} vs {route.vs === 'any' ? 'any' : RACE_LABEL[route.vs]}
+              <span className={chips.chip} data-tone="accent">
+                {RACE_LABEL[route.race]} vs{" "}
+                {route.vs === "any" ? "any" : RACE_LABEL[route.vs]}
               </span>
             )}
             {hero && (
@@ -62,17 +89,23 @@ export function RouteViewer({ route, build, actions, author, buildHref, children
             )}
           </Group>
           <h1 className={chips.nameInput} style={{ margin: 0 }}>
-            {route.name || 'Untitled route'}
+            {route.name || "Untitled route"}
           </h1>
           {route.notes && (
-            <Text fw={700} maw="70ch" style={{ whiteSpace: 'pre-wrap' }}>
+            <Text fw={700} maw="70ch" style={{ whiteSpace: "pre-wrap" }}>
               {route.notes}
             </Text>
           )}
           <Group gap={8}>
             {author && (
               <Group gap={6}>
-                <Avatar src={author.avatarUrl} size={22} radius={0} alt={author.username} style={{ border: '2px solid var(--w-ink)' }}>
+                <Avatar
+                  src={author.avatarUrl}
+                  size={22}
+                  radius={0}
+                  alt={author.username}
+                  style={{ border: "2px solid var(--w-edge)" }}
+                >
                   {author.username.slice(0, 1).toUpperCase()}
                 </Avatar>
                 <Text size="sm" fw={900}>
@@ -93,11 +126,15 @@ export function RouteViewer({ route, build, actions, author, buildHref, children
         {actions}
       </Group>
 
-      <LevelBar map={map} route={route} />
+      <HeroMatchup route={route} />
 
       <div className={chips.split}>
         <Stack gap="md">
-          <Win title={`Map · ${map.name}`} tone="sky" bodyStyle={{ padding: 12 }}>
+          <Win
+            title={`Map · ${map.name}`}
+            tone="sky"
+            bodyStyle={{ padding: 12 }}
+          >
             <MapCanvas
               map={map}
               steps={route.steps}
@@ -110,38 +147,51 @@ export function RouteViewer({ route, build, actions, author, buildHref, children
             />
           </Win>
           {route.aowPath.length > 0 && <AowPathList path={route.aowPath} />}
-          {hero && route.skills.some(Boolean) && (
-            <Win title="Skill order" tone="white" right={<GameIcon name={hero.icon} size={20} />} bodyStyle={{ padding: 12 }}>
-              <SkillGrid hero={hero} skills={route.skills} />
-            </Win>
-          )}
         </Stack>
-        <Win
-          title="Route"
-          right={<span>{route.steps.length} stops</span>}
-          style={{ alignSelf: 'start' }}
-        >
-          {route.steps.length > 0 && (
-            <Group justify="space-between" px={12} py={8} style={{ borderBottom: '2px solid var(--w-ink)' }}>
-              <Text size="xs" c="dimmed" fw={700}>
-                Tap a stop for kill order and notes.
-              </Text>
-              <Button size="compact-sm" variant="subtle" onClick={() => setExpanded(allOpen ? new Set() : new Set(route.steps.map((s) => s.id)))}>
-                {allOpen ? 'Collapse all' : 'Expand all'}
-              </Button>
-            </Group>
-          )}
-          <CreepRoute
-            map={map}
-            route={route}
-            onStepsChange={() => {}}
-            activeStepId={activeStep}
-            onActiveStep={setActiveStep}
-            expanded={expanded}
-            onExpandedChange={setExpanded}
-            readOnly
-          />
-        </Win>
+        <Stack gap="md" style={{ alignSelf: "start" }}>
+          <LevelBar map={map} route={route} />
+          <Win
+            title="Route"
+            right={<span>{route.steps.length} stops</span>}
+            style={{ alignSelf: "start" }}
+          >
+            {route.steps.length > 0 && (
+              <Group
+                justify="space-between"
+                px={12}
+                py={8}
+                style={{ borderBottom: "2px solid var(--w-edge)" }}
+              >
+                <Text size="xs" c="dimmed" fw={700}>
+                  Tap a stop for kill order and notes.
+                </Text>
+                <Button
+                  size="compact-sm"
+                  variant="subtle"
+                  onClick={() =>
+                    setExpanded(
+                      allOpen
+                        ? new Set()
+                        : new Set(route.steps.map((s) => s.id)),
+                    )
+                  }
+                >
+                  {allOpen ? "Collapse all" : "Expand all"}
+                </Button>
+              </Group>
+            )}
+            <CreepRoute
+              map={map}
+              route={route}
+              onStepsChange={() => {}}
+              activeStepId={activeStep}
+              onActiveStep={setActiveStep}
+              expanded={expanded}
+              onExpandedChange={setExpanded}
+              readOnly
+            />
+          </Win>
+        </Stack>
       </div>
 
       <Win
@@ -185,5 +235,5 @@ export function RouteViewer({ route, build, actions, author, buildHref, children
 
       {children}
     </Stack>
-  )
+  );
 }

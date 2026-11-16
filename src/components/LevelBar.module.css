@@ -1,82 +1,61 @@
 .wrap {
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: auto 1fr;
   align-items: center;
-  gap: 16px;
-  padding: 12px 16px 10px;
+  gap: 4px 14px;
+  padding: 12px 14px 10px;
 }
 
 .level {
-  font-family: var(--w-pixel);
-  font-size: 20px;
+  font-family: var(--w-display);
+  font-weight: 900;
+  font-size: 26px;
   line-height: 1;
+  color: var(--w-xp);
   white-space: nowrap;
+}
+
+.sub {
+  grid-column: 2;
+  font-weight: 800;
+  font-size: 14px;
+  color: var(--w-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.barWrap {
+  min-width: 0;
 }
 
 .track {
   position: relative;
-  height: 24px;
+  height: 18px;
   border: var(--w-line);
-  background: var(--w-body);
-  box-shadow: var(--w-shadow-xs);
-  display: flex;
+  background: var(--w-xp-track);
   overflow: hidden;
 }
 
-/* each stop fills its own striped segment of the bar */
-.seg {
+.fill {
   height: 100%;
-  background: repeating-linear-gradient(45deg, var(--w-lime) 0 8px, var(--w-on-accent) 8px 10px);
-  border-right: 2px solid var(--w-on-accent);
-  position: relative;
+  background: var(--w-xp);
   transition: width 400ms cubic-bezier(0.22, 1, 0.36, 1);
-  animation: march 0.8s linear infinite;
-  animation-play-state: paused;
-}
-.seg[data-up] {
-  background: repeating-linear-gradient(45deg, #ffd43b 0 8px, var(--w-on-accent) 8px 10px);
-}
-.track:hover .seg {
-  animation-play-state: running;
-}
-@keyframes march {
-  to {
-    background-position: 14px 0;
-  }
 }
 
-.seg span {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  font-family: var(--w-pixel);
-  font-size: 8px;
-  color: var(--w-ink);
-}
-.seg span b {
-  background: var(--w-body);
-  border: 1.5px solid var(--w-ink);
-  padding: 2px 3px;
-  font-weight: 400;
-}
-
-/* level thresholds inside the bar's range */
 .tick {
   position: absolute;
-  top: -2px;
-  bottom: -2px;
+  top: 0;
+  bottom: 0;
   width: 0;
-  border-left: 2px dashed var(--w-ink);
-  z-index: 1;
+  border-left: 2px solid var(--w-edge);
 }
 
 .ticks {
   position: relative;
-  height: 14px;
-  margin-top: 4px;
-  font-family: var(--w-pixel);
-  font-size: 7px;
+  height: 15px;
+  margin-top: 3px;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--w-muted);
 }
 .ticks span {
   position: absolute;
@@ -84,55 +63,25 @@
   white-space: nowrap;
 }
 
-.xp {
-  font-weight: 900;
-  white-space: nowrap;
-  font-variant-numeric: tabular-nums;
-}
-.xp small {
-  display: block;
-  font-weight: 700;
-  color: var(--w-muted);
-  font-size: 13px;
-}
-
-@media (max-width: 640px) {
-  .wrap {
-    grid-template-columns: auto 1fr;
-    gap: 6px 12px;
-    padding: 10px 12px 8px;
-  }
-  .level {
-    font-size: 15px;
-  }
-  .xp {
-    grid-column: 1 / -1;
-    display: flex;
-    gap: 8px;
-    align-items: baseline;
-  }
-  .seg span {
-    display: none;
-  }
-}
-
+/* phone: one framed row so the map stays in the first screen */
 .compactBox {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px 2px;
   background: var(--w-body);
   border: var(--w-line);
   box-shadow: var(--w-shadow);
 }
-.wrap[data-compact] {
-  grid-template-columns: auto 1fr auto;
-  gap: 10px;
-  padding: 8px 10px 4px;
+.compactBox .level {
+  font-size: 18px;
 }
-.wrap[data-compact] .level {
-  font-size: 13px;
+.compactBox .track {
+  height: 14px;
 }
-.wrap[data-compact] .xp {
-  grid-column: auto;
+.xpShort {
+  font-weight: 900;
   font-size: 14px;
-}
-.wrap[data-compact] .track {
-  height: 18px;
+  font-variant-numeric: tabular-nums;
 }

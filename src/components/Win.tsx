@@ -1,30 +1,44 @@
 import type { CSSProperties, ReactNode } from 'react'
+import { IconChevronDown } from '@tabler/icons-react'
 import classes from './Win.module.css'
 
-/** A titled window: the building block of the Clan Site look. */
+/** A titled window: the building block of the Clan Site look. Pass `open` + `onToggle` to make it foldable. */
 export function Win({
   title,
-  tone = 'lime',
+  tone = 'accent',
   right,
   children,
   style,
   className,
   bodyStyle,
   as: Tag = 'section',
+  open,
+  onToggle,
 }: {
   title: ReactNode
-  tone?: 'lime' | 'sky' | 'white'
+  tone?: 'accent' | 'sky' | 'white'
   right?: ReactNode
   children: ReactNode
   style?: CSSProperties
   className?: string
   bodyStyle?: CSSProperties
   as?: 'section' | 'div' | 'aside'
+  open?: boolean
+  onToggle?: () => void
 }) {
+  const foldable = !!onToggle
+  const shown = !foldable || open !== false
   return (
     <Tag className={`${classes.win} ${className ?? ''}`} style={style}>
       <div className={classes.bar} data-tone={tone}>
-        <span className={classes.title}>{title}</span>
+        {foldable ? (
+          <button type="button" className={classes.fold} onClick={onToggle} aria-expanded={shown}>
+            <IconChevronDown size={18} stroke={2.5} className={classes.chev} data-open={shown || undefined} />
+            <span className={classes.title}>{title}</span>
+          </button>
+        ) : (
+          <span className={classes.title}>{title}</span>
+        )}
         {right && <span className={classes.right}>{right}</span>}
         <span className={classes.dots} aria-hidden>
           <i />
@@ -32,9 +46,11 @@ export function Win({
           <i />
         </span>
       </div>
-      <div className={classes.content} style={bodyStyle}>
-        {children}
-      </div>
+      {shown && (
+        <div className={classes.content} style={bodyStyle}>
+          {children}
+        </div>
+      )}
     </Tag>
   )
 }

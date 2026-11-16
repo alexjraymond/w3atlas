@@ -122,7 +122,7 @@ function HelperToggle({ route, step, onChange }: { route: Route; step: RouteStep
         {on ? ' ✓' : '?'}
       </Button>
       {on && helper.counted && (
-        <Group gap={0} wrap="nowrap" style={{ border: '1px solid var(--w-ink)', borderRadius: 6 }}>
+        <Group gap={0} wrap="nowrap" style={{ border: '1px solid var(--w-edge)', borderRadius: 6 }}>
           <ActionIcon size="md" variant="subtle" color="gray" onClick={() => setCount(count - 1)} aria-label={`One less ${helper.name}`}>
             <IconMinus size={14} />
           </ActionIcon>

@@ -35,11 +35,11 @@ export function Layout({ children }: { children: ReactNode }) {
               <Group gap={10} wrap="nowrap">
                 <span
                   aria-hidden
-                  style={{ width: 22, height: 22, background: 'var(--w-lime)', border: '2px solid var(--w-ink)', boxShadow: '2px 2px 0 var(--w-shadow-c)', display: 'grid', placeItems: 'center' }}
+                  style={{ width: 22, height: 22, background: 'var(--w-accent)', border: '2px solid var(--w-edge)', boxShadow: '2px 2px 0 var(--w-shadow-c)', display: 'grid', placeItems: 'center' }}
                 >
                   <IconMap2 size={14} stroke={2.4} color="var(--w-on-accent)" />
                 </span>
-                <Text ff="var(--w-pixel)" fz={13} style={{ whiteSpace: 'nowrap' }}>
+                <Text ff="var(--w-display)" fz={20} fw={900} style={{ whiteSpace: 'nowrap', letterSpacing: '0.04em' }}>
                   W3ATLAS
                 </Text>
               </Group>

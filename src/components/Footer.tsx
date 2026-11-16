@@ -15,7 +15,7 @@ const CREDITS: { name: string; what: string; url: string; sponsor?: string }[] =
 
 export function Footer() {
   return (
-    <Container size="xl" py="xl" mt="xl" style={{ borderTop: "2px solid var(--w-ink)" }}>
+    <Container size="xl" py="xl" mt="xl" style={{ borderTop: "2px solid var(--w-edge)" }}>
       <Group gap={6} mb={6}>
         <IconHeart size={14} color="var(--mantine-color-red-5)" />
         <Text size="xs" fw={700} c="dimmed" tt="uppercase">

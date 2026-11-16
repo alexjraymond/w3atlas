@@ -4,8 +4,8 @@ import { builds, useBuild, useRoutes } from '../store'
 import { href } from '../lib/router'
 import { RACE_LABEL } from '../game/heroes'
 import { BuildOrder } from '../components/BuildOrder'
-import { RacePicker } from '../components/HeroPanel'
-import { AgainstPicker, Label } from '../components/BuildFields'
+import { MatchupPicker } from '../components/HeroMatchup'
+import { Label } from '../components/BuildFields'
 import { RouteCard } from '../components/RouteCard'
 import { NotFound } from './NotFound'
 
@@ -78,12 +78,8 @@ export function BuildPage({ buildId }: { buildId: string }) {
         <Card withBorder padding="lg">
           <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="lg">
             <div>
-              <Label>Your race</Label>
-              <RacePicker value={build.race} onChange={(race) => patch({ race })} />
-            </div>
-            <div>
-              <Label>Against</Label>
-              <AgainstPicker value={build.vs} onChange={(vs) => patch({ vs })} />
+              <Label>Matchup · you vs. opponent</Label>
+              <MatchupPicker race={build.race} vs={build.vs} onChange={(p) => patch(p)} />
             </div>
             <TagsInput label="Tags" placeholder="footmen, fast expo… (Enter to add)" value={build.tags} onChange={(tags) => patch({ tags })} />
           </SimpleGrid>

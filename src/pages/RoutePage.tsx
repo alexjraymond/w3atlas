@@ -58,10 +58,9 @@ import { newStep, newWaypoint, uid } from "../game/route";
 import { CREEP_HELPER, RACE_LABEL } from "../game/heroes";
 import { downloadFile, fileSafe } from "../lib/files";
 import { MapCanvas } from "../components/MapCanvas";
-import { HeroPanel } from "../components/HeroPanel";
+import { HeroMatchup } from "../components/HeroMatchup";
 import { CreepRoute } from "../components/CreepRoute";
 import { BuildOrder } from "../components/BuildOrder";
-import { AgainstPicker, Label } from "../components/BuildFields";
 import { RouteViewer } from "../components/RouteViewer";
 import { cloud } from "../cloud";
 import { useAccount } from "../cloud/sync";
@@ -340,7 +339,7 @@ export function RoutePage({ routeId }: { routeId: string }) {
       p={12}
       pb={10}
       wrap="wrap"
-      style={{ borderBottom: "2px solid var(--w-ink)" }}
+      style={{ borderBottom: "2px solid var(--w-edge)" }}
     >
       <Button
         size="xs"
@@ -402,7 +401,7 @@ export function RoutePage({ routeId }: { routeId: string }) {
   const routeWindow = (
     <Win
       title="Route"
-      tone="lime"
+      tone="accent"
       right={<span>{route.steps.length} stops</span>}
       style={{ alignSelf: "start" }}
     >
@@ -413,7 +412,7 @@ export function RoutePage({ routeId }: { routeId: string }) {
         c="dimmed"
         px={12}
         py={10}
-        style={{ borderTop: "2px solid var(--w-ink)" }}
+        style={{ borderTop: "2px solid var(--w-edge)" }}
       >
         XP is what the hero earns at its level at that moment. A boxed group
         dies in any order.
@@ -421,70 +420,65 @@ export function RoutePage({ routeId }: { routeId: string }) {
     </Win>
   );
 
-  const setupWindow = (
-    <Win title="Hero and matchup" tone="sky">
+  const setupWindow = <HeroMatchup route={route} onChange={patch} />;
+
+  const detailsWindow = (
+    <Win title="Description & tags" tone="white">
       <SimpleGrid
         cols={{ base: 1, md: 2 }}
-        spacing="xl"
-        verticalSpacing="lg"
-        p={{ base: "sm", sm: "lg" }}
+        spacing="lg"
+        p={{ base: "sm", sm: "md" }}
       >
-        <HeroPanel route={route} onChange={patch} />
-        <Stack gap="md">
-          <div>
-            <Label>Against</Label>
-            <AgainstPicker value={route.vs} onChange={(vs) => patch({ vs })} />
-          </div>
-          <div>
-            <Label>Companion build</Label>
-            <Group gap="xs" wrap="nowrap">
-              <Select
-                style={{ flex: 1 }}
-                placeholder="None"
-                clearable
-                searchable
-                value={route.buildId}
-                onChange={(buildId) => patch({ buildId })}
-                data={allBuilds.map((b) => ({
-                  value: b.id,
-                  label: `${b.name}${b.race ? ` · ${RACE_LABEL[b.race]}` : ""}`,
-                }))}
-                nothingFoundMessage="No builds yet"
-              />
-              <Button
-                variant="light"
-                leftSection={<IconPlus size={14} />}
-                onClick={() => {
-                  const b = createBuild({
-                    name: `${route.name} build`,
-                    race: route.race,
-                    vs: route.vs,
-                  });
-                  patch({ buildId: b.id });
-                }}
-              >
-                New
-              </Button>
-            </Group>
-          </div>
-          <TagsInput
-            label="Tags"
-            placeholder="fast level 3, tower rush… (Enter to add)"
-            value={route.tags}
-            onChange={(tags) => patch({ tags })}
-          />
-          <Textarea
-            label="Description"
-            placeholder="What this route is for, timings, what to scout…"
-            autosize
-            minRows={2}
-            maxRows={10}
-            value={route.notes}
-            onChange={(e) => patch({ notes: e.currentTarget.value })}
-          />
-        </Stack>
+        <Textarea
+          label="Description"
+          placeholder="What this route is for, timings, what to scout…"
+          autosize
+          minRows={2}
+          maxRows={10}
+          value={route.notes}
+          onChange={(e) => patch({ notes: e.currentTarget.value })}
+        />
+        <TagsInput
+          label="Tags"
+          placeholder="fast level 3, tower rush… (Enter to add)"
+          value={route.tags}
+          onChange={(tags) => patch({ tags })}
+        />
       </SimpleGrid>
     </Win>
+  );
+
+  const buildPicker = (
+    <Group gap="xs" wrap="nowrap">
+      <Select
+        style={{ flex: 1 }}
+        placeholder="No companion build"
+        clearable
+        searchable
+        aria-label="Companion build"
+        value={route.buildId}
+        onChange={(buildId) => patch({ buildId })}
+        data={allBuilds.map((b) => ({
+          value: b.id,
+          label: `${b.name}${b.race ? ` · ${RACE_LABEL[b.race]}` : ""}`,
+        }))}
+        nothingFoundMessage="No builds yet"
+      />
+      <Button
+        variant="default"
+        leftSection={<IconPlus size={14} />}
+        onClick={() => {
+          const b = createBuild({
+            name: `${route.name} build`,
+            race: route.race,
+            vs: route.vs,
+          });
+          patch({ buildId: b.id });
+        }}
+      >
+        New
+      </Button>
+    </Group>
   );
 
   const buildSection = (
@@ -507,6 +501,7 @@ export function RoutePage({ routeId }: { routeId: string }) {
       }
     >
       <Stack gap="sm" p="md">
+        {buildPicker}
         {build ? (
           <>
             <Group justify="space-between" align="flex-start">
@@ -535,8 +530,7 @@ export function RoutePage({ routeId }: { routeId: string }) {
           </>
         ) : (
           <Text size="sm" c="dimmed">
-            Pick an existing build in Hero and matchup, or create one for this
-            route.
+            Pick an existing build above, or create one for this route.
           </Text>
         )}
       </Stack>
@@ -574,7 +568,7 @@ export function RoutePage({ routeId }: { routeId: string }) {
               {map.name}
             </Anchor>
             {route.race && (
-              <span className={chips.chip} data-tone="lime">
+              <span className={chips.chip} data-tone="accent">
                 {RACE_LABEL[route.race]} vs{" "}
                 {route.vs === "any" ? "any" : RACE_LABEL[route.vs]}
               </span>
@@ -605,7 +599,7 @@ export function RoutePage({ routeId }: { routeId: string }) {
     return (
       <Stack gap="md" px="xs" pb={96}>
         {header}
-        {!route.race && setupWindow}
+        {setupWindow}
         <LevelBar map={map} route={route} compact />
         <Win title={`Map · ${map.name}`} tone="sky" bodyStyle={{ padding: 6 }}>
           {mapCanvas}
@@ -614,8 +608,8 @@ export function RoutePage({ routeId }: { routeId: string }) {
           </Text>
         </Win>
         {aowEditor}
-        {route.race && setupWindow}
         {buildSection}
+        {detailsWindow}
 
         <nav className={chips.dock} aria-label="Route tools">
           <Button
@@ -669,15 +663,21 @@ export function RoutePage({ routeId }: { routeId: string }) {
           position="bottom"
           size="92%"
           title={
-            <span style={{ fontFamily: "var(--w-pixel)", fontSize: 10 }}>
+            <span
+              style={{
+                fontFamily: "var(--w-display)",
+                fontSize: 15,
+                fontWeight: 700,
+              }}
+            >
               Route · {route.steps.length} stops
             </span>
           }
           styles={{
             body: { padding: 0 },
             header: {
-              borderBottom: "2px solid var(--w-ink)",
-              background: "var(--w-lime)",
+              borderBottom: "2px solid var(--w-edge)",
+              background: "var(--w-accent)",
             },
           }}
         >
@@ -691,8 +691,7 @@ export function RoutePage({ routeId }: { routeId: string }) {
   return (
     <Stack gap="lg" px={{ base: "xs", sm: 0 }}>
       {header}
-      {!route.race && setupWindow}
-      <LevelBar map={map} route={route} />
+      {setupWindow}
       <div className={chips.split}>
         <Stack gap="md">
           <Win
@@ -707,10 +706,13 @@ export function RoutePage({ routeId }: { routeId: string }) {
           </Win>
           {aowEditor}
         </Stack>
-        {routeWindow}
+        <Stack gap="md">
+          <LevelBar map={map} route={route} />
+          {routeWindow}
+        </Stack>
       </div>
-      {route.race && setupWindow}
       {buildSection}
+      {detailsWindow}
     </Stack>
   );
 }

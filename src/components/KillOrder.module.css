@@ -4,7 +4,7 @@
   gap: 3px;
   padding: 4px;
   border-radius: 8px;
-  border: 1.5px solid var(--w-ink);
+  border: 1.5px solid var(--w-edge);
   background: rgba(255, 212, 59, 0.06);
 }
 
@@ -35,7 +35,7 @@
   padding: 0 4px;
   border-radius: 5px;
   background: var(--w-body);
-  border: 1px solid var(--w-ink);
+  border: 1px solid var(--w-edge);
   color: var(--w-ink);
   font-size: 11px;
   font-weight: 800;
@@ -53,7 +53,7 @@
   border-radius: 50%;
   display: grid;
   place-items: center;
-  background: var(--w-lime);
+  background: var(--w-accent);
   border: 1px solid var(--w-faint);
   color: var(--w-ink);
   z-index: 1;
@@ -61,7 +61,7 @@
 
 .merge:hover {
   color: var(--w-ink);
-  border-color: var(--w-ink);
+  border-color: var(--w-edge);
 }
 
 .creep {

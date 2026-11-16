@@ -3,25 +3,32 @@
 :root {
   --w-ground: #f3eedf;
   --w-ink: #1d2b1f;
-  --w-lime: #bfea4b;
+  /* Warcraft III gold: title bars, primary actions, level-ups */
+  --w-accent: #e2b33c;
+  /* mana blue: reference windows, waypoints, focus */
   --w-sky: #8ec9f2;
+  /* hero experience purple */
+  --w-xp: #8b3fd9;
+  --w-xp-track: #ece4f7;
   --w-body: #ffffff;
   --w-muted: #4f5b4a;
-  /* text on lime, sky and game colours: always dark, in both modes */
+  /* outlines: ink by day, bronze trim at night */
+  --w-edge: #1d2b1f;
+  /* text on gold, sky, pastel badges and game colours: always dark, in both modes */
   --w-on-accent: #1d2b1f;
   --w-shadow-c: #1d2b1f;
-  --w-wash: var(--w-wash);
-  --w-tint: #f7fce6;
+  --w-wash: #f6e6b4;
+  --w-tint: #fbf4df;
   --w-paper: #fbfaf5;
   --w-rule: #cfd5ca;
   --w-faint: #7c8577;
-  --w-disabled: var(--w-disabled);
-  --w-disabled-line: var(--w-disabled-line);
+  --w-disabled: #6d7568;
+  --w-disabled-line: #9aa395;
   --w-grid: rgba(29, 43, 31, 0.07);
   --w-aow-text: #2b8a3e;
   --w-sponsor: #a61e4d;
-  --w-pixel: 'Press Start 2P', ui-monospace, monospace;
-  --w-line: 2px solid var(--w-ink);
+  --w-display: 'Cinzel', 'Times New Roman', serif;
+  --w-line: 2px solid var(--w-edge);
   --w-shadow: 4px 4px 0 var(--w-shadow-c);
   --w-shadow-sm: 3px 3px 0 var(--w-shadow-c);
   --w-shadow-xs: 2px 2px 0 var(--w-shadow-c);
@@ -31,27 +38,29 @@
   --mantine-color-body: var(--w-ground);
   --mantine-color-text: var(--w-ink);
   --mantine-color-dimmed: var(--w-muted);
-  --mantine-color-default-border: var(--w-ink);
+  --mantine-color-default-border: var(--w-edge);
 }
 
-/* Night: the same clan site after dark. Forest-black desk, cream ink, lime and sky unchanged. */
+/* Night: forest-black desk, cream text, bronze trim like the game's own UI frames. */
 :root[data-mantine-color-scheme='dark'] {
   --w-ground: #121915;
   --w-ink: #ede7d6;
   --w-body: #1c261f;
   --w-muted: #aab4a5;
-  --w-wash: #2b3a1e;
-  --w-tint: #223020;
+  --w-edge: #a8833f;
+  --w-xp: #9d5cf0;
+  --w-xp-track: #221a30;
+  --w-wash: #3a301a;
+  --w-tint: #262414;
   --w-paper: #19221b;
   --w-rule: #3a463c;
   --w-faint: #87927f;
   --w-disabled: #87927f;
   --w-disabled-line: #4a564b;
-  --w-grid: rgba(191, 234, 75, 0.05);
+  --w-grid: rgba(226, 179, 60, 0.05);
   --w-aow-text: #8ce99a;
   --w-sponsor: #f783ac;
-  /* a mid-forest shadow: black would vanish into the night ground */
-  --w-shadow-c: #3a4a3a;
+  --w-shadow-c: #050806;
 }
 
 :root[data-mantine-color-scheme],
@@ -59,7 +68,7 @@
   --mantine-color-dimmed: var(--w-muted);
   --mantine-color-text: var(--w-ink);
   --mantine-color-body: var(--w-ground);
-  --mantine-color-default-border: var(--w-ink);
+  --mantine-color-default-border: var(--w-edge);
   --mantine-color-placeholder: var(--w-disabled);
 }
 
@@ -82,7 +91,7 @@ body {
 }
 
 ::selection {
-  background: var(--w-lime);
+  background: var(--w-accent);
   color: var(--w-on-accent);
 }
 
@@ -107,7 +116,7 @@ a {
   border-left: var(--w-line);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--w-lime);
+  background: var(--w-accent);
   border: var(--w-line);
 }
 
@@ -122,10 +131,10 @@ a {
 .mantine-Button-root:is([data-variant='filled'], [data-variant='default'], [data-variant='light'], [data-variant='outline']) {
   border: var(--w-line);
   box-shadow: var(--w-shadow-sm);
-  font-family: var(--w-pixel);
-  font-weight: 400;
-  font-size: 9px;
-  letter-spacing: 0.02em;
+  font-family: var(--w-display);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.03em;
   color: var(--w-ink);
   transition:
     transform 80ms linear,
@@ -209,7 +218,7 @@ a {
 }
 .mantine-Input-input:focus,
 .mantine-Input-input:focus-within {
-  border-color: var(--w-ink);
+  border-color: var(--w-edge);
   box-shadow: 2px 2px 0 var(--w-sky);
 }
 .mantine-Input-input::placeholder {
@@ -217,13 +226,12 @@ a {
   font-weight: 600;
 }
 .mantine-InputWrapper-label {
-  font-family: var(--w-pixel);
-  font-size: 9px;
-  font-weight: 400;
-  line-height: 1.6;
-  text-transform: uppercase;
+  font-family: var(--w-display);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.4;
   color: var(--w-ink);
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .mantine-SegmentedControl-root {
@@ -232,13 +240,14 @@ a {
   padding: 2px;
 }
 .mantine-SegmentedControl-indicator {
-  background: var(--w-lime);
+  background: var(--w-accent);
   border: var(--w-line);
   box-shadow: none;
 }
 .mantine-SegmentedControl-label {
-  font-family: var(--w-pixel);
-  font-size: 9px;
+  font-family: var(--w-display);
+  font-size: 12px;
+  font-weight: 700;
   color: var(--w-ink);
 }
 .mantine-SegmentedControl-label[data-active] {
@@ -277,8 +286,8 @@ a {
   background: var(--w-body);
 }
 .mantine-Switch-input:checked + .mantine-Switch-track {
-  background: var(--w-lime);
-  border-color: var(--w-ink);
+  background: var(--w-accent);
+  border-color: var(--w-edge);
 }
 .mantine-Switch-thumb {
   background: var(--w-body);
