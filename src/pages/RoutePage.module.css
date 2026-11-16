@@ -1,30 +1,28 @@
 .chip {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  padding: 3px 9px;
-  border: var(--w-line);
-  background: var(--w-body);
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 5px;
+  background: var(--w-wash);
   color: var(--w-ink);
+  font-family: var(--w-display);
   font-size: 12px;
-  font-weight: 900;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  font-weight: 600;
   text-decoration: none;
+  white-space: nowrap;
 }
 .chip[data-tone='sky'] {
-  background: var(--w-sky);
-  color: var(--w-on-accent);
+  color: var(--w-sky);
 }
 .chip[data-tone='accent'] {
-  background: var(--w-accent);
-  color: var(--w-on-accent);
+  color: var(--w-accent);
 }
 
 .nameInput {
   font-family: var(--w-display);
-  font-weight: 900;
-  font-size: clamp(22px, 4vw, 36px);
+  font-weight: 700;
+  font-size: clamp(20px, 3vw, 26px);
   line-height: 1.2;
   height: auto;
   min-height: 44px;
@@ -60,8 +58,9 @@
   display: flex;
   gap: 6px;
   padding: 8px;
-  background: var(--w-body);
+  background: var(--w-panel);
   border: var(--w-line);
+  border-radius: 12px;
   box-shadow: var(--w-shadow);
 }
 .dock :global(.mantine-Button-root) {
@@ -86,4 +85,31 @@
   .chipRow::-webkit-scrollbar {
     display: none;
   }
+}
+
+/* desktop HUD bar across the top of the map stage */
+.hud {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 14px;
+  background: var(--w-panel);
+  border: var(--w-line);
+  border-radius: var(--w-radius);
+  box-shadow: var(--w-shadow);
+}
+.hudName {
+  font-family: var(--w-display);
+  font-weight: 700;
+  font-size: 21px;
+  height: auto;
+  min-height: 30px;
+  line-height: 1.3;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--w-ink);
+}
+.hudName:focus {
+  box-shadow: 0 2px 0 var(--w-accent);
 }

@@ -3,65 +3,57 @@
   grid-template-columns: auto 1fr;
   align-items: center;
   gap: 4px 14px;
-  padding: 12px 14px 10px;
+  padding: 12px 14px;
 }
-
 .level {
   font-family: var(--w-display);
-  font-weight: 900;
+  font-weight: 700;
   font-size: 26px;
   line-height: 1;
   color: var(--w-xp);
   white-space: nowrap;
 }
-
 .sub {
   grid-column: 2;
-  font-weight: 800;
-  font-size: 14px;
+  font-weight: 700;
+  font-size: 13px;
   color: var(--w-muted);
   font-variant-numeric: tabular-nums;
 }
-
 .barWrap {
   min-width: 0;
 }
-
 .track {
   position: relative;
-  height: 18px;
-  border: var(--w-line);
+  height: 10px;
+  border-radius: 5px;
   background: var(--w-xp-track);
   overflow: hidden;
 }
-
 .fill {
   height: 100%;
+  border-radius: 5px;
   background: var(--w-xp);
   transition: width 400ms cubic-bezier(0.22, 1, 0.36, 1);
 }
-
-
-
-/* phone: one framed row so the map stays in the first screen */
 .compactBox {
   display: grid;
   grid-template-columns: auto 1fr auto;
   align-items: center;
-  gap: 10px;
-  padding: 8px 10px;
-  background: var(--w-body);
+  gap: 12px;
+  padding: 10px 12px;
+  background: var(--w-panel);
   border: var(--w-line);
+  border-radius: var(--w-radius);
   box-shadow: var(--w-shadow);
 }
 .compactBox .level {
-  font-size: 18px;
-}
-.compactBox .track {
-  height: 14px;
+  font-size: 20px;
 }
 .xpShort {
-  font-weight: 900;
+  font-family: var(--w-display);
+  font-weight: 600;
   font-size: 14px;
+  color: var(--w-muted);
   font-variant-numeric: tabular-nums;
 }

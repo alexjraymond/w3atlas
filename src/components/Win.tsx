@@ -2,7 +2,7 @@ import type { CSSProperties, ReactNode } from 'react'
 import { IconChevronDown } from '@tabler/icons-react'
 import classes from './Win.module.css'
 
-/** A titled window: the building block of the Clan Site look. Pass `open` + `onToggle` to make it foldable. */
+/** A HUD panel with a title row. Pass `open` + `onToggle` to make it foldable. */
 export function Win({
   title,
   tone = 'accent',
@@ -40,11 +40,6 @@ export function Win({
           <span className={classes.title}>{title}</span>
         )}
         {right && <span className={classes.right}>{right}</span>}
-        <span className={classes.dots} aria-hidden>
-          <i />
-          <i />
-          <i />
-        </span>
       </div>
       {shown && (
         <div className={classes.content} style={bodyStyle}>

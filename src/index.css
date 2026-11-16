@@ -1,39 +1,39 @@
-/* ---------- Clan Site 2002: the world ---------- */
+/* ---------- Map HUD: the world ---------- */
 
 :root {
-  --w-ground: #f3eedf;
-  --w-ink: #1d2b1f;
-  /* Warcraft III gold: title bars, primary actions, level-ups */
-  --w-accent: #e2b33c;
-  /* mana blue: reference windows, waypoints, focus */
-  --w-sky: #8ec9f2;
+  /* Map HUD: the map is the screen; panels float over it */
+  --w-ground: #e9ecf1;
+  --w-ink: #11151b;
+  /* route yellow: the hero path, primary actions, stop numbers */
+  --w-accent: #ffd43b;
+  /* mana blue: waypoints, focus */
+  --w-sky: #4dabf7;
   /* hero experience purple */
-  --w-xp: #8b3fd9;
-  --w-xp-track: #ece4f7;
+  --w-xp: #7c3aed;
+  --w-xp-track: #e7defa;
   --w-body: #ffffff;
-  --w-muted: #4f5b4a;
-  /* outlines: ink by day, bronze trim at night */
-  --w-edge: #1d2b1f;
-  /* text on gold, sky, pastel badges and game colours: always dark, in both modes */
-  --w-on-accent: #1d2b1f;
-  --w-shadow-c: #1d2b1f;
-  --w-wash: #f6e6b4;
-  --w-tint: #fbf4df;
-  --w-paper: #fbfaf5;
-  --w-rule: #cfd5ca;
-  --w-faint: #7c8577;
-  --w-disabled: #6d7568;
-  --w-disabled-line: #9aa395;
-  --w-grid: rgba(29, 43, 31, 0.07);
+  --w-panel: rgba(255, 255, 255, 0.95);
+  --w-muted: #5b6573;
+  --w-edge: #cfd6df;
+  --w-on-accent: #11151b;
+  --w-shadow-c: rgba(15, 20, 30, 0.18);
+  --w-wash: #f1f3f6;
+  --w-tint: #fff8db;
+  --w-paper: #f7f8fa;
+  --w-rule: #e3e7ec;
+  --w-faint: #8a95a5;
+  --w-disabled: #8a95a5;
+  --w-disabled-line: #cfd6df;
   --w-aow-text: #2b8a3e;
   --w-aow-wash: #ebfbee;
-  --w-sponsor: #a61e4d;
-  --w-display: 'Cinzel', 'Times New Roman', serif;
-  --w-line: 2px solid var(--w-edge);
-  --w-shadow: 4px 4px 0 var(--w-shadow-c);
-  --w-shadow-sm: 3px 3px 0 var(--w-shadow-c);
-  --w-shadow-xs: 2px 2px 0 var(--w-shadow-c);
-  /* hero path and AoW path: kept from the game-map language */
+  --w-sponsor: #c2255c;
+  --w-display: 'Chakra Petch', system-ui, sans-serif;
+  --w-radius: 8px;
+  --w-line: 1px solid var(--w-edge);
+  --w-shadow: 0 8px 24px var(--w-shadow-c);
+  --w-shadow-sm: 0 2px 8px var(--w-shadow-c);
+  --w-shadow-xs: 0 1px 2px var(--w-shadow-c);
+  /* hero path and AoW path: the game-map language */
   --w-path: #ffd43b;
   --w-aow: #8ce99a;
   --mantine-color-body: var(--w-ground);
@@ -42,27 +42,28 @@
   --mantine-color-default-border: var(--w-edge);
 }
 
-/* Night: forest-black desk, cream text, bronze trim like the game's own UI frames. */
+/* Dark (the default): near-black HUD panels over the map */
 :root[data-mantine-color-scheme='dark'] {
-  --w-ground: #121915;
-  --w-ink: #ede7d6;
-  --w-body: #1c261f;
-  --w-muted: #aab4a5;
-  --w-edge: #a8833f;
-  --w-xp: #9d5cf0;
-  --w-xp-track: #221a30;
-  --w-wash: #3a301a;
-  --w-tint: #262414;
-  --w-paper: #19221b;
-  --w-rule: #3a463c;
-  --w-faint: #87927f;
-  --w-disabled: #87927f;
-  --w-disabled-line: #4a564b;
-  --w-grid: rgba(226, 179, 60, 0.05);
-  --w-aow-text: #8ce99a;
-  --w-aow-wash: #17281b;
+  --w-ground: #07090c;
+  --w-ink: #eef1f4;
+  --w-body: #10141a;
+  --w-panel: rgba(10, 13, 18, 0.94);
+  --w-muted: #9aa4b2;
+  --w-edge: #2c3440;
+  --w-sky: #74c0fc;
+  --w-xp: #9b5cf6;
+  --w-xp-track: #241a35;
+  --w-shadow-c: rgba(0, 0, 0, 0.5);
+  --w-wash: #1b222c;
+  --w-tint: #2a2410;
+  --w-paper: #0c1015;
+  --w-rule: #1e252f;
+  --w-faint: #6b7686;
+  --w-disabled: #6b7686;
+  --w-disabled-line: #2c3440;
+  --w-aow-text: #6fdc8c;
+  --w-aow-wash: #0f2016;
   --w-sponsor: #f783ac;
-  --w-shadow-c: #050806;
 }
 
 :root[data-mantine-color-scheme],
@@ -84,10 +85,6 @@ body {
   margin: 0;
   color: var(--w-ink);
   background-color: var(--w-ground);
-  background-image:
-    linear-gradient(var(--w-grid) 1px, transparent 1px),
-    linear-gradient(90deg, var(--w-grid) 1px, transparent 1px);
-  background-size: 32px 32px;
   font-variant-numeric: tabular-nums;
   -webkit-font-smoothing: antialiased;
 }
@@ -107,67 +104,66 @@ a {
 }
 
 * {
-  scrollbar-color: var(--w-ink) var(--w-ground);
+  scrollbar-color: var(--w-edge) transparent;
 }
 ::-webkit-scrollbar {
   width: 12px;
   height: 12px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--w-ground);
-  border-left: var(--w-line);
+  background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--w-accent);
-  border: var(--w-line);
+  background: var(--w-edge);
+  border-radius: 6px;
+  border: 3px solid transparent;
+  background-clip: padding-box;
 }
 
 /* ---------- Mantine components in the world's vocabulary ---------- */
 
 .mantine-AppShell-header {
-  background: var(--w-body);
+  background: var(--w-panel);
   border-bottom: var(--w-line);
 }
 
-/* buttons: outlined, hard shadow, pixel label, press down into the shadow */
+/* buttons: compact HUD controls; yellow fill for the primary action */
 .mantine-Button-root:is([data-variant='filled'], [data-variant='default'], [data-variant='light'], [data-variant='outline']) {
   border: var(--w-line);
-  box-shadow: var(--w-shadow-sm);
+  border-radius: 6px;
   font-family: var(--w-display);
-  font-weight: 700;
-  font-size: 12px;
-  letter-spacing: 0.03em;
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.02em;
   color: var(--w-ink);
   transition:
-    transform 80ms linear,
-    box-shadow 80ms linear;
+    transform 80ms ease-out,
+    background-color 120ms ease-out;
 }
 .mantine-Button-root[data-variant='default'],
-.mantine-Button-root[data-variant='outline'] {
-  background: var(--w-body);
-}
-.mantine-Button-root[data-variant='filled']:not(:disabled, [data-disabled]) {
-  color: var(--w-on-accent);
-}
+.mantine-Button-root[data-variant='outline'],
 .mantine-Button-root[data-variant='light'] {
   background: var(--w-wash);
 }
-.mantine-Button-root:is([data-variant='filled'], [data-variant='default'], [data-variant='light'], [data-variant='outline']):not(:disabled, [data-disabled]):active {
-  transform: translate(3px, 3px);
-  box-shadow: none;
+.mantine-Button-root[data-variant='filled']:not(:disabled, [data-disabled]) {
+  background: var(--w-accent);
+  border-color: var(--w-accent);
+  color: var(--w-on-accent);
 }
-.mantine-Button-root:is([data-variant='filled'], [data-variant='default'], [data-variant='light'], [data-variant='outline']):not(:disabled, [data-disabled]):hover {
-  filter: brightness(1.04);
+.mantine-Button-root:is([data-variant='filled'], [data-variant='default'], [data-variant='light'], [data-variant='outline']):not(:disabled, [data-disabled]):active {
+  transform: translateY(1px);
+}
+.mantine-Button-root:is([data-variant='default'], [data-variant='light'], [data-variant='outline']):not(:disabled, [data-disabled]):hover {
+  border-color: var(--w-faint);
 }
 .mantine-Button-root:is(:disabled, [data-disabled]) {
-  box-shadow: none;
-  border-style: dashed;
   border-color: var(--w-disabled-line);
   color: var(--w-disabled);
   background: transparent;
 }
 .mantine-Button-root[data-variant='subtle'] {
-  font-weight: 800;
+  font-family: var(--w-display);
+  font-weight: 600;
   color: var(--w-ink);
 }
 
@@ -175,31 +171,29 @@ a {
   background: transparent;
   color: var(--w-faint);
   border-color: transparent;
-  box-shadow: none;
 }
 
 .mantine-ActionIcon-root[data-variant='default'] {
   border: var(--w-line);
-  box-shadow: var(--w-shadow-xs);
-  background: var(--w-body);
+  border-radius: 6px;
+  background: var(--w-wash);
   color: var(--w-ink);
 }
-.mantine-ActionIcon-root[data-variant='default']:active {
-  transform: translate(2px, 2px);
-  box-shadow: none;
-}
 
-/* cards and papers become flat windows */
+/* cards and papers become HUD panels */
 .mantine-Card-root,
 .mantine-Paper-root[data-with-border] {
-  background: var(--w-body);
+  background: var(--w-panel);
   border: var(--w-line);
-  box-shadow: var(--w-shadow);
+  border-radius: var(--w-radius);
+  box-shadow: var(--w-shadow-sm);
 }
 
 .mantine-Badge-root {
-  border: var(--w-line);
-  font-weight: 900;
+  border: 0;
+  border-radius: 4px;
+  font-family: var(--w-display);
+  font-weight: 600;
   letter-spacing: 0.04em;
 }
 .mantine-Badge-root[data-variant='light'],
@@ -208,20 +202,19 @@ a {
   color: var(--w-ink);
 }
 .mantine-Badge-root[data-variant='default'] {
-  background: var(--w-body);
+  background: var(--w-wash);
 }
 
 .mantine-Input-input {
   border: var(--w-line);
-  box-shadow: var(--w-shadow-xs);
-  background: var(--w-body);
+  border-radius: 6px;
+  background: var(--w-paper);
   color: var(--w-ink);
-  font-weight: 700;
+  font-weight: 600;
 }
 .mantine-Input-input:focus,
 .mantine-Input-input:focus-within {
-  border-color: var(--w-edge);
-  box-shadow: 2px 2px 0 var(--w-sky);
+  border-color: var(--w-sky);
 }
 .mantine-Input-input::placeholder {
   color: var(--w-disabled);
@@ -229,27 +222,29 @@ a {
 }
 .mantine-InputWrapper-label {
   font-family: var(--w-display);
-  font-size: 13px;
-  font-weight: 700;
-  line-height: 1.4;
-  color: var(--w-ink);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--w-muted);
   margin-bottom: 6px;
 }
 
 .mantine-SegmentedControl-root {
   border: var(--w-line);
-  background: var(--w-body);
+  border-radius: 6px;
+  background: var(--w-wash);
   padding: 2px;
 }
 .mantine-SegmentedControl-indicator {
   background: var(--w-accent);
-  border: var(--w-line);
+  border-radius: 4px;
   box-shadow: none;
 }
 .mantine-SegmentedControl-label {
   font-family: var(--w-display);
   font-size: 12px;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--w-ink);
 }
 .mantine-SegmentedControl-label[data-active] {
@@ -262,6 +257,7 @@ a {
 .mantine-Combobox-dropdown {
   background: var(--w-body);
   border: var(--w-line);
+  border-radius: var(--w-radius);
   box-shadow: var(--w-shadow);
   color: var(--w-ink);
 }
@@ -281,6 +277,8 @@ a {
 .mantine-Tooltip-tooltip {
   background: var(--w-ink);
   color: var(--w-ground);
+  border-radius: 4px;
+  font-weight: 600;
 }
 
 .mantine-Switch-track {
@@ -289,36 +287,29 @@ a {
 }
 .mantine-Switch-input:checked + .mantine-Switch-track {
   background: var(--w-accent);
-  border-color: var(--w-edge);
+  border-color: var(--w-accent);
 }
 .mantine-Switch-thumb {
   background: var(--w-body);
 }
-.mantine-Switch-thumb {
-  border: var(--w-line);
-  border-radius: 0;
-}
 .mantine-Switch-label {
-  font-weight: 800;
+  font-weight: 600;
 }
 
-.mantine-Drawer-header,
-.mantine-Drawer-close {
-  color: var(--w-on-accent);
-}
 .mantine-Drawer-content {
   border-top: var(--w-line);
-  background: var(--w-ground);
+  border-radius: 12px 12px 0 0;
+  background: var(--w-body);
 }
 
 a.hover-lift {
   transition:
-    transform 80ms linear,
-    box-shadow 80ms linear;
+    transform 120ms ease-out,
+    border-color 120ms ease-out;
 }
 a.hover-lift:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: 6px 6px 0 var(--w-shadow-c);
+  transform: translateY(-2px);
+  border-color: var(--w-accent);
 }
 
 @media (prefers-reduced-motion: reduce) {

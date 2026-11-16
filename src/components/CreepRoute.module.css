@@ -5,64 +5,55 @@
 
 .stop {
   border-top: var(--w-line);
-  background: var(--w-body);
-  transition: background 120ms linear;
+  transition: background 120ms ease-out;
 }
 .list > .stop:first-child {
   border-top: 0;
 }
 
-/* a stop that levels the hero up starts with a double rule */
-.stop[data-up] {
-  border-top: 6px double var(--w-edge);
-}
-.list > .stop[data-up]:first-child {
-  border-top: 0;
-}
-
 .stop[data-active] {
-  background: var(--w-tint);
+  background: var(--w-wash);
 }
 .stop[data-open] {
   background: var(--w-paper);
 }
 .stop[data-over] {
-  box-shadow: inset 0 3px 0 var(--w-accent);
+  box-shadow: inset 0 2px 0 var(--w-accent);
 }
 
 .row {
   display: flex;
   align-items: flex-start;
   gap: 10px;
-  padding: 10px 12px;
+  padding: 10px 14px;
 }
 
-/* the stop number: its fill is the stop's state */
+/* the stop number, matching its marker on the map: yellow = cleared, dashed = creeps skipped,
+   blue = waypoint; a purple ring marks a level-up */
 .num {
   flex: none;
-  width: 34px;
-  height: 34px;
+  width: 28px;
+  height: 28px;
+  margin-top: 1px;
   display: grid;
   place-items: center;
-  border: var(--w-line);
-  background: var(--w-ink);
-  color: var(--w-body);
-  font-family: var(--w-display);
-  font-weight: 900;
-  font-size: 16px;
-}
-.num[data-state='up'] {
+  border-radius: 50%;
   background: var(--w-accent);
   color: var(--w-on-accent);
+  font-family: var(--w-display);
+  font-weight: 700;
+  font-size: 14px;
+}
+.num[data-state='up'] {
+  box-shadow: 0 0 0 2px var(--w-panel), 0 0 0 4px var(--w-xp);
 }
 .num[data-state='partial'] {
-  background: var(--w-body);
-  color: var(--w-ink);
-  border-style: dashed;
+  background: transparent;
+  color: var(--w-accent);
+  border: 2px dashed var(--w-accent);
 }
 .num[data-state='waypoint'] {
   background: var(--w-sky);
-  color: var(--w-on-accent);
 }
 
 .grip {
@@ -78,8 +69,8 @@
 }
 
 .title {
-  font-weight: 900;
-  font-size: 16px;
+  font-weight: 800;
+  font-size: 15px;
   line-height: 1.3;
 }
 
@@ -92,7 +83,9 @@
 .xp {
   text-align: right;
   white-space: nowrap;
-  font-weight: 900;
+  font-family: var(--w-display);
+  font-size: 15px;
+  font-weight: 700;
   font-variant-numeric: tabular-nums;
 }
 .xp small {
@@ -104,13 +97,13 @@
 
 .levelTag {
   display: inline-block;
-  padding: 2px 6px;
-  background: var(--w-accent);
-  color: var(--w-on-accent);
-  border: var(--w-line);
+  padding: 1px 7px;
+  border-radius: 4px;
+  background: var(--w-xp-track);
+  color: var(--w-xp);
   font-family: var(--w-display);
   font-weight: 700;
-  font-size: 11px;
+  font-size: 12px;
 }
 
 .tools {
@@ -130,14 +123,14 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 5px 12px 5px 56px;
-  border-top: 2px dashed var(--w-aow-text);
+  padding: 6px 14px 6px 52px;
+  border-top: var(--w-line);
   background: var(--w-aow-wash);
 }
 .aowLabel {
   flex: none;
   font-family: var(--w-display);
-  font-weight: 900;
+  font-weight: 700;
   font-size: 12px;
   color: var(--w-aow-text);
 }
@@ -150,8 +143,9 @@
   min-width: 0;
   height: 30px;
   padding: 0 8px;
-  border: 1.5px solid var(--w-aow-text);
-  background: var(--w-body);
+  border: 1px solid color-mix(in srgb, var(--w-aow-text) 45%, transparent);
+  border-radius: 5px;
+  background: var(--w-paper);
   color: var(--w-ink);
   font: inherit;
   font-size: 14px;

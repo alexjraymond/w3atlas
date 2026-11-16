@@ -1,0 +1,67 @@
+/* The route page's first screen: the map fills it, panels float over a darkened copy of the map. */
+.stage {
+  position: relative;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-top: calc(-1 * var(--mantine-spacing-md));
+  height: calc(100dvh - 56px);
+  min-height: 640px;
+  overflow: hidden;
+  background: #05070a;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  isolation: isolate;
+}
+
+.backdrop {
+  position: absolute;
+  inset: -60px;
+  z-index: -1;
+  background-position: center;
+  background-size: cover;
+  filter: blur(18px) saturate(0.85) brightness(0.32);
+  transform: scale(1.05);
+}
+
+.top {
+  margin: 12px 12px 0;
+}
+
+.body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) var(--side, 440px);
+  gap: 12px;
+  padding: 12px;
+  min-height: 0;
+}
+
+/* the map keeps its aspect and fits the free area; every camp stays visible and clickable */
+.mapArea {
+  container-type: size;
+  min-height: 0;
+  display: grid;
+  place-items: center;
+}
+.mapBox {
+  /* leave room for the legend under the map */
+  width: min(100cqw, calc((100cqh - 40px) * var(--ar)));
+}
+
+.side {
+  min-height: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-right: 2px;
+}
+/* panels keep their height; the column scrolls instead of squashing them */
+.side > * {
+  flex: none;
+}
+
+@media (max-width: 75em) {
+  .body {
+    --side: 380px;
+  }
+}

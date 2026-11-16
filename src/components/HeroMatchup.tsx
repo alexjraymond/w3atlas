@@ -149,6 +149,7 @@ export function HeroMatchup({ route, onChange }: { route: Route; onChange?: (pat
 
   return (
     <Win title={<>Hero &amp; matchup{!open && summary}</>} tone="sky" open={open} onToggle={toggle}>
+      <div className={classes.host}>
       <div className={classes.grid}>
         <div className={classes.block}>
           <div className={classes.cap}>
@@ -221,6 +222,7 @@ export function HeroMatchup({ route, onChange }: { route: Route; onChange?: (pat
             </Text>
           )}
         </div>
+      </div>
       </div>
     </Win>
   )

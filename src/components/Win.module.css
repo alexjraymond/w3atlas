@@ -1,53 +1,42 @@
+/* a HUD panel: dark (or light) plate with a quiet title row */
 .win {
-  background: var(--w-body);
+  background: var(--w-panel);
   border: var(--w-line);
+  border-radius: var(--w-radius);
   box-shadow: var(--w-shadow);
   min-width: 0;
-  animation: spawn 220ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
-}
-
-@keyframes spawn {
-  from {
-    transform: scale(0.97);
-    opacity: 0;
-  }
+  overflow: hidden;
 }
 
 .bar {
   display: flex;
   align-items: center;
-  gap: 10px;
-  min-height: 32px;
   flex-wrap: wrap;
   row-gap: 4px;
-  padding: 4px 10px;
-  background: var(--w-accent);
-  color: var(--w-on-accent);
-  border-bottom: var(--w-line);
-  margin-bottom: -2px;
+  gap: 10px;
+  min-height: 44px;
+  padding: 6px 14px;
   font-family: var(--w-display);
-  font-size: 14px;
-  font-weight: 700;
-  line-height: 1.3;
-  letter-spacing: 0.04em;
-  position: relative;
-}
-
-/* faint scanlines on the title bar */
-.bar::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(transparent 0 2px, rgba(255, 255, 255, 0.12) 2px 4px);
-  pointer-events: none;
-}
-
-.bar[data-tone='sky'] {
-  background: var(--w-sky);
-}
-.bar[data-tone='white'] {
-  background: var(--w-body);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
   color: var(--w-ink);
+}
+
+/* tone marks the panel with a small coloured tab, not a filled bar */
+.bar::before {
+  content: '';
+  width: 4px;
+  height: 16px;
+  border-radius: 2px;
+  background: var(--w-faint);
+  flex: none;
+}
+.bar[data-tone='accent']::before {
+  background: var(--w-accent);
+}
+.bar[data-tone='sky']::before {
+  background: var(--w-sky);
 }
 
 .title {
@@ -62,21 +51,10 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  position: relative;
-  z-index: 1;
   font-family: var(--mantine-font-family);
   font-size: 13px;
-  text-transform: none;
-}
-
-.dots {
-  display: flex;
-  gap: 4px;
-}
-.dots i {
-  width: 10px;
-  height: 10px;
-  border: 1.5px solid currentColor;
+  font-weight: 700;
+  color: var(--w-muted);
 }
 
 .content {
@@ -98,11 +76,10 @@
   letter-spacing: inherit;
   text-align: left;
   cursor: pointer;
-  position: relative;
-  z-index: 1;
 }
 .chev {
   flex: none;
+  color: var(--w-muted);
   transform: rotate(-90deg);
   transition: transform 160ms cubic-bezier(0.22, 1, 0.36, 1);
 }

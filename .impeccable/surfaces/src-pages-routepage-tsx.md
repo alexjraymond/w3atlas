@@ -17,6 +17,8 @@ Feels wrong: hard to read fast, generic SaaS, awkward with thumbs.
 
 ## Direction contract
 
+Replaced again (user choice from a four-sketch round): Map-first overlay. The map owns the first screen on a darkened copy of itself; a HUD bar runs across the top; Hero & matchup, the purple XP bar and the route float in a right column. Dark HUD panels by default, light panels in day mode; Chakra Petch for headings and numbers, Hanken Grotesk for reading; route yellow for actions and stop numbers. DESIGN.md is the current record.
+
 Updated after the user's Warcraft round: the accent is Warcraft gold, not lime; the display face is Cinzel, not Press Start 2P; the level bar is a plain purple XP bar beside the route; Hero & matchup sits on top and folds. DESIGN.md is the current record of the system.
 
 THESIS: The plan as a 2002 Warcraft fan-site desktop: each part of the plan is its own titled window on grid paper, and the hero's level loads as a striped install bar. It refuses the dark gamer dashboard with gold accents that every Warcraft tool ships.

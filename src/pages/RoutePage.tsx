@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import { useMediaQuery } from "@mantine/hooks";
 import { Win } from "../components/Win";
 import { LevelBar } from "../components/LevelBar";
+import { MapStage } from "../components/MapStage";
 import chips from "./RoutePage.module.css";
 import {
   ActionIcon,
@@ -18,6 +19,7 @@ import {
   Stack,
   Switch,
   TagsInput,
+  TextInput,
   Text,
   Textarea,
   Tooltip,
@@ -652,31 +654,49 @@ export function RoutePage({ routeId }: { routeId: string }) {
       </Stack>
     );
 
-  // ---------- edit mode, desktop ----------
-  return (
-    <Stack gap="lg" px={{ base: "xs", sm: 0 }}>
-      {header}
-      {setupWindow}
-      <div className={chips.split}>
-        <Stack gap="md">
-          <Win
-            title={`Map · ${map.name}`}
-            tone="sky"
-            bodyStyle={{ padding: 12 }}
-          >
-            {mapCanvas}
-            <Text size="sm" fw={700} c="dimmed" mt={8}>
-              {hint}
-            </Text>
-          </Win>
-          </Stack>
-        <Stack gap="md">
-          <LevelBar map={map} route={route} />
-          {routeWindow}
-        </Stack>
+  // ---------- edit mode, desktop: the map owns the first screen, the plan floats beside it ----------
+  const hud = (
+    <div className={chips.hud}>
+      <Anchor href={href.map(map.id)} className={chips.chip} data-tone="sky" underline="never">
+        <IconArrowLeft size={14} stroke={2.5} />
+        {map.name}
+      </Anchor>
+      <div style={{ flex: 1, minWidth: 220 }}>
+        <TextInput
+          variant="unstyled"
+          value={route.name}
+          placeholder="Name this route"
+          onChange={(e) => patch({ name: e.currentTarget.value })}
+          classNames={{ input: chips.hudName }}
+          aria-label="Route name"
+        />
+        <Text size="xs" c="dimmed" fw={600} truncate>
+          {hint}
+        </Text>
       </div>
-      {buildSection}
-      {detailsWindow}
-    </Stack>
+      {actions}
+    </div>
+  );
+
+  return (
+    <>
+      <MapStage
+        map={map}
+        top={hud}
+        side={
+          <>
+            {setupWindow}
+            <LevelBar map={map} route={route} />
+            {routeWindow}
+          </>
+        }
+      >
+        {mapCanvas}
+      </MapStage>
+      <Stack gap="lg" mt="lg">
+        {buildSection}
+        {detailsWindow}
+      </Stack>
+    </>
   );
 }
