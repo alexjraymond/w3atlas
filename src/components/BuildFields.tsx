@@ -5,7 +5,7 @@ import { GameIcon } from './GameIcon'
 
 export function Label({ children }: { children: React.ReactNode }) {
   return (
-    <Text size="xs" fw={700} c="dimmed" tt="uppercase" mb={6} style={{ letterSpacing: 1 }}>
+    <Text size="xs" fw={900} c="dimmed" tt="uppercase" mb={6} style={{ letterSpacing: '0.08em' }}>
       {children}
     </Text>
   )
@@ -28,8 +28,8 @@ export function AgainstPicker({ value, onChange }: { value: Matchup; onChange: (
               borderRadius: '50%',
               display: 'grid',
               placeItems: 'center',
-              border: `2px solid ${value === o.id ? 'var(--mantine-color-yellow-5)' : 'var(--mantine-color-dark-4)'}`,
-              background: 'var(--mantine-color-dark-7)',
+              border: `2px solid ${value === o.id ? 'var(--w-ink)' : 'var(--w-ink)'}`,
+              background: 'var(--w-body)',
               fontWeight: 800,
               fontSize: 18,
               color: 'var(--mantine-color-dimmed)',

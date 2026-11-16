@@ -4,7 +4,7 @@
   gap: 3px;
   padding: 4px;
   border-radius: 8px;
-  border: 1.5px solid var(--mantine-color-yellow-6);
+  border: 1.5px solid var(--w-ink);
   background: rgba(255, 212, 59, 0.06);
 }
 
@@ -17,7 +17,7 @@
 
 .box[data-rest] {
   border-style: dashed;
-  border-color: var(--mantine-color-dark-2);
+  border-color: var(--w-muted);
   background: transparent;
 }
 
@@ -34,9 +34,9 @@
   height: 18px;
   padding: 0 4px;
   border-radius: 5px;
-  background: var(--mantine-color-dark-7);
-  border: 1px solid var(--mantine-color-yellow-6);
-  color: var(--mantine-color-yellow-4);
+  background: var(--w-body);
+  border: 1px solid var(--w-ink);
+  color: var(--w-ink);
   font-size: 11px;
   font-weight: 800;
   display: grid;
@@ -53,15 +53,15 @@
   border-radius: 50%;
   display: grid;
   place-items: center;
-  background: var(--mantine-color-dark-5);
-  border: 1px solid var(--mantine-color-dark-3);
-  color: var(--mantine-color-gray-4);
+  background: var(--w-lime);
+  border: 1px solid #7c8577;
+  color: var(--w-ink);
   z-index: 1;
 }
 
 .merge:hover {
-  color: var(--mantine-color-yellow-4);
-  border-color: var(--mantine-color-yellow-6);
+  color: var(--w-ink);
+  border-color: var(--w-ink);
 }
 
 .creep {
@@ -86,6 +86,6 @@
 }
 
 .num[data-muted] {
-  border-color: var(--mantine-color-dark-3);
+  border-color: #7c8577;
   color: var(--mantine-color-dimmed);
 }

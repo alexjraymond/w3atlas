@@ -70,7 +70,7 @@ export function BuildPage({ buildId }: { buildId: string }) {
 
       {readOnly ? (
         build.notes && (
-          <Text c="gray.4" style={{ whiteSpace: 'pre-wrap' }}>
+          <Text c="dimmed" style={{ whiteSpace: 'pre-wrap' }}>
             {build.notes}
           </Text>
         )

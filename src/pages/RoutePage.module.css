@@ -1,0 +1,66 @@
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 9px;
+  border: var(--w-line);
+  background: var(--w-body);
+  color: var(--w-ink);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+.chip[data-tone='sky'] {
+  background: var(--w-sky);
+}
+.chip[data-tone='lime'] {
+  background: var(--w-lime);
+}
+
+.nameInput {
+  font-family: var(--w-pixel);
+  font-size: clamp(16px, 3.2vw, 24px);
+  line-height: 1.5;
+  height: auto;
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  box-shadow: none;
+  background: transparent;
+}
+.nameInput:focus {
+  box-shadow: 0 3px 0 var(--w-lime);
+}
+
+.split {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(360px, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+
+@media (max-width: 62em) {
+  .split {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* phone: primary actions within thumb reach */
+.dock {
+  position: fixed;
+  left: 8px;
+  right: 8px;
+  bottom: calc(8px + env(safe-area-inset-bottom));
+  z-index: 150;
+  display: flex;
+  gap: 6px;
+  padding: 8px;
+  background: var(--w-body);
+  border: var(--w-line);
+  box-shadow: var(--w-shadow);
+}
+.dock :global(.mantine-Button-root) {
+  height: 46px;
+}

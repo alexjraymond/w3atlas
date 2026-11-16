@@ -1,3 +1,26 @@
+/* ---------- Clan Site 2002: the world ---------- */
+
+:root {
+  --w-ground: #f3eedf;
+  --w-ink: #1d2b1f;
+  --w-lime: #bfea4b;
+  --w-sky: #8ec9f2;
+  --w-body: #ffffff;
+  --w-muted: #4f5b4a;
+  --w-pixel: 'Press Start 2P', ui-monospace, monospace;
+  --w-line: 2px solid var(--w-ink);
+  --w-shadow: 4px 4px 0 var(--w-ink);
+  --w-shadow-sm: 3px 3px 0 var(--w-ink);
+  --w-shadow-xs: 2px 2px 0 var(--w-ink);
+  /* hero path and AoW path: kept from the game-map language */
+  --w-path: #ffd43b;
+  --w-aow: #8ce99a;
+  --mantine-color-body: var(--w-ground);
+  --mantine-color-text: var(--w-ink);
+  --mantine-color-dimmed: var(--w-muted);
+  --mantine-color-default-border: var(--w-ink);
+}
+
 html,
 body,
 #root {
@@ -6,12 +29,212 @@ body,
 
 body {
   margin: 0;
+  color: var(--w-ink);
+  background-color: var(--w-ground);
+  background-image:
+    linear-gradient(rgba(29, 43, 31, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(29, 43, 31, 0.07) 1px, transparent 1px);
+  background-size: 32px 32px;
+  font-variant-numeric: tabular-nums;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--w-lime);
+  color: var(--w-ink);
+}
+
+:focus-visible {
+  outline: 3px solid var(--w-sky);
+  outline-offset: 2px;
+}
+
+a {
+  text-underline-offset: 3px;
+}
+
+* {
+  scrollbar-color: var(--w-ink) var(--w-ground);
+}
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+::-webkit-scrollbar-track {
+  background: var(--w-ground);
+  border-left: var(--w-line);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--w-lime);
+  border: var(--w-line);
+}
+
+/* ---------- Mantine components in the world's vocabulary ---------- */
+
+.mantine-AppShell-header {
+  background: var(--w-body);
+  border-bottom: var(--w-line);
+}
+
+/* buttons: outlined, hard shadow, pixel label, press down into the shadow */
+.mantine-Button-root:is([data-variant='filled'], [data-variant='default'], [data-variant='light'], [data-variant='outline']) {
+  border: var(--w-line);
+  box-shadow: var(--w-shadow-sm);
+  font-family: var(--w-pixel);
+  font-weight: 400;
+  font-size: 9px;
+  letter-spacing: 0.02em;
+  color: var(--w-ink);
+  transition:
+    transform 80ms linear,
+    box-shadow 80ms linear;
+}
+.mantine-Button-root[data-variant='default'],
+.mantine-Button-root[data-variant='outline'] {
+  background: var(--w-body);
+}
+.mantine-Button-root[data-variant='light'] {
+  background: #eef8cc;
+}
+.mantine-Button-root:is([data-variant='filled'], [data-variant='default'], [data-variant='light'], [data-variant='outline']):not(:disabled, [data-disabled]):active {
+  transform: translate(3px, 3px);
+  box-shadow: none;
+}
+.mantine-Button-root:is([data-variant='filled'], [data-variant='default'], [data-variant='light'], [data-variant='outline']):not(:disabled, [data-disabled]):hover {
+  filter: brightness(1.04);
+}
+.mantine-Button-root:is(:disabled, [data-disabled]) {
+  box-shadow: none;
+  border-style: dashed;
+  border-color: #9aa395;
+  color: #6d7568;
+  background: transparent;
+}
+.mantine-Button-root[data-variant='subtle'] {
+  font-weight: 800;
+  color: var(--w-ink);
+}
+
+.mantine-ActionIcon-root[data-variant='default'] {
+  border: var(--w-line);
+  box-shadow: var(--w-shadow-xs);
+  background: var(--w-body);
+  color: var(--w-ink);
+}
+.mantine-ActionIcon-root[data-variant='default']:active {
+  transform: translate(2px, 2px);
+  box-shadow: none;
+}
+
+/* cards and papers become flat windows */
+.mantine-Card-root,
+.mantine-Paper-root[data-with-border] {
+  background: var(--w-body);
+  border: var(--w-line);
+  box-shadow: var(--w-shadow);
+}
+
+.mantine-Badge-root {
+  border: var(--w-line);
+  font-weight: 900;
+  letter-spacing: 0.04em;
+}
+.mantine-Badge-root[data-variant='light'],
+.mantine-Badge-root[data-variant='default'],
+.mantine-Badge-root[data-variant='outline'] {
+  color: var(--w-ink);
+}
+
+.mantine-Input-input {
+  border: var(--w-line);
+  box-shadow: var(--w-shadow-xs);
+  background: var(--w-body);
+  color: var(--w-ink);
+  font-weight: 700;
+}
+.mantine-Input-input:focus,
+.mantine-Input-input:focus-within {
+  border-color: var(--w-ink);
+  box-shadow: 2px 2px 0 var(--w-sky);
+}
+.mantine-Input-input::placeholder {
+  color: #6d7568;
+  font-weight: 600;
+}
+.mantine-InputWrapper-label {
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--w-muted);
+  margin-bottom: 6px;
+}
+
+.mantine-SegmentedControl-root {
+  border: var(--w-line);
+  background: var(--w-body);
+  padding: 2px;
+}
+.mantine-SegmentedControl-indicator {
+  background: var(--w-lime);
+  border: var(--w-line);
+  box-shadow: none;
+}
+.mantine-SegmentedControl-label {
+  font-family: var(--w-pixel);
+  font-size: 9px;
+  color: var(--w-ink);
+}
+
+.mantine-Popover-dropdown,
+.mantine-Menu-dropdown,
+.mantine-HoverCard-dropdown,
+.mantine-Combobox-dropdown {
+  background: var(--w-body);
+  border: var(--w-line);
+  box-shadow: var(--w-shadow);
+  color: var(--w-ink);
+}
+.mantine-Menu-item[data-hovered] {
+  background: #eef8cc;
+}
+
+.mantine-Switch-track {
+  border: var(--w-line);
+  background: var(--w-body);
+}
+.mantine-Switch-input:checked + .mantine-Switch-track {
+  background: var(--w-lime);
+  border-color: var(--w-ink);
+}
+.mantine-Switch-thumb {
+  border: var(--w-line);
+  border-radius: 0;
+}
+.mantine-Switch-label {
+  font-weight: 800;
+}
+
+.mantine-Drawer-content {
+  border-top: var(--w-line);
+  background: var(--w-ground);
 }
 
 a.hover-lift {
-  transition: transform 120ms ease, border-color 120ms ease;
+  transition:
+    transform 80ms linear,
+    box-shadow 80ms linear;
 }
 a.hover-lift:hover {
-  transform: translateY(-2px);
-  border-color: var(--mantine-color-yellow-6);
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--w-ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }

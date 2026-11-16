@@ -1,13 +1,16 @@
 import { useRef, useState } from 'react'
+import { useMediaQuery } from '@mantine/hooks'
 import { AowPathEditor } from '../components/AowPath'
+import { Win } from '../components/Win'
+import { LevelBar } from '../components/LevelBar'
+import chips from './RoutePage.module.css'
 import {
   ActionIcon,
   Anchor,
   Badge,
   Button,
-  Card,
   CopyButton,
-  Grid,
+  Drawer,
   Group,
   Menu,
   SegmentedControl,
@@ -18,8 +21,6 @@ import {
   TagsInput,
   Text,
   Textarea,
-  TextInput,
-  Title,
   Tooltip,
 } from '@mantine/core'
 import {
@@ -29,6 +30,7 @@ import {
   IconDownload,
   IconExternalLink,
   IconLink,
+  IconListNumbers,
   IconMapPin,
   IconNote,
   IconPlus,
@@ -45,7 +47,7 @@ import { CREEP_HELPER, RACE_LABEL } from '../game/heroes'
 import { downloadFile, fileSafe } from '../lib/files'
 import { MapCanvas } from '../components/MapCanvas'
 import { HeroPanel } from '../components/HeroPanel'
-import { CreepRoute, XpSummary } from '../components/CreepRoute'
+import { CreepRoute } from '../components/CreepRoute'
 import { BuildOrder } from '../components/BuildOrder'
 import { AgainstPicker, Label } from '../components/BuildFields'
 import { RouteViewer } from '../components/RouteViewer'
@@ -63,6 +65,8 @@ export function RoutePage({ routeId }: { routeId: string }) {
   const [placing, setPlacing] = useState<'note' | 'waypoint' | 'aow' | null>(null)
   const [activeStep, setActiveStep] = useState<string | null>(null)
   const [expanded, setExpanded] = useState<Set<string>>(new Set())
+  const isPhone = useMediaQuery('(max-width: 48em)') ?? false
+  const [sheet, setSheet] = useState(false)
   // undo history (this page visit only)
   const history = useRef<Route[]>([])
   const lastPush = useRef({ key: '', t: 0 })
@@ -219,235 +223,293 @@ export function RoutePage({ routeId }: { routeId: string }) {
     </Group>
   )
 
-  const mapBlock = (
-    <Stack gap="xs">
-      <MapCanvas
-        map={map}
-        steps={route.steps}
-        activeStepId={activeStep}
-        onCampClick={toggleCamp}
-        onStepClick={(id) => setExpanded(new Set([...expanded, id]))}
-        notes={route.mapNotes}
-        placing={placing}
-        onPlace={onPlace}
-        onChangeNote={setNote}
-        onDeleteNote={(id) => patch({ mapNotes: route.mapNotes.filter((n) => n.id !== id) })}
-        readOnly={readOnly}
-        helper={route.race ? CREEP_HELPER[route.race] : undefined}
-        aowPath={route.aowPath}
-        onAowPathChange={(aowPath) => patch({ aowPath })}
-      />
-      {!readOnly && (
-        <Text size="xs" c="dimmed">
-          {placing === 'aow'
-            ? 'Click the map to add points to the Ancient of War path, in walking order. Press Done when finished.'
-            : placing === 'waypoint'
-            ? 'Click the map where the waypoint goes (shop, tavern, a spot to wait…).'
-            : placing === 'note'
-              ? 'Click anywhere on the map to drop the note.'
-              : 'Click a camp to add it as the next stop, or click it again to remove it.'}
-        </Text>
-      )}
-      {(route.race === 'nightelf' || route.aowPath.length > 0) && (
-        <AowPathEditor
-          path={route.aowPath}
-          onChange={(aowPath) => patch({ aowPath })}
-          placing={placing === 'aow'}
-          onTogglePlacing={() => setPlacing((p) => (p === 'aow' ? null : 'aow'))}
-        />
-      )}
-    </Stack>
+  const hint =
+    placing === 'aow'
+      ? 'Tap the map to add Ancient of War path points, in walking order. Press Done when finished.'
+      : placing === 'waypoint'
+        ? 'Tap the map where the waypoint goes: a shop, the tavern, a spot to wait.'
+        : placing === 'note'
+          ? 'Tap anywhere on the map to drop the note.'
+          : 'Tap a camp to add it as the next stop. Tap it again to remove it.'
+
+  const mapCanvas = (
+    <MapCanvas
+      map={map}
+      steps={route.steps}
+      activeStepId={activeStep}
+      onCampClick={toggleCamp}
+      onStepClick={(id) => {
+        setExpanded(new Set([...expanded, id]))
+        if (isPhone) setSheet(true)
+      }}
+      notes={route.mapNotes}
+      placing={placing}
+      onPlace={onPlace}
+      onChangeNote={setNote}
+      onDeleteNote={(id) => patch({ mapNotes: route.mapNotes.filter((n) => n.id !== id) })}
+      readOnly={readOnly}
+      helper={route.race ? CREEP_HELPER[route.race] : undefined}
+      aowPath={route.aowPath}
+      onAowPathChange={(aowPath) => patch({ aowPath })}
+    />
   )
 
-  const routeBlock = (
-    <Stack gap="sm">
-      <XpSummary map={map} route={route} />
-      <Group justify="space-between" align="center">
-        <Group gap={8} align="baseline">
-          <Title order={4}>Route</Title>
-          <Text size="sm" c="dimmed">
-            {route.steps.length} stops
-          </Text>
-        </Group>
-        <Group gap={6}>
-          {!readOnly && (
-            <>
-              <Button
-                size="xs"
-                variant={placing === 'waypoint' ? 'filled' : 'default'}
-                leftSection={<IconMapPin size={14} />}
-                onClick={() => setPlacing((p) => (p === 'waypoint' ? null : 'waypoint'))}
-              >
-                {placing === 'waypoint' ? 'Cancel' : 'Waypoint'}
-              </Button>
-              <Button
-                size="xs"
-                variant={placing === 'note' ? 'filled' : 'default'}
-                leftSection={<IconNote size={14} />}
-                onClick={() => setPlacing((p) => (p === 'note' ? null : 'note'))}
-              >
-                {placing === 'note' ? 'Cancel' : 'Note'}
-              </Button>
-              <Tooltip label="Clear all stops and notes">
-                <ActionIcon
-                  variant="subtle"
-                  color="red"
-                  disabled={!route.steps.length && !route.mapNotes.length}
-                  onClick={() => confirm('Clear all stops and map notes?') && patch({ steps: [], mapNotes: [] })}
-                  aria-label="Clear route"
-                >
-                  <IconRestore size={16} />
-                </ActionIcon>
-              </Tooltip>
-            </>
-          )}
-          {route.steps.length > 0 && (
-            <Button size="xs" variant="subtle" onClick={() => setExpanded(allOpen ? new Set() : new Set(route.steps.map((s) => s.id)))}>
-              {allOpen ? 'Collapse all' : 'Expand all'}
-            </Button>
-          )}
-        </Group>
-      </Group>
-      <Text size="xs" c="dimmed" mt={-6}>
-        XP is what the hero earns at its level at that moment. A boxed group is killed in any order.
+  const togglePlacing = (what: 'note' | 'waypoint' | 'aow') => setPlacing((p) => (p === what ? null : what))
+  const showAow = route.race === 'nightelf' || route.aowPath.length > 0
+
+  const aowEditor = showAow && (
+    <AowPathEditor path={route.aowPath} onChange={(aowPath) => patch({ aowPath })} placing={placing === 'aow'} onTogglePlacing={() => togglePlacing('aow')} />
+  )
+
+  const routeTools = (
+    <Group gap={8} p={12} pb={10} wrap="wrap" style={{ borderBottom: '2px solid var(--w-ink)' }}>
+      <Button size="xs" variant={placing === 'waypoint' ? 'filled' : 'default'} leftSection={<IconMapPin size={14} />} onClick={() => togglePlacing('waypoint')}>
+        {placing === 'waypoint' ? 'Cancel' : 'Waypoint'}
+      </Button>
+      <Button size="xs" variant={placing === 'note' ? 'filled' : 'default'} leftSection={<IconNote size={14} />} onClick={() => togglePlacing('note')}>
+        {placing === 'note' ? 'Cancel' : 'Note'}
+      </Button>
+      <span style={{ flex: 1 }} />
+      {route.steps.length > 0 && (
+        <Button size="compact-sm" variant="subtle" onClick={() => setExpanded(allOpen ? new Set() : new Set(route.steps.map((s) => s.id)))}>
+          {allOpen ? 'Collapse all' : 'Expand all'}
+        </Button>
+      )}
+      <Tooltip label="Clear all stops and notes">
+        <ActionIcon
+          variant="subtle"
+          color="red"
+          size="lg"
+          disabled={!route.steps.length && !route.mapNotes.length}
+          onClick={() => confirm('Clear all stops and map notes?') && patch({ steps: [], mapNotes: [] })}
+          aria-label="Clear route"
+        >
+          <IconRestore size={18} />
+        </ActionIcon>
+      </Tooltip>
+    </Group>
+  )
+
+  const stopList = (
+    <CreepRoute
+      map={map}
+      route={route}
+      onStepsChange={(steps) => patch({ steps })}
+      activeStepId={activeStep}
+      onActiveStep={setActiveStep}
+      expanded={expanded}
+      onExpandedChange={setExpanded}
+      readOnly={readOnly}
+    />
+  )
+
+  const routeWindow = (
+    <Win title="Route" tone="lime" right={<span>{route.steps.length} stops</span>} style={{ alignSelf: 'start' }}>
+      {routeTools}
+      {stopList}
+      <Text size="xs" c="dimmed" px={12} py={10} style={{ borderTop: '2px solid var(--w-ink)' }}>
+        XP is what the hero earns at its level at that moment. A boxed group dies in any order.
       </Text>
-      <CreepRoute
-        map={map}
-        route={route}
-        onStepsChange={(steps) => patch({ steps })}
-        activeStepId={activeStep}
-        onActiveStep={setActiveStep}
-        expanded={expanded}
-        onExpandedChange={setExpanded}
-        readOnly={readOnly}
-      />
-    </Stack>
+    </Win>
+  )
+
+  const setupWindow = (
+    <Win title="Hero and matchup" tone="sky">
+      <SimpleGrid cols={{ base: 1, md: 2 }} spacing="xl" verticalSpacing="lg" p={{ base: 'sm', sm: 'lg' }}>
+        <HeroPanel route={route} onChange={patch} />
+        <Stack gap="md">
+          <div>
+            <Label>Against</Label>
+            <AgainstPicker value={route.vs} onChange={(vs) => patch({ vs })} />
+          </div>
+          <div>
+            <Label>Companion build</Label>
+            <Group gap="xs" wrap="nowrap">
+              <Select
+                style={{ flex: 1 }}
+                placeholder="None"
+                clearable
+                searchable
+                value={route.buildId}
+                onChange={(buildId) => patch({ buildId })}
+                data={allBuilds.map((b) => ({ value: b.id, label: `${b.name}${b.race ? ` · ${RACE_LABEL[b.race]}` : ''}` }))}
+                nothingFoundMessage="No builds yet"
+              />
+              <Button
+                variant="light"
+                leftSection={<IconPlus size={14} />}
+                onClick={() => {
+                  const b = createBuild({ name: `${route.name} build`, race: route.race, vs: route.vs })
+                  patch({ buildId: b.id })
+                }}
+              >
+                New
+              </Button>
+            </Group>
+          </div>
+          <TagsInput label="Tags" placeholder="fast level 3, tower rush… (Enter to add)" value={route.tags} onChange={(tags) => patch({ tags })} />
+          <Textarea
+            label="Description"
+            placeholder="What this route is for, timings, what to scout…"
+            autosize
+            minRows={2}
+            maxRows={10}
+            value={route.notes}
+            onChange={(e) => patch({ notes: e.currentTarget.value })}
+          />
+        </Stack>
+      </SimpleGrid>
+    </Win>
   )
 
   const buildSection = (
-    <Stack gap="sm">
-      <Group justify="space-between" align="flex-end">
-        <div>
-          <Title order={3}>Companion build</Title>
-          <Text size="sm" c="dimmed">
-            The build order this route is played with.
-          </Text>
-        </div>
-        {build && (
-          <Anchor href={href.build(build.id)} size="sm">
+    <Win
+      title="Companion build"
+      tone="white"
+      right={
+        build ? (
+          <Anchor href={href.build(build.id)} size="sm" fw={800} c="var(--w-ink)">
             <Group gap={4}>
               Open build <IconExternalLink size={14} />
             </Group>
           </Anchor>
-        )}
-      </Group>
-      {build ? (
-        <Card withBorder padding="md" style={{ borderLeft: '3px solid var(--mantine-color-yellow-6)' }}>
-          <Group justify="space-between" align="flex-start" mb="sm">
-            <div>
-              <Text fw={800}>{build.name}</Text>
-              {build.notes && (
-                <Text size="sm" c="dimmed" lineClamp={2}>
-                  {build.notes}
-                </Text>
-              )}
-            </div>
-            <Group gap={4}>
-              <Badge variant="light" size="sm" color="gray">
+        ) : undefined
+      }
+    >
+      <Stack gap="sm" p="md">
+        {build ? (
+          <>
+            <Group justify="space-between" align="flex-start">
+              <div>
+                <Text fw={900}>{build.name}</Text>
+                {build.notes && (
+                  <Text size="sm" c="dimmed" lineClamp={2}>
+                    {build.notes}
+                  </Text>
+                )}
+              </div>
+              <Badge variant="default" size="sm">
                 {build.steps.length} steps
               </Badge>
             </Group>
-          </Group>
-          {!readOnly && usedBy > 1 && (
-            <Text size="xs" c="orange" mb="xs">
-              This build is shared by {usedBy} routes. Edits here change it everywhere.
-            </Text>
-          )}
-          <BuildOrder steps={build.steps} onChange={(steps) => builds.update(build.id, { steps })} readOnly={readOnly} />
-        </Card>
-      ) : (
-        <Text size="sm" c="dimmed">
-          {readOnly ? 'No build order linked.' : 'Pick an existing build above, or create one for this route.'}
-        </Text>
-      )}
-    </Stack>
+            {usedBy > 1 && (
+              <Text size="sm" fw={800} c="orange.9">
+                This build is shared by {usedBy} routes. Edits here change it everywhere.
+              </Text>
+            )}
+            <BuildOrder steps={build.steps} onChange={(steps) => builds.update(build.id, { steps })} />
+          </>
+        ) : (
+          <Text size="sm" c="dimmed">
+            Pick an existing build in Hero and matchup, or create one for this route.
+          </Text>
+        )}
+      </Stack>
+    </Win>
   )
 
   // ---------- view mode ----------
   if (readOnly) return <RouteViewer route={route} build={build} actions={actions} buildHref={build ? href.build(build.id) : undefined} />
 
-  // ---------- edit mode ----------
-  return (
-    <Stack gap="lg" px={{ base: 'xs', sm: 0 }}>
-      <Group justify="space-between" align="flex-end" wrap="wrap" gap="xs">
-        <Stack gap={0} style={{ flex: 1, minWidth: 220 }}>
-          <Anchor href={href.map(map.id)} size="xs" c="dimmed">
+  const header = (
+    <Group justify="space-between" align="flex-end" wrap="wrap" gap="sm">
+      <Stack gap={8} style={{ flex: 1, minWidth: 240 }}>
+        <Group gap={6}>
+          <Anchor href={href.map(map.id)} className={chips.chip} data-tone="sky" underline="never">
             ← {map.name}
           </Anchor>
-          <TextInput
-            variant="unstyled"
-            value={route.name}
-            placeholder="Route name, e.g. Fast level 3 AM"
-            onChange={(e) => patch({ name: e.currentTarget.value })}
-            styles={{ input: { fontSize: 26, fontWeight: 800, height: 38 } }}
-            aria-label="Route name"
-          />
+          {route.race && (
+            <span className={chips.chip} data-tone="lime">
+              {RACE_LABEL[route.race]} vs {route.vs === 'any' ? 'any' : RACE_LABEL[route.vs]}
+            </span>
+          )}
+          {route.hero && <span className={chips.chip}>{route.hero}</span>}
+        </Group>
+        <Textarea
+          variant="unstyled"
+          autosize
+          minRows={1}
+          value={route.name}
+          placeholder="Name this route"
+          onChange={(e) => patch({ name: e.currentTarget.value.replace(/\n/g, ' ') })}
+          classNames={{ input: chips.nameInput }}
+          aria-label="Route name"
+        />
+      </Stack>
+      {actions}
+    </Group>
+  )
+
+  // ---------- edit mode, phone: the map owns the screen, stops open as one sheet ----------
+  if (isPhone)
+    return (
+      <Stack gap="md" px="xs" pb={96}>
+        {header}
+        {!route.race && setupWindow}
+        <LevelBar map={map} route={route} />
+        <Win title={`Map · ${map.name}`} tone="sky" bodyStyle={{ padding: 8 }}>
+          {mapCanvas}
+          <Text size="sm" fw={700} c="dimmed" mt={8}>
+            {hint}
+          </Text>
+        </Win>
+        {aowEditor}
+        {route.race && setupWindow}
+        {buildSection}
+
+        <nav className={chips.dock} aria-label="Route tools">
+          <Button variant="filled" leftSection={<IconListNumbers size={16} />} onClick={() => setSheet(true)} style={{ flex: 1.4 }}>
+            Stops {route.steps.length}
+          </Button>
+          <Button variant={placing === 'waypoint' ? 'filled' : 'default'} onClick={() => togglePlacing('waypoint')} aria-label="Add a waypoint" px={10}>
+            <IconMapPin size={18} />
+          </Button>
+          {showAow && (
+            <Button variant={placing === 'aow' ? 'filled' : 'default'} onClick={() => togglePlacing('aow')} aria-label="Draw the Ancient of War path" px={10}>
+              AoW
+            </Button>
+          )}
+          <Button variant={placing === 'note' ? 'filled' : 'default'} onClick={() => togglePlacing('note')} aria-label="Add a note" px={10}>
+            <IconNote size={18} />
+          </Button>
+          <Button variant="default" disabled={!history.current.length} onClick={undo} aria-label="Undo" px={10}>
+            <IconArrowBackUp size={18} />
+          </Button>
+        </nav>
+
+        <Drawer
+          opened={sheet}
+          onClose={() => setSheet(false)}
+          position="bottom"
+          size="92%"
+          title={<span style={{ fontFamily: 'var(--w-pixel)', fontSize: 10 }}>Route · {route.steps.length} stops</span>}
+          styles={{ body: { padding: 0 }, header: { borderBottom: '2px solid var(--w-ink)', background: 'var(--w-lime)' } }}
+        >
+          {routeTools}
+          {stopList}
+        </Drawer>
+      </Stack>
+    )
+
+  // ---------- edit mode, desktop ----------
+  return (
+    <Stack gap="lg" px={{ base: 'xs', sm: 0 }}>
+      {header}
+      {!route.race && setupWindow}
+      <LevelBar map={map} route={route} />
+      <div className={chips.split}>
+        <Stack gap="md">
+          <Win title={`Map · ${map.name}`} tone="sky" bodyStyle={{ padding: 12 }}>
+            {mapCanvas}
+            <Text size="sm" fw={700} c="dimmed" mt={8}>
+              {hint}
+            </Text>
+          </Win>
+          {aowEditor}
         </Stack>
-        {actions}
-      </Group>
-
-      <Card withBorder padding="lg">
-        <SimpleGrid cols={{ base: 1, md: 2 }} spacing="xl" verticalSpacing="lg">
-          <HeroPanel route={route} onChange={patch} />
-          <Stack gap="md">
-            <div>
-              <Label>Against</Label>
-              <AgainstPicker value={route.vs} onChange={(vs) => patch({ vs })} />
-            </div>
-            <div>
-              <Label>Companion build</Label>
-              <Group gap="xs" wrap="nowrap">
-                <Select
-                  style={{ flex: 1 }}
-                  placeholder="None"
-                  clearable
-                  searchable
-                  value={route.buildId}
-                  onChange={(buildId) => patch({ buildId })}
-                  data={allBuilds.map((b) => ({ value: b.id, label: `${b.name}${b.race ? ` · ${RACE_LABEL[b.race]}` : ''}` }))}
-                  nothingFoundMessage="No builds yet"
-                />
-                <Button
-                  variant="light"
-                  leftSection={<IconPlus size={14} />}
-                  onClick={() => {
-                    const b = createBuild({ name: `${route.name} build`, race: route.race, vs: route.vs })
-                    patch({ buildId: b.id })
-                  }}
-                >
-                  New
-                </Button>
-              </Group>
-            </div>
-            <TagsInput label="Tags" placeholder="fast level 3, tower rush… (Enter to add)" value={route.tags} onChange={(tags) => patch({ tags })} />
-            <Textarea
-              label="Description"
-              placeholder="What this route is for, timings, what to scout…"
-              autosize
-              minRows={2}
-              maxRows={10}
-              value={route.notes}
-              onChange={(e) => patch({ notes: e.currentTarget.value })}
-            />
-          </Stack>
-        </SimpleGrid>
-      </Card>
-
-      <Grid gutter="lg">
-        <Grid.Col span={{ base: 12, md: 6 }}>{mapBlock}</Grid.Col>
-        <Grid.Col span={{ base: 12, md: 6 }}>{routeBlock}</Grid.Col>
-      </Grid>
-
+        {routeWindow}
+      </div>
+      {route.race && setupWindow}
       {buildSection}
     </Stack>
   )

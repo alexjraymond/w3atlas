@@ -1,5 +1,5 @@
 import { useState, type ReactNode } from 'react'
-import { Anchor, Avatar, Badge, Button, Card, Grid, Group, Image, Stack, Text, Title } from '@mantine/core'
+import { Anchor, Avatar, Badge, Button, Group, Stack, Text } from '@mantine/core'
 import { IconExternalLink } from '@tabler/icons-react'
 import type { Build, Route } from '../types'
 import { MAP_BY_ID } from '../data/maps'
@@ -8,10 +8,13 @@ import { CREEP_HELPER, HERO_BY_NAME, RACE_LABEL } from '../game/heroes'
 import type { Author } from '../cloud/types'
 import { MapCanvas } from './MapCanvas'
 import { AowPathList } from './AowPath'
-import { CreepRoute, XpSummary } from './CreepRoute'
+import { CreepRoute } from './CreepRoute'
 import { BuildOrder } from './BuildOrder'
 import { GameIcon } from './GameIcon'
 import { SkillGrid } from './SkillGrid'
+import { Win } from './Win'
+import { LevelBar } from './LevelBar'
+import chips from '../pages/RoutePage.module.css'
 
 const ago = (t: number) => new Date(t).toLocaleDateString(undefined, { day: 'numeric', month: 'long', year: 'numeric' })
 
@@ -28,7 +31,7 @@ interface Props {
   children?: ReactNode
 }
 
-/** Read-only presentation of a route: header, map, skill order, stops and companion build. */
+/** Read-only presentation of a route: header, level bar, map and stops, skill order, companion build. */
 export function RouteViewer({ route, build, actions, author, buildHref, children }: Props) {
   const [activeStep, setActiveStep] = useState<string | null>(null)
   const [expanded, setExpanded] = useState<Set<string>>(new Set())
@@ -39,74 +42,61 @@ export function RouteViewer({ route, build, actions, author, buildHref, children
 
   return (
     <Stack gap="lg" px={{ base: 'xs', sm: 0 }}>
-      <Group justify="space-between" align="flex-start" wrap="wrap" gap="md">
-        <Group align="flex-start" gap="lg" wrap="nowrap" style={{ flex: 1, minWidth: 260 }}>
-          <Image src={map.image} w={96} h={96} radius="md" visibleFrom="xs" alt={map.name} />
-          <Stack gap={6} style={{ minWidth: 0 }}>
-            <Anchor href={href.map(map.id)} size="xs" c="dimmed" tt="uppercase" style={{ letterSpacing: 1.5 }}>
-              {map.name}
+      <Group justify="space-between" align="flex-end" wrap="wrap" gap="md">
+        <Stack gap={10} style={{ flex: 1, minWidth: 260 }}>
+          <Group gap={6}>
+            <Anchor href={href.map(map.id)} className={chips.chip} data-tone="sky" underline="never">
+              ← {map.name}
             </Anchor>
-            <Group gap={8}>
-              {route.race && (
-                <Group gap={4}>
-                  <GameIcon name={route.race} size={22} style={{ borderRadius: '50%' }} />
-                  <Text size="sm" fw={600}>
-                    {RACE_LABEL[route.race]}
-                  </Text>
-                </Group>
-              )}
-              <Text size="xs" c="dimmed">
-                vs
-              </Text>
-              <Text size="sm">{RACE_LABEL[route.vs]}</Text>
-              {hero && (
-                <Group gap={4}>
-                  <GameIcon name={hero.icon} size={22} />
-                  <Text size="sm">{hero.name}</Text>
-                </Group>
-              )}
-            </Group>
-            <Title order={1} fz={{ base: 28, sm: 40 }} lh={1.05}>
-              {route.name || 'Untitled route'}
-            </Title>
-            {route.notes && (
-              <Text c="gray.4" style={{ whiteSpace: 'pre-wrap' }}>
-                {route.notes}
-              </Text>
+            {route.race && (
+              <span className={chips.chip} data-tone="lime">
+                {RACE_LABEL[route.race]} vs {route.vs === 'any' ? 'any' : RACE_LABEL[route.vs]}
+              </span>
             )}
-            <Group gap={8}>
-              {author && (
-                <Group gap={6}>
-                  <Avatar src={author.avatarUrl} size={20} radius="xl" alt={author.username}>
-                    {author.username.slice(0, 1).toUpperCase()}
-                  </Avatar>
-                  <Text size="xs" fw={600}>
-                    {author.username}
-                  </Text>
-                  <Text size="xs" c="dimmed">
-                    ·
-                  </Text>
-                </Group>
-              )}
-              <Text size="xs" c="dimmed">
-                Updated {ago(route.updatedAt)}
-              </Text>
-            </Group>
-            <Group gap={6}>
-              {route.tags.map((t) => (
-                <Badge key={t} variant="default" size="sm" tt="none">
-                  {t}
-                </Badge>
-              ))}
-            </Group>
-          </Stack>
-        </Group>
+            {hero && (
+              <span className={chips.chip}>
+                <GameIcon name={hero.icon} size={16} />
+                {hero.name}
+              </span>
+            )}
+          </Group>
+          <h1 className={chips.nameInput} style={{ margin: 0 }}>
+            {route.name || 'Untitled route'}
+          </h1>
+          {route.notes && (
+            <Text fw={700} maw="70ch" style={{ whiteSpace: 'pre-wrap' }}>
+              {route.notes}
+            </Text>
+          )}
+          <Group gap={8}>
+            {author && (
+              <Group gap={6}>
+                <Avatar src={author.avatarUrl} size={22} radius={0} alt={author.username} style={{ border: '2px solid var(--w-ink)' }}>
+                  {author.username.slice(0, 1).toUpperCase()}
+                </Avatar>
+                <Text size="sm" fw={900}>
+                  {author.username}
+                </Text>
+              </Group>
+            )}
+            <Text size="sm" c="dimmed" fw={700}>
+              Updated {ago(route.updatedAt)}
+            </Text>
+            {route.tags.map((t) => (
+              <Badge key={t} variant="default" size="sm" tt="none">
+                {t}
+              </Badge>
+            ))}
+          </Group>
+        </Stack>
         {actions}
       </Group>
 
-      <Grid gutter="lg">
-        <Grid.Col span={{ base: 12, md: 6 }}>
-          <Stack gap="md">
+      <LevelBar map={map} route={route} />
+
+      <div className={chips.split}>
+        <Stack gap="md">
+          <Win title={`Map · ${map.name}`} tone="sky" bodyStyle={{ padding: 12 }}>
             <MapCanvas
               map={map}
               steps={route.steps}
@@ -117,92 +107,80 @@ export function RouteViewer({ route, build, actions, author, buildHref, children
               helper={route.race ? CREEP_HELPER[route.race] : undefined}
               aowPath={route.aowPath}
             />
-            {route.aowPath.length > 0 && <AowPathList path={route.aowPath} />}
-            {hero && route.skills.some(Boolean) && (
-              <Card withBorder padding="sm">
-                <Group gap={8} mb={8}>
-                  <GameIcon name={hero.icon} size={22} />
-                  <Text size="xs" fw={700} c="dimmed" tt="uppercase">
-                    Skill order
-                  </Text>
-                </Group>
-                <SkillGrid hero={hero} skills={route.skills} />
-              </Card>
-            )}
-          </Stack>
-        </Grid.Col>
-        <Grid.Col span={{ base: 12, md: 6 }}>
-          <Stack gap="sm">
-            <XpSummary map={map} route={route} />
-            <Group justify="space-between" align="center">
-              <Group gap={8} align="baseline">
-                <Title order={4}>Route</Title>
-                <Text size="sm" c="dimmed">
-                  {route.steps.length} stops
-                </Text>
-              </Group>
-              {route.steps.length > 0 && (
-                <Button size="xs" variant="subtle" onClick={() => setExpanded(allOpen ? new Set() : new Set(route.steps.map((s) => s.id)))}>
-                  {allOpen ? 'Collapse all' : 'Expand all'}
-                </Button>
-              )}
+          </Win>
+          {route.aowPath.length > 0 && <AowPathList path={route.aowPath} />}
+          {hero && route.skills.some(Boolean) && (
+            <Win title="Skill order" tone="white" right={<GameIcon name={hero.icon} size={20} />} bodyStyle={{ padding: 12 }}>
+              <SkillGrid hero={hero} skills={route.skills} />
+            </Win>
+          )}
+        </Stack>
+        <Win
+          title="Route"
+          right={<span>{route.steps.length} stops</span>}
+          style={{ alignSelf: 'start' }}
+        >
+          {route.steps.length > 0 && (
+            <Group justify="space-between" px={12} py={8} style={{ borderBottom: '2px solid var(--w-ink)' }}>
+              <Text size="xs" c="dimmed" fw={700}>
+                Tap a stop for kill order and notes.
+              </Text>
+              <Button size="compact-sm" variant="subtle" onClick={() => setExpanded(allOpen ? new Set() : new Set(route.steps.map((s) => s.id)))}>
+                {allOpen ? 'Collapse all' : 'Expand all'}
+              </Button>
             </Group>
-            <Text size="xs" c="dimmed" mt={-6}>
-              XP is what the hero earns at its level at that moment. A boxed group is killed in any order.
-            </Text>
-            <CreepRoute
-              map={map}
-              route={route}
-              onStepsChange={() => {}}
-              activeStepId={activeStep}
-              onActiveStep={setActiveStep}
-              expanded={expanded}
-              onExpandedChange={setExpanded}
-              readOnly
-            />
-          </Stack>
-        </Grid.Col>
-      </Grid>
+          )}
+          <CreepRoute
+            map={map}
+            route={route}
+            onStepsChange={() => {}}
+            activeStepId={activeStep}
+            onActiveStep={setActiveStep}
+            expanded={expanded}
+            onExpandedChange={setExpanded}
+            readOnly
+          />
+        </Win>
+      </div>
 
-      <Stack gap="sm">
-        <Group justify="space-between" align="flex-end">
-          <div>
-            <Title order={3}>Companion build</Title>
-            <Text size="sm" c="dimmed">
-              The build order this route is played with.
-            </Text>
-          </div>
-          {build && buildHref && (
-            <Anchor href={buildHref} size="sm">
+      <Win
+        title="Companion build"
+        tone="white"
+        right={
+          build && buildHref ? (
+            <Anchor href={buildHref} size="sm" fw={800} c="var(--w-ink)">
               <Group gap={4}>
                 Open build <IconExternalLink size={14} />
               </Group>
             </Anchor>
+          ) : undefined
+        }
+      >
+        <Stack gap="sm" p="md">
+          {build ? (
+            <>
+              <Group justify="space-between" align="flex-start">
+                <div>
+                  <Text fw={900}>{build.name}</Text>
+                  {build.notes && (
+                    <Text size="sm" c="dimmed" lineClamp={2}>
+                      {build.notes}
+                    </Text>
+                  )}
+                </div>
+                <Badge variant="default" size="sm">
+                  {build.steps.length} steps
+                </Badge>
+              </Group>
+              <BuildOrder steps={build.steps} onChange={() => {}} readOnly />
+            </>
+          ) : (
+            <Text size="sm" c="dimmed">
+              No build order linked.
+            </Text>
           )}
-        </Group>
-        {build ? (
-          <Card withBorder padding="md" style={{ borderLeft: '3px solid var(--mantine-color-yellow-6)' }}>
-            <Group justify="space-between" align="flex-start" mb="sm">
-              <div>
-                <Text fw={800}>{build.name}</Text>
-                {build.notes && (
-                  <Text size="sm" c="dimmed" lineClamp={2}>
-                    {build.notes}
-                  </Text>
-                )}
-              </div>
-              <Badge variant="light" size="sm" color="gray">
-                {build.steps.length} steps
-              </Badge>
-            </Group>
-            <BuildOrder steps={build.steps} onChange={() => {}} readOnly />
-          </Card>
-        ) : (
-          <Text size="sm" c="dimmed">
-            No build order linked.
-          </Text>
-        )}
-      </Stack>
+        </Stack>
+      </Win>
 
       {children}
     </Stack>

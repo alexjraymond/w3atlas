@@ -15,7 +15,7 @@ const CREDITS: { name: string; what: string; url: string; sponsor?: string }[] =
 
 export function Footer() {
   return (
-    <Container size="xl" py="xl" mt="xl" style={{ borderTop: '1px solid var(--mantine-color-dark-5)' }}>
+    <Container size="xl" py="xl" mt="xl" style={{ borderTop: "2px solid var(--w-ink)" }}>
       <Group gap={6} mb={6}>
         <IconHeart size={14} color="var(--mantine-color-red-5)" />
         <Text size="xs" fw={700} c="dimmed" tt="uppercase">
@@ -25,13 +25,13 @@ export function Footer() {
       <Group gap="xs" style={{ rowGap: 4 }}>
         {CREDITS.map((c) => (
           <Text key={c.name} size="xs" c="dimmed">
-            <Anchor href={c.url} target="_blank" rel="noreferrer" size="xs" c="gray.4" title={c.what}>
+            <Anchor href={c.url} target="_blank" rel="noreferrer" size="xs" c="var(--w-ink)" fw={800} title={c.what}>
               {c.name}
             </Anchor>
             {c.sponsor && (
               <>
                 {' ('}
-                <Anchor href={c.sponsor} target="_blank" rel="noreferrer" size="xs" c="pink.4">
+                <Anchor href={c.sponsor} target="_blank" rel="noreferrer" size="xs" c="pink.9">
                   sponsor
                 </Anchor>
                 {')'}

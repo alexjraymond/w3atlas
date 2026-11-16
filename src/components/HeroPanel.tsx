@@ -33,8 +33,8 @@ export function RacePicker({ value, onChange }: { value: Race | null; onChange: 
               display: 'grid',
               placeItems: 'center',
               gap: 2,
-              border: `2px solid ${value === r.id ? 'var(--mantine-color-yellow-5)' : 'var(--mantine-color-dark-4)'}`,
-              background: value === r.id ? 'var(--mantine-color-dark-5)' : 'transparent',
+              border: `2px solid ${value === r.id ? 'var(--w-ink)' : 'var(--w-ink)'}`,
+              background: value === r.id ? 'var(--w-lime)' : 'transparent',
             }}
           >
             <GameIcon name={r.icon} size={36} dim={!!value && value !== r.id} />
@@ -61,7 +61,7 @@ function HeroGrid({ heroes, selected, onSelect }: { heroes: Hero[]; selected: st
               padding: 3,
               display: 'grid',
               placeItems: 'center',
-              border: `2px solid ${selected === h.name ? 'var(--mantine-color-yellow-5)' : 'transparent'}`,
+              border: `2px solid ${selected === h.name ? 'var(--w-ink)' : 'transparent'}`,
             }}
           >
             <GameIcon name={h.icon} size={44} alt={h.name} dim={!!selected && selected !== h.name} />

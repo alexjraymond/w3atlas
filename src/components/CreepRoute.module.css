@@ -1,0 +1,140 @@
+.list {
+  display: flex;
+  flex-direction: column;
+}
+
+.stop {
+  border-top: var(--w-line);
+  background: var(--w-body);
+  transition: background 120ms linear;
+}
+.list > .stop:first-child {
+  border-top: 0;
+}
+
+/* a stop that levels the hero up starts with a double rule */
+.stop[data-up] {
+  border-top: 6px double var(--w-ink);
+}
+.list > .stop[data-up]:first-child {
+  border-top: 0;
+}
+
+.stop[data-active] {
+  background: #f7fce6;
+}
+.stop[data-open] {
+  background: #fbfaf5;
+}
+.stop[data-over] {
+  box-shadow: inset 0 3px 0 var(--w-lime);
+}
+
+.row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 12px;
+}
+
+/* the stop number: its fill is the stop's state */
+.num {
+  flex: none;
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border: var(--w-line);
+  background: var(--w-ink);
+  color: var(--w-body);
+  font-family: var(--w-pixel);
+  font-size: 11px;
+}
+.num[data-state='up'] {
+  background: var(--w-lime);
+  color: var(--w-ink);
+}
+.num[data-state='partial'] {
+  background: var(--w-body);
+  color: var(--w-ink);
+  border-style: dashed;
+}
+.num[data-state='waypoint'] {
+  background: var(--w-sky);
+  color: var(--w-ink);
+}
+
+.grip {
+  cursor: grab;
+  color: #7c8577;
+  padding-top: 8px;
+  display: flex;
+}
+
+.head {
+  width: 100%;
+  text-align: left;
+}
+
+.title {
+  font-weight: 900;
+  font-size: 16px;
+  line-height: 1.3;
+}
+
+.sub {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--w-muted);
+}
+
+.xp {
+  text-align: right;
+  white-space: nowrap;
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+}
+.xp small {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--w-muted);
+}
+
+.levelTag {
+  display: inline-block;
+  padding: 2px 6px;
+  background: var(--w-lime);
+  border: var(--w-line);
+  font-family: var(--w-pixel);
+  font-size: 8px;
+}
+
+.tools {
+  display: flex;
+  flex-direction: column;
+}
+
+.empty {
+  padding: 28px 18px;
+  text-align: center;
+  font-weight: 700;
+  color: var(--w-muted);
+}
+
+/* touch: bigger targets, no drag grip (reorder with the arrows) */
+@media (pointer: coarse) {
+  .grip {
+    display: none;
+  }
+  .tools {
+    flex-direction: row;
+    gap: 2px;
+  }
+  .tools :global(.mantine-ActionIcon-root) {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    min-height: 40px;
+  }
+}

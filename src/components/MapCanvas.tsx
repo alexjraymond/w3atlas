@@ -257,11 +257,16 @@ export function MapCanvas({
             </span>
           ))}
           <span>
-            <IconMapPinFilled size={13} color="#4dabf7" /> Waypoint
+            <IconMapPinFilled size={14} color="#8ec9f2" stroke="#1d2b1f" strokeWidth={1.5} /> Waypoint
           </span>
+          {steps.length > 1 && (
+            <span>
+              <i style={{ background: '#ffd43b', borderRadius: 0, width: 16, height: 5 }} /> Hero path
+            </span>
+          )}
           {aow.length > 0 && (
             <span>
-              <i style={{ background: '#8ce99a', borderRadius: 2, width: 14, height: 3 }} /> Ancient of War path
+              <i style={{ background: '#8ce99a', borderRadius: 0, width: 16, height: 5 }} /> Ancient of War path
             </span>
           )}
         </div>

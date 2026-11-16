@@ -1,25 +1,16 @@
-import { ActionIcon, Button, Card, Group, Stack, Text, TextInput, Tooltip } from '@mantine/core'
+import { ActionIcon, Button, Group, Stack, Text, TextInput, Tooltip } from '@mantine/core'
 import { IconPlus, IconTrash, IconX } from '@tabler/icons-react'
 import type { AowPoint } from '../types'
 import { GameIcon } from './GameIcon'
+import { Win } from './Win'
 
 const label = (i: number) => (i === 0 ? 'Start' : `${i}`)
 
-function Header({ count, children }: { count: number; children?: React.ReactNode }) {
+function Title({ count }: { count: number }) {
   return (
-    <Group justify="space-between" mb={6} wrap="nowrap">
-      <Group gap={8} wrap="nowrap">
-        <GameIcon name="ancientofwar" size={22} />
-        <Text size="xs" fw={700} c="dimmed" tt="uppercase">
-          Ancient of War path
-        </Text>
-        {count > 0 && (
-          <Text size="xs" c="dimmed">
-            {count} points
-          </Text>
-        )}
-      </Group>
-      {children}
+    <Group gap={8} wrap="nowrap" component="span">
+      <GameIcon name="ancientofwar" size={18} />
+      <span>Ancient of War path{count > 0 ? ` · ${count}` : ''}</span>
     </Group>
   )
 }
@@ -37,9 +28,12 @@ export function AowPathEditor({
   onTogglePlacing: () => void
 }) {
   return (
-    <Card withBorder padding="sm" style={{ borderLeft: '3px solid #8ce99a' }}>
-      <Header count={path.length}>
-        <Group gap={4} wrap="nowrap">
+    <Win
+      title={<Title count={path.length} />}
+      tone="white"
+      bodyStyle={{ padding: 12 }}
+      right={
+        <Group gap={6} wrap="nowrap">
           {path.length > 0 && !placing && (
             <Tooltip label="Remove the whole path">
               <ActionIcon variant="subtle" color="red" size="sm" aria-label="Clear AoW path" onClick={() => confirm('Remove the Ancient of War path?') && onChange([])}>
@@ -47,11 +41,12 @@ export function AowPathEditor({
               </ActionIcon>
             </Tooltip>
           )}
-          <Button size="compact-xs" variant={placing ? 'filled' : 'light'} color="green" leftSection={placing ? undefined : <IconPlus size={12} />} onClick={onTogglePlacing}>
+          <Button size="compact-xs" variant={placing ? 'filled' : 'default'} leftSection={placing ? undefined : <IconPlus size={12} />} onClick={onTogglePlacing}>
             {placing ? 'Done' : path.length ? 'Add points' : 'Draw path'}
           </Button>
         </Group>
-      </Header>
+      }
+    >
       {path.length === 0 ? (
         <Text size="xs" c="dimmed">
           Plan where the Ancient of War walks while the hero creeps. It's slow, so the path matters. Draw it point by point; drag points on the map to
@@ -61,7 +56,7 @@ export function AowPathEditor({
         <Stack gap={4}>
           {path.map((p, i) => (
             <Group key={p.id} gap={6} wrap="nowrap">
-              <Text size="xs" fw={700} w={34} c="green.4">
+              <Text size="xs" fw={700} w={34} c="green.9">
                 {label(i)}
               </Text>
               <TextInput
@@ -78,7 +73,7 @@ export function AowPathEditor({
           ))}
         </Stack>
       )}
-    </Card>
+    </Win>
   )
 }
 
@@ -86,8 +81,7 @@ export function AowPathEditor({
 export function AowPathList({ path }: { path: AowPoint[] }) {
   const noted = path.map((p, i) => ({ ...p, i })).filter((p) => p.note.trim())
   return (
-    <Card withBorder padding="sm" style={{ borderLeft: '3px solid #8ce99a' }}>
-      <Header count={path.length} />
+    <Win title={<Title count={path.length} />} tone="white" bodyStyle={{ padding: 12 }}>
       {noted.length === 0 ? (
         <Text size="xs" c="dimmed">
           Follow the green dotted line on the map.
@@ -96,7 +90,7 @@ export function AowPathList({ path }: { path: AowPoint[] }) {
         <Stack gap={2}>
           {noted.map((p) => (
             <Text key={p.id} size="sm">
-              <Text span fw={700} c="green.4" mr={6}>
+              <Text span fw={700} c="green.9" mr={6}>
                 {label(p.i)}
               </Text>
               {p.note}
@@ -104,6 +98,6 @@ export function AowPathList({ path }: { path: AowPoint[] }) {
           ))}
         </Stack>
       )}
-    </Card>
+    </Win>
   )
 }

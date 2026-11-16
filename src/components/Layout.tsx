@@ -13,15 +13,20 @@ export function Layout({ children }: { children: ReactNode }) {
   const routes = useRoutes()
   const allBuilds = useBuilds()
   return (
-    <AppShell header={{ height: 52 }} padding="md">
+    <AppShell header={{ height: 56 }} padding="md">
       <AppShell.Header>
         <Container size="xl" h="100%">
           <Group h="100%" justify="space-between" wrap="nowrap">
             <Anchor href={href.home()} underline="never" c="inherit">
-              <Group gap={8} wrap="nowrap">
-                <IconMap2 size={22} color="var(--mantine-color-yellow-5)" />
-                <Text fw={800} size="lg" style={{ letterSpacing: 0.5 }}>
-                  W3Atlas
+              <Group gap={10} wrap="nowrap">
+                <span
+                  aria-hidden
+                  style={{ width: 22, height: 22, background: 'var(--w-lime)', border: '2px solid var(--w-ink)', boxShadow: '2px 2px 0 var(--w-ink)', display: 'grid', placeItems: 'center' }}
+                >
+                  <IconMap2 size={14} stroke={2.4} color="var(--w-ink)" />
+                </span>
+                <Text ff="var(--w-pixel)" fz={13} style={{ whiteSpace: 'nowrap' }}>
+                  W3ATLAS
                 </Text>
               </Group>
             </Anchor>

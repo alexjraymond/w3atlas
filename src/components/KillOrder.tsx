@@ -35,11 +35,11 @@ function Creep({ c, size, dim, onClick, hint }: { c: CreepInstance; size: number
 function XpLine({ xp, levelUps }: { xp: number; levelUps: number[] }) {
   return (
     <Stack gap={2} align="center">
-      <Text size="xs" ff="monospace" c="dimmed">
+      <Text size="xs" c="dimmed">
         +{Math.round(xp)}
       </Text>
       {levelUps.map((l) => (
-        <Badge key={l} size="xs" variant="outline" color="yellow" ff="monospace">
+        <Badge key={l} size="xs" variant="outline" color="yellow">
           Lv {l}
         </Badge>
       ))}
