@@ -58,19 +58,8 @@ export const HEROES: Hero[] = [
   hero('Goblin Alchemist', 'neutral', ['Healing Spray', 'Acid Bomb', 'Chemical Rage'], 'Transmute'),
 ]
 
-// Icon filenames that don't match the slug of the display name.
-const ICON_ALIASES: Record<string, string> = {
-  goblintinker: 'tinker',
-  goblinalchemist: 'alchemist',
-  divineshield: 'holyshield',
-  flamestrike: 'flamestrike',
-  inferno: 'infernal',
-  stormearthandfire: 'stormearth&fire',
-}
-for (const h of HEROES) {
-  h.icon = ICON_ALIASES[h.icon] ?? h.icon
-  for (const a of h.abilities) a.icon = ICON_ALIASES[a.icon] ?? a.icon
-}
+// Icon files are named after the display name (lowercase, letters only); scripts/build-icons.mjs
+// copies the matching Warcraft III button art to those names.
 
 export const HERO_BY_NAME: Record<string, Hero> = Object.fromEntries(HEROES.map((h) => [h.name, h]))
 
@@ -96,6 +85,9 @@ export const RACE_SHORT: Record<Matchup, string> = {
   undead: 'UD',
   any: 'Any'
 }
+
+/** Short matchup label, e.g. "HvO", or just "H" against any race. */
+export const matchupLabel = (race: Race, vs: Matchup) => (vs === 'any' ? RACE_SHORT[race] : `${RACE_SHORT[race]}v${RACE_SHORT[vs]}`)
 
 /**
  * The one unit each race commonly brings to creep (Orc has none). Marked per stop with a toggle

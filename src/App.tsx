@@ -9,6 +9,8 @@ import { RoutePage } from './pages/RoutePage'
 import { SharePage } from './pages/SharePage'
 import { BuildsPage } from './pages/BuildsPage'
 import { BuildPage } from './pages/BuildPage'
+import { CommunityPage } from './pages/CommunityPage'
+import { PublicRoutePage } from './pages/PublicRoutePage'
 
 const theme = createTheme({
   primaryColor: 'yellow',
@@ -30,6 +32,10 @@ function Page() {
       return <BuildsPage />
     case 'build':
       return <BuildPage key={loc.buildId} buildId={loc.buildId} />
+    case 'community':
+      return <CommunityPage query={loc.query} />
+    case 'publicRoute':
+      return <PublicRoutePage key={loc.routeId} routeId={loc.routeId} />
     default:
       return <HomePage />
   }

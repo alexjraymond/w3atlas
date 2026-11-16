@@ -14,11 +14,11 @@ Ideas and open items, roughly in priority order.
     coordinates as the reference point.
 - **Fading Autumn.** Import the `.w3x` and add a high-res render.
 - **Twisted Meadows render.** It's the only pool map still on a Liquipedia image.
+- **Builds in Community**: public builds, browsing, ratings and comments (routes have these now;
+  the database already has the builds table).
 
 ## Later
 
-- **Host the app online** (GitHub Pages / Vercel) so it opens on a phone or tournament PC.
-- **Sync routes across devices** (accounts, e.g. Supabase). Today routes live in each browser;
-  Backup → Export/Import moves them.
+- **Host the app online** (Vercel / Netlify / GitHub Pages) so it opens on a phone or tournament PC.
 - **"Two paths"**: a route that branches ("if they rush, go here instead").
 - **Missing icons**: some creep and item icons still show the grey placeholder.

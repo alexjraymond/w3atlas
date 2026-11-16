@@ -1,5 +1,5 @@
 import type { Build, Route } from '../types'
-import { uid } from '../game/route'
+import { newBuild, newId, newRoute } from '../game/route'
 import { createCollection } from './collection'
 import { sanitizeBuild, sanitizeRoute } from './sanitize'
 
@@ -23,6 +23,23 @@ if (pendingBuilds.length) {
   routes.all().forEach((r) => routes.put(r)) // persist the migrated routes
 }
 
+// ---------- who owns new things ----------
+// Set by the account sync (src/cloud/sync.ts). New routes/builds belong to the signed-in user;
+// while signed out they're only saved in this browser (ownerId null).
+let currentUserId: string | null = null
+export const setCurrentUser = (id: string | null) => {
+  currentUserId = id
+}
+export const getCurrentUser = () => currentUserId
+
+export function createRoute(mapId: string, partial: Partial<Route> = {}): Route {
+  return routes.save(newRoute(mapId, { ...partial, ownerId: currentUserId, isPublic: false }))
+}
+
+export function createBuild(partial: Partial<Build> = {}): Build {
+  return builds.save(newBuild({ ...partial, ownerId: currentUserId, isPublic: false }))
+}
+
 export const useRoutes = routes.useAll
 export const useRoute = routes.useOne
 export const useBuilds = builds.useAll
@@ -32,14 +49,14 @@ export function duplicateRoute(id: string): Route | undefined {
   const r = routes.get(id)
   if (!r) return
   const now = Date.now()
-  return routes.save({ ...structuredClone(r), id: uid(), name: `${r.name} (copy)`, createdAt: now, updatedAt: now })
+  return routes.save({ ...structuredClone(r), id: newId(), ownerId: currentUserId, isPublic: false, name: `${r.name} (copy)`, createdAt: now, updatedAt: now })
 }
 
 export function duplicateBuild(id: string): Build | undefined {
   const b = builds.get(id)
   if (!b) return
   const now = Date.now()
-  return builds.save({ ...structuredClone(b), id: uid(), name: `${b.name} (copy)`, createdAt: now, updatedAt: now })
+  return builds.save({ ...structuredClone(b), id: newId(), ownerId: currentUserId, isPublic: false, name: `${b.name} (copy)`, createdAt: now, updatedAt: now })
 }
 
 export function deleteBuild(id: string) {
@@ -76,17 +93,17 @@ export function importData(data: unknown): { routes: Route[]; builds: Build[] } 
     .map(sanitizeBuild)
     .filter((b): b is Build => !!b)
     .map((b) => {
-      const id = uid()
+      const id = newId()
       idMap.set(b.id, id)
-      return { ...b, id }
+      return { ...b, id, ownerId: currentUserId, isPublic: false }
     })
   const newRoutes: Route[] = []
   for (const raw of rawRoutes) {
     const res = sanitizeRoute(raw)
     if (!res) continue
-    if (res.legacyBuild) newBuilds.push(res.legacyBuild)
+    if (res.legacyBuild) newBuilds.push({ ...res.legacyBuild, ownerId: currentUserId })
     const buildId = res.route.buildId ? (idMap.get(res.route.buildId) ?? (res.legacyBuild ? res.route.buildId : null)) : null
-    newRoutes.push({ ...res.route, id: uid(), buildId })
+    newRoutes.push({ ...res.route, id: newId(), ownerId: currentUserId, isPublic: false, buildId })
   }
   if (newBuilds.length) builds.addMany(newBuilds)
   if (newRoutes.length) routes.addMany(newRoutes)

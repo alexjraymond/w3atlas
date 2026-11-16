@@ -69,6 +69,8 @@ export function sanitizeRoute(input: unknown): { route: Route; legacyBuild: Buil
   const route: Route = {
     ...base,
     id: str(r.id, base.id),
+    ownerId: typeof r.ownerId === 'string' ? r.ownerId : null,
+    isPublic: r.isPublic === true,
     name: str(r.name, base.name),
     race: race(r.race),
     vs: matchup(r.vs),
@@ -101,6 +103,8 @@ export function sanitizeBuild(input: unknown): Build | null {
   return {
     ...base,
     id: str(b.id, base.id),
+    ownerId: typeof b.ownerId === 'string' ? b.ownerId : null,
+    isPublic: b.isPublic === true,
     name: str(b.name, base.name),
     race: race(b.race),
     vs: matchup(b.vs),

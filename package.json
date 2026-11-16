@@ -10,11 +10,15 @@
     "test": "vitest run",
     "preview": "vite preview",
     "import-map": "node scripts/import-map.mjs",
-    "update-game-data": "node scripts/update-game-data.mjs"
+    "update-game-data": "node scripts/update-game-data.mjs",
+    "build-icons": "node scripts/build-icons.mjs",
+    "dev:mock": "VITE_CLOUD_MOCK=1 vite",
+    "test:db": "scripts/test-db.sh"
   },
   "dependencies": {
     "@mantine/core": "^8.1.2",
     "@mantine/hooks": "^8.1.2",
+    "@supabase/supabase-js": "^2.119.0",
     "@tabler/icons-react": "^3.34.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"

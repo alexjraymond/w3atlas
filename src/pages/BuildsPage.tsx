@@ -2,8 +2,7 @@ import { useState } from 'react'
 import { Button, Group, SegmentedControl, SimpleGrid, Stack, Text, Title } from '@mantine/core'
 import { IconPlus } from '@tabler/icons-react'
 import type { Race } from '../types'
-import { builds, useBuilds, useRoutes } from '../store'
-import { newBuild } from '../game/route'
+import { createBuild, useBuilds, useRoutes } from '../store'
 import { href, navigate } from '../lib/router'
 import { BuildCard } from '../components/BuildCard'
 
@@ -14,7 +13,7 @@ export function BuildsPage() {
   const list = all.filter((b) => race === 'all' || b.race === race).sort((a, b) => b.updatedAt - a.updatedAt)
 
   const create = () => {
-    const b = builds.save(newBuild({ race: race === 'all' ? null : race }))
+    const b = createBuild({ race: race === 'all' ? null : race })
     navigate(href.build(b.id))
   }
 

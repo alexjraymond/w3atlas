@@ -90,8 +90,12 @@ export interface MapNote {
 }
 
 export interface Route {
-  id: string
+  id: string // a UUID (also the database id once synced)
   version: 2
+  /** account that owns it; null = only saved in this browser */
+  ownerId: string | null
+  /** visible to everyone in Community */
+  isPublic: boolean
   name: string
   mapId: string
   race: Race | null
@@ -112,6 +116,8 @@ export interface Route {
 export interface Build {
   id: string
   version: 1
+  ownerId: string | null
+  isPublic: boolean
   name: string
   race: Race | null
   vs: Matchup

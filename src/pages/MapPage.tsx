@@ -1,19 +1,54 @@
-import { useState } from 'react'
-import { Anchor, Button, Grid, Group, SegmentedControl, SimpleGrid, Stack, Text, Title } from '@mantine/core'
+import { useEffect, useState } from 'react'
+import { Anchor, Button, Grid, Group, Loader, SegmentedControl, SimpleGrid, Stack, Text, Title } from '@mantine/core'
 import { IconPlus } from '@tabler/icons-react'
 import { MAP_BY_ID } from '../data/maps'
 import { href, navigate } from '../lib/router'
-import { routes as routeStore, useRoutes } from '../store'
-import { newRoute } from '../game/route'
+import { createRoute, useRoutes } from '../store'
 import { MapCanvas } from '../components/MapCanvas'
 import { RouteCard } from '../components/RouteCard'
 import { NotFound } from './NotFound'
 import type { Race } from '../types'
+import { cloud, type RouteSummary } from '../cloud'
+import { CommunityRouteCard } from '../components/CommunityRouteCard'
+
+/** Top public routes for this map, with a link to the full Community list. */
+function MapCommunity({ mapId, race }: { mapId: string; race?: Race }) {
+  const [items, setItems] = useState<RouteSummary[] | null>(null)
+  const [error, setError] = useState<string | null>(null)
+  useEffect(() => {
+    let alive = true
+    setItems(null)
+    cloud
+      ?.listRoutes({ mapId, race, sort: 'top', page: 0 })
+      .then((r) => alive && setItems(r.items.slice(0, 8)))
+      .catch((e) => alive && setError(e instanceof Error ? e.message : String(e)))
+    return () => {
+      alive = false
+    }
+  }, [mapId, race])
+  if (error) return <Text size="sm" c="red">{error}</Text>
+  if (!items) return <Loader size="sm" />
+  return (
+    <Stack gap="sm">
+      {items.length ? (
+        items.map((r) => <CommunityRouteCard key={r.id} route={r} showMap={false} />)
+      ) : (
+        <Text size="sm" c="dimmed" ta="center" py="lg">
+          Nobody has shared a route for this map yet.
+        </Text>
+      )}
+      <Anchor href={href.community({ map: mapId, race })} size="sm">
+        Browse all community routes for this map →
+      </Anchor>
+    </Stack>
+  )
+}
 
 export function MapPage({ mapId }: { mapId: string }) {
   const map = MAP_BY_ID[mapId]
   const routes = useRoutes()
   const [race, setRace] = useState<'all' | Race>('all')
+  const [tab, setTab] = useState<'mine' | 'community'>('mine')
   if (!map) return <NotFound />
 
   const mapRoutes = routes
@@ -21,7 +56,7 @@ export function MapPage({ mapId }: { mapId: string }) {
     .sort((a, b) => b.updatedAt - a.updatedAt)
 
   const create = () => {
-    const r = routeStore.save(newRoute(map.id, { name: `${map.name} route`, race: race === 'all' ? null : race }))
+    const r = createRoute(map.id, { name: `${map.name} route`, race: race === 'all' ? null : race })
     navigate(href.route(r.id))
   }
 
@@ -60,7 +95,20 @@ export function MapPage({ mapId }: { mapId: string }) {
                 { value: 'undead', label: 'Undead' },
               ]}
             />
-            {mapRoutes.length ? (
+            {cloud && (
+              <SegmentedControl
+                size="xs"
+                value={tab}
+                onChange={(v) => setTab(v as typeof tab)}
+                data={[
+                  { value: 'mine', label: `My routes (${mapRoutes.length})` },
+                  { value: 'community', label: 'Community' },
+                ]}
+              />
+            )}
+            {tab === 'community' ? (
+              <MapCommunity mapId={map.id} race={race === 'all' ? undefined : race} />
+            ) : mapRoutes.length ? (
               <SimpleGrid cols={1} spacing="sm">
                 {mapRoutes.map((r) => (
                   <RouteCard key={r.id} route={r} />

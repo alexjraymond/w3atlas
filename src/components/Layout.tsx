@@ -5,6 +5,8 @@ import { POOL_MAPS } from '../data/maps'
 import { href, navigate } from '../lib/router'
 import { exportBundle, importData, useBuilds, useRoutes } from '../store'
 import { downloadFile, readJsonFile } from '../lib/files'
+import { cloud } from '../cloud'
+import { AccountMenu } from './AccountMenu'
 
 export function Layout({ children }: { children: ReactNode }) {
   const routes = useRoutes()
@@ -23,6 +25,11 @@ export function Layout({ children }: { children: ReactNode }) {
               </Group>
             </Anchor>
             <Group gap={4} wrap="nowrap">
+              {cloud && (
+                <Button component="a" href={href.community()} variant="subtle" color="gray" size="compact-sm">
+                  Community
+                </Button>
+              )}
               <Button component="a" href={href.builds()} variant="subtle" color="gray" size="compact-sm">
                 Builds
               </Button>
@@ -78,6 +85,7 @@ export function Layout({ children }: { children: ReactNode }) {
                   </FileButton>
                 </Menu.Dropdown>
               </Menu>
+              <AccountMenu />
             </Group>
           </Group>
         </Container>

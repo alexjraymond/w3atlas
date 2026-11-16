@@ -1,6 +1,7 @@
 import { useSyncExternalStore } from 'react'
 
 // Tiny hash router: #/ · #/map/:mapId · #/route/:id · #/builds · #/build/:id · #/share/:code
+// · #/community?map=..&race=.. · #/r/:id (a public route)
 // Hash routing works on any static host (GitHub Pages, Netlify, file server) with no config.
 
 export type RouteMatch =
@@ -10,9 +11,14 @@ export type RouteMatch =
   | { page: 'share'; code: string }
   | { page: 'builds' }
   | { page: 'build'; buildId: string }
+  | { page: 'community'; query: URLSearchParams }
+  | { page: 'publicRoute'; routeId: string }
 
 function parse(hash: string): RouteMatch {
-  const parts = hash.replace(/^#\/?/, '').split('/').filter(Boolean).map(decodeURIComponent)
+  const [path, qs = ''] = hash.replace(/^#\/?/, '').split('?')
+  const parts = path.split('/').filter(Boolean).map(decodeURIComponent)
+  if (parts[0] === 'community') return { page: 'community', query: new URLSearchParams(qs) }
+  if (parts[0] === 'r' && parts[1]) return { page: 'publicRoute', routeId: parts[1] }
   if (parts[0] === 'map' && parts[1]) return { page: 'map', mapId: parts[1] }
   if (parts[0] === 'route' && parts[1]) return { page: 'route', routeId: parts[1] }
   if (parts[0] === 'share' && parts[1]) return { page: 'share', code: parts[1] }
@@ -44,6 +50,11 @@ export const href = {
   share: (code: string) => `#/share/${code}`,
   builds: () => '#/builds',
   build: (buildId: string) => `#/build/${encodeURIComponent(buildId)}`,
+  community: (query?: Record<string, string | undefined>) => {
+    const qs = new URLSearchParams(Object.entries(query ?? {}).filter(([, v]) => v) as [string, string][]).toString()
+    return `#/community${qs ? `?${qs}` : ''}`
+  },
+  publicRoute: (routeId: string) => `#/r/${encodeURIComponent(routeId)}`,
 }
 
 export function navigate(to: string) {

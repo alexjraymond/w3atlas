@@ -8,12 +8,12 @@ import {
   CopyButton,
   Grid,
   Group,
-  Image,
   Menu,
   SegmentedControl,
   Select,
   SimpleGrid,
   Stack,
+  Switch,
   TagsInput,
   Text,
   Textarea,
@@ -33,27 +33,28 @@ import {
   IconPlus,
   IconRestore,
   IconTrash,
+  IconWorld,
 } from '@tabler/icons-react'
 import type { MapNote, Route } from '../types'
 import { MAP_BY_ID } from '../data/maps'
 import { href, navigate } from '../lib/router'
-import { builds, duplicateRoute, encodeShare, exportBundle, routes, useBuild, useBuilds, useRoute, useRoutes } from '../store'
-import { newBuild, newStep, newWaypoint, uid } from '../game/route'
-import { CREEP_HELPER, HERO_BY_NAME, RACE_LABEL } from '../game/heroes'
+import { builds, createBuild, duplicateRoute, encodeShare, exportBundle, routes, useBuild, useBuilds, useRoute, useRoutes } from '../store'
+import { newStep, newWaypoint, uid } from '../game/route'
+import { CREEP_HELPER, RACE_LABEL } from '../game/heroes'
 import { downloadFile, fileSafe } from '../lib/files'
 import { MapCanvas } from '../components/MapCanvas'
 import { HeroPanel } from '../components/HeroPanel'
 import { CreepRoute, XpSummary } from '../components/CreepRoute'
 import { BuildOrder } from '../components/BuildOrder'
-import { GameIcon } from '../components/GameIcon'
-import { SkillGrid } from '../components/SkillGrid'
 import { AgainstPicker, Label } from '../components/BuildFields'
+import { RouteViewer } from '../components/RouteViewer'
+import { cloud } from '../cloud'
+import { useAccount } from '../cloud/sync'
 import { NotFound } from './NotFound'
-
-const ago = (t: number) => new Date(t).toLocaleDateString(undefined, { day: 'numeric', month: 'long', year: 'numeric' })
 
 export function RoutePage({ routeId }: { routeId: string }) {
   const route = useRoute(routeId)
+  const account = useAccount()
   const build = useBuild(route?.buildId)
   const allBuilds = useBuilds()
   const allRoutes = useRoutes()
@@ -113,7 +114,18 @@ export function RoutePage({ routeId }: { routeId: string }) {
     setPlacing(null)
   }
 
-  const shareUrl = `${window.location.origin}${window.location.pathname}${href.share(encodeShare(route))}`
+  const owned = !!account.user && route.ownerId === account.user.id
+  // public routes get a short community link; otherwise the whole route is packed into the link
+  const shareUrl = `${window.location.origin}${window.location.pathname}${route.isPublic && owned ? href.publicRoute(route.id) : href.share(encodeShare(route))}`
+  const publicHint = !cloud
+    ? null
+    : !account.user
+      ? 'Sign in to share routes in Community'
+      : !owned
+        ? 'Add this route to your account first (home page)'
+        : route.isPublic
+          ? 'Visible to everyone in Community'
+          : 'Only you can see this route'
   const usedBy = build ? allRoutes.filter((r) => r.buildId === build.id).length : 0
   const allOpen = route.steps.length > 0 && route.steps.every((s) => expanded.has(s.id))
 
@@ -125,6 +137,26 @@ export function RoutePage({ routeId }: { routeId: string }) {
         <Button size="xs" variant="default" leftSection={<IconArrowBackUp size={14} />} disabled={!history.current.length} onClick={undo}>
           Undo
         </Button>
+      )}
+      {publicHint && (
+        <Tooltip label={publicHint}>
+          <div>
+            <Switch
+              size="sm"
+              label="Public"
+              checked={route.isPublic}
+              disabled={!owned}
+              onChange={(e) => patch({ isPublic: e.currentTarget.checked })}
+            />
+          </div>
+        </Tooltip>
+      )}
+      {route.isPublic && owned && (
+        <Tooltip label="Open the public page (ratings and comments)">
+          <ActionIcon variant="default" size="md" component="a" href={href.publicRoute(route.id)} aria-label="Public page">
+            <IconWorld size={16} />
+          </ActionIcon>
+        </Tooltip>
       )}
       <SegmentedControl
         size="xs"
@@ -325,82 +357,7 @@ export function RoutePage({ routeId }: { routeId: string }) {
   )
 
   // ---------- view mode ----------
-  if (readOnly) {
-    const hero = route.hero ? HERO_BY_NAME[route.hero] : null
-    return (
-      <Stack gap="lg" px={{ base: 'xs', sm: 0 }}>
-        <Group justify="space-between" align="flex-start" wrap="wrap" gap="md">
-          <Group align="flex-start" gap="lg" wrap="nowrap" style={{ flex: 1, minWidth: 260 }}>
-            <Image src={map.image} w={96} h={96} radius="md" visibleFrom="xs" alt={map.name} />
-            <Stack gap={6} style={{ minWidth: 0 }}>
-              <Anchor href={href.map(map.id)} size="xs" c="dimmed" tt="uppercase" style={{ letterSpacing: 1.5 }}>
-                {map.name}
-              </Anchor>
-              <Group gap={8}>
-                {route.race && (
-                  <Group gap={4}>
-                    <GameIcon name={route.race} size={22} style={{ borderRadius: '50%' }} />
-                    <Text size="sm" fw={600}>
-                      {RACE_LABEL[route.race]}
-                    </Text>
-                  </Group>
-                )}
-                <Text size="xs" c="dimmed">
-                  vs
-                </Text>
-                <Text size="sm">{RACE_LABEL[route.vs]}</Text>
-                {hero && (
-                  <Group gap={4}>
-                    <GameIcon name={hero.icon} size={22} />
-                    <Text size="sm">{hero.name}</Text>
-                  </Group>
-                )}
-              </Group>
-              <Title order={1} fz={{ base: 28, sm: 40 }} lh={1.05}>
-                {route.name || 'Untitled route'}
-              </Title>
-              {route.notes && (
-                <Text c="gray.4" style={{ whiteSpace: 'pre-wrap' }}>
-                  {route.notes}
-                </Text>
-              )}
-              <Text size="xs" c="dimmed">
-                Updated {ago(route.updatedAt)}
-              </Text>
-              <Group gap={6}>
-                {route.tags.map((t) => (
-                  <Badge key={t} variant="default" size="sm" tt="none">
-                    {t}
-                  </Badge>
-                ))}
-              </Group>
-            </Stack>
-          </Group>
-          {actions}
-        </Group>
-        <Grid gutter="lg">
-          <Grid.Col span={{ base: 12, md: 6 }}>
-            <Stack gap="md">
-              {mapBlock}
-              {hero && route.skills.some(Boolean) && (
-                <Card withBorder padding="sm">
-                  <Group gap={8} mb={8}>
-                    <GameIcon name={hero.icon} size={22} />
-                    <Text size="xs" fw={700} c="dimmed" tt="uppercase">
-                      Skill order
-                    </Text>
-                  </Group>
-                  <SkillGrid hero={hero} skills={route.skills} />
-                </Card>
-              )}
-            </Stack>
-          </Grid.Col>
-          <Grid.Col span={{ base: 12, md: 6 }}>{routeBlock}</Grid.Col>
-        </Grid>
-        {buildSection}
-      </Stack>
-    )
-  }
+  if (readOnly) return <RouteViewer route={route} build={build} actions={actions} buildHref={build ? href.build(build.id) : undefined} />
 
   // ---------- edit mode ----------
   return (
@@ -447,7 +404,7 @@ export function RoutePage({ routeId }: { routeId: string }) {
                   variant="light"
                   leftSection={<IconPlus size={14} />}
                   onClick={() => {
-                    const b = builds.save(newBuild({ name: `${route.name} build`, race: route.race, vs: route.vs }))
+                    const b = createBuild({ name: `${route.name} build`, race: route.race, vs: route.vs })
                     patch({ buildId: b.id })
                   }}
                 >

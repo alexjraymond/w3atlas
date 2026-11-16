@@ -25,3 +25,6 @@ dist-ssr
 .env.local
 # Warcraft III map files used by `npm run import-map` (not committed)
 map-files/
+
+# Full Warcraft III icon folder (source for npm run build-icons; too big for git)
+public/warcraft3_icons/

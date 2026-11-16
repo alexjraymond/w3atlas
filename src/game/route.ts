@@ -4,11 +4,24 @@ import { heroLevelForXp, levelProgress, xpFromKill, type LevelProgress } from '.
 
 export const uid = () => Math.random().toString(36).slice(2, 10) + Date.now().toString(36).slice(-4)
 
+/** ids for routes and builds: UUIDs, so they can be stored in the database as-is */
+export const newId = (): string =>
+  typeof crypto !== 'undefined' && 'randomUUID' in crypto
+    ? crypto.randomUUID()
+    : 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+        const r = (Math.random() * 16) | 0
+        return (c === 'x' ? r : (r & 0x3) | 0x8).toString(16)
+      })
+
+export const isUuid = (s: string) => /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(s)
+
 export function newRoute(mapId: string, partial: Partial<Route> = {}): Route {
   const now = Date.now()
   return {
-    id: uid(),
+    id: newId(),
     version: 2,
+    ownerId: null,
+    isPublic: false,
     name: 'New route',
     mapId,
     race: null,
@@ -29,8 +42,10 @@ export function newRoute(mapId: string, partial: Partial<Route> = {}): Route {
 export function newBuild(partial: Partial<Build> = {}): Build {
   const now = Date.now()
   return {
-    id: uid(),
+    id: newId(),
     version: 1,
+    ownerId: null,
+    isPublic: false,
     name: 'New build',
     race: null,
     vs: 'any',

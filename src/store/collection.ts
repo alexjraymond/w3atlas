@@ -49,6 +49,7 @@ export function createCollection<T extends Entity>(key: string, sanitize: (raw: 
   }
 
   return {
+    subscribe,
     all: () => items,
     get: (id: string) => items.find((x) => x.id === id),
     useAll: () => useSyncExternalStore(subscribe, () => items),
@@ -68,6 +69,15 @@ export function createCollection<T extends Entity>(key: string, sanitize: (raw: 
       const cur = items.find((x) => x.id === id)
       if (!cur) return
       this.save({ ...cur, ...(typeof patch === 'function' ? patch(cur) : patch) })
+    },
+    /** Insert or replace several items as-is (no updatedAt change), e.g. when syncing. */
+    putMany(list: T[]) {
+      if (!list.length) return
+      const byId = new Map(list.map((x) => [x.id, x]))
+      set([...list.filter((x) => !items.some((i) => i.id === x.id)), ...items.map((x) => byId.get(x.id) ?? x)])
+    },
+    removeWhere(pred: (x: T) => boolean) {
+      if (items.some(pred)) set(items.filter((x) => !pred(x)))
     },
     remove(id: string) {
       set(items.filter((x) => x.id !== id))

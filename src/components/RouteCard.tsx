@@ -1,7 +1,7 @@
 import { ActionIcon, Badge, Card, Group, Menu, Stack, Text } from '@mantine/core'
 import { IconCopy, IconDots, IconDownload, IconTrash } from '@tabler/icons-react'
 import type { Route } from '../types'
-import { HERO_BY_NAME, RACE_SHORT } from '../game/heroes'
+import { HERO_BY_NAME, matchupLabel } from '../game/heroes'
 import { MAP_BY_ID } from '../data/maps'
 import { simulateRoute } from '../game/route'
 import { href, navigate } from '../lib/router'
@@ -32,7 +32,7 @@ export function RouteCard({ route, showMap }: { route: Route; showMap?: boolean 
           <Group gap={4}>
             {route.race && (
               <Badge size="xs" variant="light">
-                {RACE_SHORT[route.race]}v{RACE_SHORT[route.vs]}
+                {matchupLabel(route.race, route.vs)}
               </Badge>
             )}
             {showMap && map && (

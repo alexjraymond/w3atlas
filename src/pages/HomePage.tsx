@@ -3,6 +3,7 @@ import { POOL_MAPS, DIFFICULTY_COLOR } from '../data/maps'
 import { href } from '../lib/router'
 import { useRoutes } from '../store'
 import { RouteCard } from '../components/RouteCard'
+import { ClaimBanner } from '../components/ClaimBanner'
 
 export function HomePage() {
   const routes = useRoutes()
@@ -10,6 +11,7 @@ export function HomePage() {
 
   return (
     <Stack gap="xl" px={{ base: 'xs', sm: 0 }}>
+      <ClaimBanner />
       <div>
         <Title order={2}>Pick a map</Title>
         <Text c="dimmed" size="sm">

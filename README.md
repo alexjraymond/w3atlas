@@ -13,6 +13,10 @@ Plan **build orders and creep routes** for Warcraft III ladder/tournament maps, 
 - **Preview mode.** A clean read-only layout with Expand all, for reference during a game. Edit mode has Undo and drag-to-reorder.
 - **Saving.** Routes save automatically in your browser. Use **Backup → Export everything** to save a file or move your routes and builds to another device. **Copy share link** sends one route (with its build) to a friend.
 
+## Accounts and Community
+
+Sign in with Discord, Twitch or Google to save routes and builds to your account, make routes **Public**, and browse, rate (1–5 stars) and comment on other players' routes under **Community**. This needs a Supabase project: see **[SETUP.md](SETUP.md)**. Without one, the app runs fully in the browser and the account features are hidden.
+
 ## Maps
 
 The current 1v1 ladder pool: Autumn Leaves, Echo Isles, Hammerfall, Last Refuge, Northern Isles, Scrimmage, Shallow Grave, Springtime, Tidehunters, Turtle Rock and Twisted Meadows (Fading Autumn still to come). Concealed Hill is hidden: it's not in the current pool.
