@@ -31,7 +31,7 @@ export function Footer() {
             {c.sponsor && (
               <>
                 {' ('}
-                <Anchor href={c.sponsor} target="_blank" rel="noreferrer" size="xs" c="pink.9">
+                <Anchor href={c.sponsor} target="_blank" rel="noreferrer" size="xs" c="var(--w-sponsor)">
                   sponsor
                 </Anchor>
                 {')'}

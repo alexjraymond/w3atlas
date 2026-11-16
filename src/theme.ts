@@ -20,6 +20,8 @@ export const WORLD = {
 // lime[5] is the brand lime; darker shades are for text on cream
 const lime: MantineColorsTuple = ['#F7FCE6', '#EEF8CC', '#DDF19A', '#CEEB6E', '#C4E758', '#BFEA4B', '#A6D12F', '#7FA31C', '#5A7612', '#374A07']
 const forest: MantineColorsTuple = ['#EEF1EC', '#D9DFD6', '#B6C0B1', '#919F8B', '#71806A', '#5A6953', '#4F5B4A', '#3A4636', '#2A3527', '#1D2B1F']
+// Mantine's dark scheme draws from this ramp: forest-black instead of its default slate
+const dark: MantineColorsTuple = ['#EDE7D6', '#C9C3B3', '#AAB4A5', '#87927F', '#4A564B', '#3A463C', '#243026', '#1C261F', '#121915', '#0B100D']
 const sky: MantineColorsTuple = ['#EAF6FE', '#D3ECFC', '#B4DEF8', '#9FD4F5', '#8EC9F2', '#6DB6E6', '#4A9AD0', '#2F7AAE', '#1F5A82', '#123A55']
 
 export const theme = createTheme({
@@ -29,7 +31,7 @@ export const theme = createTheme({
   luminanceThreshold: 0.45,
   black: WORLD.ink,
   white: WORLD.body,
-  colors: { lime, forest, sky },
+  colors: { lime, forest, sky, dark },
   defaultRadius: 0,
   fontFamily: WORLD.sans,
   fontFamilyMonospace: WORLD.pixel,

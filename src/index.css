@@ -7,11 +7,24 @@
   --w-sky: #8ec9f2;
   --w-body: #ffffff;
   --w-muted: #4f5b4a;
+  /* text on lime, sky and game colours: always dark, in both modes */
+  --w-on-accent: #1d2b1f;
+  --w-shadow-c: #1d2b1f;
+  --w-wash: var(--w-wash);
+  --w-tint: #f7fce6;
+  --w-paper: #fbfaf5;
+  --w-rule: #cfd5ca;
+  --w-faint: #7c8577;
+  --w-disabled: var(--w-disabled);
+  --w-disabled-line: var(--w-disabled-line);
+  --w-grid: rgba(29, 43, 31, 0.07);
+  --w-aow-text: #2b8a3e;
+  --w-sponsor: #a61e4d;
   --w-pixel: 'Press Start 2P', ui-monospace, monospace;
   --w-line: 2px solid var(--w-ink);
-  --w-shadow: 4px 4px 0 var(--w-ink);
-  --w-shadow-sm: 3px 3px 0 var(--w-ink);
-  --w-shadow-xs: 2px 2px 0 var(--w-ink);
+  --w-shadow: 4px 4px 0 var(--w-shadow-c);
+  --w-shadow-sm: 3px 3px 0 var(--w-shadow-c);
+  --w-shadow-xs: 2px 2px 0 var(--w-shadow-c);
   /* hero path and AoW path: kept from the game-map language */
   --w-path: #ffd43b;
   --w-aow: #8ce99a;
@@ -21,11 +34,33 @@
   --mantine-color-default-border: var(--w-ink);
 }
 
+/* Night: the same clan site after dark. Forest-black desk, cream ink, lime and sky unchanged. */
+:root[data-mantine-color-scheme='dark'] {
+  --w-ground: #121915;
+  --w-ink: #ede7d6;
+  --w-body: #1c261f;
+  --w-muted: #aab4a5;
+  --w-wash: #2b3a1e;
+  --w-tint: #223020;
+  --w-paper: #19221b;
+  --w-rule: #3a463c;
+  --w-faint: #87927f;
+  --w-disabled: #87927f;
+  --w-disabled-line: #4a564b;
+  --w-grid: rgba(191, 234, 75, 0.05);
+  --w-aow-text: #8ce99a;
+  --w-sponsor: #f783ac;
+  /* a mid-forest shadow: black would vanish into the night ground */
+  --w-shadow-c: #3a4a3a;
+}
+
 :root[data-mantine-color-scheme],
-[data-mantine-color-scheme='light'] {
-  --mantine-color-dimmed: #4f5b4a;
-  --mantine-color-text: #1d2b1f;
-  --mantine-color-body: #f3eedf;
+[data-mantine-color-scheme] {
+  --mantine-color-dimmed: var(--w-muted);
+  --mantine-color-text: var(--w-ink);
+  --mantine-color-body: var(--w-ground);
+  --mantine-color-default-border: var(--w-ink);
+  --mantine-color-placeholder: var(--w-disabled);
 }
 
 html,
@@ -39,8 +74,8 @@ body {
   color: var(--w-ink);
   background-color: var(--w-ground);
   background-image:
-    linear-gradient(rgba(29, 43, 31, 0.07) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(29, 43, 31, 0.07) 1px, transparent 1px);
+    linear-gradient(var(--w-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--w-grid) 1px, transparent 1px);
   background-size: 32px 32px;
   font-variant-numeric: tabular-nums;
   -webkit-font-smoothing: antialiased;
@@ -48,7 +83,7 @@ body {
 
 ::selection {
   background: var(--w-lime);
-  color: var(--w-ink);
+  color: var(--w-on-accent);
 }
 
 :focus-visible {
@@ -100,8 +135,11 @@ a {
 .mantine-Button-root[data-variant='outline'] {
   background: var(--w-body);
 }
+.mantine-Button-root[data-variant='filled']:not(:disabled, [data-disabled]) {
+  color: var(--w-on-accent);
+}
 .mantine-Button-root[data-variant='light'] {
-  background: #eef8cc;
+  background: var(--w-wash);
 }
 .mantine-Button-root:is([data-variant='filled'], [data-variant='default'], [data-variant='light'], [data-variant='outline']):not(:disabled, [data-disabled]):active {
   transform: translate(3px, 3px);
@@ -113,8 +151,8 @@ a {
 .mantine-Button-root:is(:disabled, [data-disabled]) {
   box-shadow: none;
   border-style: dashed;
-  border-color: #9aa395;
-  color: #6d7568;
+  border-color: var(--w-disabled-line);
+  color: var(--w-disabled);
   background: transparent;
 }
 .mantine-Button-root[data-variant='subtle'] {
@@ -124,7 +162,7 @@ a {
 
 .mantine-ActionIcon-root:is(:disabled, [data-disabled]) {
   background: transparent;
-  color: #a3ab9e;
+  color: var(--w-faint);
   border-color: transparent;
   box-shadow: none;
 }
@@ -158,6 +196,9 @@ a {
 .mantine-Badge-root[data-variant='outline'] {
   color: var(--w-ink);
 }
+.mantine-Badge-root[data-variant='default'] {
+  background: var(--w-body);
+}
 
 .mantine-Input-input {
   border: var(--w-line);
@@ -172,7 +213,7 @@ a {
   box-shadow: 2px 2px 0 var(--w-sky);
 }
 .mantine-Input-input::placeholder {
-  color: #6d7568;
+  color: var(--w-disabled);
   font-weight: 600;
 }
 .mantine-InputWrapper-label {
@@ -200,6 +241,9 @@ a {
   font-size: 9px;
   color: var(--w-ink);
 }
+.mantine-SegmentedControl-label[data-active] {
+  color: var(--w-on-accent);
+}
 
 .mantine-Popover-dropdown,
 .mantine-Menu-dropdown,
@@ -211,7 +255,21 @@ a {
   color: var(--w-ink);
 }
 .mantine-Menu-item[data-hovered] {
-  background: #eef8cc;
+  background: var(--w-wash);
+}
+.mantine-Menu-item,
+.mantine-Combobox-option,
+.mantine-Table-td,
+.mantine-Table-th {
+  color: var(--w-ink);
+}
+.mantine-Combobox-option[data-combobox-selected],
+.mantine-Combobox-option:hover {
+  background: var(--w-wash);
+}
+.mantine-Tooltip-tooltip {
+  background: var(--w-ink);
+  color: var(--w-ground);
 }
 
 .mantine-Switch-track {
@@ -223,6 +281,9 @@ a {
   border-color: var(--w-ink);
 }
 .mantine-Switch-thumb {
+  background: var(--w-body);
+}
+.mantine-Switch-thumb {
   border: var(--w-line);
   border-radius: 0;
 }
@@ -230,6 +291,10 @@ a {
   font-weight: 800;
 }
 
+.mantine-Drawer-header,
+.mantine-Drawer-close {
+  color: var(--w-on-accent);
+}
 .mantine-Drawer-content {
   border-top: var(--w-line);
   background: var(--w-ground);

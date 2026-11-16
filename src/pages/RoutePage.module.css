@@ -14,9 +14,11 @@
 }
 .chip[data-tone='sky'] {
   background: var(--w-sky);
+  color: var(--w-on-accent);
 }
 .chip[data-tone='lime'] {
   background: var(--w-lime);
+  color: var(--w-on-accent);
 }
 
 .nameInput {

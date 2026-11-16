@@ -28,8 +28,9 @@ export function RacePicker({ value, onChange }: { value: Race | null; onChange: 
             onClick={() => onChange(r.id)}
             aria-pressed={value === r.id}
             style={{
-              borderRadius: 8,
+              borderRadius: 0,
               padding: 6,
+              color: value === r.id ? 'var(--w-on-accent)' : 'var(--w-ink)',
               display: 'grid',
               placeItems: 'center',
               gap: 2,
@@ -38,7 +39,7 @@ export function RacePicker({ value, onChange }: { value: Race | null; onChange: 
             }}
           >
             <GameIcon name={r.icon} size={36} dim={!!value && value !== r.id} />
-            <Text size="10px" fw={600}>
+            <Text size="11px" fw={800} c="inherit">
               {r.label}
             </Text>
           </UnstyledButton>

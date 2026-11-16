@@ -52,7 +52,7 @@ export function AowPathEditor({
         <Stack gap={4}>
           {path.map((p, i) => (
             <Group key={p.id} gap={6} wrap="nowrap">
-              <Text size="xs" fw={700} w={34} c="green.9">
+              <Text size="xs" fw={700} w={34} c="var(--w-aow-text)">
                 {label(i)}
               </Text>
               <TextInput
@@ -86,7 +86,7 @@ export function AowPathList({ path }: { path: AowPoint[] }) {
         <Stack gap={2}>
           {noted.map((p) => (
             <Text key={p.id} size="sm">
-              <Text span fw={700} c="green.9" mr={6}>
+              <Text span fw={700} c="var(--w-aow-text)" mr={6}>
                 {label(p.i)}
               </Text>
               {p.note}

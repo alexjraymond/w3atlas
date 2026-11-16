@@ -22,6 +22,7 @@
   row-gap: 4px;
   padding: 4px 10px;
   background: var(--w-lime);
+  color: var(--w-on-accent);
   border-bottom: var(--w-line);
   font-family: var(--w-pixel);
   font-size: 9px;
@@ -44,6 +45,7 @@
 }
 .bar[data-tone='white'] {
   background: var(--w-body);
+  color: var(--w-ink);
 }
 
 .title {
@@ -72,8 +74,7 @@
 .dots i {
   width: 10px;
   height: 10px;
-  border: 1.5px solid var(--w-ink);
-  background: var(--w-body);
+  border: 1.5px solid currentColor;
 }
 
 .content {

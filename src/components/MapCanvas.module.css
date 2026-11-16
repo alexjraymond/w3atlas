@@ -47,7 +47,7 @@
   border-radius: 50%;
   border: 2px solid rgba(255, 255, 255, 0.9);
   background: color-mix(in srgb, var(--camp-color) 72%, transparent);
-  color: var(--w-ink);
+  color: var(--w-on-accent);
   font-family: var(--w-pixel);
   font-size: clamp(7px, 1.6vw, 10px);
   line-height: 1;
@@ -115,7 +115,7 @@
   top: -10%;
   font-family: var(--w-pixel);
   font-size: clamp(6px, 1.5vw, 9px);
-  color: var(--w-ink);
+  color: var(--w-on-accent);
 }
 
 .waypoint[data-active] .pin {
@@ -208,7 +208,7 @@
 .camp[data-helped][data-selected] {
   width: clamp(24px, 6.6%, 36px);
   border: 3px solid var(--camp-color);
-  background: var(--w-ink);
+  background: var(--w-on-accent);
 }
 .camp[data-helped] .helperFill {
   opacity: 0.9;

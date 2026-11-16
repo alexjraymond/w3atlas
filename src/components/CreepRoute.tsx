@@ -222,7 +222,7 @@ function StepCard(p: StepProps) {
             <Group gap={10} style={{ rowGap: 6 }}>
               {result.drops.map((d, i) => (
                 <Group key={i} gap={4} wrap="wrap" style={{ rowGap: 4 }}>
-                  <Badge size="sm" variant="filled" color={`${LOOT_COLOR[d.type]}.3`} fz={11} style={{ color: 'var(--w-ink)' }}>
+                  <Badge size="sm" variant="filled" color={`${LOOT_COLOR[d.type]}.3`} fz={11} style={{ color: 'var(--w-on-accent)' }}>
                     L{d.level} {LOOT_LABEL[d.type]}
                   </Badge>
                   <Group gap={2} wrap="wrap">

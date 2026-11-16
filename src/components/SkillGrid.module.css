@@ -36,7 +36,7 @@
   bottom: 0;
   left: 50%;
   width: 1px;
-  background: #cfd5ca;
+  background: var(--w-rule);
 }
 
 .cell {
@@ -52,7 +52,7 @@
 
 .cell[data-on] {
   background: var(--w-lime);
-  box-shadow: 0 0 0 1px #7c8577;
+  box-shadow: 0 0 0 1px var(--w-faint);
 }
 
 .cell[data-error] {
@@ -60,6 +60,6 @@
 }
 
 button.slot:hover .cell:not([data-on]) {
-  background: #f7fce6;
+  background: var(--w-tint);
   box-shadow: 0 0 0 1px var(--w-ink);
 }

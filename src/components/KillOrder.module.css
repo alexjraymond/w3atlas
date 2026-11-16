@@ -54,7 +54,7 @@
   display: grid;
   place-items: center;
   background: var(--w-lime);
-  border: 1px solid #7c8577;
+  border: 1px solid var(--w-faint);
   color: var(--w-ink);
   z-index: 1;
 }
@@ -86,6 +86,6 @@
 }
 
 .num[data-muted] {
-  border-color: #7c8577;
+  border-color: var(--w-faint);
   color: var(--mantine-color-dimmed);
 }

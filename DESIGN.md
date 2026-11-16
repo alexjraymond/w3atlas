@@ -214,6 +214,13 @@ A sunlit two-accent palette on cream: forest ink for every line and letter, lime
 - **Moss Muted** (muted): secondary text such as camp meta, XP subtotals, legends and hints.
 - **Disabled Stroke / Disabled Text** (disabled-stroke, disabled-text): the dashed outline and label of a disabled button. Disabled text is also the placeholder colour.
 
+### Night
+A day/night switch in the header (sun/moon) flips Mantine's colour scheme. The choice is remembered in the browser, and day is the default. Night is the same clan site after dark. Every colour is a `--w-*` variable in `src/index.css`, and night only redefines those variables under `:root[data-mantine-color-scheme='dark']`. Never hard-code a hex in a component: add or reuse a variable.
+- **Night ground** #121915 (grid in lime at 5%), **night window** #1C261F, **night ink** #EDE7D6 (text and outlines), **night muted** #AAB4A5.
+- **Shadows** use `--w-shadow-c`: ink in day, mid-forest #3A4A3A at night, because black would vanish into the night ground.
+- **On-accent** `--w-on-accent` (#1D2B1F) stays dark in both modes. Use it for any text on lime, sky, pastel badges or game colours (title bars, chips, filled buttons, level tags, camp numbers). Never use `--w-ink` there, because ink turns cream at night.
+- Lime, sky, the camp colours and both path colours don't change at night.
+
 ### Named Rules
 **The Lime Means Press Rule.** Lime goes on things you can press, on primary windows and on progress. If an element can't be pressed and isn't the main working surface, it isn't lime.
 

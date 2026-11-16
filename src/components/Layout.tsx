@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
-import { Anchor, AppShell, Button, Container, FileButton, Group, Menu, Text } from '@mantine/core'
-import { IconChevronDown, IconDatabaseExport, IconDatabaseImport, IconMap2 } from '@tabler/icons-react'
+import { ActionIcon, Anchor, AppShell, Button, Container, FileButton, Group, Menu, Text, Tooltip, useComputedColorScheme, useMantineColorScheme } from '@mantine/core'
+import { IconChevronDown, IconDatabaseExport, IconDatabaseImport, IconMap2, IconMoon, IconSun } from '@tabler/icons-react'
 import { POOL_MAPS } from '../data/maps'
 import { href, navigate } from '../lib/router'
 import { exportBundle, importData, useBuilds, useRoutes } from '../store'
@@ -8,6 +8,20 @@ import { downloadFile, readJsonFile } from '../lib/files'
 import { cloud } from '../cloud'
 import { AccountMenu } from './AccountMenu'
 import { Footer } from './Footer'
+
+/** Day / night switch. The choice is remembered in this browser. */
+function NightToggle() {
+  const { setColorScheme } = useMantineColorScheme()
+  const scheme = useComputedColorScheme('light')
+  const night = scheme === 'dark'
+  return (
+    <Tooltip label={night ? 'Day mode' : 'Night mode'}>
+      <ActionIcon variant="default" size="lg" onClick={() => setColorScheme(night ? 'light' : 'dark')} aria-label={night ? 'Switch to day mode' : 'Switch to night mode'}>
+        {night ? <IconSun size={18} /> : <IconMoon size={18} />}
+      </ActionIcon>
+    </Tooltip>
+  )
+}
 
 export function Layout({ children }: { children: ReactNode }) {
   const routes = useRoutes()
@@ -21,9 +35,9 @@ export function Layout({ children }: { children: ReactNode }) {
               <Group gap={10} wrap="nowrap">
                 <span
                   aria-hidden
-                  style={{ width: 22, height: 22, background: 'var(--w-lime)', border: '2px solid var(--w-ink)', boxShadow: '2px 2px 0 var(--w-ink)', display: 'grid', placeItems: 'center' }}
+                  style={{ width: 22, height: 22, background: 'var(--w-lime)', border: '2px solid var(--w-ink)', boxShadow: '2px 2px 0 var(--w-shadow-c)', display: 'grid', placeItems: 'center' }}
                 >
-                  <IconMap2 size={14} stroke={2.4} color="var(--w-ink)" />
+                  <IconMap2 size={14} stroke={2.4} color="var(--w-on-accent)" />
                 </span>
                 <Text ff="var(--w-pixel)" fz={13} style={{ whiteSpace: 'nowrap' }}>
                   W3ATLAS
@@ -91,6 +105,7 @@ export function Layout({ children }: { children: ReactNode }) {
                   </FileButton>
                 </Menu.Dropdown>
               </Menu>
+              <NightToggle />
               <AccountMenu />
             </Group>
           </Group>

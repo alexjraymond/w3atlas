@@ -37,7 +37,7 @@ function Page() {
 
 export default function App() {
   return (
-    <MantineProvider theme={theme} forceColorScheme="light">
+    <MantineProvider theme={theme} defaultColorScheme="light">
       <Layout>
         <Page />
       </Layout>
