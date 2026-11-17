@@ -249,7 +249,7 @@ export function RouteViewer({
         side={
           <>
             <HeroMatchup route={route} />
-            <LevelBar map={map} route={route} />
+            <LevelBar map={map} route={route} compact />
             {routeWindow}
           </>
         }

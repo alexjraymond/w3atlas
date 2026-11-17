@@ -686,7 +686,7 @@ export function RoutePage({ routeId }: { routeId: string }) {
         side={
           <>
             {setupWindow}
-            <LevelBar map={map} route={route} />
+            <LevelBar map={map} route={route} compact />
             {routeWindow}
           </>
         }

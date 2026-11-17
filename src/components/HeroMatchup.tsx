@@ -7,11 +7,12 @@ import { Win } from './Win'
 import classes from './HeroMatchup.module.css'
 
 const OPEN_KEY = 'w3atlas.heroOpen'
-function readOpen(): boolean {
+function readOpen(fallback: boolean): boolean {
   try {
-    return localStorage.getItem(OPEN_KEY) !== '0'
+    const v = localStorage.getItem(OPEN_KEY)
+    return v === null ? fallback : v === '1'
   } catch {
-    return true
+    return fallback
   }
 }
 
@@ -121,12 +122,14 @@ function SkillOrder({ route, onChange }: { route: Route; onChange?: (skills: str
 /** Hero and matchup in one foldable window: race vs race, hero, skill order. */
 export function HeroMatchup({ route, onChange }: { route: Route; onChange?: (patch: Partial<Route>) => void }) {
   const readOnly = !onChange
-  const [open, setOpen] = useState(readOpen)
+  // preview starts folded; the editor starts open until a hero is picked
+  const [open, setOpen] = useState(() => (readOnly ? false : readOpen(!route.hero)))
   const current = route.hero ? HERO_BY_NAME[route.hero] : null
   const [tavern, setTavern] = useState(current?.race === 'neutral')
   const heroes = heroesForRace(route.race, tavern).filter((h) => !tavern || !route.race || h.race === 'neutral')
   const toggle = () => {
     setOpen(!open)
+    if (readOnly) return
     try {
       localStorage.setItem(OPEN_KEY, open ? '0' : '1')
     } catch {
@@ -134,21 +137,32 @@ export function HeroMatchup({ route, onChange }: { route: Route; onChange?: (pat
     }
   }
 
+  // folded: a glanceable icon line, e.g. [NE] vs [any] [Demon Hunter] [skill 1..6]
+  const learned = current ? route.skills.map((n) => current.abilities.find((x) => x.name === n)).filter((x) => !!x) : []
   const summary = (
     <span className={classes.summary}>
-      {route.race ? `${RACE_LABEL[route.race]} vs ${route.vs === 'any' ? 'any' : RACE_LABEL[route.vs]}` : 'Pick your race'}
-      {current && (
+      {route.race ? (
         <>
-          {' · '}
-          <GameIcon name={current.icon} size={20} alt="" />
-          {current.name}
+          <GameIcon name={route.race} size={22} alt={RACE_LABEL[route.race]} />
+          <span className={classes.sumVs}>vs</span>
+          {route.vs === 'any' ? <span className={classes.sumVs}>any</span> : <GameIcon name={route.vs} size={22} alt={RACE_LABEL[route.vs]} />}
         </>
+      ) : (
+        'Pick your race'
+      )}
+      {current && <GameIcon name={current.icon} size={22} alt={current.name} />}
+      {learned.length > 0 && (
+        <span className={classes.sumSkills}>
+          {learned.map((a, i) => (
+            <GameIcon key={i} name={a!.icon} size={16} alt={`Level ${i + 1}: ${a!.name}`} />
+          ))}
+        </span>
       )}
     </span>
   )
 
   return (
-    <Win title={<>Hero &amp; matchup{!open && summary}</>} tone="sky" open={open} onToggle={toggle}>
+    <Win title={open ? 'Hero & matchup' : summary} tone="sky" open={open} onToggle={toggle}>
       <div className={classes.host}>
       <div className={classes.grid}>
         <div className={classes.block}>

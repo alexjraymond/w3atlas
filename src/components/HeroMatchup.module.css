@@ -236,10 +236,22 @@ button.slot[data-filled]:hover::after {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  margin-left: 8px;
   font-family: var(--mantine-font-family);
   font-size: 13px;
-  font-weight: 800;
+  font-weight: 700;
+  color: var(--w-muted);
+}
+.summary img {
+  border-radius: 4px;
+}
+.sumVs {
+  font-family: var(--w-display);
+  font-size: 12px;
+}
+.sumSkills {
+  display: inline-flex;
+  gap: 2px;
+  margin-left: 4px;
 }
 .summary img {
   border-radius: 4px;

@@ -6,6 +6,7 @@ import {
   Card,
   Collapse,
   Group,
+  Popover,
   Progress,
   Stack,
   Text,
@@ -21,6 +22,7 @@ import {
   IconGripVertical,
   IconMapPinFilled,
   IconMinus,
+  IconPhoto,
   IconPlus,
   IconTrash,
 } from "@tabler/icons-react";
@@ -34,6 +36,7 @@ import {
   LOOT_COLOR,
   LOOT_LABEL,
 } from "../data/maps";
+import { aowSpot } from "../data/aowSpots";
 import { simulateRoute, type StepResult } from "../game/route";
 import { CREEP_HELPER, HERO_BY_NAME } from "../game/heroes";
 import { DifficultyDot } from "./CampDetails";
@@ -121,18 +124,21 @@ function AowLeg({
   step,
   readOnly,
   onChange,
+  placement,
 }: {
   step: RouteStep;
   readOnly?: boolean;
   onChange: (s: RouteStep) => void;
+  placement: string | null;
 }) {
+  const [show, setShow] = useState(false);
   return (
     <div className={classes.aowLeg}>
       <GameIcon name="ancientofwar" size={20} alt="" />
       <span className={classes.aowLabel}>AoW</span>
       {readOnly ? (
         <span className={classes.aowText}>
-          {step.aowNote || "moves to the next AoW camp"}
+          {step.aowNote || DEFAULT_AOW_NOTE}
         </span>
       ) : (
         <input
@@ -144,6 +150,37 @@ function AowLeg({
             onChange({ ...step, aowNote: e.currentTarget.value })
           }
         />
+      )}
+      {placement && (
+        <Popover
+          opened={show}
+          onChange={setShow}
+          position="left"
+          withArrow
+          shadow="xl"
+          width={460}
+        >
+          <Popover.Target>
+            <button
+              type="button"
+              className={classes.aowSpot}
+              onMouseEnter={() => setShow(true)}
+              onMouseLeave={() => setShow(false)}
+              onClick={() => setShow((v) => !v)}
+              aria-label="Show where to place the Ancient of War"
+            >
+              <IconPhoto size={15} />
+              Placement
+            </button>
+          </Popover.Target>
+          <Popover.Dropdown p={6}>
+            <img
+              src={placement}
+              alt="Where to place the Ancient of War at this camp"
+              style={{ width: "100%", display: "block", borderRadius: 4 }}
+            />
+          </Popover.Dropdown>
+        </Popover>
       )}
     </div>
   );
@@ -265,6 +302,78 @@ function StepCard(p: StepProps) {
   const subtitle = isWaypoint
     ? "Waypoint"
     : `${DIFFICULTY_LABEL[camp!.difficulty]} · Lv ${camp!.level} · ${camp!.name}`;
+
+  // collapsed: one glanceable line, the stop number and what can drop (like a creep sheet)
+  if (!p.open) {
+    const items = result.drops.flatMap((d, g) =>
+      d.items.map((item) => ({
+        item,
+        g,
+        label: `${itemName(item)} · L${d.level} ${LOOT_LABEL[d.type]}`,
+      })),
+    );
+    return (
+      <div
+        className={classes.stop}
+        data-compact
+        data-active={p.active || undefined}
+        data-over={p.dragOver || undefined}
+        draggable={!readOnly}
+        onDragStart={(e) => {
+          e.dataTransfer.effectAllowed = "move";
+          p.onDragStart();
+        }}
+        onDragEnd={p.onDragEnd}
+        onMouseEnter={p.onHover}
+        onDragOver={(e) => {
+          e.preventDefault();
+          p.onDragOver();
+        }}
+        onDrop={(e) => {
+          e.preventDefault();
+          p.onDrop();
+        }}
+      >
+        <button
+          type="button"
+          className={classes.compact}
+          onClick={() => p.onOpen(true)}
+          aria-expanded={false}
+          aria-label={`Stop ${index + 1}: ${title}, ${subtitle}. Show details`}
+          title={`${title} · ${subtitle}`}
+        >
+          <span className={classes.num} data-state={numState} title={numTitle}>
+            {index + 1}
+          </span>
+          <span className={classes.loot}>
+            {items.length ? (
+              items.map((it, i) => (
+                <GameIcon
+                  key={i}
+                  name={iconSlug(it.item)}
+                  size={26}
+                  alt={it.label}
+                  className={
+                    i > 0 && items[i - 1].g !== it.g
+                      ? classes.lootGap
+                      : undefined
+                  }
+                />
+              ))
+            ) : (
+              <span className={classes.lootName}>{title}</span>
+            )}
+          </span>
+          <span className={classes.cxp}>
+            +{result.xpGained}
+            <small data-up={result.levelUps.length > 0 || undefined}>
+              Lv {result.after.level}
+            </small>
+          </span>
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div
@@ -674,6 +783,7 @@ export function CreepRoute({
             <AowLeg
               step={r.step}
               readOnly={readOnly}
+              placement={aowSpot(map.id, r.step.campId)}
               onChange={(st) =>
                 onStepsChange(steps.map((x) => (x.id === st.id ? st : x)))
               }

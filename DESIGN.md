@@ -288,16 +288,18 @@ The route page's top row: panel plate, 10px 14px, holding the back chip, the edi
 - **Label:** field-label style above the control.
 
 ### Hero Level Bar
-"Lv N" in purple Chakra Petch beside a 10px rounded track (xp-track) filled in XP purple, showing progress inside the current level only, with "167 / 400 XP to level 4" in muted meta under it. The fill eases over 400ms. The compact phone version adds the short XP figure on the right.
+"Lv N" in purple Chakra Petch beside a 10px rounded track (xp-track) filled in XP purple, showing progress inside the current level only, with "167 / 400 XP to level 4" in muted meta under it. The fill eases over 400ms. The compact version (one framed row: level, bar, short XP figure) is used in the right column on desktop and on phones.
 
 ### Stop Row
-A 28px round stop number, then the camp name (title), the meta line, item and drop tags, and the XP gain at the right. Number states: **filled yellow** = camp cleared; **dashed yellow outline** = creeps skipped; **blue** = waypoint; a **purple ring** = the hero levels up here. The active row is washed, an opened row uses paper, and a drop target shows a 2px yellow inset line on top.
+**Collapsed (the default)** is one glanceable line, like a creep sheet: the 26px stop number, then the item icons that can drop (26px, a small gap between drop groups, names in tooltips), and the XP gain with the level after it at the right (purple when the hero levels up). No camp name on the line; it is in the tooltip and the opened row. A route of 5 to 8 stops fits the right column without scrolling, in preview and edit. Tapping a row opens it; reorder (Up, Down) and Remove live only in the opened row.
+
+**Opened:** a 28px round stop number, then the camp name (title), the meta line, item and drop tags, and the XP gain at the right. Number states: **filled yellow** = camp cleared; **dashed yellow outline** = creeps skipped; **blue** = waypoint; a **purple ring** = the hero levels up here. The active row is washed, an opened row uses paper, and a drop target shows a 2px yellow inset line on top.
 
 ### Ancient of War Row
-Between stops, a green-washed row indented to the text column with a small Chakra Petch label in AoW text colour and the note in Hanken 700 14px; in edit mode the note is a small input whose focus ring is AoW green.
+Between stops, a green-washed row indented to the text column with a small Chakra Petch label in AoW text colour and the note in Hanken 700 14px; in edit mode the note is a small input whose focus ring is AoW green. When the camp has a placement picture (`src/data/aowSpots.ts`, files in `public/aow/<map>/<camp>.webp`), a green outlined **Placement** button at the end of the row shows the in-game picture in a popover, on hover or tap.
 
 ### Hero & Matchup
-Race circles (42px; 28px on phones) dimmed and greyed until picked, then full colour with a 2px yellow ring. Heroes and abilities use the same dim-until-picked rule. Skill slots are dashed until filled; a filled ability carries a small yellow count badge.
+Folds from its title. Folded, the title is an icon line: your race, "vs", the opponent (or "any"), the hero and the learned skills in order. Preview always starts folded; the editor starts open until a hero is picked, then remembers your choice. Race circles (42px; 28px on phones) dimmed and greyed until picked, then full colour with a 2px yellow ring. Heroes and abilities use the same dim-until-picked rule. Skill slots are dashed until filled; a filled ability carries a small yellow count badge.
 
 ### Map Markers
 Camp circles in the game colours with a white rim; the active camp grows and gets a yellow outer ring. Waypoints are blue pins. The hero path is a dashed yellow line with a dark under-stroke and arrowheads; the AoW path is dotted green with small square points.

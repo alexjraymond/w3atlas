@@ -159,8 +159,96 @@
   color: var(--w-disabled);
 }
 
-.toolsInline {
+/* collapsed stop: number, possible drops, XP */
+.compact {
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 12px;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.compact:hover {
+  background: var(--w-wash);
+}
+.compact .num {
+  width: 26px;
+  height: 26px;
+  margin: 0;
+  font-size: 13px;
+}
+.loot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px;
+  min-width: 0;
+}
+.loot img {
+  border-radius: 3px;
+}
+.lootGap {
+  margin-left: 8px;
+}
+.lootName {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--w-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.cxp {
+  text-align: right;
+  font-family: var(--w-display);
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.1;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.cxp small {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--w-muted);
+}
+.cxp small[data-up] {
+  color: var(--w-xp);
+}
+
+/* reorder and remove live in the opened stop, so collapsed rows stay one line */
+.tools {
   display: none;
+}
+.toolsInline {
+  display: flex;
+}
+
+.aowSpot {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 28px;
+  padding: 0 9px;
+  border: 1px solid color-mix(in srgb, var(--w-aow-text) 45%, transparent);
+  border-radius: 5px;
+  background: transparent;
+  color: var(--w-aow-text);
+  font-family: var(--w-display);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.aowSpot:hover {
+  background: color-mix(in srgb, var(--w-aow-text) 12%, transparent);
 }
 
 /* touch: no drag grip (reorder with Up and Down) */
@@ -175,12 +263,8 @@
   .aowLeg {
     padding-left: 12px;
   }
-  .tools,
   .grip {
     display: none;
-  }
-  .toolsInline {
-    display: flex;
   }
   .toolsInline :global(.mantine-Button-root) {
     height: 44px;
