@@ -3,6 +3,7 @@
  * Files live in public/aow/<map id>/<camp id>.webp. Mirrored camps need their own picture.
  */
 const AOW_SPOTS: Record<string, string[]> = {
+  hammerfall: ['orange-camp-rock-golem-1'],
   last_refuge: ['orange-camp-shop-1'],
   springtime: ['orange-camp-sasquatch-1'],
 }
