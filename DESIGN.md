@@ -298,6 +298,9 @@ The route page's top row: panel plate, 10px 14px, holding the back chip, the edi
 ### Ancient of War Row
 Between stops, a green-washed row indented to the text column with a small Chakra Petch label in AoW text colour and the note in Hanken 700 14px; in edit mode the note is a small input whose focus ring is AoW green. When the camp has a placement picture (`src/data/aowSpots.ts`, files in `public/aow/<map>/<camp>.webp`), a green outlined **Placement** button at the end of the row shows the in-game picture in a popover, on hover or tap.
 
+### Wisp Spots (Night Elf)
+Map-level, not tied to a camp or route: places a Night Elf wisp can stand that enemies cannot attack. Data in `src/data/wispSpots.ts` (position in minimap pixels, a label), pictures in `public/wisp/<map>/<spot>.webp`. On the route view, Night Elf routes on a map with spots get a **Wisp spots** pill at the end of the map legend (off by default, remembered per browser; shows the count while off, mana blue while on). Turned on, each spot is a wisp icon in a 2px mana-blue ring with a soft blue glow, above the camps; hover or tap opens the screenshot with a "Wisp spot · label" caption. Kept separate from AoW placement pictures.
+
 ### Hero & Matchup
 Folds from its title. Folded, the title is an icon line: your race, "vs", the opponent (or "any"), the hero and the learned skills in order. Preview always starts folded; the editor starts open until a hero is picked, then remembers your choice. Race circles (42px; 28px on phones) dimmed and greyed until picked, then full colour with a 2px yellow ring. Heroes and abilities use the same dim-until-picked rule. Skill slots are dashed until filled; a filled ability carries a small yellow count badge.
 

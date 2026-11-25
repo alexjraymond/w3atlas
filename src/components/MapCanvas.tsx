@@ -1,9 +1,10 @@
-import { useRef } from 'react'
-import { HoverCard } from '@mantine/core'
+import { useRef, useState, type ReactNode } from 'react'
+import { HoverCard, Popover } from '@mantine/core'
 import { IconMapPinFilled } from '@tabler/icons-react'
 import type { GameMap, MapNote, RouteStep } from '../types'
 import { DIFFICULTY_COLOR, DIFFICULTY_LABEL } from '../data/maps'
 import { stepPosition } from '../game/route'
+import type { WispSpot } from '../data/wispSpots'
 import { CampDetails } from './CampDetails'
 import { StickyNote } from './StickyNote'
 import classes from './MapCanvas.module.css'
@@ -24,6 +25,39 @@ interface Props {
   showLegend?: boolean
   /** race helper unit (Militia / Ancient of War / Ghoul): shown as a badge on camps that use it */
   helper?: { name: string; icon: string; counted: boolean }
+  /** Night Elf wisp spots to mark on the map (hover or tap one for its picture) */
+  wispSpots?: WispSpot[]
+  /** extra controls at the end of the legend row, e.g. the wisp spots toggle */
+  legendExtra?: ReactNode
+}
+
+/** A wisp spot marker: the wisp icon; hover or tap shows the in-game picture. */
+function WispMarker({ spot, map }: { spot: WispSpot; map: GameMap }) {
+  const [open, setOpen] = useState(false)
+  return (
+    <Popover opened={open} onChange={setOpen} position="top" withArrow shadow="xl" width={420}>
+      <Popover.Target>
+        <button
+          type="button"
+          className={classes.wisp}
+          style={{ left: `${(spot.x / map.width) * 100}%`, top: `${(spot.y / map.height) * 100}%` }}
+          onMouseEnter={() => setOpen(true)}
+          onMouseLeave={() => setOpen(false)}
+          onClick={(e) => {
+            e.stopPropagation()
+            setOpen((v) => !v)
+          }}
+          aria-label={`Wisp spot: ${spot.label}`}
+        >
+          <img src={`${import.meta.env.BASE_URL}icons/wisp.png`} alt="" />
+        </button>
+      </Popover.Target>
+      <Popover.Dropdown p={6}>
+        <div className={classes.wispCap}>Wisp spot · {spot.label}</div>
+        <img src={spot.image} alt={`Where to put a wisp: ${spot.label}`} style={{ width: '100%', display: 'block', borderRadius: 4 }} />
+      </Popover.Dropdown>
+    </Popover>
+  )
 }
 
 export function MapCanvas({
@@ -40,6 +74,8 @@ export function MapCanvas({
   readOnly,
   showLegend = true,
   helper,
+  wispSpots = [],
+  legendExtra,
 }: Props) {
   const ref = useRef<HTMLDivElement>(null)
   // the Ancient of War walks between the camps it is brought to, in route order
@@ -196,6 +232,10 @@ export function MapCanvas({
           ) : null,
         )}
 
+        {wispSpots.map((spot) => (
+          <WispMarker key={spot.id} spot={spot} map={map} />
+        ))}
+
         {notes.map((note) => (
           <StickyNote
             key={note.id}
@@ -228,6 +268,7 @@ export function MapCanvas({
               <i style={{ background: '#8ce99a', borderRadius: 0, width: 16, height: 5 }} /> Ancient of War path
             </span>
           )}
+          {legendExtra}
         </div>
       )}
     </div>

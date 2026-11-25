@@ -113,3 +113,33 @@
 .hudName:focus {
   box-shadow: 0 2px 0 var(--w-accent);
 }
+
+/* Night Elf: show or hide wisp spots on the map */
+.wispToggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 26px;
+  padding: 0 10px 0 4px;
+  border: 1px solid var(--w-edge);
+  border-radius: 13px;
+  background: var(--w-wash);
+  color: var(--w-ink);
+  font-family: var(--w-display);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.wispToggle img {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  opacity: 0.6;
+}
+.wispToggle[aria-pressed='true'] {
+  border-color: var(--w-sky);
+  color: var(--w-sky);
+}
+.wispToggle[aria-pressed='true'] img {
+  opacity: 1;
+}

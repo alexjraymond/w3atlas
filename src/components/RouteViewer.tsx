@@ -22,6 +22,7 @@ import { HeroMatchup } from "./HeroMatchup";
 import { Win } from "./Win";
 import { LevelBar } from "./LevelBar";
 import { MapStage } from "./MapStage";
+import { wispSpots } from "../data/wispSpots";
 import chips from "../pages/RoutePage.module.css";
 
 const ago = (t: number) =>
@@ -55,6 +56,14 @@ export function RouteViewer({
 }: Props) {
   const [activeStep, setActiveStep] = useState<string | null>(null);
   const [expanded, setExpanded] = useState<Set<string>>(new Set());
+  // Night Elf wisp spots on the map: off by default, remembered in this browser
+  const [showWisps, setShowWisps] = useState(() => {
+    try {
+      return localStorage.getItem("w3atlas.wispSpots") === "1";
+    } catch {
+      return false;
+    }
+  });
   const isPhone = useMediaQuery("(max-width: 48em)") ?? false;
   const map = MAP_BY_ID[route.mapId];
   if (!map) return null;
@@ -103,7 +112,6 @@ export function RouteViewer({
       </Win>
     </>
   );
-
 
   const titleBlock = (
     <Stack gap={6} style={{ flex: 1, minWidth: 0 }}>
@@ -159,8 +167,31 @@ export function RouteViewer({
     </Stack>
   );
 
+  const spots = route.race === "nightelf" ? wispSpots(map.id) : [];
+  const toggleWisps = () => {
+    setShowWisps(!showWisps);
+    try {
+      localStorage.setItem("w3atlas.wispSpots", showWisps ? "0" : "1");
+    } catch {
+      /* private mode: don't remember */
+    }
+  };
   const mapCanvas = (
     <MapCanvas
+      wispSpots={showWisps ? spots : []}
+      legendExtra={
+        spots.length > 0 ? (
+          <button
+            type="button"
+            className={chips.wispToggle}
+            aria-pressed={showWisps}
+            onClick={toggleWisps}
+          >
+            <img src={`${import.meta.env.BASE_URL}icons/wisp.png`} alt="" />
+            Wisp spots{showWisps ? "" : ` (${spots.length})`}
+          </button>
+        ) : undefined
+      }
       map={map}
       steps={route.steps}
       activeStepId={activeStep}
