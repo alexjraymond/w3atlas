@@ -13,7 +13,7 @@ export interface WispSpot {
 }
 
 const SPOTS: Record<string, Omit<WispSpot, 'image'>[]> = {
-  hammerfall: [{ id: 'bottom-merchant', label: 'Bottom merchant', x: 209, y: 368 }],
+  hammerfall: [{ id: 'bottom-merchant', label: 'Bottom merchant', x: 181, y: 347 }],
 }
 
 export function wispSpots(mapId: string): WispSpot[] {
